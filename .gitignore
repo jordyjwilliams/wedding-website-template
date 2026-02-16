@@ -6,8 +6,14 @@ node_modules
 build
 dist
 
+# SvelteKit auto-generated: Using `tsconfig`
+jsconfig.json
+
 # Netlify
 .netlify
+
+# Deno (not used, but Netlify CLI may generate)
+deno.lock
 
 # Environment variables
 .env
