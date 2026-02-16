@@ -59,7 +59,7 @@
             <span class="placeholder-icon">📸</span>
             <p>PHOTO TODO</p>
           </div>
-          <div class="photo-label">Jordy & Nicole</div>
+          <div class="photo-label">She Said Yes...</div>
         </div>
 
         <div class="floating-details">
