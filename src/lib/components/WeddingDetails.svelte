@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   let visible: boolean = false;
 
@@ -36,7 +37,7 @@
         </div>
         <div class="timeline-content">
           <h3>Friday — Arrival & Welcome</h3>
-          <p class="timeline-date">19th March 2027</p>
+            <Icon icon="ph:calendar-plus" width="18" inline /> 19th March 2027
           <p>
             Arrive, settle into your room and breathe in that sea air. We'll have a casual welcome
             drink in the evening so everyone can mingle and relax after the drive.
@@ -50,7 +51,7 @@
         </div>
         <div class="timeline-content">
           <h3>Saturday — Ceremony & Celebration 💒</h3>
-          <p class="timeline-date">20th March 2027</p>
+            <Icon icon="ph:calendar-plus" width="18" inline /> 20th March 2027
           <p>
             The ceremony will be held on the grounds overlooking the ocean, followed by lawn games,
             canapés and a relaxed dinner and dancing under the stars.
@@ -58,10 +59,10 @@
             TODO: Define this all properly...
           </p>
           <div class="timeline-highlights">
-            <span class="highlight-badge">🌅 4:00 PM — Ceremony</span>
-            <span class="highlight-badge">🍾 5:30 PM — Cocktail Hour</span>
-            <span class="highlight-badge">🍽️ 7:00 PM — Dinner</span>
-            <span class="highlight-badge">💃 9:00 PM — Dancing</span>
+            <span class="highlight-badge"><Icon icon="ph:sun-horizon-fill" width="16" inline /> 4:00 PM — Ceremony</span>
+            <span class="highlight-badge"><Icon icon="ph:champagne" width="16" inline /> 5:30 PM — Cocktail Hour</span>
+            <span class="highlight-badge"><Icon icon="ph:fork-knife-fill" width="16" inline /> 7:00 PM — Dinner</span>
+            <span class="highlight-badge"><Icon icon="ph:music-notes-fill" width="16" inline /> 9:00 PM — Dancing</span>
           </div>
         </div>
       </div>
@@ -72,7 +73,7 @@
         </div>
         <div class="timeline-content">
           <h3>Sunday — Slow Goodbyes</h3>
-          <p class="timeline-date">21st March 2027</p>
+            <Icon icon="ph:calendar-plus" width="18" inline /> 21st March 2027
           <p>
             Sleep in, grab a coffee, wander the cliffs or dip your toes in the water. We'll share a
             simple brunch before saying our goodbyes.
@@ -85,7 +86,7 @@
 
     <div class="info-grid">
       <div class="info-card" style="--delay: 0.8s">
-        <div class="info-icon">🏡</div>
+        <div class="info-icon"><Icon icon="ph:house-fill" width="56" /></div>
         <h3>Accommodation</h3>
         <p>
           Seacroft offers a mix of rooms and cabins. We'll allocate rooms once we have everyone's
@@ -94,7 +95,7 @@
       </div>
 
       <div class="info-card" style="--delay: 1s">
-        <div class="info-icon">🎒</div>
+        <div class="info-icon"><Icon icon="ph:backpack-fill" width="56" /></div>
         <h3>What to Pack</h3>
         <p>
           Think coastal comfort: layers for cool evenings, comfortable shoes, and anything you'd
@@ -103,7 +104,7 @@
       </div>
 
       <div class="info-card" style="--delay: 1.2s">
-        <div class="info-icon">🚗</div>
+        <div class="info-icon"><Icon icon="ph:car-fill" width="56" /></div>
         <h3>Getting There</h3>
         <p>
           Seacroft is located along the Great Ocean Road. Car-pooling is encouraged; we'll share
@@ -233,6 +234,39 @@
     font-weight: 600;
     margin-bottom: 1rem;
     font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: rgba(122, 184, 212, 0.1);
+  }
+
+  .timeline-date :global(svg) {
+    color: var(--accent);
+    filter: drop-shadow(0 2px 4px rgba(122, 184, 212, 0.3));
+    transition: transform 0.3s ease;
+  }
+
+  .timeline-date:hover {
+    background: rgba(122, 184, 212, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .timeline-date:hover :global(svg) {
+    transform: scale(1.1);
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1.1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
   }
 
   .timeline-content p {
@@ -297,6 +331,11 @@
     margin-bottom: 1.5rem;
     display: inline-block;
     animation: bounce 2s infinite;
+    color: var(--primary);
+  }
+
+  .info-icon :global(svg) {
+    filter: drop-shadow(0 4px 8px rgba(212, 165, 116, 0.3));
   }
 
   @keyframes bounce {

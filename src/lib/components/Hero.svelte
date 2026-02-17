@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   let visible: boolean = false;
 
@@ -19,7 +20,9 @@
     <div class="gradient-shape shape-3"></div>
     <div class="floating-hearts">
       {#each Array(6) as _unused, i}
-        <span class="heart" style="--delay: {i * 1.5}s; --duration: {12 + i * 3}s">💙</span>
+        <span class="heart" style="--delay: {i * 1.5}s; --duration: {12 + i * 3}s">
+          <Icon icon="ph:heart-fill" width="24" />
+        </span>
       {/each}
     </div>
   </div>
@@ -32,9 +35,12 @@
       <span class="name">Nicole</span>
     </h1>
     <div class="hero-details">
-      <p class="date">19th - 21st March 2027</p>
+      <a href={weddingCalendarLink} target="_blank" rel="noopener noreferrer" class="date-link">
+        <Icon icon="ph:calendar-plus" width="20" inline />
+        19th - 21st March 2027
+      </a>
       <p class="location">
-        <span class="icon">📍</span>
+        <Icon icon="ph:map-pin-fill" width="20" class="icon" />
         Seacroft Estate · Great Ocean Road, VIC
       </p>
     </div>
@@ -139,6 +145,11 @@
     opacity: 0;
     animation: floatUp var(--duration, 15s) infinite ease-in;
     animation-delay: var(--delay, 0s);
+    color: var(--accent);
+  }
+
+  .heart :global(svg) {
+    filter: drop-shadow(0 2px 4px rgba(122, 184, 212, 0.3));
   }
 
   .heart:nth-child(1) {
@@ -268,11 +279,27 @@
     }
   }
 
-  .date {
+  .date-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--secondary);
     margin-bottom: 0.8rem;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    transition: var(--transition);
+  }
+
+  .date-link:hover {
+    background: rgba(212, 165, 116, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .date-link :global(svg) {
+    color: var(--primary);
   }
 
   .location {
@@ -284,8 +311,9 @@
     gap: 0.5rem;
   }
 
-  .icon {
-    font-size: 1.3rem;
+  .location :global(svg) {
+    color: var(--primary);
+    filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
   }
 
   .btn-hero {

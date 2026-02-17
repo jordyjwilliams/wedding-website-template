@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   let visible: boolean = false;
 
@@ -39,15 +40,15 @@
         </p>
         <div class="love-facts">
           <div class="fact">
-            <span class="fact-icon">☕</span>
-            <p><strong>First Date:</strong> Trains, then a trip in a murder van to Iceland 🇮🇸</p>
+            <span class="fact-icon"><Icon icon="ph:coffee-fill" width="32" /></span>
+            <p><strong>First Date:</strong> Trains, then a trip in a murder van to Iceland</p>
           </div>
           <div class="fact">
-            <span class="fact-icon">✈️</span>
-            <p><strong>Adventures:</strong> XX countries together. Current location: 🇦🇺</p>
+            <span class="fact-icon"><Icon icon="ph:airplane-fill" width="32" /></span>
+            <p><strong>Adventures:</strong> XX countries together. Current location: Australia</p>
           </div>
           <div class="fact">
-            <span class="fact-icon">💍</span>
+            <span class="fact-icon"><Icon icon="ph:heart-fill" width="32" /></span>
             <p><strong>The Proposal:</strong> Larkya La Pass, Nepal</p>
           </div>
         </div>
@@ -56,7 +57,7 @@
       <div class="about-visual">
         <div class="photo-card main-photo">
           <div class="photo-placeholder">
-            <span class="placeholder-icon">📸</span>
+            <span class="placeholder-icon"><Icon icon="ph:camera-fill" width="64" /></span>
             <p>PHOTO TODO</p>
           </div>
           <div class="photo-label">She Said Yes...</div>
@@ -64,14 +65,14 @@
 
         <div class="floating-details">
           <div class="detail-card">
-            <span class="detail-icon">📅</span>
+            <span class="detail-icon"><Icon icon="ph:calendar-plus" width="24" /></span>
             <div>
               <p class="detail-label">Wedding Date</p>
               <p class="detail-value">19th - 21st March 2027</p>
             </div>
-          </div>
+          </a>
           <div class="detail-card">
-            <span class="detail-icon">📍</span>
+            <span class="detail-icon"><Icon icon="ph:map-pin-fill" width="24" /></span>
             <div>
               <p class="detail-label">Location</p>
               <p class="detail-value">Seacroft Estate · Great Ocean Road, VIC </p>
@@ -166,6 +167,11 @@
   .fact-icon {
     font-size: 2rem;
     flex-shrink: 0;
+    color: var(--primary);
+  }
+
+  .fact-icon :global(svg) {
+    filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
   }
 
   .fact p {
@@ -278,6 +284,11 @@
 
   .detail-icon {
     font-size: 2rem;
+    color: var(--accent);
+  }
+
+  .detail-icon :global(svg) {
+    filter: drop-shadow(0 2px 4px rgba(122, 184, 212, 0.3));
   }
 
   .detail-label {

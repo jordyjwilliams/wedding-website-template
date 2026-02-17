@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   let visible: boolean = false;
 
@@ -31,7 +32,7 @@
 
     <div class="venue-features">
       <div class="feature-card" style="--delay: 0.2s">
-        <div class="feature-icon">⛪</div>
+        <div class="feature-icon"><Icon icon="ph:church" width="64" /></div>
         <h3>TODO: More details</h3>
         <p>
           Inside: A beautifully restored 1920's chapel with stunning stained glass windows, original wood
@@ -40,7 +41,7 @@
       </div>
 
       <div class="feature-card" style="--delay: 0.4s">
-        <div class="feature-icon">🌊</div>
+        <div class="feature-icon"><Icon icon="ph:waves" width="64" /></div>
         <h3>Ocean Views</h3>
         <p>
           Outside: Set on 25 acres with 180-degree ocean views overlooking the Great Ocean Road. Perfect for
@@ -49,7 +50,7 @@
       </div>
 
       <div class="feature-card" style="--delay: 0.6s">
-        <div class="feature-icon">🏖️</div>
+        <div class="feature-icon"><Icon icon="ph:umbrella-simple-fill" width="64" /></div>
         <h3>(Private-ish) Beach</h3>
         <p>
           Beach: Access to a secluded beach across the road. Perfect for morning swims, sunset walks, or
@@ -58,7 +59,7 @@
       </div>
 
       <div class="feature-card" style="--delay: 0.8s">
-        <div class="feature-icon">🌾</div>
+        <div class="feature-icon"><Icon icon="mdi:barley" width="64" /></div>
         <h3>Beautiful Grounds</h3>
         <p>
           Stunning lawns and gardens, historic buildings, and even some friendly cows to keep you
@@ -175,6 +176,11 @@
     margin-bottom: 1.5rem;
     display: inline-block;
     animation: float 3s infinite ease-in-out;
+    color: var(--accent);
+  }
+
+  .feature-icon :global(svg) {
+    filter: drop-shadow(0 4px 8px rgba(122, 184, 212, 0.3));
   }
 
   .feature-card:nth-child(2) .feature-icon {

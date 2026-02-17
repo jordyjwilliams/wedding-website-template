@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { isSessionValid } from '$lib/auth';
+  import Icon from '@iconify/svelte';
 
   let passcode: string = '';
   let error: string = '';
@@ -42,13 +43,13 @@
         localStorage.setItem('wedding_auth', JSON.stringify(authData));
         goto('/home');
       } else {
-        error = "Hmm, that code doesn't look quite right. Try again?";
+        error = "ph:phone-disconnect-duotone Hmm, that code doesn't look quite right. Try again?";
         shake = true;
         setTimeout(() => (shake = false), 500);
         passcode = '';
       }
     } catch {
-      error = 'Connection error. Please try again.';
+      error = 'ph:phone-disconnect-duotone  Connection error. Please try again.';
       shake = true;
       setTimeout(() => (shake = false), 500);
     } finally {
@@ -66,14 +67,14 @@
 
   <div class="passcode-container" class:shake>
     <div class="passcode-card">
-      <div class="lock-icon">💒</div>
+      <div class="lock-icon"><Icon icon="ph:lock-fill" width="48" /></div>
       <h1 class="couple-names">Jordy & Nicole</h1>
       <p class="eyebrow">are getting married!</p>
       <p class="welcome-text">
         We're so excited to celebrate with you at Seacroft Estate on the Great Ocean Road. Enter the
         passcode from your invitation to view all the wedding details.
       </p>
-      <p class="help-text">This keeps our special day a little more private 💌</p>
+      <p class="help-text">This keeps our special day a little more private <Icon icon="ph:key-duotone" width="24" /></p>
 
       <form on:submit|preventDefault={handleSubmit}>
         <div class="input-group">
@@ -96,7 +97,7 @@
         </button>
 
         {#if error}
-          <p class="error-message">{error}</p>
+          <p class="error-message"><Icon icon={error.split(' ')[0]} width="24" /> {error.split(' ').slice(1).join(' ')}</p>
         {/if}
       </form>
     </div>
