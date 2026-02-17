@@ -1,15 +1,17 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import Icon from '@iconify/svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
   import { Textarea } from '$lib/components/ui/textarea';
   import { Separator } from '$lib/components/ui/separator';
-  import { Badge } from '$lib/components/ui/badge';
+  import WeddingBadge from '$lib/components/ui/badge/WeddingBadge.svelte';
   import * as Alert from '$lib/components/ui/alert';
   import * as Card from '$lib/components/ui/card';
   import * as Select from '$lib/components/ui/select';
+  import SectionHeader from '$lib/components/SectionHeader.svelte';
+  import AnimatedSection from '$lib/components/AnimatedSection.svelte';
+  import AnimatedIcon from '$lib/components/AnimatedIcon.svelte';
 
   const attendanceOptions = [
     { value: 'yes', label: "Yes, I'll be there! 🎉" },
@@ -43,7 +45,6 @@
   let isLoading = $state(false);
   let formMessage = $state('');
   let messageType = $state('');
-  let visible = $state(false);
   let phoneError = $state('');
 
   let showGuestCount = $derived(selectedAttendance === 'yes');
@@ -51,10 +52,6 @@
   let selectedAttendanceLabel = $derived(
     attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label || 'Please select...'
   );
-
-  onMount(() => {
-    visible = true;
-  });
 
   function validatePhone(phone: string): boolean {
     if (!phone || phone.trim() === '') return true; // Optional field
@@ -175,15 +172,13 @@
   }
 </script>
 
-<section class="rsvp-section" class:visible>
+<AnimatedSection class="rsvp-section">
   <div class="container">
-    <div class="rsvp-header">
-      <h2 class="section-title">RSVP 💌</h2>
-      <p class="section-intro">
-        Please let us know if you can join us for the weekend. Your response helps us plan rooms,
-        food and all that jazz 🎷
-      </p>
-    </div>
+    <SectionHeader
+      title="RSVP"
+      emoji="💌"
+      intro="Please let us know if you can join us for the weekend. Your response helps us plan rooms, food and all that jazz 🎷"
+    />
 
     <div class="rsvp-container">
       <form onsubmit={handleSubmit} class="rsvp-form">
@@ -333,8 +328,8 @@
       <div class="help-card">
         <Card.Root>
           <Card.Header class="text-center">
-            <div class="help-icon">
-              <Icon icon="ph:chat-circle-dots-fill" width="48" />
+            <div class="mb-4">
+              <AnimatedIcon icon="ph:chat-circle-dots-fill" size={48} color="hsl(var(--accent))" />
             </div>
             <Card.Title>Need Help?</Card.Title>
           </Card.Header>
@@ -345,7 +340,7 @@
             </p>
             <div class="space-y-4">
               <div class="flex flex-col items-center space-y-3">
-                <Badge variant="secondary" class="px-4 py-1 text-base">👰 Nicole</Badge>
+                <WeddingBadge size="event">👰 Nicole</WeddingBadge>
                 <div class="flex w-full flex-col gap-2 text-sm">
                   <a href="mailto:nfrances369@gmail.com" class="contact-link">
                     <Icon icon="ph:envelope-simple-fill" width="16" />
@@ -361,7 +356,7 @@
               <Separator />
 
               <div class="flex flex-col items-center space-y-3">
-                <Badge variant="secondary" class="px-4 py-1 text-base">🤵 Jordy</Badge>
+                <WeddingBadge size="event">🤵 Jordy</WeddingBadge>
                 <div class="flex w-full flex-col gap-2 text-sm">
                   <a href="mailto:jordy_williams@hotmail.co.uk" class="contact-link">
                     <Icon icon="ph:envelope-simple-fill" width="16" />
@@ -379,42 +374,16 @@
       </div>
     </div>
   </div>
-</section>
+</AnimatedSection>
 
 <style>
-  .rsvp-section {
+  :global(.rsvp-section) {
     padding: 6rem 0;
     /* Background with subtle overlay */
     background:
       linear-gradient(135deg, rgba(248, 250, 251, 0.95) 0%, rgba(237, 242, 244, 0.92) 100%),
       url('/images/rsvp-bg.webp') center/cover fixed;
     min-height: 100vh;
-    opacity: 0;
-    transition: opacity 0.6s ease-out;
-  }
-
-  .rsvp-section.visible {
-    opacity: 1;
-  }
-
-  .rsvp-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .section-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1rem;
-    color: hsl(var(--primary));
-    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
-  }
-
-  .section-intro {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.6;
   }
 
   .rsvp-container {
@@ -508,28 +477,6 @@
     }
   }
 
-  .help-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    animation: bounce 2s infinite;
-    color: hsl(var(--accent));
-    display: inline-block;
-  }
-
-  .help-icon :global(svg) {
-    filter: drop-shadow(0 4px 8px rgba(122, 184, 212, 0.3));
-  }
-
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
   .contact-link {
     display: flex;
     align-items: center;
@@ -562,7 +509,7 @@
   }
 
   @media (max-width: 768px) {
-    .rsvp-section {
+    :global(.rsvp-section) {
       padding: 4rem 0;
     }
 

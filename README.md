@@ -60,14 +60,7 @@ Visit [http://localhost:8888](http://localhost:8888)
 
 #### Copy
 
-Currently placeholder text... To write and fill this out:
-
-| Copy to write      | File                                       |
-| ------------------ | ------------------------------------------ |
-| Wedding semantics  | `src/lib/components/Hero.svelte`           |
-| Our story          | `src/lib/components/AboutUs.svelte`        |
-| Schedule           | `src/lib/components/WeddingDetails.svelte` |
-| Venue details/FAQs | `src/lib/components/VenueInfo.svelte`      |
+Currently placeholder text... To write and fill this out all copy nicely...
 
 #### Google Sheets RSVP
 
@@ -92,25 +85,4 @@ npm run format
 
 # Deploy to production
 npm run deploy
-```
-
-## 📁 Project Structure
-
-```
-wedding-website/
-├── src/
-│   ├── routes/          # SvelteKit pages
-│   │   ├── +page.svelte       # Login/passcode page
-│   │   ├── +layout.svelte     # App layout with auth
-│   │   ├── home/              # Home page (Hero + About)
-│   │   ├── wedding/           # Wedding details page
-│   │   └── rsvp/              # RSVP form page
-│   ├── lib/
-│   │   └── components/  # Svelte components
-│   └── app.css          # Global styles
-├── netlify/
-│   └── functions/       # Serverless functions
-│       └── verify-passcode.ts # Auth function
-├── static/              # Static assets
-└── .env.example         # Environment variables template
 ```

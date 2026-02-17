@@ -1,6 +1,6 @@
 <script lang="ts">
-  import WeddingDetails from '$lib/components/WeddingDetails.svelte';
-  import VenueInfo from '$lib/components/VenueInfo.svelte';
+  import WeddingDetails from '$lib/components/sections/WeddingDetails.svelte';
+  import VenueInfo from '$lib/components/sections/VenueInfo.svelte';
   import PageWrapper from '$lib/components/PageWrapper.svelte';
 </script>
 

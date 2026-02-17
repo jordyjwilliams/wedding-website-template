@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Hero from '$lib/components/Hero.svelte';
-  import AboutUs from '$lib/components/AboutUs.svelte';
+  import Hero from '$lib/components/sections/Hero.svelte';
+  import AboutUs from '$lib/components/sections/AboutUs.svelte';
   import PageWrapper from '$lib/components/PageWrapper.svelte';
 </script>
 

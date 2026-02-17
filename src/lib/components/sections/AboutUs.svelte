@@ -1,29 +1,11 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import Icon from '@iconify/svelte';
   import { weddingCalendarLink } from '$lib/calendar';
   import * as Card from '$lib/components/ui/card';
-  import { Badge } from '$lib/components/ui/badge';
-
-  let visible: boolean = false;
-
-  onMount(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            visible = true;
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    const section = document.querySelector('.about-section');
-    if (section) observer.observe(section);
-
-    return () => observer.disconnect();
-  });
+  import WeddingBadge from '$lib/components/ui/badge/WeddingBadge.svelte';
+  import SectionHeader from '$lib/components/SectionHeader.svelte';
+  import AnimatedSection from '$lib/components/AnimatedSection.svelte';
+  import DetailCard from '$lib/components/DetailCard.svelte';
 
   const loveFacts = [
     { icon: '☕', label: 'First Date', text: 'Trains, then a trip in a murder van to Iceland 🇮🇸' },
@@ -32,11 +14,11 @@
   ];
 </script>
 
-<section class="about-section" class:visible>
+<AnimatedSection class="about-section" threshold={0.2}>
   <div class="container">
     <div class="about-grid">
       <div class="about-content">
-        <h2 class="section-title">💕 Our Story 💕</h2>
+        <SectionHeader title="Our Story" emoji="💕" />
         <p class="intro-text">Every love story is beautiful, but we think our's is pretty cute.</p>
         <p class="story-text">
           Once upon a time, Jordy was sitting on a train from Prague to Kutna Hora when he met
@@ -53,9 +35,7 @@
             <div class="fact-item">
               <Card.Root class="border-none">
                 <Card.Content class="flex items-start gap-4 p-5">
-                  <Badge variant="secondary" class="flex-shrink-0 px-3 py-2 text-2xl"
-                    >{fact.icon}</Badge
-                  >
+                  <WeddingBadge size="icon-lg">{fact.icon}</WeddingBadge>
                   <p class="fact-text">
                     <strong>{fact.label}:</strong>
                     {fact.text}
@@ -82,58 +62,38 @@
         </div>
 
         <div class="floating-details">
-          <a href={weddingCalendarLink} target="_blank" rel="noopener noreferrer">
-            <div class="detail-card detail-card-clickable">
-              <Card.Root>
-                <Card.Content class="flex items-center gap-4 p-5">
-                  <Badge variant="secondary" class="px-3 py-2 text-xl">
-                    <Icon icon="ph:calendar-plus" width="20" />
-                  </Badge>
-                  <div>
-                    <p class="detail-label">Wedding Date</p>
-                    <p class="detail-value">19th - 21st March 2027</p>
-                  </div>
-                </Card.Content>
-              </Card.Root>
-            </div>
-          </a>
+          <DetailCard
+            label="Wedding Date"
+            value="19th - 21st March 2027"
+            href={weddingCalendarLink}
+          >
+            {#snippet badge()}
+              <WeddingBadge size="icon">
+                <Icon icon="ph:calendar-plus" width="20" />
+              </WeddingBadge>
+            {/snippet}
+          </DetailCard>
 
-          <div class="detail-card">
-            <Card.Root>
-              <Card.Content class="flex items-center gap-4 p-5">
-                <Badge variant="secondary" class="px-3 py-2 text-xl">📍</Badge>
-                <div>
-                  <p class="detail-label">Location</p>
-                  <p class="detail-value">Seacroft Estate · Great Ocean Road, VIC</p>
-                </div>
-              </Card.Content>
-            </Card.Root>
-          </div>
+          <DetailCard label="Location" value="Seacroft Estate · Great Ocean Road, VIC">
+            {#snippet badge()}
+              <WeddingBadge size="icon">📍</WeddingBadge>
+            {/snippet}
+          </DetailCard>
         </div>
       </div>
     </div>
   </div>
-</section>
+</AnimatedSection>
 
 <style>
-  .about-section {
+  :global(.about-section) {
     padding: 6rem 0;
     background: transparent;
     position: relative;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(30px);
-    transition:
-      opacity 0.8s ease-out,
-      transform 0.8s ease-out;
   }
 
-  .about-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .about-section::before {
+  :global(.about-section)::before {
     content: '';
     position: absolute;
     top: -50px;
@@ -149,12 +109,6 @@
     grid-template-columns: 1fr 1fr;
     gap: 5rem;
     align-items: center;
-  }
-
-  .section-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1.5rem;
-    color: var(--primary);
   }
 
   .intro-text {
@@ -242,11 +196,6 @@
     animation: fadeInRight 0.8s ease-out 0.6s both;
   }
 
-  .floating-details a {
-    text-decoration: none;
-    color: inherit;
-  }
-
   @keyframes fadeInRight {
     from {
       opacity: 0;
@@ -256,31 +205,6 @@
       opacity: 1;
       transform: translateX(0);
     }
-  }
-
-  .detail-card {
-    min-width: 220px;
-    transition: transform 0.3s ease;
-  }
-
-  .detail-card:hover {
-    transform: translateY(-5px);
-  }
-
-  .detail-card-clickable:hover {
-    background: linear-gradient(135deg, rgba(122, 184, 212, 0.05), rgba(212, 165, 116, 0.05));
-  }
-
-  .detail-label {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    margin-bottom: 0.2rem;
-  }
-
-  .detail-value {
-    font-weight: 600;
-    color: var(--text-dark);
-    font-size: 1rem;
   }
 
   @media (max-width: 1024px) {
@@ -302,17 +226,13 @@
   }
 
   @media (max-width: 640px) {
-    .about-section {
+    :global(.about-section) {
       padding: 4rem 0;
     }
 
     .floating-details {
       flex-direction: column;
       align-items: stretch;
-    }
-
-    .detail-card {
-      min-width: auto;
     }
 
     .fact-item {

@@ -1,20 +1,13 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import Icon from '@iconify/svelte';
   import { weddingCalendarLink } from '$lib/calendar';
-
-  let visible: boolean = false;
-
-  onMount(() => {
-    setTimeout(() => (visible = true), 100);
-  });
 
   function scrollToRSVP(): void {
     window.location.href = '/rsvp';
   }
 </script>
 
-<section class="hero" class:visible>
+<section class="hero">
   <div class="hero-background">
     <div class="gradient-shape shape-1"></div>
     <div class="gradient-shape shape-2"></div>
@@ -70,11 +63,13 @@
     background: transparent;
     padding: 6rem 2rem 4rem;
     opacity: 0;
-    transition: opacity 1s ease-out;
+    animation: fadeIn 1s ease-out 0.1s forwards;
   }
 
-  .hero.visible {
-    opacity: 1;
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
   }
 
   .hero-background {
