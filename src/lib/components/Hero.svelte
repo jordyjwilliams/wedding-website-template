@@ -35,7 +35,10 @@
       <span class="name">Nicole</span>
     </h1>
     <div class="hero-details">
-      <p class="date">19th - 21st March 2027</p>
+      <a href={weddingCalendarLink} target="_blank" rel="noopener noreferrer" class="date-link">
+        <Icon icon="ph:calendar-plus" width="20" inline />
+        19th - 21st March 2027
+      </a>
       <p class="location">
         <Icon icon="ph:map-pin-fill" width="20" class="icon" />
         Seacroft Estate · Great Ocean Road, VIC
