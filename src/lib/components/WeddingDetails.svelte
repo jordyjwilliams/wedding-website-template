@@ -6,7 +6,6 @@
   import { Badge } from '$lib/components/ui/badge';
 
   let visible: boolean = false;
-  let scrollOpacity: number = 75;
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -22,20 +21,6 @@
 
     const section = document.querySelector('.wedding-section');
     if (section) observer.observe(section);
-
-    // Add scroll listener for dynamic glass effect
-    const handleScroll = () => {
-      const scrollPercent =
-        window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      scrollOpacity = Math.max(68, 75 - scrollPercent * 7);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
-    };
   });
 </script>
 
@@ -132,10 +117,7 @@
 
     <div class="info-grid">
       <div class="info-card">
-        <Card.Root
-          class="scroll-glass-transition"
-          style="background-color: rgb(255 255 255 / {scrollOpacity}%);"
-        >
+        <Card.Root>
           <Card.Content class="pt-6 text-center">
             <div class="info-icon"><Icon icon="ph:house-fill" width="56" /></div>
             <Card.Title class="mb-2">Accommodation</Card.Title>
@@ -148,10 +130,7 @@
       </div>
 
       <div class="info-card">
-        <Card.Root
-          class="scroll-glass-transition"
-          style="background-color: rgb(255 255 255 / {scrollOpacity}%);"
-        >
+        <Card.Root>
           <Card.Content class="pt-6 text-center">
             <div class="info-icon"><Icon icon="ph:backpack-fill" width="56" /></div>
             <Card.Title class="mb-2">What to Pack</Card.Title>
@@ -164,10 +143,7 @@
       </div>
 
       <div class="info-card">
-        <Card.Root
-          class="scroll-glass-transition"
-          style="background-color: rgb(255 255 255 / {scrollOpacity}%);"
-        >
+        <Card.Root>
           <Card.Content class="pt-6 text-center">
             <div class="info-icon"><Icon icon="ph:car-fill" width="56" /></div>
             <Card.Title class="mb-2">Getting There</Card.Title>

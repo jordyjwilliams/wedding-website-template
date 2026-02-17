@@ -44,7 +44,6 @@
   let formMessage = $state('');
   let messageType = $state('');
   let visible = $state(false);
-  let scrollOpacity = $state(75);
   let phoneError = $state('');
 
   let showGuestCount = $derived(selectedAttendance === 'yes');
@@ -55,20 +54,6 @@
 
   onMount(() => {
     visible = true;
-
-    // Add scroll listener for dynamic glass effect
-    const handleScroll = () => {
-      const scrollPercent =
-        window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      // Reduce opacity slightly as user scrolls (75% to 68%)
-      scrollOpacity = Math.max(68, 75 - scrollPercent * 7);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   });
 
   function validatePhone(phone: string): boolean {
@@ -346,10 +331,7 @@
       </form>
 
       <div class="help-card">
-        <Card.Root
-          class="scroll-glass-transition"
-          style="background-color: rgb(255 255 255 / {scrollOpacity}%);"
-        >
+        <Card.Root>
           <Card.Header class="text-center">
             <div class="help-icon">
               <Icon icon="ph:chat-circle-dots-fill" width="48" />

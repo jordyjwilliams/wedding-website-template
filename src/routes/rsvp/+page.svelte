@@ -1,25 +1,8 @@
 <script lang="ts">
   import RSVPForm from '$lib/components/RSVPForm.svelte';
-  import { onMount } from 'svelte';
-
-  let visible: boolean = false;
-
-  onMount(() => {
-    visible = true;
-  });
+  import PageWrapper from '$lib/components/PageWrapper.svelte';
 </script>
 
-<div class="page" class:visible>
+<PageWrapper>
   <RSVPForm />
-</div>
-
-<style>
-  .page {
-    opacity: 0;
-    transition: opacity 0.6s ease-out;
-  }
-
-  .page.visible {
-    opacity: 1;
-  }
-</style>
+</PageWrapper>

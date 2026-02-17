@@ -137,11 +137,4 @@
   .backdrop-blur-strong {
     backdrop-filter: blur(20px);
   }
-
-  /* Scroll-based opacity transitions */
-  .scroll-glass-transition {
-    transition:
-      background-color 0.3s ease,
-      backdrop-filter 0.3s ease;
-  }
 }
