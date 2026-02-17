@@ -20,7 +20,7 @@ A wedding website built with:
 
 ### Prerequisites
 
-- Node.js 20+ and npm 10+
+- Node.js 24+ and npm 11+
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
 
 ### Installation

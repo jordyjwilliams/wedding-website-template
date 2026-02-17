@@ -46,7 +46,7 @@
               alt="Engagement at Larkya La Pass"
               class="main-photo"
             />
-            <Card.Footer class="p-6 text-center font-heading text-2xl font-semibold text-gray-900"
+            <Card.Footer class="font-heading p-6 text-center text-2xl font-semibold text-gray-900"
               >She Said Yes...</Card.Footer
             >
           </Card.Root>

@@ -329,7 +329,7 @@
             <Card.Title>{COPY.rsvp.contact.title}</Card.Title>
           </Card.Header>
           <Card.Content class="text-center">
-            <p class="mb-6 text-muted-foreground">
+            <p class="text-muted-foreground mb-6">
               {COPY.rsvp.contact.description}
             </p>
             <div class="space-y-4">

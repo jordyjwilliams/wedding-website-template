@@ -24,7 +24,7 @@
   <input
     bind:this={ref}
     class={cn(
-      'flex h-11 w-full rounded-xl border border-input bg-white/70 px-4 py-2 text-base shadow-sm ring-offset-background backdrop-blur-sm transition-all duration-200 placeholder:text-muted-foreground hover:border-primary/50 focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+      'border-input ring-offset-background placeholder:text-muted-foreground hover:border-primary/50 focus-visible:ring-ring flex h-11 w-full rounded-xl border bg-white/70 px-4 py-2 text-base shadow-sm backdrop-blur-sm transition-all duration-200 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
       className
     )}
     type="file"
@@ -36,7 +36,7 @@
   <input
     bind:this={ref}
     class={cn(
-      'flex h-11 w-full rounded-xl border border-input bg-white/70 px-4 py-2 text-base shadow-sm ring-offset-background backdrop-blur-sm transition-all duration-200 placeholder:text-muted-foreground hover:border-primary/50 focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+      'border-input ring-offset-background placeholder:text-muted-foreground hover:border-primary/50 focus-visible:ring-ring flex h-11 w-full rounded-xl border bg-white/70 px-4 py-2 text-base shadow-sm backdrop-blur-sm transition-all duration-200 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
       className
     )}
     {type}
