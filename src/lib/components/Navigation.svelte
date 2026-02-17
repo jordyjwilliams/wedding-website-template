@@ -1,6 +1,10 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
+  import * as Sheet from '$lib/components/ui/sheet';
+  import { Button } from '$lib/components/ui/button';
+  import { Separator } from '$lib/components/ui/separator';
+  import Icon from '@iconify/svelte';
 
   let mobileMenuOpen: boolean = false;
   let scrolled: boolean = false;
@@ -14,10 +18,6 @@
     return () => window.removeEventListener('scroll', handleScroll);
   });
 
-  function toggleMobileMenu(): void {
-    mobileMenuOpen = !mobileMenuOpen;
-  }
-
   function closeMobileMenu(): void {
     mobileMenuOpen = false;
   }
@@ -27,43 +27,58 @@
   <div class="nav-container">
     <a href="/home" class="nav-brand"> Jordy & Nicole ✨ </a>
 
-    <button
-      class="hamburger"
-      class:active={mobileMenuOpen}
-      on:click={toggleMobileMenu}
-      aria-label="Toggle menu"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <div class="nav-menu" class:active={mobileMenuOpen}>
-      <a
-        href="/home"
-        class="nav-link"
-        class:active={$page.url.pathname === '/home'}
-        on:click={closeMobileMenu}
-      >
-        Home
-      </a>
-      <a
-        href="/wedding"
-        class="nav-link"
-        class:active={$page.url.pathname === '/wedding'}
-        on:click={closeMobileMenu}
-      >
+    <!-- Desktop Menu -->
+    <div class="desktop-menu">
+      <a href="/home" class="nav-link" class:active={$page.url.pathname === '/home'}> Home </a>
+      <a href="/wedding" class="nav-link" class:active={$page.url.pathname === '/wedding'}>
         Wedding
       </a>
-      <a
-        href="/rsvp"
-        class="nav-link"
-        class:active={$page.url.pathname === '/rsvp'}
-        on:click={closeMobileMenu}
-      >
-        RSVP
-      </a>
+      <a href="/rsvp" class="nav-link" class:active={$page.url.pathname === '/rsvp'}> RSVP </a>
     </div>
+
+    <!-- Mobile Menu Toggle -->
+    <Sheet.Root bind:open={mobileMenuOpen}>
+      <Sheet.Trigger>
+        <Button variant="ghost" size="icon" class="mobile-menu-button md:hidden">
+          <Icon icon="ph:list" width="24" />
+        </Button>
+      </Sheet.Trigger>
+      <Sheet.Content side="right" class="w-[300px]">
+        <Sheet.Header>
+          <Sheet.Title class="font-heading text-2xl">Menu</Sheet.Title>
+        </Sheet.Header>
+        <Separator class="my-4" />
+        <div class="mobile-menu">
+          <a
+            href="/home"
+            class="mobile-nav-link"
+            class:active={$page.url.pathname === '/home'}
+            on:click={closeMobileMenu}
+          >
+            <Icon icon="ph:house-fill" width="20" />
+            Home
+          </a>
+          <a
+            href="/wedding"
+            class="mobile-nav-link"
+            class:active={$page.url.pathname === '/wedding'}
+            on:click={closeMobileMenu}
+          >
+            <Icon icon="ph:heart-fill" width="20" />
+            Wedding
+          </a>
+          <a
+            href="/rsvp"
+            class="mobile-nav-link"
+            class:active={$page.url.pathname === '/rsvp'}
+            on:click={closeMobileMenu}
+          >
+            <Icon icon="ph:envelope-fill" width="20" />
+            RSVP
+          </a>
+        </div>
+      </Sheet.Content>
+    </Sheet.Root>
   </div>
 </nav>
 
@@ -81,7 +96,7 @@
 
   .nav.scrolled {
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 20px var(--shadow);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   }
 
   .nav-container {
@@ -97,30 +112,29 @@
     font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 600;
-    color: var(--primary);
+    color: hsl(var(--primary));
     text-decoration: none;
     letter-spacing: 0.5px;
-    transition: var(--transition);
+    transition: all 0.2s ease;
   }
 
   .nav-brand:hover {
-    color: var(--primary-dark);
     transform: translateY(-1px);
   }
 
-  .nav-menu {
+  .desktop-menu {
     display: flex;
     gap: 2.5rem;
     align-items: center;
   }
 
   .nav-link {
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
     letter-spacing: 0.3px;
-    transition: var(--transition);
+    transition: all 0.2s ease;
     position: relative;
     padding: 0.5rem 0;
   }
@@ -132,7 +146,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--primary);
+    background: hsl(var(--primary));
     transition: width 0.3s ease;
   }
 
@@ -142,79 +156,46 @@
   }
 
   .nav-link:hover {
-    color: var(--primary);
+    color: hsl(var(--primary));
   }
 
   .nav-link.active {
-    color: var(--primary);
+    color: hsl(var(--primary));
   }
 
-  .hamburger {
-    display: none;
+  .mobile-menu {
+    display: flex;
     flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
+    gap: 0.5rem;
+    margin-top: 1rem;
   }
 
-  .hamburger span {
-    width: 25px;
-    height: 3px;
-    background: var(--text-dark);
-    transition: all 0.3s ease;
-    border-radius: 3px;
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    color: hsl(var(--foreground));
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
   }
 
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(7px, 7px);
+  .mobile-nav-link:hover {
+    background: hsl(var(--muted));
+    color: hsl(var(--primary));
   }
 
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
+  .mobile-nav-link.active {
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
   }
 
   @media (max-width: 768px) {
-    .hamburger {
-      display: flex;
-    }
-
-    .nav-menu {
-      position: fixed;
-      top: 70px;
-      left: 0;
-      right: 0;
-      flex-direction: column;
-      background: var(--white);
-      padding: 2rem;
-      gap: 2rem;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      box-shadow: 0 10px 30px var(--shadow);
-    }
-
-    .nav-menu.active {
-      transform: translateX(0);
-      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Mobile menu backdrop */
-    .nav-menu.active::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: -1;
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    .nav-link {
-      font-size: 1.2rem;
+    .desktop-menu {
+      display: none;
     }
   }
 </style>

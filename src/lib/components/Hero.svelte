@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Icon from '@iconify/svelte';
+  import { weddingCalendarLink } from '$lib/calendar';
 
   let visible: boolean = false;
 
@@ -66,7 +67,7 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #faf8f6 0%, #f5e6d3 100%);
+    background: transparent;
     padding: 6rem 2rem 4rem;
     opacity: 0;
     transition: opacity 1s ease-out;
@@ -413,10 +414,6 @@
 
     .ampersand {
       margin: 0 0.5rem;
-    }
-
-    .date {
-      font-size: 1.2rem;
     }
 
     .location {

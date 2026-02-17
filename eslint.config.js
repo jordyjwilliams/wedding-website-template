@@ -15,6 +15,7 @@ export default [
       },
     },
     rules: {
+      // Allow unused vars/args that start with underscore
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -29,6 +30,7 @@ export default [
       },
     },
     rules: {
+      // Enforce same unused variable convention in Svelte files
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -36,10 +38,21 @@ export default [
     },
   },
   {
+    // WORKAROUND: Disable custom element warnings for shadcn-svelte components
+    // These components use rest props with $props() which triggers false positives
+    // about custom element property inference. We're not building web components.
+    // https://svelte.dev/docs/svelte/compiler-warnings#custom_element_props_identifier
+    // TODO: Determine if we can fix at a later date.
+    files: ['src/lib/components/ui/**/*.svelte'],
+    rules: {
+      'svelte/valid-compile': 'off',
+    },
+  },
+  {
     ignores: ['build/', '.svelte-kit/', 'dist/', 'node_modules/', '.netlify/', 'todo/'],
   },
-  // Google Apps Script globals
   {
+    // Google Apps Script environment configuration
     files: ['google-apps-script.js'],
     languageOptions: {
       globals: {
@@ -50,6 +63,8 @@ export default [
       },
     },
     rules: {
+      // Allow testScript to be defined but not called (used for manual testing in Apps Script editor)
+      // TODO: Remove when tested and fixed
       'no-unused-vars': ['error', { varsIgnorePattern: '^testScript$' }],
     },
   },

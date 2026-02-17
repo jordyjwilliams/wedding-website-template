@@ -19,6 +19,10 @@
   .page {
     opacity: 0;
     transition: opacity 0.6s ease-out;
+    background:
+      linear-gradient(135deg, rgba(248, 250, 251, 0.85) 0%, rgba(237, 242, 244, 0.75) 100%),
+      url('/images/wedding-details-bg.webp') center/cover fixed;
+    min-height: 100vh;
   }
 
   .page.visible {

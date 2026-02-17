@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Icon from '@iconify/svelte';
+  import * as Card from '$lib/components/ui/card';
+  import { Button } from '$lib/components/ui/button';
 
   let visible: boolean = false;
 
@@ -31,54 +33,75 @@
     </p>
 
     <div class="venue-features">
-      <div class="feature-card" style="--delay: 0.2s">
-        <div class="feature-icon"><Icon icon="ph:church" width="64" /></div>
-        <h3>TODO: More details</h3>
-        <p>
-          Inside: A beautifully restored 1920's chapel with stunning stained glass windows, original wood
-          panelling, and ocean views through unique rectangular windows.
-        </p>
+      <div class="feature-card">
+        <Card.Root>
+          <Card.Content class="pt-6 text-center">
+            <div class="feature-icon"><Icon icon="ph:church" width="64" /></div>
+            <Card.Title class="mb-2">TODO: More details</Card.Title>
+            <Card.Description>
+              Inside: A beautifully restored 1920's chapel with stunning stained glass windows,
+              original wood panelling, and ocean views through unique rectangular windows.
+            </Card.Description>
+          </Card.Content>
+        </Card.Root>
       </div>
 
-      <div class="feature-card" style="--delay: 0.4s">
-        <div class="feature-icon"><Icon icon="ph:waves" width="64" /></div>
-        <h3>Ocean Views</h3>
-        <p>
-          Outside: Set on 25 acres with 180-degree ocean views overlooking the Great Ocean Road. Perfect for
-          photos and unforgettable sunsets.
-        </p>
+      <div class="feature-card">
+        <Card.Root>
+          <Card.Content class="pt-6 text-center">
+            <div class="feature-icon feature-icon-2"><Icon icon="ph:waves" width="64" /></div>
+            <Card.Title class="mb-2">Ocean Views</Card.Title>
+            <Card.Description>
+              Outside: Set on 25 acres with 180-degree ocean views overlooking the Great Ocean Road.
+              Perfect for photos and unforgettable sunsets.
+            </Card.Description>
+          </Card.Content>
+        </Card.Root>
       </div>
 
-      <div class="feature-card" style="--delay: 0.6s">
-        <div class="feature-icon"><Icon icon="ph:umbrella-simple-fill" width="64" /></div>
-        <h3>(Private-ish) Beach</h3>
-        <p>
-          Beach: Access to a secluded beach across the road. Perfect for morning swims, sunset walks, or
-          just relaxing by the water.
-        </p>
+      <div class="feature-card">
+        <Card.Root>
+          <Card.Content class="pt-6 text-center">
+            <div class="feature-icon feature-icon-3">
+              <Icon icon="ph:umbrella-simple-fill" width="64" />
+            </div>
+            <Card.Title class="mb-2">(Private-ish) Beach</Card.Title>
+            <Card.Description>
+              Beach: Access to a secluded beach across the road. Perfect for morning swims, sunset
+              walks, or just relaxing by the water.
+            </Card.Description>
+          </Card.Content>
+        </Card.Root>
       </div>
 
-      <div class="feature-card" style="--delay: 0.8s">
-        <div class="feature-icon"><Icon icon="mdi:barley" width="64" /></div>
-        <h3>Beautiful Grounds</h3>
-        <p>
-          Stunning lawns and gardens, historic buildings, and even some friendly cows to keep you
-          company during your stay.
-        </p>
+      <div class="feature-card">
+        <Card.Root>
+          <Card.Content class="pt-6 text-center">
+            <div class="feature-icon feature-icon-4"><Icon icon="mdi:barley" width="64" /></div>
+            <Card.Title class="mb-2">Beautiful Grounds</Card.Title>
+            <Card.Description>
+              Stunning lawns and gardens, historic buildings, and even some friendly cows to keep
+              you company during your stay.
+            </Card.Description>
+          </Card.Content>
+        </Card.Root>
       </div>
     </div>
 
     <div class="venue-cta">
       <p class="cta-text">Want to learn more about this amazing venue?</p>
-      <a
-        href="https://www.seacroft.com/weddings/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-venue"
-      >
-        Explore Seacroft Estate
-        <span class="arrow">→</span>
-      </a>
+      <div class="cta-button">
+        <Button
+          href="https://www.seacroft.com/weddings/"
+          target="_blank"
+          rel="noopener noreferrer"
+          size="lg"
+          class="rounded-full"
+        >
+          Explore Seacroft Estate
+          <span class="arrow">→</span>
+        </Button>
+      </div>
     </div>
   </div>
 </section>
@@ -86,7 +109,7 @@
 <style>
   .venue-section {
     padding: 6rem 0;
-    background: var(--white);
+    background: transparent;
     position: relative;
     overflow: hidden;
   }
@@ -106,7 +129,8 @@
     font-size: clamp(2.5rem, 5vw, 4rem);
     text-align: center;
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: hsl(var(--primary));
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
   }
 
   .section-intro {
@@ -126,20 +150,31 @@
   }
 
   .feature-card {
-    background: var(--bg-light);
-    padding: 2.5rem 2rem;
-    border-radius: 25px;
-    text-align: center;
-    transition: var(--transition);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     opacity: 0;
     transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out var(--delay, 0s) forwards;
   }
 
   .venue-section.visible .feature-card {
-    animation-play-state: running;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .feature-card:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+
+  .feature-card:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+
+  .feature-card:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  .feature-card:nth-child(4) {
+    animation-delay: 0.8s;
   }
 
   @keyframes fadeInUp {
@@ -155,8 +190,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
+    height: 3px;
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
     transform: scaleX(0);
     transition: transform 0.3s ease;
   }
@@ -167,8 +202,6 @@
 
   .feature-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-    background: var(--white);
   }
 
   .feature-icon {
@@ -176,22 +209,22 @@
     margin-bottom: 1.5rem;
     display: inline-block;
     animation: float 3s infinite ease-in-out;
-    color: var(--accent);
+    color: hsl(var(--accent));
   }
 
   .feature-icon :global(svg) {
-    filter: drop-shadow(0 4px 8px rgba(122, 184, 212, 0.3));
+    filter: drop-shadow(0 4px 8px hsl(var(--accent) / 0.3));
   }
 
-  .feature-card:nth-child(2) .feature-icon {
+  .feature-icon-2 {
     animation-delay: 0.5s;
   }
 
-  .feature-card:nth-child(3) .feature-icon {
+  .feature-icon-3 {
     animation-delay: 1s;
   }
 
-  .feature-card:nth-child(4) .feature-icon {
+  .feature-icon-4 {
     animation-delay: 1.5s;
   }
 
@@ -205,61 +238,29 @@
     }
   }
 
-  .feature-card h3 {
-    font-size: 1.6rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
-  }
-
-  .feature-card p {
-    color: var(--text-light);
-    line-height: 1.7;
-    font-size: 1rem;
-  }
-
   .venue-cta {
     text-align: center;
     padding: 3rem 2rem;
-    background: linear-gradient(135deg, var(--bg-light), var(--white));
+    background: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--background)));
     border-radius: 30px;
     margin-top: 3rem;
   }
 
   .cta-text {
     font-size: 1.3rem;
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     margin-bottom: 2rem;
     font-weight: 500;
-  }
-
-  .btn-venue {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1.2rem 2.5rem;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.3px;
-    transition: var(--transition);
-    box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
-  }
-
-  .btn-venue:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(212, 165, 116, 0.4);
   }
 
   .arrow {
     transition: transform 0.3s ease;
     display: inline-block;
     font-size: 1.3rem;
+    margin-left: 0.5rem;
   }
 
-  .btn-venue:hover .arrow {
+  .cta-button:hover .arrow {
     transform: translateX(5px);
   }
 

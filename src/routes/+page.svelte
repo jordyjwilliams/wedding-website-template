@@ -3,6 +3,10 @@
   import { goto } from '$app/navigation';
   import { isSessionValid } from '$lib/auth';
   import Icon from '@iconify/svelte';
+  import { Button } from '$lib/components/ui/button';
+  import { Input } from '$lib/components/ui/input';
+  import * as Card from '$lib/components/ui/card';
+  import * as Alert from '$lib/components/ui/alert';
 
   let passcode: string = '';
   let error: string = '';
@@ -66,41 +70,52 @@
   </div>
 
   <div class="passcode-container" class:shake>
-    <div class="passcode-card">
-      <div class="lock-icon"><Icon icon="ph:lock-fill" width="48" /></div>
-      <h1 class="couple-names">Jordy & Nicole</h1>
-      <p class="eyebrow">are getting married!</p>
-      <p class="welcome-text">
-        We're so excited to celebrate with you at Seacroft Estate on the Great Ocean Road. Enter the
-        passcode from your invitation to view all the wedding details.
-      </p>
-      <p class="help-text">This keeps our special day a little more private <Icon icon="ph:key-duotone" width="24" /></p>
+    <Card.Root class="passcode-card">
+      <Card.Content class="pt-6">
+        <div class="lock-icon"><Icon icon="ph:lock-fill" width="48" /></div>
+        <h1 class="couple-names">Jordy & Nicole</h1>
+        <p class="eyebrow">are getting married!</p>
+        <p class="welcome-text">
+          We're so excited to celebrate with you at Seacroft Estate on the Great Ocean Road. Enter
+          the passcode from your invitation to view all the wedding details.
+        </p>
+        <p class="help-text">
+          This keeps our special day a little more private
+          <Icon icon="ph:key-duotone" width="24" class="inline" />
+        </p>
 
-      <form on:submit|preventDefault={handleSubmit}>
-        <div class="input-group">
-          <input
-            type="password"
-            bind:value={passcode}
-            placeholder="Enter passcode"
-            disabled={isLoading}
-            autocomplete="off"
-          />
-        </div>
+        <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+          <div class="input-wrapper">
+            <Input
+              type="password"
+              bind:value={passcode}
+              placeholder="Enter passcode"
+              disabled={isLoading}
+              autocomplete="off"
+              class="text-center text-lg tracking-wider"
+            />
+          </div>
 
-        <button type="submit" class="btn-submit" disabled={isLoading}>
-          {#if isLoading}
-            <span class="spinner"></span>
-            Verifying...
-          {:else}
-            Enter Site ✨
+          <Button type="submit" disabled={isLoading} class="w-full" size="lg">
+            {#if isLoading}
+              <span class="spinner"></span>
+              Verifying...
+            {:else}
+              Enter Site ✨
+            {/if}
+          </Button>
+
+          {#if error}
+            <Alert.Root variant="destructive" class="mt-4">
+              <Icon icon="ph:warning-circle-fill" width="20" />
+              <Alert.Description>
+                {error.split(' ').slice(1).join(' ')}
+              </Alert.Description>
+            </Alert.Root>
           {/if}
-        </button>
-
-        {#if error}
-          <p class="error-message"><Icon icon={error.split(' ')[0]} width="24" /> {error.split(' ').slice(1).join(' ')}</p>
-        {/if}
-      </form>
-    </div>
+        </form>
+      </Card.Content>
+    </Card.Root>
   </div>
 </div>
 
@@ -112,7 +127,9 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #faf8f6 0%, #f5e6d3 100%);
+    background:
+      linear-gradient(135deg, rgba(250, 248, 246, 0.9) 0%, rgba(245, 230, 211, 0.85) 100%),
+      url('/images/heart-bg.webp') center/cover fixed;
   }
 
   .passcode-background {
@@ -192,12 +209,8 @@
     }
   }
 
-  .passcode-card {
-    background: rgba(255, 255, 255, 0.95);
+  :global(.passcode-card) {
     backdrop-filter: blur(20px);
-    border-radius: 30px;
-    padding: 3rem 2.5rem;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     text-align: center;
   }
 
@@ -205,6 +218,7 @@
     font-size: 3.5rem;
     margin-bottom: 1rem;
     animation: pulse 2s infinite;
+    color: hsl(var(--primary));
   }
 
   @keyframes pulse {
@@ -220,13 +234,13 @@
   .couple-names {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
-    color: var(--primary);
+    color: hsl(var(--primary));
     margin-bottom: 0.5rem;
     font-weight: 700;
   }
 
   .eyebrow {
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 1.1rem;
     font-weight: 500;
     letter-spacing: 0.5px;
@@ -234,72 +248,21 @@
   }
 
   .welcome-text {
-    color: var(--text-dark);
+    color: hsl(var(--foreground));
     font-size: 1.05rem;
     line-height: 1.6;
     margin-bottom: 1rem;
   }
 
   .help-text {
-    color: var(--text-light);
+    color: hsl(var(--muted-foreground));
     font-size: 0.9rem;
     line-height: 1.6;
     margin-bottom: 2rem;
   }
 
-  .input-group {
-    margin-bottom: 1.5rem;
-  }
-
-  input {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 1.1rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 15px;
-    background: var(--white);
-    transition: var(--transition);
-    font-family: var(--font-body);
-    text-align: center;
-    letter-spacing: 2px;
-  }
-
-  input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.1);
-  }
-
-  input:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .btn-submit {
-    width: 100%;
-    padding: 1.1rem 2rem;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: var(--white);
-    border: none;
-    border-radius: 15px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  .btn-submit:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
-  }
-
-  .btn-submit:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+  .input-wrapper {
+    margin-bottom: 1rem;
   }
 
   .spinner {
@@ -309,19 +272,13 @@
     border-top-color: white;
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
+    display: inline-block;
   }
 
   @keyframes spin {
     to {
       transform: rotate(360deg);
     }
-  }
-
-  .error-message {
-    margin-top: 1rem;
-    color: #d32f2f;
-    font-size: 0.95rem;
-    animation: shake 0.5s;
   }
 
   .shake {
@@ -346,11 +303,7 @@
       padding: 1.5rem;
     }
 
-    .passcode-card {
-      padding: 2.5rem 2rem;
-    }
-
-    h1 {
+    .couple-names {
       font-size: 2rem;
     }
 

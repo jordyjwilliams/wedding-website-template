@@ -19,6 +19,10 @@
   .page {
     opacity: 0;
     transition: opacity 0.6s ease-out;
+    background:
+      linear-gradient(135deg, rgba(250, 248, 246, 0.85) 0%, rgba(245, 230, 211, 0.75) 100%),
+      url('/images/hero-bg.webp') center/cover fixed;
+    min-height: 100vh;
   }
 
   .page.visible {

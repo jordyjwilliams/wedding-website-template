@@ -5,12 +5,35 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 200 45% 33%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 200 25% 55%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 198 50% 65%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 200 20% 85%;
+    --input: 200 20% 85%;
+    --ring: 200 45% 33%;
+    --radius: 0.5rem;
+  }
+
   html {
     @apply scroll-smooth;
   }
 
   body {
-    @apply overflow-x-hidden bg-white font-body text-gray-800 antialiased;
+    @apply overflow-x-hidden bg-background font-body text-foreground antialiased;
   }
 
   h1,
@@ -31,10 +54,94 @@
   .page-transition {
     @apply animate-fade-in;
   }
+
+  /* Glass-morphism for cards over backgrounds */
+  .glass-card {
+    @apply border border-white/20 bg-white/85 shadow-xl backdrop-blur-md;
+  }
+
+  .glass-card-light {
+    @apply border border-white/30 bg-white/75 backdrop-blur-sm;
+  }
+
+  /* Text readability over images */
+  .text-shadow-sm {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Overlay for background images */
+  .bg-overlay {
+    position: relative;
+  }
+
+  .bg-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(248, 250, 251, 0.85) 100%
+    );
+    pointer-events: none;
+  }
+
+  .bg-overlay-dark {
+    position: relative;
+  }
+
+  .bg-overlay-dark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(44, 95, 124, 0.85) 0%, rgba(26, 61, 82, 0.9) 100%);
+    pointer-events: none;
+  }
+
+  /* Soft wedding-themed gradients */
+  .gradient-elegant {
+    background: linear-gradient(
+      135deg,
+      rgba(250, 248, 246, 0.95) 0%,
+      rgba(245, 230, 211, 0.95) 100%
+    );
+  }
+
+  .gradient-ocean {
+    background: linear-gradient(
+      135deg,
+      rgba(200, 225, 237, 0.9) 0%,
+      rgba(107, 163, 191, 0.85) 100%
+    );
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-soft {
+    backdrop-filter: blur(8px);
+  }
+
+  .backdrop-blur-strong {
+    backdrop-filter: blur(20px);
+  }
+
+  /* Scroll-based opacity transitions */
+  .scroll-glass-transition {
+    transition:
+      background-color 0.3s ease,
+      backdrop-filter 0.3s ease;
   }
 }
