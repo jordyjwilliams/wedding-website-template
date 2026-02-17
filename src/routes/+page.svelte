@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { isSessionValid } from '$lib/auth';
+  import Icon from '@iconify/svelte';
 
   let passcode: string = '';
   let error: string = '';

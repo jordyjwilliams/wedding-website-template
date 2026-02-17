@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   interface FormData {
     firstName: string;
@@ -103,7 +104,7 @@
       <h2 class="section-title">RSVP 💌</h2>
       <p class="section-intro">
         Please let us know if you can join us for the weekend. Your response helps us plan rooms,
-        food and all that jazz 🎷🎺
+        food and all that jazz 🎷
       </p>
     </div>
 
@@ -212,7 +213,7 @@
       </form>
 
       <div class="help-card">
-        <div class="help-icon">💬</div>
+        <div class="help-icon"><Icon icon="ph:chat-circle-dots-fill" width="48" /></div>
         <h3>Need Help?</h3>
         <p>
           If you have trouble with the form, feel free to email or text us and we'll add your
@@ -443,6 +444,11 @@
     font-size: 3rem;
     margin-bottom: 1rem;
     animation: bounce 2s infinite;
+    color: var(--accent);
+  }
+
+  .help-icon :global(svg) {
+    filter: drop-shadow(0 4px 8px rgba(122, 184, 212, 0.3));
   }
 
   @keyframes bounce {
