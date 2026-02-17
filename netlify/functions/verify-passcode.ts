@@ -28,10 +28,27 @@ function generateToken(): string {
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
+  // CORS headers for development
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  };
+
+  // Handle OPTIONS preflight request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: '',
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers,
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
@@ -48,6 +65,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       };
       return {
         statusCode: 200,
+        headers,
         body: JSON.stringify(response),
       };
     } else {
@@ -57,6 +75,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       };
       return {
         statusCode: 401,
+        headers,
         body: JSON.stringify(response),
       };
     }
@@ -67,6 +86,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     };
     return {
       statusCode: 400,
+      headers,
       body: JSON.stringify(response),
     };
   }
