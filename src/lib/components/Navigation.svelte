@@ -25,11 +25,11 @@
 
 <nav class="nav" class:scrolled>
   <div class="nav-container">
-    <a href="/home" class="nav-brand"> Jordy & Nicole ✨ </a>
+    <a href="/" class="nav-brand"> Jordy & Nicole ✨ </a>
 
     <!-- Desktop Menu -->
     <div class="desktop-menu">
-      <a href="/home" class="nav-link" class:active={$page.url.pathname === '/home'}> Home </a>
+      <a href="/" class="nav-link" class:active={$page.url.pathname === '/'}> Home </a>
       <a href="/wedding" class="nav-link" class:active={$page.url.pathname === '/wedding'}>
         Wedding
       </a>
@@ -50,9 +50,9 @@
         <Separator class="my-4" />
         <div class="mobile-menu">
           <a
-            href="/home"
+            href="/"
             class="mobile-nav-link"
-            class:active={$page.url.pathname === '/home'}
+            class:active={$page.url.pathname === '/'}
             on:click={closeMobileMenu}
           >
             <Icon icon="ph:house-fill" width="20" />

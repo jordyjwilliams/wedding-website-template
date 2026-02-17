@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Card from '$lib/components/ui/card';
-  import AnimatedIcon from './AnimatedIcon.svelte';
+  import { AnimatedIcon } from '$lib/components';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
 

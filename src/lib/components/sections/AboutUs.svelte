@@ -2,36 +2,27 @@
   import Icon from '@iconify/svelte';
   import { weddingCalendarLink } from '$lib/calendar';
   import * as Card from '$lib/components/ui/card';
-  import WeddingBadge from '$lib/components/ui/badge/WeddingBadge.svelte';
-  import SectionHeader from '$lib/components/SectionHeader.svelte';
-  import AnimatedSection from '$lib/components/AnimatedSection.svelte';
-  import DetailCard from '$lib/components/DetailCard.svelte';
-
-  const loveFacts = [
-    { icon: '☕', label: 'First Date', text: 'Trains, then a trip in a murder van to Iceland 🇮🇸' },
-    { icon: '✈️', label: 'Adventures', text: 'XX countries together. Current location: 🇦🇺' },
-    { icon: '💍', label: 'The Proposal', text: 'Larkya La Pass, Nepal' },
-  ];
+  import { WeddingBadge } from '$lib/components/ui/badge';
+  import { SectionHeader, AnimatedSection, DetailCard } from '$lib/components';
+  import { WEDDING, LOVE_FACTS } from '$lib/constants';
+  import { COPY } from '$lib/content';
 </script>
 
 <AnimatedSection class="about-section" threshold={0.2}>
   <div class="container">
     <div class="about-grid">
       <div class="about-content">
-        <SectionHeader title="Our Story" emoji="💕" />
-        <p class="intro-text">Every love story is beautiful, but we think our's is pretty cute.</p>
+        <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
+        <p class="intro-text">{COPY.about.intro}</p>
         <p class="story-text">
-          Once upon a time, Jordy was sitting on a train from Prague to Kutna Hora when he met
-          Nicole (and Megan!). From a chance conversation, the rest, as they say is history.
+          {COPY.about.story}
         </p>
         <p class="story-text">
-          From a relationship that started with some difficult geographical challenges and a lot of
-          video calls to a "yes" at 5,106m above sea-level at Larkya La Pass, Nepal. ... ... Fill
-          this out properly...
+          {COPY.about.storyExtended}
         </p>
 
         <div class="love-facts">
-          {#each loveFacts as fact}
+          {#each LOVE_FACTS as fact}
             <div class="fact-item">
               <Card.Root class="border-none">
                 <Card.Content class="flex items-start gap-4 p-5">
@@ -64,7 +55,7 @@
         <div class="floating-details">
           <DetailCard
             label="Wedding Date"
-            value="19th - 21st March 2027"
+            value={WEDDING.dates.displayFull}
             href={weddingCalendarLink}
           >
             {#snippet badge()}
@@ -74,7 +65,7 @@
             {/snippet}
           </DetailCard>
 
-          <DetailCard label="Location" value="Seacroft Estate · Great Ocean Road, VIC">
+          <DetailCard label="Location" value={WEDDING.venue.displayShort}>
             {#snippet badge()}
               <WeddingBadge size="icon">📍</WeddingBadge>
             {/snippet}

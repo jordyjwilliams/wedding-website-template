@@ -1,6 +1,8 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import { weddingCalendarLink } from '$lib/calendar';
+  import { WEDDING } from '$lib/constants';
+  import { COPY } from '$lib/content';
 
   function scrollToRSVP(): void {
     window.location.href = '/rsvp';
@@ -22,30 +24,30 @@
   </div>
 
   <div class="hero-content">
-    <p class="eyebrow">✨ We're getting married ✨</p>
+    <p class="eyebrow">{COPY.hero.eyebrow}</p>
     <h1 class="hero-title">
-      <span class="name">Jordy</span>
+      <span class="name">{WEDDING.couple.groom}</span>
       <span class="ampersand">&</span>
-      <span class="name">Nicole</span>
+      <span class="name">{WEDDING.couple.bride}</span>
     </h1>
     <div class="hero-details">
       <a href={weddingCalendarLink} target="_blank" rel="noopener noreferrer" class="date-link">
         <Icon icon="ph:calendar-plus" width="20" inline />
-        19th - 21st March 2027
+        {WEDDING.dates.displayFull}
       </a>
       <p class="location">
         <Icon icon="ph:map-pin-fill" width="20" class="icon" />
-        Seacroft Estate · Great Ocean Road, VIC
+        {WEDDING.venue.displayShort}
       </p>
     </div>
     <button class="btn-hero" on:click={scrollToRSVP}>
-      RSVP Now
-      <span class="arrow">→</span>
+      {COPY.hero.cta}
+      <span class="arrow">{COPY.hero.ctaArrow}</span>
     </button>
   </div>
 
   <div class="scroll-indicator">
-    <span>Scroll to find out more...</span>
+    <span>{COPY.hero.scrollIndicator}</span>
     <div class="mouse">
       <div class="wheel"></div>
     </div>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import GlassCard from '$lib/components/ui/card/GlassCard.svelte';
+  import { GlassCard } from '$lib/components/ui/card';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
 
@@ -12,7 +12,7 @@
     description: string;
     delay?: string;
     isHighlight?: boolean;
-    highlights?: Snippet;
+    _highlights?: Snippet;
   }
 
   let {
@@ -23,7 +23,7 @@
     description,
     delay = '0s',
     isHighlight = false,
-    highlights,
+    _highlights,
     class: className,
     ...restProps
   }: Props = $props();
@@ -47,9 +47,9 @@
       </p>
     {/if}
     <p>{description}</p>
-    {#if highlights}
+    {#if _highlights}
       <div class="timeline-highlights">
-        {@render highlights()}
+        {@render _highlights()}
       </div>
     {/if}
   </GlassCard>

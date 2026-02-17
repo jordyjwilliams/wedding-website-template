@@ -1,5 +1,7 @@
 // Generate calendar invite links
 
+import { WEDDING } from './constants';
+
 export interface CalendarEvent {
   title: string;
   startDate: string; // YYYYMMDD
@@ -20,14 +22,19 @@ export function generateGoogleCalendarLink(event: CalendarEvent): string {
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
+// Helper to convert ISO date (YYYY-MM-DD) to calendar format (YYYYMMDD)
+function toCalendarDate(isoDate: string): string {
+  return isoDate.replace(/-/g, '');
+}
+
 // Wedding event details
 export const WEDDING_EVENT: CalendarEvent = {
-  title: "Jordy & Nicole's Wedding Weekend",
-  startDate: '20270319', // March 19, 2027
-  endDate: '20270321', // March 21, 2027
-  location: 'Seacroft Estate, 4990 Great Ocean Rd, Sugarloaf VIC 3234, Australia',
-  details:
-    'Join us for a three-day celebration at Seacroft Estate on the Great Ocean Road. Full schedule and details at [wedding website]',
+  title: `${WEDDING.couple.full}'s Wedding Weekend`,
+  startDate: toCalendarDate(WEDDING.dates.start),
+  endDate: toCalendarDate(WEDDING.dates.end),
+  location: WEDDING.venue.fullAddress,
+  // TODO: link to website when deployed.
+  details: `Join us for a three-day celebration at ${WEDDING.venue.name} on the ${WEDDING.venue.address}. Full schedule and details at [wedding website]`,
 };
 
 export const weddingCalendarLink = generateGoogleCalendarLink(WEDDING_EVENT);

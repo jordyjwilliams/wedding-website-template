@@ -1,23 +1,24 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
   import { isSessionValid } from '$lib/auth';
   import Icon from '@iconify/svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import * as Card from '$lib/components/ui/card';
   import * as Alert from '$lib/components/ui/alert';
+  import { Hero, AboutUs, PageWrapper } from '$lib/components';
+  import { WEDDING } from '$lib/constants';
+  import { COPY } from '$lib/content';
 
   let passcode: string = '';
   let error: string = '';
   let isLoading: boolean = false;
   let shake: boolean = false;
+  let isAuthenticated: boolean = false;
 
   onMount(() => {
-    // If already authenticated and session valid, redirect to home
-    if (isSessionValid()) {
-      goto('/home');
-    }
+    // Check authentication status
+    isAuthenticated = isSessionValid();
   });
 
   async function handleSubmit(): Promise<void> {
@@ -45,15 +46,15 @@
           token: data.token,
         };
         localStorage.setItem('wedding_auth', JSON.stringify(authData));
-        goto('/home');
+        isAuthenticated = true;
       } else {
-        error = "ph:phone-disconnect-duotone Hmm, that code doesn't look quite right. Try again?";
+        error = COPY.login.errors.incorrect;
         shake = true;
         setTimeout(() => (shake = false), 500);
         passcode = '';
       }
     } catch {
-      error = 'ph:phone-disconnect-duotone  Connection error. Please try again.';
+      error = COPY.login.errors.connection;
       shake = true;
       setTimeout(() => (shake = false), 500);
     } finally {
@@ -62,62 +63,70 @@
   }
 </script>
 
-<div class="passcode-page">
-  <div class="passcode-background">
-    <div class="gradient-orb orb-1"></div>
-    <div class="gradient-orb orb-2"></div>
-    <div class="gradient-orb orb-3"></div>
-  </div>
+{#if isAuthenticated}
+  <!-- Show home content when authenticated -->
+  <PageWrapper backgroundImage="/images/hero-bg.webp">
+    <Hero />
+    <AboutUs />
+  </PageWrapper>
+{:else}
+  <!-- Show login form when not authenticated -->
+  <div class="passcode-page">
+    <div class="passcode-background">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
 
-  <div class="passcode-container" class:shake>
-    <Card.Root class="passcode-card">
-      <Card.Content class="pt-6">
-        <div class="lock-icon"><Icon icon="ph:lock-fill" width="48" /></div>
-        <h1 class="couple-names">Jordy & Nicole</h1>
-        <p class="eyebrow">are getting married!</p>
-        <p class="welcome-text">
-          We're so excited to celebrate with you at Seacroft Estate on the Great Ocean Road. Enter
-          the passcode from your invitation to view all the wedding details.
-        </p>
-        <p class="help-text">
-          This keeps our special day a little more private
-          <Icon icon="ph:key-duotone" width="24" class="inline" />
-        </p>
+    <div class="passcode-container" class:shake>
+      <Card.Root class="passcode-card">
+        <Card.Content class="pt-6">
+          <div class="lock-icon"><Icon icon="ph:lock-fill" width="48" /></div>
+          <h1 class="couple-names">{WEDDING.couple.full}</h1>
+          <p class="eyebrow">{COPY.login.eyebrow}</p>
+          <p class="welcome-text">
+            {COPY.login.welcome}
+          </p>
+          <p class="help-text">
+            {COPY.login.privacy}
+            <Icon icon="ph:key-duotone" width="24" class="inline" />
+          </p>
 
-        <form on:submit|preventDefault={handleSubmit} class="space-y-4">
-          <div class="input-wrapper">
-            <Input
-              type="password"
-              bind:value={passcode}
-              placeholder="Enter passcode"
-              disabled={isLoading}
-              autocomplete="off"
-              class="text-center text-lg tracking-wider"
-            />
-          </div>
+          <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+            <div class="input-wrapper">
+              <Input
+                type="password"
+                bind:value={passcode}
+                placeholder={COPY.login.placeholder}
+                disabled={isLoading}
+                autocomplete="off"
+                class="text-center text-lg tracking-wider"
+              />
+            </div>
 
-          <Button type="submit" disabled={isLoading} class="w-full" size="lg">
-            {#if isLoading}
-              <span class="spinner"></span>
-              Verifying...
-            {:else}
-              Enter Site ✨
+            <Button type="submit" disabled={isLoading} class="w-full" size="lg">
+              {#if isLoading}
+                <span class="spinner"></span>
+                {COPY.login.submitting}
+              {:else}
+                {COPY.login.submit}
+              {/if}
+            </Button>
+
+            {#if error}
+              <Alert.Root variant="destructive" class="mt-4">
+                <Icon icon="ph:warning-circle-fill" width="20" />
+                <Alert.Description>
+                  {error}
+                </Alert.Description>
+              </Alert.Root>
             {/if}
-          </Button>
-
-          {#if error}
-            <Alert.Root variant="destructive" class="mt-4">
-              <Icon icon="ph:warning-circle-fill" width="20" />
-              <Alert.Description>
-                {error.split(' ').slice(1).join(' ')}
-              </Alert.Description>
-            </Alert.Root>
-          {/if}
-        </form>
-      </Card.Content>
-    </Card.Root>
+          </form>
+        </Card.Content>
+      </Card.Root>
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .passcode-page {

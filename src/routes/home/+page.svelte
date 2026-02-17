@@ -1,10 +1,11 @@
 <script lang="ts">
-  import Hero from '$lib/components/sections/Hero.svelte';
-  import AboutUs from '$lib/components/sections/AboutUs.svelte';
-  import PageWrapper from '$lib/components/PageWrapper.svelte';
+  import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
+
+  onMount(() => {
+    // Redirect to new home route
+    goto('/', { replaceState: true });
+  });
 </script>
 
-<PageWrapper backgroundImage="/images/hero-bg.webp">
-  <Hero />
-  <AboutUs />
-</PageWrapper>
+<!-- Redirecting... -->

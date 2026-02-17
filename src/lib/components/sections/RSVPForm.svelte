@@ -5,17 +5,17 @@
   import { Label } from '$lib/components/ui/label';
   import { Textarea } from '$lib/components/ui/textarea';
   import { Separator } from '$lib/components/ui/separator';
-  import WeddingBadge from '$lib/components/ui/badge/WeddingBadge.svelte';
+  import { WeddingBadge } from '$lib/components/ui/badge';
   import * as Alert from '$lib/components/ui/alert';
   import * as Card from '$lib/components/ui/card';
   import * as Select from '$lib/components/ui/select';
-  import SectionHeader from '$lib/components/SectionHeader.svelte';
-  import AnimatedSection from '$lib/components/AnimatedSection.svelte';
-  import AnimatedIcon from '$lib/components/AnimatedIcon.svelte';
+  import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
+  import { WEDDING } from '$lib/constants';
+  import { COPY } from '$lib/content';
 
   const attendanceOptions = [
-    { value: 'yes', label: "Yes, I'll be there! 🎉" },
-    { value: 'no', label: "Sorry, I can't make it 😢" },
+    { value: 'yes', label: COPY.rsvp.form.attending.yes },
+    { value: 'no', label: COPY.rsvp.form.attending.no },
   ];
 
   interface FormData {
@@ -73,7 +73,7 @@
     const value = target.value;
 
     if (value && !validatePhone(value)) {
-      phoneError = 'Please enter a valid mobile number (e.g., +61 4XX XXX XXX or 04XX XXX XXX)';
+      phoneError = COPY.rsvp.form.phone.error;
     } else {
       phoneError = '';
     }
@@ -84,7 +84,7 @@
 
     // Validate phone before submitting
     if (formData.phone && !validatePhone(formData.phone)) {
-      phoneError = 'Please enter a valid mobile number before submitting';
+      phoneError = COPY.rsvp.form.phone.errorRequired;
       document.getElementById('phone')?.focus();
       return;
     }
@@ -100,7 +100,7 @@
     if (!GOOGLE_SCRIPT_URL) {
       console.error('Google Script URL not configured');
       messageType = 'error';
-      formMessage = '❌ Form submission is not yet configured. Please contact us directly to RSVP.';
+      formMessage = `❌ ${COPY.rsvp.error.message}`;
       isLoading = false;
       return;
     }
@@ -133,8 +133,7 @@
 
       // Success
       messageType = 'success';
-      formMessage =
-        "✅ Thank you for your RSVP! We've received your response and can't wait to celebrate with you!";
+      formMessage = `✅ ${COPY.rsvp.success.message}`;
 
       // Reset form
       formData = {
@@ -174,17 +173,13 @@
 
 <AnimatedSection class="rsvp-section">
   <div class="container">
-    <SectionHeader
-      title="RSVP"
-      emoji="💌"
-      intro="Please let us know if you can join us for the weekend. Your response helps us plan rooms, food and all that jazz 🎷"
-    />
+    <SectionHeader title={COPY.rsvp.title} emoji={COPY.rsvp.emoji} intro={COPY.rsvp.intro} />
 
     <div class="rsvp-container">
       <form onsubmit={handleSubmit} class="rsvp-form">
         <div class="form-row">
           <div class="form-group-wrapper">
-            <Label for="firstName">First Name *</Label>
+            <Label for="firstName">{COPY.rsvp.form.name.label} *</Label>
             <Input
               type="text"
               id="firstName"
@@ -209,26 +204,26 @@
         </div>
 
         <div class="form-group-wrapper">
-          <Label for="email">Email *</Label>
+          <Label for="email">{COPY.rsvp.form.email.label} *</Label>
           <Input
             type="email"
             id="email"
             bind:value={formData.email}
             required
             disabled={isLoading}
-            placeholder="your@email.com"
+            placeholder={COPY.rsvp.form.email.placeholder}
           />
         </div>
 
         <div class="form-group-wrapper">
-          <Label for="phone">Phone Number</Label>
+          <Label for="phone">{COPY.rsvp.form.phone.label}</Label>
           <Input
             type="tel"
             id="phone"
             bind:value={formData.phone}
             oninput={handlePhoneInput}
             disabled={isLoading}
-            placeholder="+61 123 456 789 or +1 303 465-7890"
+            placeholder={COPY.rsvp.form.phone.placeholder}
             class={phoneError ? 'border-red-500' : ''}
           />
           {#if phoneError}
@@ -237,7 +232,7 @@
         </div>
 
         <div class="form-group-wrapper">
-          <Label for="attendance">Will you be attending? *</Label>
+          <Label for="attendance">{COPY.rsvp.form.attending.label} *</Label>
           <Select.Root
             type="single"
             value={selectedAttendance}
@@ -259,7 +254,7 @@
 
         {#if showGuestCount}
           <div class="form-group-wrapper guest-count-animate">
-            <Label for="guestCount">Number of Guests (including yourself) *</Label>
+            <Label for="guestCount">{COPY.rsvp.form.guests.label} *</Label>
             <Input
               type="number"
               id="guestCount"
@@ -275,24 +270,24 @@
 
         {#if showGuestCount}
           <div class="form-group-wrapper">
-            <Label for="dietaryRestrictions">Dietary Requirements or Allergies</Label>
+            <Label for="dietaryRestrictions">{COPY.rsvp.form.dietary.label}</Label>
             <Textarea
               id="dietaryRestrictions"
               bind:value={formData.dietaryRestrictions}
               rows={3}
-              placeholder="Let us know if you have any dietary needs or allergies we should be aware of 🌱🥩"
+              placeholder={COPY.rsvp.form.dietary.placeholder}
               disabled={isLoading}
             />
           </div>
         {/if}
 
         <div class="form-group-wrapper">
-          <Label for="message">Message to Us (Optional)</Label>
+          <Label for="message">{COPY.rsvp.form.message.label}</Label>
           <Textarea
             id="message"
             bind:value={formData.message}
             rows={4}
-            placeholder="Any special requests or just say hi! 💕"
+            placeholder={COPY.rsvp.form.message.placeholder}
             disabled={isLoading}
           />
         </div>
@@ -300,9 +295,9 @@
         <Button type="submit" disabled={isLoading} class="mt-4 w-full" size="lg">
           {#if isLoading}
             <span class="spinner"></span>
-            Sending...
+            {COPY.rsvp.form.submitting}
           {:else}
-            Submit RSVP ✨
+            {COPY.rsvp.form.submit}
           {/if}
         </Button>
 
@@ -311,13 +306,13 @@
             {#if messageType === 'success'}
               <Alert.Root variant="default" class="border-green-200 bg-green-50">
                 <Icon icon="ph:check-circle-fill" width="20" class="text-green-600" />
-                <Alert.Title>Success!</Alert.Title>
+                <Alert.Title>{COPY.rsvp.success.title}</Alert.Title>
                 <Alert.Description>{formMessage}</Alert.Description>
               </Alert.Root>
             {:else}
               <Alert.Root variant="destructive">
                 <Icon icon="ph:warning-circle-fill" width="20" />
-                <Alert.Title>Error</Alert.Title>
+                <Alert.Title>{COPY.rsvp.error.title}</Alert.Title>
                 <Alert.Description>{formMessage}</Alert.Description>
               </Alert.Root>
             {/if}
@@ -331,24 +326,26 @@
             <div class="mb-4">
               <AnimatedIcon icon="ph:chat-circle-dots-fill" size={48} color="hsl(var(--accent))" />
             </div>
-            <Card.Title>Need Help?</Card.Title>
+            <Card.Title>{COPY.rsvp.contact.title}</Card.Title>
           </Card.Header>
           <Card.Content class="text-center">
             <p class="mb-6 text-muted-foreground">
-              If you have trouble with the form, feel free to email or text us and we'll add your
-              details manually.
+              {COPY.rsvp.contact.description}
             </p>
             <div class="space-y-4">
               <div class="flex flex-col items-center space-y-3">
-                <WeddingBadge size="event">👰 Nicole</WeddingBadge>
+                <WeddingBadge size="event">{COPY.rsvp.contact.bride}</WeddingBadge>
                 <div class="flex w-full flex-col gap-2 text-sm">
-                  <a href="mailto:nfrances369@gmail.com" class="contact-link">
+                  <a href="mailto:{WEDDING.contact.bride.email}" class="contact-link">
                     <Icon icon="ph:envelope-simple-fill" width="16" />
-                    nfrances369@gmail.com
+                    {WEDDING.contact.bride.email}
                   </a>
-                  <a href="tel:+61403932003" class="contact-link">
+                  <a
+                    href="tel:{WEDDING.contact.bride.phone.replace(/\s/g, '')}"
+                    class="contact-link"
+                  >
                     <Icon icon="ph:phone-fill" width="16" />
-                    +61 403 932 003
+                    {WEDDING.contact.bride.phone}
                   </a>
                 </div>
               </div>
@@ -356,15 +353,18 @@
               <Separator />
 
               <div class="flex flex-col items-center space-y-3">
-                <WeddingBadge size="event">🤵 Jordy</WeddingBadge>
+                <WeddingBadge size="event">{COPY.rsvp.contact.groom}</WeddingBadge>
                 <div class="flex w-full flex-col gap-2 text-sm">
-                  <a href="mailto:jordy_williams@hotmail.co.uk" class="contact-link">
+                  <a href="mailto:{WEDDING.contact.groom.email}" class="contact-link">
                     <Icon icon="ph:envelope-simple-fill" width="16" />
-                    jordy_williams@hotmail.co.uk
+                    {WEDDING.contact.groom.email}
                   </a>
-                  <a href="tel:+61403765534" class="contact-link">
+                  <a
+                    href="tel:{WEDDING.contact.groom.phone.replace(/\s/g, '')}"
+                    class="contact-link"
+                  >
                     <Icon icon="ph:phone-fill" width="16" />
-                    +61 403 765 534
+                    {WEDDING.contact.groom.phone}
                   </a>
                 </div>
               </div>

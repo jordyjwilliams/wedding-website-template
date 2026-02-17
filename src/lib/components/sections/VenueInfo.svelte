@@ -1,64 +1,59 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button';
-  import SectionHeader from '$lib/components/SectionHeader.svelte';
-  import AnimatedSection from '$lib/components/AnimatedSection.svelte';
-  import AnimatedGrid from '$lib/components/AnimatedGrid.svelte';
-  import IconCard from '$lib/components/IconCard.svelte';
+  import { SectionHeader, AnimatedSection, AnimatedGrid, IconCard } from '$lib/components';
+  import { WEDDING } from '$lib/constants';
+  import { COPY } from '$lib/content';
 </script>
 
 <AnimatedSection class="venue-section">
   <div class="container">
-    <SectionHeader
-      title="Seacroft Estate"
-      emoji="🐠🏖️🏛️"
-      intro="A historic estate on 25 acres with breathtaking 180° views over the iconic Great Ocean Road."
-    />
+    <SectionHeader title={COPY.venue.title} emoji={COPY.venue.emoji} intro={COPY.venue.intro} />
 
     <AnimatedGrid columns="repeat(auto-fit, minmax(260px, 1fr))" itemDelay={0.2}>
       <IconCard
         icon="ph:church"
         iconSize={64}
         iconAnimation="float"
-        title="TODO: More details"
-        description="Inside: A beautifully restored 1920's chapel with stunning stained glass windows, original wood panelling, and ocean views through unique rectangular windows."
+        title={COPY.venue.features.chapel.title}
+        description={COPY.venue.features.chapel.description}
       />
       <IconCard
         icon="ph:waves"
         iconSize={64}
         iconAnimation="float"
         iconDelay="0.5s"
-        title="Ocean Views"
-        description="Outside: Set on 25 acres with 180-degree ocean views overlooking the Great Ocean Road. Perfect for photos and unforgettable sunsets."
+        title={COPY.venue.features.views.title}
+        description={COPY.venue.features.views.description}
       />
       <IconCard
         icon="ph:umbrella-simple-fill"
         iconSize={64}
         iconAnimation="float"
         iconDelay="1s"
-        title="(Private-ish) Beach"
-        description="Beach: Access to a secluded beach across the road. Perfect for morning swims, sunset walks, or just relaxing by the water."
+        title={COPY.venue.features.beach.title}
+        description={COPY.venue.features.beach.description}
       />
       <IconCard
         icon="mdi:barley"
         iconSize={64}
         iconAnimation="float"
         iconDelay="1.5s"
-        title="Beautiful Grounds"
-        description="Stunning lawns and gardens, historic buildings, and even some friendly cows to keep you company during your stay."
+        title={COPY.venue.features.grounds.title}
+        description={COPY.venue.features.grounds.description}
       />
     </AnimatedGrid>
 
     <div class="venue-cta">
-      <p class="cta-text">Want to learn more about this amazing venue?</p>
+      <p class="cta-text">{COPY.venue.ctaText}</p>
       <div class="cta-button">
         <Button
-          href="https://www.seacroft.com/weddings/"
+          href={WEDDING.venue.website}
           target="_blank"
           rel="noopener noreferrer"
           size="lg"
           class="rounded-full"
         >
-          Explore Seacroft Estate
+          {COPY.venue.ctaButton}
           <span class="arrow">→</span>
         </Button>
       </div>

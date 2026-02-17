@@ -1,6 +1,5 @@
 <script lang="ts">
-  import RSVPForm from '$lib/components/sections/RSVPForm.svelte';
-  import PageWrapper from '$lib/components/PageWrapper.svelte';
+  import { RSVPForm, PageWrapper } from '$lib/components';
 </script>
 
 <PageWrapper>

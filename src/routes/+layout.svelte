@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import Navigation from '$lib/components/Navigation.svelte';
+  import { Navigation } from '$lib/components';
   import { isSessionValid } from '$lib/auth';
 
   let isAuthenticated: boolean = false;
