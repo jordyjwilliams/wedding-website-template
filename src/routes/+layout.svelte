@@ -5,9 +5,10 @@
   import { page } from '$app/stores';
   import { Navigation } from '$lib/components';
   import { isSessionValid } from '$lib/auth';
+  import { ModeWatcher } from 'mode-watcher';
 
-  let isAuthenticated: boolean = false;
-  let isLoading: boolean = true;
+  let isAuthenticated = $state(false);
+  let isLoading = $state(true);
 
   onMount(() => {
     // Check if user is authenticated with valid session
@@ -19,6 +20,7 @@
       goto('/');
     }
   });
+  let { children } = $props();
 </script>
 
 <svelte:head>
@@ -35,6 +37,7 @@
   {/if}
 
   <main class="min-h-screen">
-    <slot />
+    <ModeWatcher />
+    {@render children?.()}
   </main>
 {/if}

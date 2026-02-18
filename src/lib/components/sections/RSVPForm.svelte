@@ -176,7 +176,7 @@
     <SectionHeader title={COPY.rsvp.title} emoji={COPY.rsvp.emoji} intro={COPY.rsvp.intro} />
 
     <div class="rsvp-container">
-      <form onsubmit={handleSubmit} class="rsvp-form">
+      <form onsubmit={handleSubmit} class="glass-card-form rsvp-form p-12">
         <div class="form-row">
           <div class="form-group-wrapper">
             <Label for="firstName">{COPY.rsvp.form.name.label} *</Label>
@@ -304,8 +304,15 @@
         {#if formMessage}
           <div class="mt-4">
             {#if messageType === 'success'}
-              <Alert.Root variant="default" class="border-green-200 bg-green-50">
-                <Icon icon="ph:check-circle-fill" width="20" class="text-green-600" />
+              <Alert.Root
+                variant="default"
+                class="border-green-200 bg-green-50 dark:border-green-900/50 dark:bg-green-950/50"
+              >
+                <Icon
+                  icon="ph:check-circle-fill"
+                  width="20"
+                  class="text-green-600 dark:text-green-400"
+                />
                 <Alert.Title>{COPY.rsvp.success.title}</Alert.Title>
                 <Alert.Description>{formMessage}</Alert.Description>
               </Alert.Root>
@@ -379,10 +386,6 @@
 <style>
   :global(.rsvp-section) {
     padding: 6rem 0;
-    /* Background with subtle overlay */
-    background:
-      linear-gradient(135deg, rgba(248, 250, 251, 0.95) 0%, rgba(237, 242, 244, 0.92) 100%),
-      url('/images/rsvp-bg.webp') center/cover fixed;
     min-height: 100vh;
   }
 
@@ -395,14 +398,6 @@
   }
 
   .rsvp-form {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    padding: 3rem;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow:
-      0 20px 60px rgba(0, 0, 0, 0.1),
-      0 0 0 1px rgba(255, 255, 255, 0.3);
     animation: slideInLeft 0.8s ease-out;
   }
 
@@ -447,8 +442,8 @@
   .spinner {
     width: 18px;
     height: 18px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
+    border: 2px solid hsl(var(--primary-foreground) / 0.3);
+    border-top-color: hsl(var(--primary-foreground));
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
   }

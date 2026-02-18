@@ -36,7 +36,7 @@
 
   .section-intro {
     font-size: 1.2rem;
-    color: var(--text-light);
+    color: hsl(var(--text-light));
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.6;

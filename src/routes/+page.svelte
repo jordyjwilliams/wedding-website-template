@@ -141,6 +141,12 @@
       url('/images/heart-bg.webp') center/cover fixed;
   }
 
+  :global(.dark) .passcode-container {
+    background:
+      linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.88) 100%),
+      url('/images/heart-bg.webp') center/cover fixed;
+  }
+
   .passcode-background {
     position: absolute;
     inset: 0;
@@ -153,6 +159,11 @@
     filter: blur(80px);
     opacity: 0.4;
     animation: float 20s infinite ease-in-out;
+  }
+
+  :global(.dark) .gradient-orb {
+    opacity: 0.25;
+    filter: blur(100px);
   }
 
   .orb-1 {

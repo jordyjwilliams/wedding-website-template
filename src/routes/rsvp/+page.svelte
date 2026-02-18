@@ -2,6 +2,6 @@
   import { RSVPForm, PageWrapper } from '$lib/components';
 </script>
 
-<PageWrapper>
+<PageWrapper backgroundImage="/images/rsvp-bg.webp">
   <RSVPForm />
 </PageWrapper>

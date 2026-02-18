@@ -62,13 +62,13 @@
 
   .detail-label {
     font-size: 0.85rem;
-    color: var(--text-light);
+    color: hsl(var(--text-light));
     margin-bottom: 0.2rem;
   }
 
   .detail-value {
     font-weight: 600;
-    color: var(--text-dark);
+    color: hsl(var(--text-dark));
     font-size: 1rem;
   }
 

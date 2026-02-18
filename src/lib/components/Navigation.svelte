@@ -5,6 +5,9 @@
   import { Button } from '$lib/components/ui/button';
   import { Separator } from '$lib/components/ui/separator';
   import Icon from '@iconify/svelte';
+  import SunIcon from '@lucide/svelte/icons/sun';
+  import MoonIcon from '@lucide/svelte/icons/moon';
+  import { toggleMode } from 'mode-watcher';
 
   let mobileMenuOpen: boolean = false;
   let scrolled: boolean = false;
@@ -25,6 +28,15 @@
 
 <nav class="nav" class:scrolled>
   <div class="nav-container">
+    <Button onclick={toggleMode} variant="outline" size="icon">
+      <SunIcon
+        class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
+      />
+      <MoonIcon
+        class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
+      />
+      <span class="sr-only">Toggle theme</span>
+    </Button>
     <a href="/" class="nav-brand"> Jordy & Nicole ✨ </a>
 
     <!-- Desktop Menu -->
@@ -89,14 +101,22 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.8);
+    background: hsl(var(--background) / 0.8);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
   }
 
+  :global(.dark) .nav {
+    border-bottom: 1px solid hsl(var(--border) / 0.3);
+  }
+
   .nav.scrolled {
-    background: rgba(255, 255, 255, 0.95);
+    background: hsl(var(--background) / 0.95);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  :global(.dark) .nav.scrolled {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
   }
 
   .nav-container {

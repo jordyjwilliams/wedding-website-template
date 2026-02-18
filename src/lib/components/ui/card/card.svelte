@@ -14,7 +14,7 @@
 <div
   bind:this={ref}
   class={cn(
-    'text-card-foreground rounded-xl border border-white/30 bg-white/75 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/80 hover:shadow-2xl',
+    'text-card-foreground border-border bg-card/85 hover:bg-card/90 rounded-xl border shadow-lg backdrop-blur-md transition-all duration-300 hover:shadow-2xl',
     className
   )}
   {...restProps}

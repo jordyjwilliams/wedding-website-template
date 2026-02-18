@@ -46,7 +46,8 @@
               alt="Engagement at Larkya La Pass"
               class="main-photo"
             />
-            <Card.Footer class="font-heading p-6 text-center text-2xl font-semibold text-gray-900"
+            <Card.Footer
+              class="font-heading text-card-foreground p-6 text-center text-2xl font-semibold"
               >She Said Yes...</Card.Footer
             >
           </Card.Root>
@@ -105,7 +106,7 @@
   .intro-text {
     font-family: var(--font-heading);
     font-size: 1.8rem;
-    color: var(--primary-dark);
+    color: hsl(var(--primary-dark));
     margin-bottom: 1.5rem;
     line-height: 1.4;
     font-style: italic;
@@ -114,7 +115,7 @@
   .story-text {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: var(--text-light);
+    color: hsl(var(--text-light));
     margin-bottom: 1.5rem;
   }
 
@@ -152,7 +153,7 @@
   .photo-card {
     width: 100%;
     max-width: 400px;
-    border-radius: 30px;
+    border-radius: calc(var(--radius) * 6);
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     animation: fadeInScale 0.8s ease-out 0.3s both;

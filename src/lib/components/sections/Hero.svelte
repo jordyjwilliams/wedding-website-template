@@ -88,6 +88,11 @@
     animation: float 25s infinite ease-in-out;
   }
 
+  :global(.dark) .gradient-shape {
+    opacity: 0.2;
+    filter: blur(120px);
+  }
+
   .shape-1 {
     width: 600px;
     height: 600px;
@@ -208,7 +213,7 @@
     font-size: clamp(3rem, 10vw, 6rem);
     margin-bottom: 2rem;
     line-height: 1.1;
-    color: var(--text-dark);
+    color: hsl(var(--text-dark));
   }
 
   .name {
@@ -302,7 +307,7 @@
 
   .location {
     font-size: 1.2rem;
-    color: var(--text-light);
+    color: hsl(var(--text-light));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -310,14 +315,14 @@
   }
 
   .location :global(svg) {
-    color: var(--primary);
+    color: hsl(var(--primary));
     filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
   }
 
   .btn-hero {
     padding: 1.2rem 3rem;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: var(--white);
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
+    color: hsl(var(--white));
     border: none;
     border-radius: 50px;
     font-size: 1.1rem;

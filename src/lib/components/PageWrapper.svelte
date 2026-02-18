@@ -67,7 +67,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(248, 243, 236, 1);
+    background: hsl(var(--background) / 0.7);
     opacity: var(--overlay-opacity);
     transition: opacity 1.2s ease-out;
     pointer-events: none;

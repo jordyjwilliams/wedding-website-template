@@ -78,23 +78,23 @@
     top: 0;
     width: 60px;
     height: 60px;
-    background: var(--white);
-    border: 3px solid var(--primary);
+    background: hsl(var(--white));
+    border: 3px solid hsl(var(--primary));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: hsl(var(--primary));
     box-shadow: 0 5px 20px var(--shadow);
     z-index: 10;
   }
 
   .timeline-icon.highlight {
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border-color: var(--primary-dark);
-    color: var(--white);
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
+    border-color: hsl(var(--primary-dark));
+    color: hsl(var(--white));
     animation: pulse 2s infinite;
   }
 
@@ -110,7 +110,7 @@
 
   h3 {
     font-size: 1.8rem;
-    color: var(--text-dark);
+    color: hsl(var(--text-dark));
     margin-bottom: 0.5rem;
   }
 

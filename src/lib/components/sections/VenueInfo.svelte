@@ -84,7 +84,7 @@
     text-align: center;
     padding: 3rem 2rem;
     background: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--background)));
-    border-radius: 30px;
+    border-radius: calc(var(--radius) * 6);
     margin-top: 3rem;
   }
 

@@ -16,7 +16,8 @@
     "update-deps": "npm update && npm audit fix"
   },
   "devDependencies": {
-    "@lucide/svelte": "^0.574.0",
+    "@internationalized/date": "^3.11.0",
+    "@lucide/svelte": "^0.561.0",
     "@netlify/functions": "^5.1.2",
     "@sveltejs/adapter-netlify": "^6.0.0",
     "@sveltejs/kit": "^2.52.0",
@@ -42,7 +43,8 @@
     "vite": "^6.4.1"
   },
   "dependencies": {
-    "@iconify/svelte": "^5.2.1"
+    "@iconify/svelte": "^5.2.1",
+    "mode-watcher": "^1.1.0"
   },
   "overrides": {
     "ajv": "^8.18.0",
