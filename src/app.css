@@ -4,6 +4,7 @@
 
 :root {
   --background: 0 0% 100%;
+  --nav-background: 222.2 84% 4.9%;
   --font-family: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
   --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
   --foreground: 222.2 84% 4.9%;
@@ -33,6 +34,7 @@
 
 .dark {
   --background: 222.2 84% 4.9%;
+  --nav-background: 220 30% 98%;
   --foreground: 210 40% 98%;
   --card: 217.2 32.6% 17.5%;
   --card-foreground: 210 40% 98%;
