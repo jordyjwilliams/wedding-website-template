@@ -81,12 +81,7 @@
     opacity: 0.3;
     animation: float 25s infinite ease-in-out;
   }
-
-  :global(.dark) .gradient-shape {
-    opacity: 0.2;
-    filter: blur(120px);
-  }
-
+  
   .shape-1 {
     width: 600px;
     height: 600px;

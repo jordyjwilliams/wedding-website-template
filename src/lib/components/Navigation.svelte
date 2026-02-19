@@ -119,14 +119,6 @@
     transition: all 0.3s ease;
   }
 
-  :global(.dark) .nav {
-    border-bottom: 1px solid hsl(var(--border) / 0.3);
-  }
-
-  :global(.dark) .nav.scrolled {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
-  }
-
   .nav-container {
     max-width: 1200px;
     margin: 0 auto;
