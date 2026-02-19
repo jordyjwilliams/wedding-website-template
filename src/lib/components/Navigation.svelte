@@ -120,6 +120,7 @@
   }
 
   .nav-container {
+    color: hsl(var(--background));
     max-width: 1200px;
     margin: 0 auto;
     padding: 1.2rem 2rem;
@@ -132,7 +133,6 @@
     font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 600;
-    color: hsl(var(--background));
     text-decoration: none;
     letter-spacing: 0.5px;
     transition: all 0.2s ease;
@@ -149,7 +149,6 @@
   }
 
   .nav-link {
-    color: hsl(var(--background));
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
@@ -195,7 +194,6 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem;
-    color: hsl(var(--background));
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
