@@ -109,18 +109,17 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: hsl(var(--background) / 0.8);
+    background: hsl(var(--nav-background) / 0.8);
+  }
+  
+  .nav.scrolled {
+    background: hsl(var(--nav-background) / 0.6);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
   }
 
   :global(.dark) .nav {
     border-bottom: 1px solid hsl(var(--border) / 0.3);
-  }
-
-  .nav.scrolled {
-    background: hsl(var(--background) / 0.95);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   }
 
   :global(.dark) .nav.scrolled {
