@@ -149,7 +149,7 @@
   }
 
   .nav-link {
-    color: hsl(var(--foreground));
+    color: hsl(var(--background));
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
@@ -166,7 +166,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: hsl(var(--primary));
+    background: hsl(var(--secondary));
     transition: width 0.3s ease;
   }
 
@@ -176,11 +176,11 @@
   }
 
   .nav-link:hover {
-    color: hsl(var(--primary));
+    color: hsl(var(--secondary));
   }
 
   .nav-link.active {
-    color: hsl(var(--primary));
+    color: hsl(var(--secondary));
   }
 
   .mobile-menu {
@@ -195,7 +195,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem;
-    color: hsl(var(--foreground));
+    color: hsl(var(--background));
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
@@ -204,13 +204,13 @@
   }
 
   .mobile-nav-link:hover {
-    background: hsl(var(--muted));
-    color: hsl(var(--primary));
+    background: hsl(var(--muted-foreground));
+    color: hsl(var(--secondary));
   }
 
   .mobile-nav-link.active {
-    background: hsl(var(--primary) / 0.1);
-    color: hsl(var(--primary));
+    background: hsl(var(--muted-foreground) / 0.1);
+    color: hsl(var(--secondary));
   }
 
   @media (max-width: 768px) {
