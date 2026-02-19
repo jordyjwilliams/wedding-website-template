@@ -1,6 +1,7 @@
 // Generate calendar invite links
 
-import { WEDDING } from './constants';
+import { WEDDING } from '$lib/constants';
+import { COPY } from '$lib/content';
 
 export interface CalendarEvent {
   title: string;
@@ -34,7 +35,7 @@ export const WEDDING_EVENT: CalendarEvent = {
   endDate: toCalendarDate(WEDDING.dates.end),
   location: WEDDING.venue.fullAddress,
   // TODO: link to website when deployed.
-  details: `Join us for a three-day celebration at ${WEDDING.venue.name} on the ${WEDDING.venue.address}. Full schedule and details at [wedding website]`,
+  details: `${COPY.meta.description}`,
 };
 
 export const weddingCalendarLink = generateGoogleCalendarLink(WEDDING_EVENT);

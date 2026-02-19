@@ -7,6 +7,7 @@
   import { Navigation } from '$lib/components';
   import { isSessionValid } from '$lib/auth';
   import { ModeWatcher } from 'mode-watcher';
+  import { COPY } from '$lib/content';
 
   let isAuthenticated = $state(false);
   let isLoading = $state(true);
@@ -25,10 +26,10 @@
 </script>
 
 <svelte:head>
-  <title>Jordy & Nicole — Wedding</title>
+  <title>{COPY.meta.title}</title>
   <meta
     name="description"
-    content="Join us for a three-day wedding weekend at Seacroft Estate on the Great Ocean Road"
+    content={COPY.meta.description}
   />
 </svelte:head>
 
