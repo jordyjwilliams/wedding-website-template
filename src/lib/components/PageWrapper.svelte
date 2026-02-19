@@ -8,9 +8,18 @@
   }
 
   let { backgroundImage, backgroundColor, children }: Props = $props();
+  // Scroll effect reduce glassy effect/opacity of background overlay
+  // to a min value, restores after timeout
+  const initialOverlayOpacity: number = 0.85;
+  const minOverlayOpacity: number = 0.6;
+  const restoreDelayMs: number = 60; // Delay before restoring opacity
 
+  // How much the opacity reduces at max scroll
+  const scrollIntensity: number = 0.45;
   let visible = $state(false);
-  let overlayOpacity = $state(0.85); // Default: 85%, reduces to 40% on scroll
+
+  // Default: 85%, reduces to 40% on scroll
+  let overlayOpacity = $state(initialOverlayOpacity);
   let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
 
   setContext('scrollOpacity', {
@@ -25,13 +34,16 @@
     const handleScroll = () => {
       const scrollPercent =
         window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      overlayOpacity = Math.max(0.4, 0.85 - scrollPercent * 0.45);
+      overlayOpacity = Math.max(
+        minOverlayOpacity,
+        initialOverlayOpacity - scrollPercent * scrollIntensity
+      );
 
       if (scrollTimeout) clearTimeout(scrollTimeout);
 
       scrollTimeout = setTimeout(() => {
-        overlayOpacity = 0.85;
-      }, 800);
+        overlayOpacity = initialOverlayOpacity;
+      }, restoreDelayMs);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -69,7 +81,7 @@
     inset: 0;
     background: hsl(var(--background) / 0.7);
     opacity: var(--overlay-opacity);
-    transition: opacity 1.2s ease-out;
+    transition: opacity 0.6s ease-out;
     pointer-events: none;
     z-index: 0;
   }
