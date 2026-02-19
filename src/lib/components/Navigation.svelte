@@ -109,11 +109,12 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: hsl(var(--nav-background) / 0.8);
+    /* Invert navbar background */
+    background: hsl(var(--foreground) / 0.8);
   }
   
   .nav.scrolled {
-    background: hsl(var(--nav-background) / 0.6);
+    background: hsl(var(--foreground) / 0.6);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
   }
