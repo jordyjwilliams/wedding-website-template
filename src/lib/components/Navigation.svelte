@@ -132,7 +132,7 @@
     font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 600;
-    color: hsl(var(--primary));
+    color: hsl(var(--background));
     text-decoration: none;
     letter-spacing: 0.5px;
     transition: all 0.2s ease;
