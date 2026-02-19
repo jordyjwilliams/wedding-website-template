@@ -9,6 +9,7 @@
   import SunIcon from '@lucide/svelte/icons/sun';
   import MoonIcon from '@lucide/svelte/icons/moon';
   import { toggleMode } from 'mode-watcher';
+  import { COPY } from '$lib/content';
 
   let mobileMenuOpen: boolean = false;
   let scrolled: boolean = false;
@@ -38,20 +39,20 @@
       />
       <span class="sr-only">Toggle theme</span>
     </Button>
-    <a href={resolve('/')} class="nav-brand"> Jordy & Nicole ✨ </a>
+    <a href={resolve('/')} class="nav-brand" > {COPY.nav.brand} </a>
 
     <!-- Desktop Menu -->
     <div class="desktop-menu">
-      <a href={resolve('/')} class="nav-link" class:active={$page.url.pathname === '/'}> Home </a>
+      <a href={resolve('/')} class="nav-link" class:active={$page.url.pathname === '/'}> {COPY.nav.home} </a>
       <a
         href={resolve('/wedding')}
         class="nav-link"
         class:active={$page.url.pathname === '/wedding'}
       >
-        Wedding
+        {COPY.nav.wedding}
       </a>
       <a href={resolve('/rsvp')} class="nav-link" class:active={$page.url.pathname === '/rsvp'}>
-        RSVP
+        {COPY.nav.rsvp}
       </a>
     </div>
 

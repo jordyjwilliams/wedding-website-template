@@ -12,7 +12,7 @@ export const COPY = {
 
   // Navigation
   nav: {
-    brand: `${WEDDING.couple.full} ✨`,
+    brand: "J & N",
     home: 'Home',
     wedding: 'Wedding',
     rsvp: 'RSVP',
