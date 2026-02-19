@@ -2,6 +2,7 @@
   import '../app.css';
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
   import { page } from '$app/stores';
   import { Navigation } from '$lib/components';
   import { isSessionValid } from '$lib/auth';
@@ -17,7 +18,7 @@
 
     // Redirect to passcode page if not authenticated and not already there
     if (!isAuthenticated && $page.url.pathname !== '/') {
-      goto('/');
+      goto(resolve('/'));
     }
   });
   let { children } = $props();

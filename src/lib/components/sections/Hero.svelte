@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Icon from '@iconify/svelte';
   import { weddingCalendarLink } from '$lib/calendar';
   import { WEDDING } from '$lib/constants';
@@ -15,7 +16,7 @@
     <div class="gradient-shape shape-2"></div>
     <div class="gradient-shape shape-3"></div>
     <div class="floating-hearts">
-      {#each Array(6) as _unused, i}
+      {#each Array(6) as _unused, i (i)}
         <span class="heart" style="--delay: {i * 1.5}s; --duration: {12 + i * 3}s">
           <Icon icon="ph:heart-fill" width="24" />
         </span>
@@ -31,7 +32,12 @@
       <span class="name">{WEDDING.couple.bride}</span>
     </h1>
     <div class="hero-details">
-      <a href={weddingCalendarLink} target="_blank" rel="noopener noreferrer" class="date-link">
+      <a
+        href={resolve(weddingCalendarLink)}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="date-link"
+      >
         <Icon icon="ph:calendar-plus" width="20" inline />
         {WEDDING.dates.displayFull}
       </a>

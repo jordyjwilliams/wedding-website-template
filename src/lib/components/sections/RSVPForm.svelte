@@ -245,7 +245,7 @@
               {selectedAttendanceLabel}
             </Select.Trigger>
             <Select.Content>
-              {#each attendanceOptions as option}
+              {#each attendanceOptions as option (option.value)}
                 <Select.Item value={option.value} label={option.label} />
               {/each}
             </Select.Content>

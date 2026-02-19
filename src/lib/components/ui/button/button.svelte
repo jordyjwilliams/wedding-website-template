@@ -38,6 +38,7 @@
 </script>
 
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { cn } from '$lib/utils.js';
 
   let {
@@ -53,7 +54,12 @@
 </script>
 
 {#if href}
-  <a bind:this={ref} class={cn(buttonVariants({ variant, size }), className)} {href} {...restProps}>
+  <a
+    bind:this={ref}
+    class={cn(buttonVariants({ variant, size }), className)}
+    href={resolve(href)}
+    {...restProps}
+  >
     {@render children?.()}
   </a>
 {:else}

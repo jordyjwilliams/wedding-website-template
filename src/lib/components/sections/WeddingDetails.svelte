@@ -21,7 +21,7 @@
     />
 
     <div class="timeline">
-      {#each TIMELINE_EVENTS as event, index}
+      {#each TIMELINE_EVENTS as event, index (event.dayNumber)}
         <TimelineItem
           dayNumber={event.dayNumber}
           title={event.title}
@@ -33,7 +33,7 @@
         >
           {#if event.isHighlight}
             {#snippet _highlights()}
-              {#each CEREMONY_TIMELINE as ceremony}
+              {#each CEREMONY_TIMELINE as ceremony (ceremony.time)}
                 <WeddingBadge icon={ceremony.icon} size="event">
                   {ceremony.time} — {ceremony.event}
                 </WeddingBadge>

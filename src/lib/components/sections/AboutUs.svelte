@@ -22,7 +22,7 @@
         </p>
 
         <div class="love-facts">
-          {#each LOVE_FACTS as fact}
+          {#each LOVE_FACTS as fact (fact.label)}
             <div class="fact-item">
               <Card.Root class="border-none">
                 <Card.Content class="flex items-start gap-4 p-5">

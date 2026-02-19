@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import * as Sheet from '$lib/components/ui/sheet';
@@ -37,15 +38,21 @@
       />
       <span class="sr-only">Toggle theme</span>
     </Button>
-    <a href="/" class="nav-brand"> Jordy & Nicole ✨ </a>
+    <a href={resolve('/')} class="nav-brand"> Jordy & Nicole ✨ </a>
 
     <!-- Desktop Menu -->
     <div class="desktop-menu">
-      <a href="/" class="nav-link" class:active={$page.url.pathname === '/'}> Home </a>
-      <a href="/wedding" class="nav-link" class:active={$page.url.pathname === '/wedding'}>
+      <a href={resolve('/')} class="nav-link" class:active={$page.url.pathname === '/'}> Home </a>
+      <a
+        href={resolve('/wedding')}
+        class="nav-link"
+        class:active={$page.url.pathname === '/wedding'}
+      >
         Wedding
       </a>
-      <a href="/rsvp" class="nav-link" class:active={$page.url.pathname === '/rsvp'}> RSVP </a>
+      <a href={resolve('/rsvp')} class="nav-link" class:active={$page.url.pathname === '/rsvp'}>
+        RSVP
+      </a>
     </div>
 
     <!-- Mobile Menu Toggle -->
@@ -62,7 +69,7 @@
         <Separator class="my-4" />
         <div class="mobile-menu">
           <a
-            href="/"
+            href={resolve('/')}
             class="mobile-nav-link"
             class:active={$page.url.pathname === '/'}
             on:click={closeMobileMenu}
@@ -71,7 +78,7 @@
             Home
           </a>
           <a
-            href="/wedding"
+            href={resolve('/wedding')}
             class="mobile-nav-link"
             class:active={$page.url.pathname === '/wedding'}
             on:click={closeMobileMenu}
@@ -80,7 +87,7 @@
             Wedding
           </a>
           <a
-            href="/rsvp"
+            href={resolve('/rsvp')}
             class="mobile-nav-link"
             class:active={$page.url.pathname === '/rsvp'}
             on:click={closeMobileMenu}
