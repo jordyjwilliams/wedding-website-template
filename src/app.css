@@ -4,6 +4,8 @@
 
 :root {
   --background: 0 0% 100%;
+  --font-family: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
+  --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -62,11 +64,7 @@ html {
 body {
   overflow-x: hidden;
   background-color: hsl(var(--background));
-  font-family:
-    Inter,
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-family);
   color: hsl(var(--foreground));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -78,11 +76,10 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.2;
 }
-
 /* Global container margins */
 .container {
   margin-left: auto;
