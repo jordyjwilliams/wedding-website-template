@@ -4,6 +4,7 @@
   import Icon from '@iconify/svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
+  import { Spinner } from '$lib/components/ui/spinner';
   import * as Card from '$lib/components/ui/card';
   import * as Alert from '$lib/components/ui/alert';
   import { Hero, AboutUs, PageWrapper } from '$lib/components';
@@ -106,7 +107,7 @@
 
             <Button type="submit" disabled={isLoading} class="w-full" size="lg">
               {#if isLoading}
-                <span class="spinner"></span>
+                <Spinner />
                 {COPY.login.submitting}
               {:else}
                 {COPY.login.submit}
@@ -283,16 +284,6 @@
 
   .input-wrapper {
     margin-bottom: 1rem;
-  }
-
-  .spinner {
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    display: inline-block;
   }
 
   @keyframes spin {

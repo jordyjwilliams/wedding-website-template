@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { resolve } from '$app/paths';
   import Icon from '@iconify/svelte';
   import { GlassCard } from '$lib/components/ui/card';
   import type { Snippet } from 'svelte';
@@ -37,7 +36,7 @@
   <GlassCard glass="heavy" class="p-8">
     <h3>{title}</h3>
     {#if dateHref}
-      <a href={resolve(dateHref)} target="_blank" rel="noopener noreferrer" class="timeline-date">
+      <a href={dateHref} target="_blank" rel="noopener noreferrer" class="timeline-date">
         <Icon icon="ph:calendar-plus" width="18" inline />
         {date}
       </a>

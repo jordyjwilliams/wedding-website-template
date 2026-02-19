@@ -21,8 +21,7 @@ export const COPY = {
   // Hero Section
   hero: {
     eyebrow: "✨ We're getting married ✨",
-    cta: 'RSVP Now',
-    ctaArrow: '→',
+    cta: 'RSVP Now →',
     scrollIndicator: 'Scroll to find out more...',
   },
 

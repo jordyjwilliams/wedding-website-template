@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { resolve } from '$app/paths';
   import Icon from '@iconify/svelte';
+  import { Button } from '$lib/components/ui/button';
   import { weddingCalendarLink } from '$lib/calendar';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
@@ -32,12 +32,7 @@
       <span class="name">{WEDDING.couple.bride}</span>
     </h1>
     <div class="hero-details">
-      <a
-        href={resolve(weddingCalendarLink)}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="date-link"
-      >
+      <a href={weddingCalendarLink} target="_blank" rel="noopener noreferrer" class="date-link">
         <Icon icon="ph:calendar-plus" width="20" inline />
         {WEDDING.dates.displayFull}
       </a>
@@ -46,10 +41,9 @@
         {WEDDING.venue.displayShort}
       </p>
     </div>
-    <button class="btn-hero" on:click={scrollToRSVP}>
+    <Button variant="outline" onclick={scrollToRSVP}>
       {COPY.hero.cta}
-      <span class="arrow">{COPY.hero.ctaArrow}</span>
-    </button>
+    </Button>
   </div>
 
   <div class="scroll-indicator">
@@ -72,12 +66,6 @@
     padding: 6rem 2rem 4rem;
     opacity: 0;
     animation: fadeIn 1s ease-out 0.1s forwards;
-  }
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
   }
 
   .hero-background {
@@ -325,38 +313,6 @@
     filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
   }
 
-  .btn-hero {
-    padding: 1.2rem 3rem;
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
-    color: hsl(var(--white));
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: var(--transition);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    animation: fadeInUp 0.8s ease-out 1.2s both;
-    box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
-  }
-
-  .btn-hero:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(212, 165, 116, 0.4);
-  }
-
-  .arrow {
-    transition: transform 0.3s ease;
-    display: inline-block;
-  }
-
-  .btn-hero:hover .arrow {
-    transform: translateX(5px);
-  }
-
   .scroll-indicator {
     position: absolute;
     bottom: 2rem;
@@ -431,11 +387,6 @@
 
     .gradient-shape {
       filter: blur(80px);
-    }
-
-    /* Hide extra hearts on mobile for cleaner experience */
-    .heart:nth-child(n + 4) {
-      display: none;
     }
 
     .heart {

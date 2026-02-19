@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { resolve } from '$app/paths';
   import * as Card from '$lib/components/ui/card';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
@@ -15,7 +14,7 @@
 </script>
 
 {#if href}
-  <a href={resolve(href)} target="_blank" rel="noopener noreferrer" class="detail-link">
+  <a {href} target="_blank" rel="noopener noreferrer" class="detail-link">
     <div class="detail-card detail-card-clickable {className || ''}" {...restProps}>
       <Card.Root>
         <Card.Content class="flex items-center gap-4 p-5">

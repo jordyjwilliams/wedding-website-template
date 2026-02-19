@@ -6,6 +6,7 @@
   import { Textarea } from '$lib/components/ui/textarea';
   import { Separator } from '$lib/components/ui/separator';
   import { WeddingBadge } from '$lib/components/ui/badge';
+  import { Spinner } from '$lib/components/ui/spinner';
   import * as Alert from '$lib/components/ui/alert';
   import * as Card from '$lib/components/ui/card';
   import * as Select from '$lib/components/ui/select';
@@ -95,7 +96,8 @@
 
     // TODO: Create the actual script and test this functionality
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
-
+    // Simulate network delay until we validate form.
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     // Check if URL is configured
     if (!GOOGLE_SCRIPT_URL) {
       console.error('Google Script URL not configured');
@@ -294,7 +296,7 @@
 
         <Button type="submit" disabled={isLoading} class="mt-4 w-full" size="lg">
           {#if isLoading}
-            <span class="spinner"></span>
+            <Spinner />
             {COPY.rsvp.form.submitting}
           {:else}
             {COPY.rsvp.form.submit}
@@ -437,21 +439,6 @@
 
   .guest-count-animate {
     animation: slideDown 0.3s ease-out;
-  }
-
-  .spinner {
-    width: 18px;
-    height: 18px;
-    border: 2px solid hsl(var(--primary-foreground) / 0.3);
-    border-top-color: hsl(var(--primary-foreground));
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
   }
 
   .help-card {

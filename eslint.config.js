@@ -1,12 +1,13 @@
 import js from '@eslint/js';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import svelteConfig from './svelte.config.js';
+import ts from 'typescript-eslint';
 
 export default [
   js.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...svelte.configs['flat/recommended'],
+  ...ts.configs.recommended,
+  ...svelte.configs.recommended,
   {
     languageOptions: {
       globals: {
@@ -20,48 +21,33 @@ export default [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
-    },
-  },
-  {
-    files: ['**/*.svelte'],
-    languageOptions: {
-      parserOptions: {
-        parser: tseslint.parser,
-      },
-    },
-    rules: {
-      // Enforce same unused variable convention in Svelte files
-      '@typescript-eslint/no-unused-vars': [
+      // Disable resolve() enforcement - external links (target="_blank") should NOT use resolve()
+      // Rule doesn't distinguish between internal and external navigation
+      // Internal routes are handled properly in Button component with smart resolve() logic
+      // https://github.com/sveltejs/eslint-plugin-svelte/issues/1353
+      'svelte/no-navigation-without-resolve': [
         'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+        {
+          ignoreGoto: false,
+          ignoreLinks: true,
+          ignorePushState: false,
+          ignoreReplaceState: false,
+        },
       ],
     },
   },
   {
-    // WORKAROUND: Disable custom element warnings for shadcn-svelte components
-    // These components use rest props with $props() which triggers false positives
-    // about custom element property inference. We're not building web components.
-    // https://svelte.dev/docs/svelte/compiler-warnings#custom_element_props_identifier
-    // TODO: Determine if we can fix at a later date.
-    files: ['src/lib/components/ui/**/*.svelte'],
-    rules: {
-      'svelte/valid-compile': 'off',
+    files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        extraFileExtensions: ['.svelte'],
+        parser: ts.parser,
+        svelteConfig,
+      },
     },
-  },
-  {
-    // WORKAROUND: Disable custom element warnings for our custom reusable components
-    // These components follow shadcn-svelte patterns with rest props which triggers
-    // false positives about custom element property inference.
-    files: [
-      'src/lib/components/AnimatedSection.svelte',
-      'src/lib/components/AnimatedGrid.svelte',
-      'src/lib/components/AnimatedIcon.svelte',
-      'src/lib/components/DetailCard.svelte',
-      'src/lib/components/IconCard.svelte',
-      'src/lib/components/TimelineItem.svelte',
-    ],
     rules: {
-      'svelte/valid-compile': 'off',
+      // If needed add rules.
     },
   },
   {

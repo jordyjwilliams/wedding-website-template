@@ -51,13 +51,20 @@
     children,
     ...restProps
   }: ButtonProps = $props();
+
+  // Only use resolve() for internal routes (starting with / but not external URLs)
+  const resolvedHref = $derived(
+    href && href.startsWith('/') && !href.startsWith('//') && !href.includes('://')
+      ? resolve(href as '/' | '/wedding' | '/rsvp' | '/home')
+      : href
+  );
 </script>
 
 {#if href}
   <a
     bind:this={ref}
     class={cn(buttonVariants({ variant, size }), className)}
-    href={resolve(href)}
+    href={resolvedHref}
     {...restProps}
   >
     {@render children?.()}
