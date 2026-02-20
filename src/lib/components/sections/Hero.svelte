@@ -81,7 +81,7 @@
     opacity: 0.3;
     animation: float 25s infinite ease-in-out;
   }
-  
+
   .shape-1 {
     width: 600px;
     height: 600px;

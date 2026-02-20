@@ -27,10 +27,7 @@
 
 <svelte:head>
   <title>{COPY.meta.title}</title>
-  <meta
-    name="description"
-    content={COPY.meta.description}
-  />
+  <meta name="description" content={COPY.meta.description} />
 </svelte:head>
 
 {#if !isLoading}

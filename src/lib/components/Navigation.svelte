@@ -39,11 +39,13 @@
       />
       <span class="sr-only">Toggle theme</span>
     </Button>
-    <a href={resolve('/')} class="nav-brand" > {COPY.nav.brand} </a>
+    <a href={resolve('/')} class="nav-brand"> {COPY.nav.brand} </a>
 
     <!-- Desktop Menu -->
     <div class="desktop-menu">
-      <a href={resolve('/')} class="nav-link" class:active={$page.url.pathname === '/'}> {COPY.nav.home} </a>
+      <a href={resolve('/')} class="nav-link" class:active={$page.url.pathname === '/'}>
+        {COPY.nav.home}
+      </a>
       <a
         href={resolve('/wedding')}
         class="nav-link"
@@ -112,7 +114,7 @@
     /* Invert navbar background */
     background: hsl(var(--foreground) / 0.8);
   }
-  
+
   .nav.scrolled {
     background: hsl(var(--foreground) / 0.6);
     backdrop-filter: blur(10px);
