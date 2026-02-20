@@ -32,28 +32,28 @@
   <div class="nav-container">
     <Button onclick={toggleMode} variant="outline" size="icon">
       <SunIcon
-        class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 !transition-all dark:scale-0 dark:-rotate-90"
+        class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all! dark:scale-0 dark:-rotate-90"
       />
       <MoonIcon
-        class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 !transition-all dark:scale-100 dark:rotate-0"
+        class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all! dark:scale-100 dark:rotate-0"
       />
       <span class="sr-only">Toggle theme</span>
     </Button>
-    <a href={resolve('/')} class="nav-brand"> {COPY.nav.brand} </a>
+    <a href={resolve('/', {})} class="nav-brand"> {COPY.nav.brand} </a>
 
     <!-- Desktop Menu -->
     <div class="desktop-menu">
-      <a href={resolve('/')} class="nav-link" class:active={$page.url.pathname === '/'}>
+      <a href={resolve('/', {})} class="nav-link" class:active={$page.url.pathname === '/'}>
         {COPY.nav.home}
       </a>
       <a
-        href={resolve('/wedding')}
+        href={resolve('/wedding', {})}
         class="nav-link"
         class:active={$page.url.pathname === '/wedding'}
       >
         {COPY.nav.wedding}
       </a>
-      <a href={resolve('/rsvp')} class="nav-link" class:active={$page.url.pathname === '/rsvp'}>
+      <a href={resolve('/rsvp', {})} class="nav-link" class:active={$page.url.pathname === '/rsvp'}>
         {COPY.nav.rsvp}
       </a>
     </div>
@@ -65,14 +65,14 @@
           <Icon icon="ph:list" width="24" />
         </Button>
       </Sheet.Trigger>
-      <Sheet.Content side="right" class="w-[300px]">
+      <Sheet.Content side="right" class="w-75">
         <Sheet.Header>
           <Sheet.Title class="font-heading text-2xl">Menu</Sheet.Title>
         </Sheet.Header>
         <Separator class="my-4" />
         <div class="mobile-menu">
           <a
-            href={resolve('/')}
+            href={resolve('/', {})}
             class="mobile-nav-link"
             class:active={$page.url.pathname === '/'}
             on:click={closeMobileMenu}
@@ -81,7 +81,7 @@
             Home
           </a>
           <a
-            href={resolve('/wedding')}
+            href={resolve('/wedding', {})}
             class="mobile-nav-link"
             class:active={$page.url.pathname === '/wedding'}
             on:click={closeMobileMenu}
@@ -90,7 +90,7 @@
             Wedding
           </a>
           <a
-            href={resolve('/rsvp')}
+            href={resolve('/rsvp', {})}
             class="mobile-nav-link"
             class:active={$page.url.pathname === '/rsvp'}
             on:click={closeMobileMenu}

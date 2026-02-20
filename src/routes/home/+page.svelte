@@ -5,7 +5,7 @@
 
   onMount(() => {
     // Redirect to new home route
-    goto(resolve('/'), { replaceState: true });
+    goto(resolve('/', {}), { replaceState: true });
   });
 </script>
 

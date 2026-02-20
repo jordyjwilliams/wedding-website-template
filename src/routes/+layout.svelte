@@ -19,7 +19,7 @@
 
     // Redirect to passcode page if not authenticated and not already there
     if (!isAuthenticated && $page.url.pathname !== '/') {
-      goto(resolve('/'));
+      goto(resolve('/', {}));
     }
   });
   let { children } = $props();
