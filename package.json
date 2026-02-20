@@ -7,7 +7,7 @@
     "dev": "vite dev --host",
     "dev:netlify": "netlify dev",
     "build": "vite build",
-    "preview": "vite preview --host",
+    "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format-and-lint": "prettier --check . && eslint .",
