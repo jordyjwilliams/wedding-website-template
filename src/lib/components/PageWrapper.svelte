@@ -64,7 +64,9 @@
     ? `url('${backgroundImage}') center/cover fixed`
     : backgroundColor || 'transparent'}
 >
-  {@render children()}
+  {#if children}
+    {@render children()}
+  {/if}
 </div>
 
 <style>
