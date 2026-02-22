@@ -204,13 +204,13 @@
   }
 
   .mobile-nav-link:hover {
-    background: hsl(var(--muted-foreground));
-    color: hsl(var(--secondary));
+    background: hsl(var(--muted-background));
+    color: hsl(var(--foreground));
   }
 
   .mobile-nav-link.active {
-    background: hsl(var(--muted-foreground) / 0.1);
-    color: hsl(var(--secondary));
+    background: hsl(var(--muted-background) / 0.1);
+    color: hsl(var(--foreground));
   }
 
   @media (max-width: 768px) {
