@@ -65,10 +65,12 @@
           <Icon icon="ph:list" width="24" />
         </Button>
       </Sheet.Trigger>
-      <Sheet.Content side="right" class="w-75">
-        <Sheet.Header>
-          <Sheet.Title class="font-heading text-2xl">Menu</Sheet.Title>
-        </Sheet.Header>
+      <Sheet.Content
+        id="mobile-menu-sheet"
+        side="right"
+        class="w-75"
+        style="background: hsl(var(--foreground) / 0.8); color: hsl(var(--background)); backdrop-filter: blur(10px); transition: all 0.3s ease; border-top: none; padding-top: 64px; min-height: 100vh;"
+      >
         <Separator class="my-4" />
         <div class="mobile-menu">
           <a
