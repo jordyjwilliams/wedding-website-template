@@ -46,31 +46,7 @@
               alt="Engagement at Larkya La Pass"
               class="main-photo"
             />
-            <Card.Footer
-              class="font-heading text-card-foreground p-6 text-center text-2xl font-semibold"
-              >She Said Yes...</Card.Footer
-            >
           </Card.Root>
-        </div>
-
-        <div class="floating-details">
-          <DetailCard
-            label="Wedding Date"
-            value={WEDDING.dates.displayFull}
-            href={weddingCalendarLink}
-          >
-            {#snippet badge()}
-              <WeddingBadge size="icon">
-                <Icon icon="ph:calendar-plus" width="20" />
-              </WeddingBadge>
-            {/snippet}
-          </DetailCard>
-
-          <DetailCard label="Location" value={WEDDING.venue.displayShort}>
-            {#snippet badge()}
-              <WeddingBadge size="icon">📍</WeddingBadge>
-            {/snippet}
-          </DetailCard>
         </div>
       </div>
     </div>
