@@ -8,7 +8,12 @@
     children?: Snippet;
   }
 
-  let { backgroundImage, backgroundColor, backgroundPosition = 'center' , children }: Props = $props();
+  let {
+    backgroundImage,
+    backgroundColor,
+    backgroundPosition = 'center',
+    children,
+  }: Props = $props();
   // Scroll effect reduce glassy effect/opacity of background overlay
   // to a min value, restores after timeout
   const initialOverlayOpacity: number = 0.85;
