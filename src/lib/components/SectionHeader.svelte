@@ -11,34 +11,19 @@
   let { title, intro, emoji, children }: Props = $props();
 </script>
 
-<div class="section-header">
-  <h2 class="section-title">{emoji ? `${emoji} ${title} ${emoji}` : title}</h2>
+<div class="mb-16 text-center">
+  <h2
+    class="mb-4 font-heading text-primary text-[clamp(2.2rem,5vw,3.8rem)]
+           [text-shadow:0_2px_12px_rgba(255,255,255,0.7)]"
+  >
+    {emoji ? `${emoji} ${title} ${emoji}` : title}
+  </h2>
   {#if intro}
-    <p class="section-intro">{intro}</p>
+    <p class="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
+      {intro}
+    </p>
   {/if}
   {#if children}
     {@render children()}
   {/if}
 </div>
-
-<style>
-  .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .section-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: 1rem;
-    color: hsl(var(--primary));
-    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
-  }
-
-  .section-intro {
-    font-size: 1.2rem;
-    color: hsl(var(--text-light));
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-</style>
