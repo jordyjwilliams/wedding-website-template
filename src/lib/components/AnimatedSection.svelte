@@ -15,15 +15,26 @@
   let sectionEl: HTMLElement;
 
   onMount(() => {
+    // If element is already fully above the fold, show it immediately
+    // (avoids an observable async-callback delay on page load)
+    if (sectionEl) {
+      const rect = sectionEl.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        visible = true;
+        return () => {};
+      }
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             visible = true;
+            observer.disconnect();
           }
         });
       },
-      { threshold }
+      { threshold, rootMargin: '0px 0px -40px 0px' }
     );
 
     if (sectionEl) observer.observe(sectionEl);

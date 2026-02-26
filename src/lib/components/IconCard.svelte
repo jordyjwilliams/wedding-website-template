@@ -28,26 +28,21 @@
   }: Props = $props();
 </script>
 
-<div class="icon-card {className || ''}" class:hover-lift={hoverLift} {...restProps}>
-  <Card.Root>
-    <Card.Content class="pt-6 text-center">
+<div
+  class="transition-transform duration-300
+         {hoverLift ? 'hover:-translate-y-2.5' : ''}
+         {className || ''}"
+  {...restProps}
+>
+  <Card.Root class="glass h-full">
+    <Card.Content class="flex flex-col items-center pt-6 text-center">
       <div class="mb-6">
         <AnimatedIcon {icon} size={iconSize} animation={iconAnimation} delay={iconDelay} />
       </div>
       <Card.Title class="mb-2">{title}</Card.Title>
       {#if description}
-        <Card.Description>{description}</Card.Description>
+        <Card.Description class="leading-relaxed">{description}</Card.Description>
       {/if}
     </Card.Content>
   </Card.Root>
 </div>
-
-<style>
-  .icon-card {
-    transition: transform 0.3s ease;
-  }
-
-  .icon-card.hover-lift:hover {
-    transform: translateY(-10px);
-  }
-</style>
