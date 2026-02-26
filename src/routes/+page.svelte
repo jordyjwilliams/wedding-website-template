@@ -61,10 +61,9 @@
         };
         localStorage.setItem('wedding_auth', JSON.stringify(authData));
         isAuthenticated = true;
-        // Force SvelteKit to re-evaluate layout and show navbar
+        // Force full reload to re-evaluate layout and show navbar
         if (typeof window !== 'undefined') {
-          const { goto } = await import('$app/navigation');
-          goto(window.location.pathname, { replaceState: true });
+          window.location.reload();
         }
       } else {
         error = COPY.login.errors.incorrect;
