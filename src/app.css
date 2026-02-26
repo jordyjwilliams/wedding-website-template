@@ -1,11 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @import 'tailwindcss';
 
 :root {
-  --background: 0 0% 100%;
+  /* ─── Layout ─────────────────────────────────────────────── */
+  --nav-height: 4.5rem;
+
+  /* ─── Typography ─────────────────────────────────────────── */
   --font-family: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
   --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
+
+  /* ─── Color tokens (shadcn/ui compatible) ────────────────── */
+  --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
@@ -38,27 +44,31 @@
   --card-foreground: 210 40% 98%;
   --popover: 222.2 84% 4.9%;
   --popover-foreground: 210 40% 98%;
-  --primary: 210 40% 98%;
+  --primary: 198 50% 60%;
   --primary-foreground: 222.2 47.4% 11.2%;
   --primary-dark: 200 50% 45%;
   --secondary: 217.2 32.6% 17.5%;
   --secondary-foreground: 210 40% 98%;
   --muted: 217.2 32.6% 17.5%;
   --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
+  --accent: 198 45% 55%;
   --accent-foreground: 210 40% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
-  --ring: 212.7 26.8% 83.9%;
+  --ring: 200 45% 60%;
   --white: 210 40% 98%;
   --text-light: 215 20.2% 65.1%;
   --text-dark: 210 40% 98%;
+  color-scheme: dark;
 }
 
+/* ─── Base ───────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 1rem);
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -80,41 +90,93 @@ h6 {
   font-weight: 600;
   line-height: 1.2;
 }
-/* Global container margins */
+
+/* ─── Container (consistent with tailwind container config) ── */
 .container {
   margin-left: auto;
   margin-right: auto;
   max-width: 80rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
-/* Glass-morphism form card */
-.glass-card-form {
-  border-width: 1px;
-  border-color: hsl(var(--border) / 0.5);
-  background: hsl(var(--card) / 0.85);
-  backdrop-filter: blur(12px);
-  border-radius: calc(var(--radius) * 6);
+@media (min-width: 1920px) {
+  .container {
+    max-width: 100rem;
+  }
+}
+
+/* ─── Glass utilities ─────────────────────────────────────── */
+.glass {
+  background: hsl(var(--card) / 0.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid hsl(var(--border) / 0.4);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 0 0 1px hsl(var(--white) / 0.1) inset;
+}
+
+.glass-heavy {
+  background: hsl(var(--card) / 0.88);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid hsl(var(--border) / 0.5);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.1),
-    0 0 0 1px hsl(var(--border) / 0.3);
+    0 0 0 1px hsl(var(--white) / 0.12) inset;
 }
 
-.dark .glass-card-form {
+.dark .glass {
+  background: hsl(var(--card) / 0.6);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px hsl(var(--white) / 0.06) inset;
+}
+
+.dark .glass-heavy {
+  background: hsl(var(--card) / 0.75);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 1px hsl(var(--border) / 0.3);
+    0 0 0 1px hsl(var(--white) / 0.08) inset;
 }
 
-/* Dark mode enhancements */
-.dark {
-  color-scheme: dark;
+/* Alias for backward compat */
+.glass-card-form {
+  background: hsl(var(--card) / 0.88);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid hsl(var(--border) / 0.5);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.1),
+    0 0 0 1px hsl(var(--white) / 0.12) inset;
+  border-radius: calc(var(--radius) * 6);
+}
+
+/* ─── Gradient orb shared utility ────────────────────────── */
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  animation: float-orb 25s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes float-orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -40px) scale(1.08); }
+  66%       { transform: translate(-30px, 25px) scale(0.94); }
+}
+
+/* ─── Touch-device tap highlight fix ─────────────────────── */
+@media (hover: none) {
+  a, button { -webkit-tap-highlight-color: transparent; }
 }
