@@ -48,11 +48,6 @@
         };
         localStorage.setItem('wedding_auth', JSON.stringify(authData));
         isAuthenticated = true;
-        // Force SvelteKit to re-evaluate layout and show navbar
-        if (typeof window !== 'undefined') {
-          const { goto } = await import('$app/navigation');
-          goto(window.location.pathname, { replaceState: true });
-        }
       } else {
         error = COPY.login.errors.incorrect;
         shake = true;
@@ -143,7 +138,7 @@
     position: relative;
     overflow: hidden;
     background:
-      linear-gradient(135deg, rgba(250, 248, 246, 0.9) 0%, rgba(245, 230, 211, 0.85) 100%),
+      linear-gradient(135deg, hsl(var(--background) / 0.95) 0%, hsl(var(--muted) / 0.92) 100%),
       url('/images/heart-bg.webp') center/cover fixed;
   }
 
@@ -227,6 +222,9 @@
   :global(.passcode-card) {
     backdrop-filter: blur(20px);
     text-align: center;
+    background: hsl(var(--card) / 0.92);
+    color: hsl(var(--card-foreground));
+    box-shadow: 0 4px 32px 0 hsl(var(--shadow, 200 45% 33% / 0.10));
   }
 
   .lock-icon {
@@ -263,7 +261,7 @@
   }
 
   .welcome-text {
-    color: hsl(var(--foreground));
+    color: hsl(var(--card-foreground));
     font-size: 1.05rem;
     line-height: 1.6;
     margin-bottom: 1rem;
