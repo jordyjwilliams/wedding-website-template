@@ -171,12 +171,22 @@ h6 {
 }
 
 @keyframes float-orb {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%       { transform: translate(40px, -40px) scale(1.08); }
-  66%       { transform: translate(-30px, 25px) scale(0.94); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -40px) scale(1.08);
+  }
+  66% {
+    transform: translate(-30px, 25px) scale(0.94);
+  }
 }
 
 /* ─── Touch-device tap highlight fix ─────────────────────── */
 @media (hover: none) {
-  a, button { -webkit-tap-highlight-color: transparent; }
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
 }

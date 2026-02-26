@@ -48,7 +48,7 @@
       class="glass mt-12 rounded-3xl px-8 py-12 text-center
              md:px-16"
     >
-      <p class="mb-8 text-xl font-medium text-foreground">{COPY.venue.ctaText}</p>
+      <p class="text-foreground mb-8 text-xl font-medium">{COPY.venue.ctaText}</p>
       <Button
         href={WEDDING.venue.website}
         target="_blank"

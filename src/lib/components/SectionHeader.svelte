@@ -13,13 +13,13 @@
 
 <div class="mb-16 text-center">
   <h2
-    class="mb-4 font-heading text-primary text-[clamp(2.2rem,5vw,3.8rem)]
+    class="font-heading text-primary mb-4 text-[clamp(2.2rem,5vw,3.8rem)]
            [text-shadow:0_2px_12px_rgba(255,255,255,0.7)]"
   >
     {emoji ? `${emoji} ${title} ${emoji}` : title}
   </h2>
   {#if intro}
-    <p class="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground">
+    <p class="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed">
       {intro}
     </p>
   {/if}

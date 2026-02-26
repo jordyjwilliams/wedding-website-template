@@ -42,12 +42,12 @@
 <nav
   class="fixed inset-x-0 top-0 z-50 h-(--nav-height) transition-all duration-300
          {scrolled
-    ? 'bg-foreground/60 backdrop-blur-xl shadow-glass'
+    ? 'bg-foreground/60 shadow-glass backdrop-blur-xl'
     : 'bg-foreground/85 backdrop-blur-md'}"
 >
   <div
-    class="mx-auto flex h-full max-w-7xl items-center gap-4 px-6 text-background
-           3xl:max-w-[100rem]"
+    class="text-background 3xl:max-w-[100rem] mx-auto flex h-full max-w-7xl items-center gap-4
+           px-6"
   >
     <!-- Left: brand + theme toggle -->
     <div class="flex shrink-0 items-center gap-2">
@@ -56,16 +56,16 @@
         onclick={toggleMode}
         variant="ghost"
         size="icon"
-        class="relative shrink-0 overflow-hidden text-background
-               hover:bg-background/10 hover:text-background"
+        class="text-background hover:bg-background/10 hover:text-background relative
+               shrink-0 overflow-hidden"
       >
         <SunIcon
-          class="h-5 w-5 transition-all duration-300
-                 rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
+          class="h-5 w-5 scale-100 rotate-0
+                 transition-all duration-300 dark:scale-0 dark:-rotate-90"
         />
         <MoonIcon
-          class="absolute inset-0 m-auto h-5 w-5 transition-all duration-300
-                 rotate-90 scale-0 dark:rotate-0 dark:scale-100"
+          class="absolute inset-0 m-auto h-5 w-5 scale-0 rotate-90
+                 transition-all duration-300 dark:scale-100 dark:rotate-0"
         />
         <span class="sr-only">Toggle theme</span>
       </Button>
@@ -89,10 +89,10 @@
         {@const active = $page.url.pathname === link.href}
         <a
           href={resolve(link.href, {})}
-          class="relative py-1 text-sm font-medium tracking-wide no-underline transition-colors
-                 duration-200 after:absolute after:bottom-0 after:left-0 after:h-0.5
-                 after:bg-secondary after:transition-all after:duration-300
-                 hover:text-secondary
+          class="after:bg-secondary hover:text-secondary relative py-1 text-sm font-medium tracking-wide
+                 no-underline transition-colors duration-200 after:absolute after:bottom-0
+                 after:left-0 after:h-0.5 after:transition-all
+                 after:duration-300
                  {active
             ? 'text-secondary after:w-full'
             : 'text-background/90 after:w-0 hover:after:w-full'}"
@@ -108,7 +108,7 @@
         <Button
           variant="ghost"
           size="icon"
-          class="shrink-0 text-background hover:bg-background/10 hover:text-background md:hidden"
+          class="text-background hover:bg-background/10 hover:text-background shrink-0 md:hidden"
           aria-label="Open menu"
         >
           <Icon icon="ph:list" width="26" />
@@ -117,10 +117,10 @@
 
       <Sheet.Content
         side="right"
-        class="flex w-72 flex-col border-none pt-(--nav-height)
-               bg-foreground/90 text-background backdrop-blur-2xl"
+        class="bg-foreground/90 text-background flex w-72 flex-col
+               border-none pt-(--nav-height) backdrop-blur-2xl"
       >
-        <Separator class="mb-2 bg-background/20" />
+        <Separator class="bg-background/20 mb-2" />
         <nav class="flex flex-col gap-1 px-2">
           {#each navLinks as link (link.href)}
             {@const active = $page.url.pathname === link.href}

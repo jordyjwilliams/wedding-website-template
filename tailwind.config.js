@@ -81,7 +81,7 @@ export default {
         serif: ['"DM Serif Display"', '"Playfair Display"', 'Georgia', 'serif'],
       },
       spacing: {
-        'nav': 'var(--nav-height)',
+        nav: 'var(--nav-height)',
       },
       boxShadow: {
         glass: '0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.10) inset',

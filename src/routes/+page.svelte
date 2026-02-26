@@ -89,8 +89,8 @@
 {:else}
   <!-- Login / passcode gate -->
   <div
-    class="relative flex min-h-screen items-center justify-center overflow-hidden px-4
-           bg-[linear-gradient(135deg,hsl(var(--background)/0.96)_0%,hsl(var(--muted)/0.92)_100%),url('/images/heart-bg.webp')_center/cover]"
+    class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[linear-gradient(135deg,hsl(var(--background)/0.96)_0%,hsl(var(--muted)/0.92)_100%),url('/images/heart-bg.webp')_center/cover]
+           px-4"
     style="background-attachment: fixed;"
   >
     <!-- Ambient orbs -->
@@ -105,25 +105,25 @@
       <Card.Root class="glass-heavy rounded-3xl text-center">
         <Card.Content class="px-8 pt-8 pb-10 sm:px-10">
           <!-- Lock icon -->
-          <div class="mb-4 text-primary animate-pulse-soft">
+          <div class="text-primary animate-pulse-soft mb-4">
             <Icon icon="ph:lock-fill" width="48" class="mx-auto" />
           </div>
 
           <h1
-            class="mb-1 font-heading text-[2.6rem] font-bold text-primary
+            class="font-heading text-primary mb-1 text-[2.6rem] font-bold
                    sm:text-[3rem]"
           >
             {WEDDING.couple.full}
           </h1>
 
-          <p class="mb-6 text-base font-medium tracking-wide text-muted-foreground">
+          <p class="text-muted-foreground mb-6 text-base font-medium tracking-wide">
             {COPY.login.eyebrow}
           </p>
 
-          <p class="mb-3 text-[1.05rem] leading-relaxed text-card-foreground">
+          <p class="text-card-foreground mb-3 text-[1.05rem] leading-relaxed">
             {COPY.login.welcome}
           </p>
-          <p class="mb-8 flex items-center justify-center gap-1 text-sm text-muted-foreground">
+          <p class="text-muted-foreground mb-8 flex items-center justify-center gap-1 text-sm">
             {COPY.login.privacy}
             <Icon icon="ph:key-duotone" width="20" class="inline-block shrink-0" />
           </p>
@@ -198,14 +198,27 @@
   }
 
   @keyframes floatOrb {
-    0%, 100% { transform: translate(0, 0); }
-    33%       { transform: translate(28px, -28px); }
-    66%       { transform: translate(-18px, 18px); }
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    33% {
+      transform: translate(28px, -28px);
+    }
+    66% {
+      transform: translate(-18px, 18px);
+    }
   }
 
   @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .login-card {
@@ -217,8 +230,15 @@
   }
 
   @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25%       { transform: translateX(-10px); }
-    75%       { transform: translateX(10px); }
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-10px);
+    }
+    75% {
+      transform: translateX(10px);
+    }
   }
 </style>
