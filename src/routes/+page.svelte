@@ -16,6 +16,7 @@
   let isLoading: boolean = false;
   let shake: boolean = false;
   let isAuthenticated: boolean = false;
+  const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
 
   onMount(() => {
     // Check authentication status
@@ -28,6 +29,12 @@
     isLoading = true;
     error = '';
 
+    // Simulate delay in debug mode
+    if (DEBUG_MODE) {
+      console.log('Simulating network delay for debugging');
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+    }
+
     try {
       const response = await fetch('/.netlify/functions/verify-passcode', {
         method: 'POST',
@@ -36,6 +43,12 @@
         },
         body: JSON.stringify({ passcode: passcode.trim() }),
       });
+
+      // Simulate network delay in debug mode
+      if (DEBUG_MODE) {
+        console.log('Simulating network delay for debugging');
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
 
       const data = await response.json();
 
