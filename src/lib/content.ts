@@ -14,7 +14,9 @@ export const COPY = {
   nav: {
     brand: 'J & N',
     home: 'Home',
+    aboutUs: 'Our Story',
     wedding: 'Wedding',
+    venue: 'Venue',
     rsvp: 'RSVP',
   },
 

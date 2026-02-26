@@ -47,11 +47,25 @@
         {COPY.nav.home}
       </a>
       <a
+        href={resolve('/our-story', {})}
+        class="nav-link"
+        class:active={$page.url.pathname === '/our-story'}
+      >
+        {COPY.nav.aboutUs}
+      </a>
+      <a
         href={resolve('/wedding', {})}
         class="nav-link"
         class:active={$page.url.pathname === '/wedding'}
       >
         {COPY.nav.wedding}
+      </a>
+      <a
+        href={resolve('/venue', {})}
+        class="nav-link"
+        class:active={$page.url.pathname === '/venue'}
+      >
+        {COPY.nav.venue}
       </a>
       <a href={resolve('/rsvp', {})} class="nav-link" class:active={$page.url.pathname === '/rsvp'}>
         {COPY.nav.rsvp}
