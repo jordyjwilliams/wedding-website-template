@@ -87,41 +87,58 @@
     <Hero />
   </PageWrapper>
 {:else}
-  <!-- Show login form when not authenticated -->
-  <div class="passcode-page">
-    <div class="passcode-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
+  <!-- Login / passcode gate -->
+  <div
+    class="relative flex min-h-screen items-center justify-center overflow-hidden px-4
+           bg-[linear-gradient(135deg,hsl(var(--background)/0.96)_0%,hsl(var(--muted)/0.92)_100%),url('/images/heart-bg.webp')_center/cover]"
+    style="background-attachment: fixed;"
+  >
+    <!-- Ambient orbs -->
+    <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div class="login-orb orb-1"></div>
+      <div class="login-orb orb-2"></div>
+      <div class="login-orb orb-3"></div>
     </div>
 
-    <div class="passcode-container" class:shake>
-      <Card.Root class="passcode-card">
-        <Card.Content class="pt-6">
-          <div class="lock-icon"><Icon icon="ph:lock-fill" width="48" /></div>
-          <h1 class="couple-names">{WEDDING.couple.full}</h1>
-          <p class="eyebrow">{COPY.login.eyebrow}</p>
-          <p class="welcome-text">
+    <!-- Card -->
+    <div class="login-card relative z-10 w-full max-w-md" class:shake>
+      <Card.Root class="glass-heavy rounded-3xl text-center">
+        <Card.Content class="px-8 pt-8 pb-10 sm:px-10">
+          <!-- Lock icon -->
+          <div class="mb-4 text-primary animate-pulse-soft">
+            <Icon icon="ph:lock-fill" width="48" class="mx-auto" />
+          </div>
+
+          <h1
+            class="mb-1 font-heading text-[2.6rem] font-bold text-primary
+                   sm:text-[3rem]"
+          >
+            {WEDDING.couple.full}
+          </h1>
+
+          <p class="mb-6 text-base font-medium tracking-wide text-muted-foreground">
+            {COPY.login.eyebrow}
+          </p>
+
+          <p class="mb-3 text-[1.05rem] leading-relaxed text-card-foreground">
             {COPY.login.welcome}
           </p>
-          <p class="help-text">
+          <p class="mb-8 flex items-center justify-center gap-1 text-sm text-muted-foreground">
             {COPY.login.privacy}
-            <Icon icon="ph:key-duotone" width="24" class="inline" />
+            <Icon icon="ph:key-duotone" width="20" class="inline-block shrink-0" />
           </p>
 
           <form on:submit|preventDefault={handleSubmit} class="space-y-4">
-            <div class="input-wrapper">
-              <Input
-                type="password"
-                bind:value={passcode}
-                placeholder={COPY.login.placeholder}
-                disabled={isLoading}
-                autocomplete="off"
-                class="text-center text-lg tracking-wider"
-              />
-            </div>
+            <Input
+              type="password"
+              bind:value={passcode}
+              placeholder={COPY.login.placeholder}
+              disabled={isLoading}
+              autocomplete="off"
+              class="text-center text-lg tracking-widest"
+            />
 
-            <Button type="submit" disabled={isLoading} class="w-full" size="lg">
+            <Button type="submit" disabled={isLoading} class="w-full rounded-full" size="lg">
               {#if isLoading}
                 <Spinner />
                 {COPY.login.submitting}
@@ -133,9 +150,7 @@
             {#if error}
               <Alert.Root variant="destructive" class="mt-4">
                 <Icon icon="ph:warning-circle-fill" width="20" />
-                <Alert.Description>
-                  {error}
-                </Alert.Description>
+                <Alert.Description>{error}</Alert.Description>
               </Alert.Root>
             {/if}
           </form>
@@ -146,190 +161,64 @@
 {/if}
 
 <style>
-  .passcode-page {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    background:
-      linear-gradient(135deg, hsl(var(--background) / 0.95) 0%, hsl(var(--muted) / 0.92) 100%),
-      url('/images/heart-bg.webp') center/cover fixed;
-  }
-
-  .passcode-background {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-  }
-
-  .gradient-orb {
+  /* Ambient gradient orbs */
+  .login-orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
-    opacity: 0.4;
-    animation: float 20s infinite ease-in-out;
+    opacity: 0.35;
+    animation: floatOrb 22s infinite ease-in-out;
   }
 
   .orb-1 {
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    top: -200px;
-    left: -200px;
+    width: clamp(300px, 40vw, 500px);
+    height: clamp(300px, 40vw, 500px);
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    top: -20%;
+    left: -15%;
     animation-delay: 0s;
   }
 
   .orb-2 {
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, var(--secondary), var(--primary));
-    bottom: -150px;
-    right: -150px;
-    animation-delay: 5s;
+    width: clamp(240px, 32vw, 420px);
+    height: clamp(240px, 32vw, 420px);
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+    bottom: -18%;
+    right: -12%;
+    animation-delay: 6s;
   }
 
   .orb-3 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, var(--accent), var(--primary));
-    top: 50%;
-    right: 10%;
-    animation-delay: 10s;
+    width: clamp(180px, 24vw, 320px);
+    height: clamp(180px, 24vw, 320px);
+    background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    top: 45%;
+    right: 8%;
+    animation-delay: 12s;
   }
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-      transform: translate(30px, -30px) rotate(5deg);
-    }
-    50% {
-      transform: translate(-20px, 20px) rotate(-5deg);
-    }
-    75% {
-      transform: translate(40px, 10px) rotate(3deg);
-    }
-  }
-
-  .passcode-container {
-    position: relative;
-    z-index: 10;
-    width: 100%;
-    max-width: 500px;
-    padding: 2rem;
-    animation: fadeInUp 0.8s ease-out;
+  @keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0); }
+    33%       { transform: translate(28px, -28px); }
+    66%       { transform: translate(-18px, 18px); }
   }
 
   @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  :global(.passcode-card) {
-    backdrop-filter: blur(20px);
-    text-align: center;
-    background: hsl(var(--card) / 0.92);
-    color: hsl(var(--card-foreground));
-    box-shadow: 0 4px 32px 0 hsl(var(--shadow, 200 45% 33% / 0.1));
+  .login-card {
+    animation: fadeInUp 0.7s ease-out both;
   }
 
-  .lock-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    animation: pulse 2s infinite;
-    color: hsl(var(--primary));
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-  }
-
-  .couple-names {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: hsl(var(--primary));
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-  }
-
-  .eyebrow {
-    color: hsl(var(--muted-foreground));
-    font-size: 1.1rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    margin-bottom: 1.5rem;
-  }
-
-  .welcome-text {
-    color: hsl(var(--card-foreground));
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
-  .help-text {
-    color: hsl(var(--muted-foreground));
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-
-  .input-wrapper {
-    margin-bottom: 1rem;
-  }
-
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .shake {
-    animation: shake 0.5s;
+  .login-card.shake {
+    animation: shake 0.5s ease-in-out both;
   }
 
   @keyframes shake {
-    0%,
-    100% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-10px);
-    }
-    75% {
-      transform: translateX(10px);
-    }
-  }
-
-  @media (max-width: 600px) {
-    .passcode-container {
-      padding: 1.5rem;
-    }
-
-    .couple-names {
-      font-size: 2rem;
-    }
-
-    .orb-1,
-    .orb-2,
-    .orb-3 {
-      filter: blur(60px);
-    }
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-10px); }
+    75%       { transform: translateX(10px); }
   }
 </style>

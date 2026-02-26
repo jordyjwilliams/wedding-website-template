@@ -5,7 +5,7 @@
   import { COPY } from '$lib/content';
 </script>
 
-<AnimatedSection class="venue-section">
+<AnimatedSection class="py-20 md:py-28">
   <div class="container">
     <SectionHeader title={COPY.venue.title} emoji={COPY.venue.emoji} intro={COPY.venue.intro} />
 
@@ -43,80 +43,24 @@
       />
     </AnimatedGrid>
 
-    <div class="venue-cta">
-      <p class="cta-text">{COPY.venue.ctaText}</p>
-      <div class="cta-button">
-        <Button
-          href={WEDDING.venue.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          size="lg"
-          class="rounded-full"
-        >
-          {COPY.venue.ctaButton}
-          <span class="arrow">→</span>
-        </Button>
-      </div>
+    <!-- CTA block -->
+    <div
+      class="glass mt-12 rounded-3xl px-8 py-12 text-center
+             md:px-16"
+    >
+      <p class="mb-8 text-xl font-medium text-foreground">{COPY.venue.ctaText}</p>
+      <Button
+        href={WEDDING.venue.website}
+        target="_blank"
+        rel="noopener noreferrer"
+        size="lg"
+        class="group rounded-full px-10"
+      >
+        {COPY.venue.ctaButton}
+        <span class="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
+          →
+        </span>
+      </Button>
     </div>
   </div>
 </AnimatedSection>
-
-<style>
-  :global(.venue-section) {
-    padding: 6rem 0;
-    background: transparent;
-    position: relative;
-    overflow: hidden;
-  }
-
-  :global(.venue-section)::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 300px;
-    background: linear-gradient(180deg, var(--bg-light) 0%, transparent 100%);
-    pointer-events: none;
-  }
-
-  .venue-cta {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--background)));
-    border-radius: calc(var(--radius) * 6);
-    margin-top: 3rem;
-  }
-
-  .cta-text {
-    font-size: 1.3rem;
-    color: hsl(var(--foreground));
-    margin-bottom: 2rem;
-    font-weight: 500;
-  }
-
-  .arrow {
-    transition: transform 0.3s ease;
-    display: inline-block;
-    font-size: 1.3rem;
-    margin-left: 0.5rem;
-  }
-
-  .cta-button:hover .arrow {
-    transform: translateX(5px);
-  }
-
-  @media (max-width: 768px) {
-    :global(.venue-section) {
-      padding: 4rem 0;
-    }
-
-    .venue-cta {
-      padding: 2rem 1.5rem;
-    }
-
-    .cta-text {
-      font-size: 1.1rem;
-    }
-  }
-</style>

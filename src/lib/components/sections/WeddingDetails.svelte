@@ -12,7 +12,7 @@
   import { COPY } from '$lib/content';
 </script>
 
-<AnimatedSection class="wedding-section">
+<AnimatedSection class="py-20 md:py-28">
   <div class="container">
     <SectionHeader
       title={COPY.weddingDetails.title}
@@ -65,12 +65,6 @@
 </AnimatedSection>
 
 <style>
-  :global(.wedding-section) {
-    padding: 6rem 0;
-    background: transparent;
-    position: relative;
-  }
-
   .timeline {
     max-width: 900px;
     margin: 0 auto 5rem;
@@ -84,14 +78,10 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, var(--primary), var(--accent));
+    background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--accent)));
   }
 
   @media (max-width: 768px) {
-    :global(.wedding-section) {
-      padding: 4rem 0;
-    }
-
     .timeline::before {
       left: 25px;
     }

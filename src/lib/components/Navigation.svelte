@@ -18,238 +18,127 @@
     const handleScroll = () => {
       scrolled = window.scrollY > 50;
     };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   });
 
   function closeMobileMenu(): void {
     mobileMenuOpen = false;
   }
+
+  const navLinks = [
+    { href: '/', label: COPY.nav.home, icon: 'ph:house-fill' },
+    { href: '/our-story', label: COPY.nav.aboutUs, icon: 'ph:notebook-duotone' },
+    { href: '/wedding', label: COPY.nav.wedding, icon: 'ph:heart-fill' },
+    { href: '/venue', label: COPY.nav.venue, icon: 'ph:map-pin-fill' },
+    { href: '/rsvp', label: COPY.nav.rsvp, icon: 'ph:envelope-fill' },
+  ];
 </script>
 
-<nav class="nav" class:scrolled>
-  <div class="nav-container">
-    <Button onclick={toggleMode} variant="outline" size="icon">
-      <SunIcon
-        class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all! dark:scale-0 dark:-rotate-90"
-      />
-      <MoonIcon
-        class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all! dark:scale-100 dark:rotate-0"
-      />
-      <span class="sr-only">Toggle theme</span>
-    </Button>
-    <a href={resolve('/', {})} class="nav-brand"> {COPY.nav.brand} </a>
+<!--
+  Height is set to var(--nav-height) = 4.5rem so Hero / sections
+  can use pt-[var(--nav-height)] to avoid overlap.
+-->
+<nav
+  class="fixed inset-x-0 top-0 z-50 h-(--nav-height) transition-all duration-300
+         {scrolled
+    ? 'bg-foreground/60 backdrop-blur-xl shadow-glass'
+    : 'bg-foreground/85 backdrop-blur-md'}"
+>
+  <div
+    class="mx-auto flex h-full max-w-7xl items-center gap-4 px-6 text-background
+           3xl:max-w-[100rem]"
+  >
+    <!-- Left: brand + theme toggle -->
+    <div class="flex shrink-0 items-center gap-2">
+      <!-- Theme toggle -->
+      <Button
+        onclick={toggleMode}
+        variant="ghost"
+        size="icon"
+        class="relative shrink-0 overflow-hidden text-background
+               hover:bg-background/10 hover:text-background"
+      >
+        <SunIcon
+          class="h-5 w-5 transition-all duration-300
+                 rotate-0 scale-100 dark:-rotate-90 dark:scale-0"
+        />
+        <MoonIcon
+          class="absolute inset-0 m-auto h-5 w-5 transition-all duration-300
+                 rotate-90 scale-0 dark:rotate-0 dark:scale-100"
+        />
+        <span class="sr-only">Toggle theme</span>
+      </Button>
 
-    <!-- Desktop Menu -->
-    <div class="desktop-menu">
-      <a href={resolve('/', {})} class="nav-link" class:active={$page.url.pathname === '/'}>
-        {COPY.nav.home}
-      </a>
+      <!-- Brand -->
       <a
-        href={resolve('/our-story', {})}
-        class="nav-link"
-        class:active={$page.url.pathname === '/our-story'}
+        href={resolve('/', {})}
+        class="font-heading text-[1.6rem] font-semibold tracking-wide no-underline
+               transition-transform duration-200 hover:-translate-y-px"
       >
-        {COPY.nav.aboutUs}
-      </a>
-      <a
-        href={resolve('/wedding', {})}
-        class="nav-link"
-        class:active={$page.url.pathname === '/wedding'}
-      >
-        {COPY.nav.wedding}
-      </a>
-      <a
-        href={resolve('/venue', {})}
-        class="nav-link"
-        class:active={$page.url.pathname === '/venue'}
-      >
-        {COPY.nav.venue}
-      </a>
-      <a href={resolve('/rsvp', {})} class="nav-link" class:active={$page.url.pathname === '/rsvp'}>
-        {COPY.nav.rsvp}
+        {COPY.nav.brand}
       </a>
     </div>
 
-    <!-- Mobile Menu Toggle -->
+    <!-- Spacer -->
+    <div class="flex-1"></div>
+
+    <!-- Desktop links (right) -->
+    <nav class="hidden items-center gap-8 md:flex">
+      {#each navLinks as link (link.href)}
+        {@const active = $page.url.pathname === link.href}
+        <a
+          href={resolve(link.href, {})}
+          class="relative py-1 text-sm font-medium tracking-wide no-underline transition-colors
+                 duration-200 after:absolute after:bottom-0 after:left-0 after:h-0.5
+                 after:bg-secondary after:transition-all after:duration-300
+                 hover:text-secondary
+                 {active
+            ? 'text-secondary after:w-full'
+            : 'text-background/90 after:w-0 hover:after:w-full'}"
+        >
+          {link.label}
+        </a>
+      {/each}
+    </nav>
+
+    <!-- Mobile hamburger -->
     <Sheet.Root bind:open={mobileMenuOpen}>
       <Sheet.Trigger>
-        <Button variant="ghost" size="icon" class="mobile-menu-button md:hidden">
-          <Icon icon="ph:list" width="24" />
+        <Button
+          variant="ghost"
+          size="icon"
+          class="shrink-0 text-background hover:bg-background/10 hover:text-background md:hidden"
+          aria-label="Open menu"
+        >
+          <Icon icon="ph:list" width="26" />
         </Button>
       </Sheet.Trigger>
+
       <Sheet.Content
-        id="mobile-menu-sheet"
         side="right"
-        class="w-75"
-        style="background: hsl(var(--foreground) / 0.8); color: hsl(var(--background)); backdrop-filter: blur(10px); transition: all 0.3s ease; border-top: none; padding-top: 64px; min-height: 100vh;"
+        class="flex w-72 flex-col border-none pt-(--nav-height)
+               bg-foreground/90 text-background backdrop-blur-2xl"
       >
-        <Separator class="my-4" />
-        <div class="mobile-menu">
-          <a
-            href={resolve('/', {})}
-            class="mobile-nav-link"
-            class:active={$page.url.pathname === '/'}
-            on:click={closeMobileMenu}
-          >
-            <Icon icon="ph:house-fill" width="20" />
-            {COPY.nav.home}
-          </a>
-          <a
-            href={resolve('/our-story', {})}
-            class="mobile-nav-link"
-            class:active={$page.url.pathname === '/our-story'}
-            on:click={closeMobileMenu}
-          >
-            <Icon icon="ph:notebook-duotone" width="20" />
-            {COPY.nav.aboutUs}
-          </a>
-          <a
-            href={resolve('/wedding', {})}
-            class="mobile-nav-link"
-            class:active={$page.url.pathname === '/wedding'}
-            on:click={closeMobileMenu}
-          >
-            <Icon icon="ph:heart-fill" width="20" />
-            {COPY.nav.wedding}
-          </a>
-          <a
-            href={resolve('/venue', {})}
-            class="mobile-nav-link"
-            class:active={$page.url.pathname === '/venue'}
-            on:click={closeMobileMenu}
-          >
-            <Icon icon="ph:map-pin-fill" width="20" />
-            {COPY.nav.venue}
-          </a>
-          <a
-            href={resolve('/rsvp', {})}
-            class="mobile-nav-link"
-            class:active={$page.url.pathname === '/rsvp'}
-            on:click={closeMobileMenu}
-          >
-            <Icon icon="ph:envelope-fill" width="20" />
-            {COPY.nav.rsvp}
-          </a>
-        </div>
+        <Separator class="mb-2 bg-background/20" />
+        <nav class="flex flex-col gap-1 px-2">
+          {#each navLinks as link (link.href)}
+            {@const active = $page.url.pathname === link.href}
+            <a
+              href={resolve(link.href, {})}
+              class="flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
+                     font-medium no-underline transition-all duration-200
+                     {active
+                ? 'bg-background/15 text-background'
+                : 'text-background/80 hover:bg-background/10 hover:text-background'}"
+              on:click={closeMobileMenu}
+            >
+              <Icon icon={link.icon} width="22" />
+              {link.label}
+            </a>
+          {/each}
+        </nav>
       </Sheet.Content>
     </Sheet.Root>
   </div>
 </nav>
-
-<style>
-  .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    /* Invert navbar background */
-    background: hsl(var(--foreground) / 0.8);
-  }
-
-  .nav.scrolled {
-    background: hsl(var(--foreground) / 0.6);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-  }
-
-  .nav-container {
-    color: hsl(var(--background));
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1.2rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .nav-brand {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 600;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-    transition: all 0.2s ease;
-  }
-
-  .nav-brand:hover {
-    transform: translateY(-1px);
-  }
-
-  .desktop-menu {
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-  }
-
-  .nav-link {
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    letter-spacing: 0.3px;
-    transition: all 0.2s ease;
-    position: relative;
-    padding: 0.5rem 0;
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: hsl(var(--secondary));
-    transition: width 0.3s ease;
-  }
-
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    width: 100%;
-  }
-
-  .nav-link:hover {
-    color: hsl(var(--secondary));
-  }
-
-  .nav-link.active {
-    color: hsl(var(--secondary));
-  }
-
-  .mobile-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .mobile-nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
-  }
-
-  .mobile-nav-link:hover {
-    background: hsl(var(--muted-background));
-    color: hsl(var(--foreground));
-  }
-
-  .mobile-nav-link.active {
-    background: hsl(var(--muted-background) / 0.1);
-    color: hsl(var(--foreground));
-  }
-
-  @media (max-width: 768px) {
-    .desktop-menu {
-      display: none;
-    }
-  }
-</style>

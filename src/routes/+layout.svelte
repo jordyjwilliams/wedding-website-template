@@ -30,13 +30,12 @@
   <meta name="description" content={COPY.meta.description} />
 </svelte:head>
 
-{#if !isLoading}
-  {#if isAuthenticated}
-    <Navigation />
-  {/if}
+<ModeWatcher />
 
-  <main class="min-h-screen">
-    <ModeWatcher />
-    {@render children?.()}
-  </main>
+{#if isAuthenticated}
+  <Navigation />
 {/if}
+
+<main class="min-h-screen {isAuthenticated ? 'pt-(--nav-height)' : ''}">
+  {@render children?.()}
+</main>
