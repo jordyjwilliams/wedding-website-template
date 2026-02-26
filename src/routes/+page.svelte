@@ -83,7 +83,7 @@
 
 {#if isAuthenticated}
   <!-- Show home content when authenticated -->
-  <PageWrapper backgroundImage="/images/hero-bg.webp">
+  <PageWrapper backgroundImage="/images/hero-bg.webp" backgroundPosition="center top">
     <Hero />
   </PageWrapper>
 {:else}
