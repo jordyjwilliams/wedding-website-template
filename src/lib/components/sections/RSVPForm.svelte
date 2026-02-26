@@ -98,7 +98,7 @@
 
     // TODO: Create the actual script and test this functionality
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
-    
+
     // Simulate network delay until we validate form.
     if (DEBUG_MODE) {
       await new Promise((resolve) => setTimeout(resolve, 2000));

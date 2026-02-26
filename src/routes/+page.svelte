@@ -241,7 +241,7 @@
     text-align: center;
     background: hsl(var(--card) / 0.92);
     color: hsl(var(--card-foreground));
-    box-shadow: 0 4px 32px 0 hsl(var(--shadow, 200 45% 33% / 0.10));
+    box-shadow: 0 4px 32px 0 hsl(var(--shadow, 200 45% 33% / 0.1));
   }
 
   .lock-icon {
