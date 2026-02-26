@@ -36,10 +36,10 @@
         <Icon icon="ph:calendar-plus" width="20" inline />
         {WEDDING.dates.displayFull}
       </a>
-      <p class="location">
-        <Icon icon="ph:map-pin-fill" width="20" class="icon" />
+      <a class="location" href={WEDDING.venue.website} target="_blank" rel="noopener noreferrer">
+        <Icon icon="ph:map-pin-fill" width="20" inline />
         {WEDDING.venue.displayShort}
-      </p>
+      </a>
     </div>
     <Button variant="outline" onclick={scrollToRSVP}>
       {COPY.hero.cta}
@@ -294,6 +294,10 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+  }
+  .location:hover {
+    background: rgba(212, 165, 116, 0.1);
+    transform: translateY(-2px);
   }
 
   .location :global(svg) {
