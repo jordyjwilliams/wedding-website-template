@@ -10,25 +10,25 @@
   <div class="container">
     <!-- Two-column layout: content left, photo right (stacks on tablet/mobile) -->
     <div
-      class="grid grid-cols-1 items-center gap-16
-             lg:grid-cols-2 lg:gap-20
-             3xl:gap-28"
+      class="3xl:gap-28 grid grid-cols-1 items-center
+             gap-16 lg:grid-cols-2
+             lg:gap-20"
     >
       <!-- Text content -->
       <div>
         <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
 
         <p
-          class="mb-6 font-heading text-[1.7rem] italic leading-snug
-                 text-primary-dark"
+          class="font-heading text-primary-dark mb-6 text-[1.7rem] leading-snug
+                 italic"
         >
           {COPY.about.intro}
         </p>
 
-        <p class="mb-6 text-[1.1rem] leading-[1.8] text-muted-foreground">
+        <p class="text-muted-foreground mb-6 text-[1.1rem] leading-[1.8]">
           {COPY.about.story}
         </p>
-        <p class="mb-6 text-[1.1rem] leading-[1.8] text-muted-foreground">
+        <p class="text-muted-foreground mb-6 text-[1.1rem] leading-[1.8]">
           {COPY.about.storyExtended}
         </p>
 
@@ -39,7 +39,7 @@
               <Card.Root class="glass border-none shadow-none">
                 <Card.Content class="flex items-start gap-4 p-5">
                   <WeddingBadge size="icon-lg">{fact.icon}</WeddingBadge>
-                  <p class="m-0 leading-relaxed text-muted-foreground">
+                  <p class="text-muted-foreground m-0 leading-relaxed">
                     <strong class="text-foreground">{fact.label}:</strong>
                     {fact.text}
                   </p>
@@ -53,14 +53,14 @@
       <!-- Photo -->
       <div class="order-first flex justify-center lg:order-last">
         <div
-          class="w-full max-w-sm overflow-hidden rounded-3xl shadow-glass-lg
-                 opacity-0 animate-[fadeInScale_0.8s_ease-out_0.3s_forwards]
+          class="shadow-glass-lg w-full max-w-sm animate-[fadeInScale_0.8s_ease-out_0.3s_both] overflow-hidden
+                 rounded-3xl
                  sm:max-w-md lg:max-w-full"
         >
           <img
             src="/images/proposal.webp"
             alt="Engagement at Larkya La Pass"
-            class="block h-auto w-full object-cover aspect-3/4"
+            class="block aspect-3/4 h-auto w-full object-cover"
           />
         </div>
       </div>
@@ -70,7 +70,13 @@
 
 <style>
   @keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 </style>
