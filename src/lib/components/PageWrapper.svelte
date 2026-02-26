@@ -4,10 +4,11 @@
   interface Props {
     backgroundImage?: string;
     backgroundColor?: string;
+    backgroundPosition?: string; // e.g. 'center top', 'center', etc.
     children?: Snippet;
   }
 
-  let { backgroundImage, backgroundColor, children }: Props = $props();
+  let { backgroundImage, backgroundColor, backgroundPosition = 'center' , children }: Props = $props();
   // Scroll effect reduce glassy effect/opacity of background overlay
   // to a min value, restores after timeout
   const initialOverlayOpacity: number = 0.85;
@@ -61,7 +62,7 @@
   class:has-bg={!!backgroundImage}
   style:--overlay-opacity={overlayOpacity}
   style:background={backgroundImage
-    ? `url('${backgroundImage}') center/cover fixed`
+    ? `url('${backgroundImage}') ${backgroundPosition}/cover no-repeat ${window.innerWidth <= 600 ? 'scroll' : 'fixed'}`
     : backgroundColor || 'transparent'}
 >
   {#if children}
@@ -86,6 +87,26 @@
     transition: opacity 0.6s ease-out;
     pointer-events: none;
     z-index: 0;
+  }
+
+  @media (max-width: 600px) {
+    .page-wrapper {
+      background-attachment: scroll !important;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .page-wrapper.has-bg::before {
+      position: absolute;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    .page-wrapper.has-bg {
+      background-size: contain;
+      background-position: var(--bg-position, center);
+      background-repeat: no-repeat;
+    }
   }
 
   .page-wrapper > :global(*) {
