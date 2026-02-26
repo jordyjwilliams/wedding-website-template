@@ -94,7 +94,16 @@
             on:click={closeMobileMenu}
           >
             <Icon icon="ph:house-fill" width="20" />
-            Home
+            {COPY.nav.home}
+          </a>
+          <a
+            href={resolve('/our-story', {})}
+            class="mobile-nav-link"
+            class:active={$page.url.pathname === '/our-story'}
+            on:click={closeMobileMenu}
+          >
+            <Icon icon="ph:notebook-duotone" width="20" />
+            {COPY.nav.aboutUs}
           </a>
           <a
             href={resolve('/wedding', {})}
@@ -103,7 +112,16 @@
             on:click={closeMobileMenu}
           >
             <Icon icon="ph:heart-fill" width="20" />
-            Wedding
+            {COPY.nav.wedding}
+          </a>
+          <a
+            href={resolve('/venue', {})}
+            class="mobile-nav-link"
+            class:active={$page.url.pathname === '/venue'}
+            on:click={closeMobileMenu}
+          >
+            <Icon icon="ph:map-pin-fill" width="20" />
+            {COPY.nav.venue}
           </a>
           <a
             href={resolve('/rsvp', {})}
@@ -112,7 +130,7 @@
             on:click={closeMobileMenu}
           >
             <Icon icon="ph:envelope-fill" width="20" />
-            RSVP
+            {COPY.nav.rsvp}
           </a>
         </div>
       </Sheet.Content>
