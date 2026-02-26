@@ -10,12 +10,10 @@
   import { COPY } from '$lib/content';
 
   let isAuthenticated = $state(false);
-  let isLoading = $state(true);
 
   onMount(() => {
     // Check if user is authenticated with valid session
     isAuthenticated = isSessionValid();
-    isLoading = false;
 
     // Redirect to passcode page if not authenticated and not already there
     if (!isAuthenticated && $page.url.pathname !== '/') {
