@@ -14,6 +14,8 @@
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
+  const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
+
   const attendanceOptions = [
     { value: 'yes', label: COPY.rsvp.form.attending.yes },
     { value: 'no', label: COPY.rsvp.form.attending.no },
@@ -96,8 +98,12 @@
 
     // TODO: Create the actual script and test this functionality
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
+    
     // Simulate network delay until we validate form.
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (DEBUG_MODE) {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      console.log('Simulated network delay for debugging');
+    }
     // Check if URL is configured
     if (!GOOGLE_SCRIPT_URL) {
       console.error('Google Script URL not configured');
