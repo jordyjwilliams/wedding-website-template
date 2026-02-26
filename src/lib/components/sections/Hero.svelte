@@ -45,13 +45,6 @@
       {COPY.hero.cta}
     </Button>
   </div>
-
-  <div class="scroll-indicator">
-    <span>{COPY.hero.scrollIndicator}</span>
-    <div class="mouse">
-      <div class="wheel"></div>
-    </div>
-  </div>
 </section>
 
 <style>
@@ -308,20 +301,6 @@
     filter: drop-shadow(0 2px 4px rgba(212, 165, 116, 0.2));
   }
 
-  .scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    color: var(--text-light);
-    font-size: 0.9rem;
-    animation: fadeIn 0.8s ease-out 1.5s both;
-  }
-
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -329,26 +308,6 @@
     to {
       opacity: 1;
     }
-  }
-
-  .mouse {
-    width: 24px;
-    height: 38px;
-    border: 2px solid var(--text-light);
-    border-radius: 12px;
-    position: relative;
-  }
-
-  .wheel {
-    width: 3px;
-    height: 8px;
-    background: var(--text-light);
-    border-radius: 2px;
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scroll 1.5s infinite;
   }
 
   @keyframes scroll {

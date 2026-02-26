@@ -1,10 +1,8 @@
 <script lang="ts">
-  import Icon from '@iconify/svelte';
-  import { weddingCalendarLink } from '$lib/calendar';
   import * as Card from '$lib/components/ui/card';
   import { WeddingBadge } from '$lib/components/ui/badge';
-  import { SectionHeader, AnimatedSection, DetailCard } from '$lib/components';
-  import { WEDDING, LOVE_FACTS } from '$lib/constants';
+  import { SectionHeader, AnimatedSection } from '$lib/components';
+  import { LOVE_FACTS } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>
 
@@ -154,16 +152,6 @@
     display: block;
   }
 
-  .floating-details {
-    position: absolute;
-    right: -50px;
-    bottom: 50px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    animation: fadeInRight 0.8s ease-out 0.6s both;
-  }
-
   @keyframes fadeInRight {
     from {
       opacity: 0;
@@ -184,23 +172,11 @@
     .about-visual {
       order: -1;
     }
-
-    .floating-details {
-      position: static;
-      flex-direction: row;
-      justify-content: center;
-      margin-top: 2rem;
-    }
   }
 
   @media (max-width: 640px) {
     :global(.about-section) {
       padding: 4rem 0;
-    }
-
-    .floating-details {
-      flex-direction: column;
-      align-items: stretch;
     }
 
     .fact-item {
