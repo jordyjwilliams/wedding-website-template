@@ -7,7 +7,7 @@
   import { Spinner } from '$lib/components/ui/spinner';
   import * as Card from '$lib/components/ui/card';
   import * as Alert from '$lib/components/ui/alert';
-  import { Hero, AboutUs, PageWrapper } from '$lib/components';
+  import { Hero, PageWrapper } from '$lib/components';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
