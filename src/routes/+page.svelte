@@ -85,7 +85,6 @@
   <!-- Show home content when authenticated -->
   <PageWrapper backgroundImage="/images/hero-bg.webp">
     <Hero />
-    <AboutUs />
   </PageWrapper>
 {:else}
   <!-- Show login form when not authenticated -->
