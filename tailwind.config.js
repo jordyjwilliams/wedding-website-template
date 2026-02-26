@@ -79,6 +79,7 @@ export default {
         body: ['Nunito', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         sans: ['Nunito', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         serif: ['"DM Serif Display"', '"Playfair Display"', 'Georgia', 'serif'],
+        script: ['"Dancing Script"', 'cursive'],
       },
       spacing: {
         nav: 'var(--nav-height)',

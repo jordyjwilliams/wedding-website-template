@@ -73,7 +73,7 @@
       <!-- Brand -->
       <a
         href={resolve('/', {})}
-        class="font-heading text-[1.6rem] font-semibold tracking-wide no-underline
+        class="font-script text-[2.2rem] font-bold leading-none no-underline
                transition-transform duration-200 hover:-translate-y-px"
       >
         {COPY.nav.brand}
