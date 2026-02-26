@@ -24,7 +24,6 @@ export const COPY = {
   hero: {
     eyebrow: "✨ We're getting married ✨",
     cta: 'RSVP Now →',
-    scrollIndicator: 'Scroll to find out more...',
   },
 
   // About Us Section
