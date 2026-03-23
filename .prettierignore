@@ -1,0 +1,16 @@
+node_modules
+.svelte-kit
+build
+.netlify
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+dist
+coverage
+.vercel
+.output
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+todo

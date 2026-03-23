@@ -1,0 +1,56 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: format, check, lint
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [24.x, 25.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+      - name: Cache node modules
+        uses: actions/cache@v5
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install dependencies.
+        run: npm ci
+      - name: Format (Prettier).
+        run: npm run format:check
+      - name: Lint (ESLint).
+        run: npm run lint
+      - name: Type check (svelte-check).
+        run: npm run check
+      - name: Security Audit (npm audit)
+        run: npm audit --audit-level=moderate || true
+      - name: Build (Vite)
+        run: npm run build
+      - name: Deploy Preview (skeleton)
+        if: github.event_name == 'pull_request'
+        run: echo "Deploy preview step to run run here (e.g., through netlify CLI)"
+        # TODO: Implement actual deploy preview logic (e.g., netlify deploy --build --json)

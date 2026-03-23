@@ -1,0 +1,63 @@
+{
+  "name": "wedding-website",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev --host",
+    "dev:netlify": "netlify dev",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "deploy": "npm run build && netlify deploy --prod",
+    "update-deps": "npm update --save --save-dev && npm audit fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@iconify/svelte": "^5.2.1",
+    "@internationalized/date": "^3.12.0",
+    "@lucide/svelte": "^0.577.0",
+    "@netlify/functions": "^5.1.5",
+    "@sveltejs/adapter-netlify": "^6.0.4",
+    "@sveltejs/kit": "^2.55.0",
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@tsconfig/svelte": "^5.0.8",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "autoprefixer": "^10.4.27",
+    "bits-ui": "^2.16.3",
+    "clsx": "^2.1.1",
+    "eslint": "^10.1.0",
+    "eslint-plugin-svelte": "^3.16.0",
+    "globals": "^17.4.0",
+    "mode-watcher": "^1.1.0",
+    "postcss": "^8.5.8",
+    "prettier": "^3.8.1",
+    "prettier-plugin-svelte": "^3.5.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "svelte": "^5.54.1",
+    "svelte-check": "^4.4.5",
+    "tailwind-merge": "^3.5.0",
+    "tailwind-variants": "^3.2.2",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1",
+    "vite": "^8.0.1"
+  },
+  "dependencies": {
+    "@iconify/svelte": "^5.2.1",
+    "mode-watcher": "^1.1.0"
+  },
+  "overrides": {
+    "cookie": "^1.1.1"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  }
+}
