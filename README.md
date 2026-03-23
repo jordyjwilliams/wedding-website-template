@@ -8,12 +8,26 @@ A wedding website built with:
 [![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
 [![Netlify](https://img.shields.io/badge/Netlify-Functions-00C7B7?logo=netlify)](https://www.netlify.com/)
 
+## 🔎 Example
+
+- 🧪 View this [example template here](https://wedding-website-template.netlify.app/).
+- 🛝 Have a play around and see if you like the template.
+- 🧠 Any thoughts/feedback/suggestions welcome.
+    - 🗒️ Creating this for my upcoming wedding was a learning exercise for me and any feedback is welcomed!
+
+> [!NOTE]
+>
+> * If you want to test this out the password for the template is the very-super-secure: `nullop-123` to showcase this template and it's functionality.
+> * Obviously if you choose to deploy this as is, don't expose the password.
+> * Nothing on the template as it's currently configured exposes any personal information.
+
 ## ✨ Features
 
 - 🔒 **Authentication** - Server-side passcode verification
 - 🎨 **Theming** - Modern design with beautiful animations
   - More optimizations and themeing/animations to come.
 - 📱 **Responsive** - Optimized for mobile and desktop
+- 🔆 **Light/Dark Mode Toggle** - As I wanted it 😂
 - 📝 **RSVP System** - Google Sheets integration
   - WIP: Not currently tested yet
 - 🚀 **Free Hosting** - Deployed on Netlify: TODO
