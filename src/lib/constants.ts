@@ -3,9 +3,9 @@
 export const WEDDING = {
   // Couple names
   couple: {
-    bride: 'Partner One',
-    groom: 'Partner Two',
-    full: 'Partner One & Partner Two',
+    bride: 'Partner1',
+    groom: 'Partner2',
+    full: 'Partner1 & Partner2',
   },
 
   // Dates
