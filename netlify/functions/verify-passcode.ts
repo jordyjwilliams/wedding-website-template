@@ -26,6 +26,15 @@ interface PasscodeResponse {
 const attemptTracker = new Map<string, number[]>();
 const MAX_ATTEMPTS = 5;
 const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+// Check if IP has exceeded rate limit
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const attempts = attemptTracker.get(ip) || [];
+  const recentAttempts = attempts.filter((t) => now - t < WINDOW_MS);
+  attemptTracker.set(ip, recentAttempts);
+  return recentAttempts.length >= MAX_ATTEMPTS;
+}
 function generateToken(): string {
   const timestamp = Date.now().toString(36);
   const random = Math.random().toString(36).substring(2, 15);
