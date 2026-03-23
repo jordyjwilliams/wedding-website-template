@@ -59,6 +59,22 @@ cp .env.example .env
 # WEDDING_PASSCODE=YourSecretPasscode
 # SESSION_SIGNING_SECRET=<generate with: openssl rand -hex 32>
 ```
+
+#### Required Environment Variables
+
+Set these in local `.env` and in Netlify dashboard:
+
+- `WEDDING_PASSCODE`: passcode guests enter on the login screen.
+- `SESSION_SIGNING_SECRET`: strong random signing secret used for HMAC session cookies.
+
+Optional:
+
+- `WEDDING_DOMAIN`: project/domain alignment variable.
+
+Generate a strong signing secret on macOS:
+
+```bash
+openssl rand -hex 32
 ```
 
 ### 💻 Development
