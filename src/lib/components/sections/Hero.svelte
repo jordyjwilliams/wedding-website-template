@@ -46,7 +46,7 @@
              leading-tight"
     >
       <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.4s_both]">
-        {WEDDING.couple.groom}
+        {WEDDING.couple.bride}
       </span>
       <span
         class="text-primary mx-2 inline-block animate-[spinIn_0.8s_ease-out_0.6s_both] text-[0.8em]
@@ -55,7 +55,7 @@
         &amp;
       </span>
       <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.8s_both]">
-        {WEDDING.couple.bride}
+        {WEDDING.couple.groom}
       </span>
     </h1>
 
