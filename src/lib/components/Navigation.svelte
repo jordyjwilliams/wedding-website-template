@@ -9,6 +9,7 @@
   import SunIcon from '@lucide/svelte/icons/sun';
   import MoonIcon from '@lucide/svelte/icons/moon';
   import { toggleMode } from 'mode-watcher';
+  import { DotLottieSvelte } from '@lottiefiles/dotlottie-svelte';
   import { COPY } from '$lib/content';
 
   let mobileMenuOpen: boolean = false;
