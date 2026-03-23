@@ -32,9 +32,7 @@ Built with:
 - 🔆 **Light/Dark Mode Toggle** - Because why not 😂
 - 📝 **RSVP System** - Google Sheets integration
   - WIP: Not currently tested yet
-- 🚀 **Free Hosting** - Deployed on Netlify: TODO
-  - WIP: Not currently tested yet
-  - Deploy as you feel. I have set this up assuming will deploy with netlify.
+  - Deployed dummy template with placeholder/anon copy.
 
 ## 🚀 Quick Start
 
@@ -131,5 +129,5 @@ npm run deploy
 
 > [!WARNING]
 >
-> - Again, currently in WIP format.
-> - Yet to be deployed but should be straightforward.
+> - Currently I have only deployed the `template` version of this wedding website.
+> - Still under active development.
