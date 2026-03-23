@@ -129,6 +129,7 @@ npm run deploy
 > - Still under active development.
 
 # 💥🍀 TODOs/Planned
+
 - 📬 **RSVP**
   - ✅❌ Add differing messages for success depending on response type.
 - 🐠 **Animataions**
