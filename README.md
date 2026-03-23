@@ -156,7 +156,8 @@ Security defaults:
 > [!NOTE]
 >
 > **Known Limitation**
-> * Rate limiting is in-memory in a serverless function, so it is best-effort across cold starts/scale-out.
+>
+> - Rate limiting is in-memory in a serverless function, so it is best-effort across cold starts/scale-out.
 
 > [!WARNING]
 >

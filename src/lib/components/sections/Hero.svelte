@@ -185,8 +185,7 @@
   }
 
   .heart :global(svg) {
-    filter:
-      drop-shadow(0 0 8px hsl(var(--primary) / 0.45))
+    filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.45))
       drop-shadow(0 0 18px hsl(var(--accent) / 0.35));
   }
 
