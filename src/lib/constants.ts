@@ -9,14 +9,15 @@ export const WEDDING = {
   },
 
   // Dates
+  // Example dates for template: Replace as needed!
   dates: {
-    start: '2027-03-19',
-    end: '2027-03-21',
-    ceremony: '2027-03-20',
-    displayFull: '19th - 21st March 2027',
-    displayDay1: '19th March 2027',
-    displayDay2: '20th March 2027',
-    displayDay3: '21st March 2027',
+    start: '1990-01-01',
+    end: '1990-01-03',
+    ceremony: '1990-01-02',
+    displayFull: '1st - 3rd January 1990',
+    displayDay1: '1st January 1990',
+    displayDay2: '2nd January 1990',
+    displayDay3: '3rd January 1990',
   },
 
   // Venue
