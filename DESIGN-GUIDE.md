@@ -37,12 +37,12 @@ mkdir -p static/images
 
 ### **Step 2: Add These Images**
 
-| Filename                 | Purpose              | Recommended Theme               |
-| ------------------------ | -------------------- | ------------------------------- |
-| `hero-bg.jpg`            | Hero/Passcode page   | Coastal sunset, ocean waves     |
-| `rsvp-bg.jpg`            | RSVP form background | Soft beach, elegant texture     |
-| `wedding-details-bg.jpg` | Timeline section     | Scenic landscape, cliffs        |
-| `venue-bg.jpg`           | Venue info section   | Your venue or local scenery     |
+| Filename                 | Purpose              | Recommended Theme           |
+| ------------------------ | -------------------- | --------------------------- |
+| `hero-bg.jpg`            | Hero/Passcode page   | Coastal sunset, ocean waves |
+| `rsvp-bg.jpg`            | RSVP form background | Soft beach, elegant texture |
+| `wedding-details-bg.jpg` | Timeline section     | Scenic landscape, cliffs    |
+| `venue-bg.jpg`           | Venue info section   | Your venue or local scenery |
 
 ### **Step 3: Image Requirements**
 

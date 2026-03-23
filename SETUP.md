@@ -43,7 +43,7 @@ Visit: http://localhost:8888
 - [ ] Set `WEDDING_PASSCODE` in `.env`
 - [ ] Update all copy in `src/lib/content.ts` and `src/lib/constants.ts`
 - [ ] (Optional) Configure Google Sheets RSVP (see `google-apps-script.js`)
-    - See note in readme. Yet to be tested
+  - See note in readme. Yet to be tested
 
 ## Deploy to Netlify
 
@@ -79,9 +79,9 @@ When deploying to Netlify, you MUST set `WEDDING_PASSCODE` in the Netlify dashbo
 
 ### 📁 Local Documentation
 
-* Currently I set this up such that the `todo/` directory contains internal and non-committed documentation.
-* Use this if you require.
-* I used this to store generic notes that I did not want comitted.
+- Currently I set this up such that the `todo/` directory contains internal and non-committed documentation.
+- Use this if you require.
+- I used this to store generic notes that I did not want comitted.
 
 ## Troubleshooting
 

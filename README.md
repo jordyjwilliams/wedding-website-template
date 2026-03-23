@@ -61,14 +61,16 @@ Visit [http://localhost:8888](http://localhost:8888)
 #### Background images
 
 > [!TIP]
-> * All images in `static/images` are currently placeholder images/duplicates.
-> * Replaces these with memorabale images that you'd like for your site.
+>
+> - All images in `static/images` are currently placeholder images/duplicates.
+> - Replaces these with memorabale images that you'd like for your site.
 
 #### Copy
 
 > [!WARNING]
-> * Currently all placeholder/dummy text
-> * Fill this out as you desire.
+>
+> - Currently all placeholder/dummy text
+> - Fill this out as you desire.
 
 #### Google Sheets RSVP
 
@@ -76,8 +78,9 @@ Visit [http://localhost:8888](http://localhost:8888)
 - To set this up properly.
 
 > [!NOTE]
-> * This is yet to be properly tested.
-> * Placeholder stubs for now. 
+>
+> - This is yet to be properly tested.
+> - Placeholder stubs for now.
 
 ## 🛠 Development Scripts
 
@@ -105,5 +108,6 @@ npm run deploy
 # 🚀 Deployment
 
 > [!WARNING]
-> * Again, currently in WIP format. 
-> * Yet to be deployed but should be straightforward.
+>
+> - Again, currently in WIP format.
+> - Yet to be deployed but should be straightforward.
