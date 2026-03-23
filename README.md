@@ -70,6 +70,9 @@ Currently placeholder text... To write and fill this out all copy nicely...
 ## 🛠 Development Scripts
 
 ```bash
+# Updating dependencies
+npm run update-deps
+npx npm-check-updates
 # Run development server with functions
 netlify dev
 
