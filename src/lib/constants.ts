@@ -2,6 +2,8 @@
 
 export const WEDDING = {
   // Couple names
+  // NOTE: internally these are "bride" and "groom" for ease of use in copy
+  // Sorry for the heteronormative default labels here - feel free to change as needed!
   couple: {
     bride: 'Partner1',
     groom: 'Partner2',
