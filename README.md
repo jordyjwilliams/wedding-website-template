@@ -27,7 +27,7 @@ A wedding website built with:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/wedding-website-template
+git clone https://github.com/jordyjwilliams/wedding-website-template
 cd wedding-website-template
 
 # Install dependencies
