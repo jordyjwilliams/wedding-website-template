@@ -3,6 +3,10 @@
 
 import type { Handler, HandlerEvent } from '@netlify/functions';
 
+declare const process: {
+  env: Record<string, string | undefined>;
+};
+
 const CORRECT_PASSCODE = process.env.WEDDING_PASSCODE || '';
 
 if (!CORRECT_PASSCODE) {
