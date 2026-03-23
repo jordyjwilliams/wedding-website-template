@@ -56,8 +56,7 @@
       {#if i > 0}
         <div class="text-primary/40 font-heading px-0.5 pt-1 text-xl font-bold">:</div>
       {/if}
-      <div class="flex flex-col items-center gap-1.5">
-      </div>
+      <div class="flex flex-col items-center gap-1.5"></div>
     {/each}
   </div>
 {:else if isPast}
