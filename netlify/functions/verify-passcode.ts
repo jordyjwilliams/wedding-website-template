@@ -4,9 +4,6 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 
 const CORRECT_PASSCODE = process.env.WEDDING_PASSCODE || '';
-const ALLOWED_ORIGINS = [
-  process.env.WEDDING_DOMAIN || 'http://localhost:5173',
-].filter(Boolean);
 
 if (!CORRECT_PASSCODE) {
   console.error('WEDDING_PASSCODE environment variable is not set!');
@@ -54,21 +51,7 @@ function generateToken(): string {
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
-  // CORS headers for development
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  };
-
-  // Handle OPTIONS preflight request
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: '',
-    };
-  }
+  // Get client IP for rate limiting
 
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
