@@ -55,8 +55,10 @@ npm install
 # Copy environment variables
 cp .env.example .env
 
-# Edit .env and set your passcode
+# Required auth variables
 # WEDDING_PASSCODE=YourSecretPasscode
+# SESSION_SIGNING_SECRET=<generate with: openssl rand -hex 32>
+```
 ```
 
 ### 💻 Development
