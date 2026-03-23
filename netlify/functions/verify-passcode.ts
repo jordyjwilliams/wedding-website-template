@@ -3,7 +3,13 @@
 
 import type { Handler, HandlerEvent } from '@netlify/functions';
 
+declare const process: {
+  env: Record<string, string | undefined>;
+};
+
 const CORRECT_PASSCODE = process.env.WEDDING_PASSCODE || '';
+const SESSION_SIGNING_SECRET = process.env.SESSION_SIGNING_SECRET || '';
+const SESSION_DURATION_SECONDS = 24 * 60 * 60;
 
 if (!CORRECT_PASSCODE) {
   console.error('WEDDING_PASSCODE environment variable is not set!');
@@ -16,31 +22,80 @@ interface PasscodeRequest {
 interface PasscodeResponse {
   valid: boolean;
   message: string;
-  token?: string;
 }
 
-// Generate a secure token
-function generateToken(): string {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).substring(2, 15);
-  const random2 = Math.random().toString(36).substring(2, 15);
-  return `wt_${timestamp}${random}${random2}`;
+// Rate limiting: track attempts per IP
+const attemptTracker = new Map<string, number[]>();
+const MAX_ATTEMPTS = 5;
+const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+// Check if IP has exceeded rate limit
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const attempts = attemptTracker.get(ip) || [];
+  const recentAttempts = attempts.filter((t) => now - t < WINDOW_MS);
+  attemptTracker.set(ip, recentAttempts);
+  return recentAttempts.length >= MAX_ATTEMPTS;
+}
+
+// Record an attempt for an IP
+function recordAttempt(ip: string): void {
+  const now = Date.now();
+  const attempts = attemptTracker.get(ip) || [];
+  const recentAttempts = attempts.filter((t) => now - t < WINDOW_MS);
+  recentAttempts.push(now);
+  attemptTracker.set(ip, recentAttempts);
+}
+
+function generateNonce(): string {
+  const randomBytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(randomBytes);
+  const hex = Array.from(randomBytes)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+  return hex;
+}
+
+function toHex(input: Uint8Array): string {
+  return Array.from(input)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+async function signPayload(payload: string, secret: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const key = await globalThis.crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await globalThis.crypto.subtle.sign('HMAC', key, encoder.encode(payload));
+  return toHex(new Uint8Array(signature));
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
-  // CORS headers for development
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  // Get client IP for rate limiting
+  const clientIp = (event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'unknown')
+    .split(',')[0]
+    .trim();
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
   };
 
-  // Handle OPTIONS preflight request
-  if (event.httpMethod === 'OPTIONS') {
+  if (!SESSION_SIGNING_SECRET) {
     return {
-      statusCode: 200,
+      statusCode: 500,
       headers,
-      body: '',
+      body: JSON.stringify({
+        valid: false,
+        message: 'Server session signing key is not configured.',
+      }),
     };
   }
 
@@ -53,19 +108,52 @@ export const handler: Handler = async (event: HandlerEvent) => {
     };
   }
 
+  // Check rate limit
+  if (isRateLimited(clientIp)) {
+    return {
+      statusCode: 429,
+      headers,
+      body: JSON.stringify({
+        valid: false,
+        message: 'Too many attempts. Please try again later.',
+      }),
+    };
+  }
+
   try {
     const { passcode } = JSON.parse(event.body || '{}') as PasscodeRequest;
 
-    // Verify passcode
-    if (passcode === CORRECT_PASSCODE) {
+    // Record this attempt
+    recordAttempt(clientIp);
+
+    // Verify passcode using constant-time comparison to prevent timing attacks
+    const isValid =
+      passcode.length === CORRECT_PASSCODE.length &&
+      passcode
+        .split('')
+        .reduce(
+          (acc, char, i) => acc | (char.charCodeAt(0) ^ CORRECT_PASSCODE.charCodeAt(i)),
+          0
+        ) === 0;
+
+    if (isValid && passcode === CORRECT_PASSCODE) {
+      const expiresAt = Date.now() + SESSION_DURATION_SECONDS * 1000;
+      const nonce = generateNonce();
+      const payload = `${expiresAt}.${nonce}`;
+      const signature = await signPayload(payload, SESSION_SIGNING_SECRET);
+      const sessionToken = `${payload}.${signature}`;
+      const isHttps = (event.headers['x-forwarded-proto'] || 'https') === 'https';
+
       const response: PasscodeResponse = {
         valid: true,
         message: 'Access granted',
-        token: generateToken(),
       };
       return {
         statusCode: 200,
-        headers,
+        headers: {
+          ...headers,
+          'Set-Cookie': `wedding_auth=${sessionToken}; HttpOnly; Path=/; Max-Age=${SESSION_DURATION_SECONDS}; SameSite=Lax${isHttps ? '; Secure' : ''}`,
+        },
         body: JSON.stringify(response),
       };
     } else {

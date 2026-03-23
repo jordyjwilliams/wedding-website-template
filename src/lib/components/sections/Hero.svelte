@@ -30,8 +30,8 @@
     <!-- Floating hearts -->
     {#each heartPositions as left, i (i)}
       <span
-        class="heart text-accent absolute opacity-0"
-        style="left: {left}; bottom: -50px; --delay: {i * 1.5}s; --duration: {12 + i * 3}s;"
+        class="heart absolute opacity-0"
+        style="left: {left}; top: 100%; --delay: {i * 1.5}s; --duration: {12 + i * 3}s;"
       >
         <Icon icon="ph:heart-fill" width="22" />
       </span>
@@ -179,34 +179,35 @@
   .heart {
     animation: floatUp var(--duration, 15s) infinite ease-in;
     animation-delay: var(--delay, 0s);
-    color: hsl(var(--accent));
+    color: hsl(var(--primary));
+    will-change: transform, opacity;
+    z-index: 2;
   }
 
   .heart :global(svg) {
-    filter: drop-shadow(0 2px 4px hsl(var(--accent) / 0.3));
+    filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.45))
+      drop-shadow(0 0 18px hsl(var(--accent) / 0.35));
   }
 
   @keyframes floatUp {
     0% {
-      bottom: -50px;
       opacity: 0;
-      transform: translateX(0) rotate(0deg);
+      transform: translate3d(0, 0, 0) rotate(0deg);
     }
     15% {
-      opacity: 0.25;
+      opacity: 0.52;
     }
     85% {
-      opacity: 0.18;
+      opacity: 0.42;
     }
     100% {
-      bottom: 110%;
       opacity: 0;
-      transform: translateX(55px) rotate(180deg);
+      transform: translate3d(55px, -120vh, 0) rotate(180deg);
     }
   }
 
   /* Named keyframes referenced in Tailwind arbitrary animate classes */
-  @keyframes fadeIn {
+  @keyframes -global-fadeIn {
     from {
       opacity: 0;
     }
@@ -215,7 +216,7 @@
     }
   }
 
-  @keyframes fadeInDown {
+  @keyframes -global-fadeInDown {
     from {
       opacity: 0;
       transform: translateY(-20px);
@@ -226,7 +227,7 @@
     }
   }
 
-  @keyframes fadeInUp {
+  @keyframes -global-fadeInUp {
     from {
       opacity: 0;
       transform: translateY(20px);
@@ -237,7 +238,7 @@
     }
   }
 
-  @keyframes fadeInScale {
+  @keyframes -global-fadeInScale {
     from {
       opacity: 0;
       transform: scale(0.9);
@@ -248,7 +249,7 @@
     }
   }
 
-  @keyframes spinIn {
+  @keyframes -global-spinIn {
     from {
       opacity: 0;
       transform: rotate(-180deg) scale(0.5);

@@ -11,9 +11,9 @@
 
   let isAuthenticated = $state(false);
 
-  onMount(() => {
+  onMount(async () => {
     // Check if user is authenticated with valid session
-    isAuthenticated = isSessionValid();
+    isAuthenticated = await isSessionValid();
 
     // Redirect to passcode page if not authenticated and not already there
     if (!isAuthenticated && $page.url.pathname !== '/') {
