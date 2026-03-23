@@ -73,12 +73,30 @@ export const handler: Handler = async (event: HandlerEvent) => {
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
+  
+  // Check rate limit
+  if (isRateLimited(clientIp)) {
+    return {
+      statusCode: 429,
+      headers,
+      body: JSON.stringify({
+        valid: false,
+        message: 'Too many attempts. Please try again later.',
+      }),
+    };
+  }
 
   try {
     const { passcode } = JSON.parse(event.body || '{}') as PasscodeRequest;
+    
+    // Record this attempt
+    recordAttempt(clientIp);
 
-    // Verify passcode
-    if (passcode === CORRECT_PASSCODE) {
+    // Verify passcode using constant-time comparison to prevent timing attacks
+    const isValid = passcode.length === CORRECT_PASSCODE.length &&
+                    passcode.split('').reduce((acc, char, i) => acc | (char.charCodeAt(0) ^ CORRECT_PASSCODE.charCodeAt(i)), 0) === 0;
+    
+    if (isValid && passcode === CORRECT_PASSCODE) {
       const response: PasscodeResponse = {
         valid: true,
         message: 'Access granted',
