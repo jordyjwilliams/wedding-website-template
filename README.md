@@ -1,6 +1,8 @@
-# Wedding Website Template
+# [Wedding Website Template](https://wedding-website-template.netlify.app/)
 
-A wedding website built with:
+A [generic template](https://wedding-website-template.netlify.app/) to use for a wedding website. Aimed at being easy to customise for various differing use cases.
+
+Built with:
 
 [![Svelte](https://img.shields.io/badge/Svelte-5.14-FF3E00?logo=svelte)](https://svelte.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript)](https://www.typescriptlang.org/)
@@ -8,7 +10,7 @@ A wedding website built with:
 [![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
 [![Netlify](https://img.shields.io/badge/Netlify-Functions-00C7B7?logo=netlify)](https://www.netlify.com/)
 
-## 🔎 Example
+## 🔎 [Example](https://wedding-website-template.netlify.app/)
 
 - 🧪 View this [example template here](https://wedding-website-template.netlify.app/).
 - 🛝 Have a play around and see if you like the template.
@@ -30,18 +32,17 @@ A wedding website built with:
 - 🔆 **Light/Dark Mode Toggle** - Because why not 😂
 - 📝 **RSVP System** - Google Sheets integration
   - WIP: Not currently tested yet
-- 🚀 **Free Hosting** - Deployed on Netlify: TODO
-  - WIP: Not currently tested yet
-  - Deploy as you feel. I have set this up assuming will deploy with netlify.
+- 🚀 **Free Hosting** - [Deployed on Netlify](https://wedding-website-template.netlify.app/)
+  - Deployed dummy template with placeholder/anon copy.
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 🥫 Prerequisites
 
 - Node.js 24+ and npm 11+
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
 
-### Installation
+### ⌨️ Installation
 
 ```bash
 # Clone the repository
@@ -58,7 +59,7 @@ cp .env.example .env
 # WEDDING_PASSCODE=YourSecretPasscode
 ```
 
-### Development
+### 💻 Development
 
 ```bash
 # Start development server with Netlify Functions
@@ -71,28 +72,23 @@ Visit [http://localhost:8888](http://localhost:8888)
 >
 > - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
 
-> [!NOTE]
->
-> - This whole project is currently `WIP` and yet to be deployed.
-> - Below is me setting out how I plan to implement this.
+### ✨ Make It **YOURS**...
 
-### TODO: To make it yours...
-
-#### Background images
+#### 🖼️ Background images
 
 > [!TIP]
 >
 > - All images in `static/images` are currently placeholder images/duplicates.
 > - Replaces these with memorabale images that you'd like for your site.
 
-#### Copy
+#### ✍️ Copy
 
 > [!WARNING]
 >
 > - Currently all placeholder/dummy text
 > - Fill this out as you desire.
 
-#### Google Sheets RSVP
+#### 💌 Google Sheets RSVP
 
 - This is left as optinal within template currently.
 - To set this up properly.
@@ -129,5 +125,18 @@ npm run deploy
 
 > [!WARNING]
 >
-> - Again, currently in WIP format.
-> - Yet to be deployed but should be straightforward.
+> - Currently I have only deployed the `template` version of this wedding website.
+> - Still under active development.
+
+# 💥🍀 TODOs/Planned
+
+- ⏱️ **Countdown** to wedding date.
+- 🐠 **Animataions**
+  - 🔠 Initials to be animated in navbar
+  - 💍 Rings interlocking.
+  - 🎊 Confetti button on RSVP.
+- 🎨 **Styling** General improvements.
+  - 🛰️ Navbar underlines.
+  - 📱 Enhance backgrounds on mobile.
+  - 📌 Further optimize usage and usability in general.
+- 🗃️ Test/Validate and linkup google sheets.
