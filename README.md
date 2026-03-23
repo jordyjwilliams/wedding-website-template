@@ -13,13 +13,13 @@ A wedding website built with:
 - 🧪 View this [example template here](https://wedding-website-template.netlify.app/).
 - 🛝 Have a play around and see if you like the template.
 - 🧠 Any thoughts/feedback/suggestions welcome.
-    - 🗒️ Creating this for my upcoming wedding was a learning exercise for me and any feedback is welcomed!
+  - 🗒️ Creating this for my upcoming wedding was a learning exercise for me and any feedback is welcomed!
 
 > [!NOTE]
 >
-> * If you want to test this out the password for the template is the very-super-secure: `nullop-123` to showcase this template and it's functionality.
-> * Obviously if you choose to deploy this as is, don't expose the password.
-> * Nothing on the template as it's currently configured exposes any personal information.
+> - If you want to test this out the password for the template is the very-super-secure: `nullop-123` to showcase this template and it's functionality.
+> - Obviously if you choose to deploy this as is, don't expose the password.
+> - Nothing on the template as it's currently configured exposes any personal information.
 
 ## ✨ Features
 
