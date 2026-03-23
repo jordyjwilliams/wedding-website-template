@@ -14,7 +14,8 @@
 <div class="mb-16 text-center">
   <h2
     class="font-heading text-primary mb-4 text-[clamp(2.2rem,5vw,3.8rem)]
-           [text-shadow:0_2px_12px_rgba(255,255,255,0.7)]"
+           [text-shadow:0_2px_12px_rgba(255,255,255,0.7)]
+           dark:[text-shadow:0_1px_6px_rgba(255,255,255,0.28)]"
   >
     {emoji ? `${emoji} ${title} ${emoji}` : title}
   </h2>
