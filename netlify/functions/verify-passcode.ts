@@ -50,7 +50,9 @@ function recordAttempt(ip: string): void {
 function generateNonce(): string {
   const randomBytes = new Uint8Array(16);
   globalThis.crypto.getRandomValues(randomBytes);
-  const hex = Array.from(randomBytes).map((b) => b.toString(16).padStart(2, '0')).join('');
+  const hex = Array.from(randomBytes)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
   return hex;
 }
 
@@ -75,7 +77,9 @@ async function signPayload(payload: string, secret: string): Promise<string> {
 
 export const handler: Handler = async (event: HandlerEvent) => {
   // Get client IP for rate limiting
-  const clientIp = (event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'unknown').split(',')[0].trim();
+  const clientIp = (event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'unknown')
+    .split(',')[0]
+    .trim();
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -103,7 +107,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
-  
+
   // Check rate limit
   if (isRateLimited(clientIp)) {
     return {
@@ -118,14 +122,20 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
   try {
     const { passcode } = JSON.parse(event.body || '{}') as PasscodeRequest;
-    
+
     // Record this attempt
     recordAttempt(clientIp);
 
     // Verify passcode using constant-time comparison to prevent timing attacks
-    const isValid = passcode.length === CORRECT_PASSCODE.length &&
-                    passcode.split('').reduce((acc, char, i) => acc | (char.charCodeAt(0) ^ CORRECT_PASSCODE.charCodeAt(i)), 0) === 0;
-    
+    const isValid =
+      passcode.length === CORRECT_PASSCODE.length &&
+      passcode
+        .split('')
+        .reduce(
+          (acc, char, i) => acc | (char.charCodeAt(0) ^ CORRECT_PASSCODE.charCodeAt(i)),
+          0
+        ) === 0;
+
     if (isValid && passcode === CORRECT_PASSCODE) {
       const expiresAt = Date.now() + SESSION_DURATION_SECONDS * 1000;
       const nonce = generateNonce();

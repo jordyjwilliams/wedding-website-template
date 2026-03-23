@@ -26,7 +26,11 @@ function hexToBytes(hex: string): Uint8Array | null {
   return bytes;
 }
 
-async function verifySignature(payload: string, signatureHex: string, secret: string): Promise<boolean> {
+async function verifySignature(
+  payload: string,
+  signatureHex: string,
+  secret: string
+): Promise<boolean> {
   const signature = hexToBytes(signatureHex);
   if (!signature) return false;
 
