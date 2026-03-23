@@ -11,6 +11,15 @@ export const WEDDING = {
   // Dates
   // Example dates for template: Replace as needed!
   dates: {
+    start: '2027-01-01',
+    end: '2027-01-03',
+    ceremony: '2027-01-02',
+    displayFull: '1st - 3rd January 2027',
+    displayDay1: '1st January 2027',
+    displayDay2: '2nd January 2027',
+    displayDay3: '3rd January 2027',
+  },
+
   // Countdown
   // NOTE: all logic for dates will be set on component.
   countdown: {
