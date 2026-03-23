@@ -130,11 +130,9 @@ npm run deploy
 
 # 💥🍀 TODOs/Planned
 
-- ⏱️ **Countdown** to wedding date.
 - 🐠 **Animataions**
   - 🔠 Initials to be animated in navbar
   - 💍 Rings interlocking.
-  - 🎊 Confetti button on RSVP.
 - 🎨 **Styling** General improvements.
   - 🛰️ Navbar underlines.
   - 📱 Enhance backgrounds on mobile.
