@@ -1,6 +1,8 @@
-# Wedding Website Template
+# [Wedding Website Template](https://wedding-website-template.netlify.app/)
 
-A wedding website built with:
+A [generic template](https://wedding-website-template.netlify.app/) to use for a wedding website. Aimed at being easy to customise for various differing use cases.
+
+Built with:
 
 [![Svelte](https://img.shields.io/badge/Svelte-5.14-FF3E00?logo=svelte)](https://svelte.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript)](https://www.typescriptlang.org/)
@@ -8,7 +10,7 @@ A wedding website built with:
 [![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
 [![Netlify](https://img.shields.io/badge/Netlify-Functions-00C7B7?logo=netlify)](https://www.netlify.com/)
 
-## 🔎 Example
+## 🔎 [Example](https://wedding-website-template.netlify.app/)
 
 - 🧪 View this [example template here](https://wedding-website-template.netlify.app/).
 - 🛝 Have a play around and see if you like the template.
