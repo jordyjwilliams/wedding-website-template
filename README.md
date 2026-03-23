@@ -132,7 +132,6 @@ npm run deploy
 
 - 🐠 **Animataions**
   - 🔠 Initials to be animated in navbar
-  - 💍 Rings interlocking.
 - 🎨 **Styling** General improvements.
   - 🛰️ Navbar underlines.
   - 📱 Enhance backgrounds on mobile.
