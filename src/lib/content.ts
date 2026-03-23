@@ -74,8 +74,7 @@ export const COPY = {
     features: {
       chapel: {
         title: 'The Ceremony Space',
-        description:
-          'Describe the main ceremony area and what guests can expect when they arrive.',
+        description: 'Describe the main ceremony area and what guests can expect when they arrive.',
       },
       views: {
         title: 'Scenic Views',
