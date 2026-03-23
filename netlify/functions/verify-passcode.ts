@@ -35,6 +35,16 @@ function isRateLimited(ip: string): boolean {
   attemptTracker.set(ip, recentAttempts);
   return recentAttempts.length >= MAX_ATTEMPTS;
 }
+
+// Record an attempt for an IP
+function recordAttempt(ip: string): void {
+  const now = Date.now();
+  const attempts = attemptTracker.get(ip) || [];
+  const recentAttempts = attempts.filter((t) => now - t < WINDOW_MS);
+  recentAttempts.push(now);
+  attemptTracker.set(ip, recentAttempts);
+}
+
 function generateToken(): string {
   const timestamp = Date.now().toString(36);
   const random = Math.random().toString(36).substring(2, 15);
