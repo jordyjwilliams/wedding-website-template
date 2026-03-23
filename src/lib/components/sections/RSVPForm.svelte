@@ -11,10 +11,13 @@
   import * as Card from '$lib/components/ui/card';
   import * as Select from '$lib/components/ui/select';
   import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
+  import Confetti from '$lib/components/Confetti.svelte';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
+
+  let launchConfetti: () => void = $state(() => {});
 
   const attendanceOptions = [
     { value: 'yes', label: COPY.rsvp.form.attending.yes },
@@ -141,7 +144,9 @@
 
       // Success
       messageType = 'success';
+      // TODO: make confetti conditional and message on if RSVP is `yes` or `no`.
       formMessage = `✅ ${COPY.rsvp.success.message}`;
+      launchConfetti();
 
       // Reset form
       formData = {
@@ -178,6 +183,8 @@
     }
   }
 </script>
+
+<Confetti onReady={(launch) => (launchConfetti = launch)} />
 
 <AnimatedSection class="rsvp-section">
   <div class="container">

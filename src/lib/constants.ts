@@ -2,22 +2,31 @@
 
 export const WEDDING = {
   // Couple names
+  // NOTE: internally these are "bride" and "groom" for ease of use in copy
+  // Sorry for the heteronormative default labels here - feel free to change as needed!
   couple: {
-    bride: 'Partner One',
-    groom: 'Partner Two',
-    full: 'Partner One & Partner Two',
+    bride: 'Partner1',
+    groom: 'Partner2',
+    full: 'Partner1 & Partner2',
   },
 
   // Dates
   // Example dates for template: Replace as needed!
   dates: {
-    start: '1990-01-01',
-    end: '1990-01-03',
-    ceremony: '1990-01-02',
-    displayFull: '1st - 3rd January 1990',
-    displayDay1: '1st January 1990',
-    displayDay2: '2nd January 1990',
-    displayDay3: '3rd January 1990',
+    start: '2027-01-01',
+    end: '2027-01-03',
+    ceremony: '2027-01-02',
+    displayFull: '1st - 3rd January 2027',
+    displayDay1: '1st January 2027',
+    displayDay2: '2nd January 2027',
+    displayDay3: '3rd January 2027',
+  },
+
+  // Countdown
+  // NOTE: all logic for dates will be set on component.
+  countdown: {
+    isPastTarget: "Today's the big day!",
+    isNotPastTarget: 'Counting down to the big day',
   },
 
   // Venue

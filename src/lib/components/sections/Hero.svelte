@@ -4,6 +4,7 @@
   import { weddingCalendarLink } from '$lib/calendar';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
+  import CountdownTimer from '../CountdownTimer.svelte';
 
   function scrollToRSVP(): void {
     window.location.href = '/rsvp';
@@ -39,6 +40,25 @@
 
   <!-- Content -->
   <div class="3xl:max-w-5xl relative z-10 mx-auto max-w-4xl text-center">
+    <!-- Couple names -->
+    <h1
+      class="font-heading text-foreground mb-8 text-[clamp(2.8rem,10vw,6rem)]
+             leading-tight"
+    >
+      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.4s_both]">
+        {WEDDING.couple.bride}
+      </span>
+      <span
+        class="text-primary mx-2 inline-block animate-[spinIn_0.8s_ease-out_0.6s_both] text-[0.8em]
+               sm:mx-4"
+      >
+        &amp;
+      </span>
+      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.8s_both]">
+        {WEDDING.couple.groom}
+      </span>
+    </h1>
+
     <!-- Eyebrow -->
     <p
       class="text-primary mb-6 animate-[fadeInDown_0.8s_ease-out_0.2s_both] text-base font-medium
@@ -48,28 +68,9 @@
       {COPY.hero.eyebrow}
     </p>
 
-    <!-- Couple names -->
-    <h1
-      class="font-heading text-foreground mb-8 text-[clamp(2.8rem,10vw,6rem)]
-             leading-tight"
-    >
-      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.4s_both]">
-        {WEDDING.couple.groom}
-      </span>
-      <span
-        class="text-primary mx-2 inline-block animate-[spinIn_0.8s_ease-out_0.6s_both] text-[0.8em]
-               sm:mx-4"
-      >
-        &amp;
-      </span>
-      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.8s_both]">
-        {WEDDING.couple.bride}
-      </span>
-    </h1>
-
     <!-- Date & location -->
     <div
-      class="mb-12 flex animate-[fadeInUp_0.8s_ease-out_1s_both] flex-col items-center
+      class="mb-8 flex animate-[fadeInUp_0.8s_ease-out_1s_both] flex-col items-center
              gap-3"
     >
       <a
@@ -95,6 +96,14 @@
         <Icon icon="ph:map-pin-fill" width="20" class="text-primary" />
         {WEDDING.venue.displayShort}
       </a>
+    </div>
+
+    <!-- Countdown -->
+    <div class="mb-12 animate-[fadeInUp_0.8s_ease-out_1.1s_both]">
+      <p class="text-muted-foreground mb-3 text-xs font-semibold tracking-widest uppercase">
+        {WEDDING.countdown.isNotPastTarget}
+      </p>
+      <CountdownTimer />
     </div>
 
     <!-- CTA -->

@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@iconify/svelte": "^5.2.1",
+    "@lottiefiles/dotlottie-svelte": "^0.9.8",
     "mode-watcher": "^1.1.0"
   },
   "overrides": {

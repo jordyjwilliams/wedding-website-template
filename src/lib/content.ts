@@ -22,7 +22,7 @@ export const COPY = {
 
   // Hero Section
   hero: {
-    eyebrow: "✨ We're getting married ✨",
+    eyebrow: 'are getting married',
     cta: 'RSVP Now →',
   },
 

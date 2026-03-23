@@ -9,6 +9,7 @@
   import SunIcon from '@lucide/svelte/icons/sun';
   import MoonIcon from '@lucide/svelte/icons/moon';
   import { toggleMode } from 'mode-watcher';
+  import { DotLottieSvelte } from '@lottiefiles/dotlottie-svelte';
   import { COPY } from '$lib/content';
 
   let mobileMenuOpen: boolean = false;
@@ -75,8 +76,19 @@
         href={resolve('/', {})}
         class="font-script text-[2.2rem] leading-none font-bold no-underline
                transition-transform duration-200 hover:-translate-y-px"
+        aria-label="Home"
       >
-        {COPY.nav.brand}
+        <!-- TODO: Confirm if want differing animation on home vs other pages -->
+        <!-- Currently use rings on every page... -->
+        <!-- {#if $page.url.pathname === '/'} -->
+        <!-- {:else} {COPY.nav.brand} -->
+        <!-- {/if} -->
+        <!-- If we do want this - put in if/else as above... -->
+        <!-- END TODO -->
+        <div style="width:44px;height:44px" class="rings-animation pointer-events-none">
+          <DotLottieSvelte src="/animations/wedding-rings.lottie" loop autoplay />
+        </div>
+        <span class="sr-only">{COPY.nav.brand}</span>
       </a>
     </div>
 
@@ -142,3 +154,14 @@
     </Sheet.Root>
   </div>
 </nav>
+
+<style>
+  /*
+    mode-watcher adds .dark to <html> when in dark mode.
+    The nav bg flips: dark in light-mode, light in dark-mode (bg-foreground/85).
+    Invert + hue-rotate keeps ring colours natural on the lighter dark-mode nav.
+  */
+  :global(.dark) .rings-animation {
+    filter: invert(1) hue-rotate(180deg);
+  }
+</style>
