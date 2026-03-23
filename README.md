@@ -141,6 +141,27 @@ npm run deploy
 
 # 🚀 Deployment
 
+## 🔐 Authentication + Security
+
+This template uses server-verified sessions:
+
+- Passcode verification is handled server-side using Netlify Functions.
+- Successful login sets a signed, HttpOnly cookie (`wedding_auth`).
+- Session validity is checked server-side (`/.netlify/functions/check-session`).
+- Logout clears the cookie server-side (`/.netlify/functions/logout-session`).
+- Session lifetime is 24 hours (`SESSION_DURATION_SECONDS = 24 * 60 * 60`).
+
+Security defaults:
+
+- Cookies are sent with `SameSite=Lax` and `Secure` on HTTPS.
+- Auth function responses set `Cache-Control: no-store` and hardening headers.
+- Basic brute-force throttling is enabled: 5 attempts per 15 minutes.
+
+> [!NOTE]
+>
+> **Known Limitation**
+> * Rate limiting is in-memory in a serverless function, so it is best-effort across cold starts/scale-out.
+
 > [!WARNING]
 >
 > - Currently I have only deployed the `template` version of this wedding website.
