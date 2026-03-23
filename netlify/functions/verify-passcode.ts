@@ -4,6 +4,9 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 
 const CORRECT_PASSCODE = process.env.WEDDING_PASSCODE || '';
+const ALLOWED_ORIGINS = [
+  process.env.WEDDING_DOMAIN || 'http://localhost:5173',
+].filter(Boolean);
 
 if (!CORRECT_PASSCODE) {
   console.error('WEDDING_PASSCODE environment variable is not set!');
