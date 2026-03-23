@@ -45,7 +45,7 @@ function recordAttempt(ip: string): void {
 // Generate a secure token using cryptographically secure random bytes
 function generateToken(): string {
   const randomBytes = new Uint8Array(16);
-  webcrypto.getRandomValues(randomBytes);
+  globalThis.crypto.getRandomValues(randomBytes);
   const hex = Array.from(randomBytes).map((b) => b.toString(16).padStart(2, '0')).join('');
   return `wt_${hex}`;
 }
