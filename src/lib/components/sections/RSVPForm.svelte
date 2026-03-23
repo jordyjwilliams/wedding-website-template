@@ -144,6 +144,7 @@
 
       // Success
       messageType = 'success';
+      // TODO: make confetti conditional and message on if RSVP is `yes` or `no`.
       formMessage = `✅ ${COPY.rsvp.success.message}`;
       launchConfetti();
 
