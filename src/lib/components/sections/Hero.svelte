@@ -40,15 +40,6 @@
 
   <!-- Content -->
   <div class="3xl:max-w-5xl relative z-10 mx-auto max-w-4xl text-center">
-    <!-- Eyebrow -->
-    <p
-      class="text-primary mb-6 animate-[fadeInDown_0.8s_ease-out_0.2s_both] text-base font-medium
-             tracking-[0.2em]
-             sm:text-lg"
-    >
-      {COPY.hero.eyebrow}
-    </p>
-
     <!-- Couple names -->
     <h1
       class="font-heading text-foreground mb-8 text-[clamp(2.8rem,10vw,6rem)]
@@ -67,6 +58,15 @@
         {WEDDING.couple.bride}
       </span>
     </h1>
+
+    <!-- Eyebrow -->
+    <p
+      class="text-primary mb-6 animate-[fadeInDown_0.8s_ease-out_0.2s_both] text-base font-medium
+             tracking-[0.2em]
+             sm:text-lg"
+    >
+      {COPY.hero.eyebrow}
+    </p>
 
     <!-- Date & location -->
     <div
