@@ -18,9 +18,9 @@
   let isAuthenticated: boolean = false;
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
 
-  onMount(() => {
+  onMount(async () => {
     // Check authentication status
-    isAuthenticated = isSessionValid();
+    isAuthenticated = await isSessionValid();
   });
 
   async function handleSubmit(): Promise<void> {
@@ -38,6 +38,7 @@
     try {
       const response = await fetch('/.netlify/functions/verify-passcode', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -52,14 +53,8 @@
 
       const data = await response.json();
 
-      if (data.valid && data.token) {
-        // Store authentication with timestamp and server-generated token
-        const authData = {
-          authenticated: true,
-          timestamp: Date.now(),
-          token: data.token,
-        };
-        localStorage.setItem('wedding_auth', JSON.stringify(authData));
+      if (data.valid) {
+        // Session cookie is set by server on successful verification.
         isAuthenticated = true;
         // Force full reload to re-evaluate layout and show navbar
         if (typeof window !== 'undefined') {
