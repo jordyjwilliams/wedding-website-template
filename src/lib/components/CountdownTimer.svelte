@@ -56,7 +56,10 @@
       {#if i > 0}
         <div class="text-primary/40 font-heading px-0.5 pt-1 text-xl font-bold">:</div>
       {/if}
-      <div class="flex flex-col items-center gap-1.5"></div>
+      <div class="flex flex-col items-center gap-1.5">
+        <div class="bg-muted/70 h-10 w-[3.25rem] rounded-lg"></div>
+        <div class="bg-muted/50 h-2 w-8 rounded"></div>
+      </div>
     {/each}
   </div>
 {:else if isPast}
@@ -70,7 +73,7 @@
     {#each units as unit, i (unit.key)}
       {#if i > 0}
         <span
-          class="font-heading text-primary/50 self-start px-0.5 pt-1 text-xl leading-none font-bold"
+          class="font-heading text-primary/50 px-0.5 pt-1 text-xl leading-none font-bold"
           aria-hidden="true"></span
         >
       {/if}
@@ -80,7 +83,7 @@
         <div
           class="glass font-heading text-primary min-w-[3.25rem] rounded-lg px-2.5
                  py-2 text-center text-[clamp(1.1rem,3vw,1.6rem)] leading-none font-bold
-                 tabular-nums transition-transform duration-150"
+                 tabular-nums"
         >
           {String(timeLeft[unit.key]).padStart(2, '0')}
         </div>
