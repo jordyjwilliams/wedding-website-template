@@ -1,6 +1,4 @@
 // Shared authentication utilities
-export const SESSION_DURATION_HOURS = 24;
-
 interface SessionCheckResponse {
   valid: boolean;
 }
