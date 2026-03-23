@@ -45,11 +45,12 @@ function recordAttempt(ip: string): void {
   attemptTracker.set(ip, recentAttempts);
 }
 
+// Generate a secure token using cryptographically secure random bytes
 function generateToken(): string {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).substring(2, 15);
-  const random2 = Math.random().toString(36).substring(2, 15);
-  return `wt_${timestamp}${random}${random2}`;
+  const randomBytes = new Uint8Array(16);
+  webcrypto.getRandomValues(randomBytes);
+  const hex = Array.from(randomBytes).map((b) => b.toString(16).padStart(2, '0')).join('');
+  return `wt_${hex}`;
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
