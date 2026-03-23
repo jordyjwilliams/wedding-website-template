@@ -25,7 +25,9 @@ export function isSessionValid(): boolean {
     }
 
     // Validate token format (must be returned from server)
-    if (!token.startsWith('wt_') || token.length < 32) {
+    // Token format: wt_[32 hex characters]
+    const tokenRegex = /^wt_[a-f0-9]{32}$/;
+    if (!tokenRegex.test(token)) {
       localStorage.removeItem('wedding_auth');
       return false;
     }
