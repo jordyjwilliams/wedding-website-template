@@ -3,6 +3,7 @@ export { default as AnimatedGrid } from './AnimatedGrid.svelte';
 export { default as AnimatedIcon } from './AnimatedIcon.svelte';
 export { default as AnimatedSection } from './AnimatedSection.svelte';
 export { default as Confetti } from './Confetti.svelte';
+export { default as CountdownTimer } from './CountdownTimer.svelte';
 export { default as IconCard } from './IconCard.svelte';
 export { default as Navigation } from './Navigation.svelte';
 export { default as PageWrapper } from './PageWrapper.svelte';
