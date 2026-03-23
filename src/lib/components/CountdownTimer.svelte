@@ -74,8 +74,8 @@
       {#if i > 0}
         <span
           class="font-heading text-primary/50 px-0.5 pt-1 text-xl leading-none font-bold"
-          aria-hidden="true"></span
-        >
+          aria-hidden="true"
+        ></span>
       {/if}
 
       <div class="flex flex-col items-center">
