@@ -27,7 +27,7 @@ A wedding website built with:
 - 🎨 **Theming** - Modern design with beautiful animations
   - More optimizations and themeing/animations to come.
 - 📱 **Responsive** - Optimized for mobile and desktop
-- 🔆 **Light/Dark Mode Toggle** - As I wanted it 😂
+- 🔆 **Light/Dark Mode Toggle** - Because why not 😂
 - 📝 **RSVP System** - Google Sheets integration
   - WIP: Not currently tested yet
 - 🚀 **Free Hosting** - Deployed on Netlify: TODO
