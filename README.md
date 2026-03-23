@@ -12,9 +12,13 @@ A wedding website built with:
 
 - 🔒 **Authentication** - Server-side passcode verification
 - 🎨 **Theming** - Modern design with beautiful animations
+  - More optimizations and themeing/animations to come.
 - 📱 **Responsive** - Optimized for mobile and desktop
 - 📝 **RSVP System** - Google Sheets integration
+  - WIP: Not currently tested yet
 - 🚀 **Free Hosting** - Deployed on Netlify: TODO
+  - WIP: Not currently tested yet
+  - Deploy as you feel. I have set this up assuming will deploy with netlify.
 
 ## 🚀 Quick Start
 
@@ -27,7 +31,7 @@ A wedding website built with:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/wedding-website-template
+git clone https://github.com/jordyjwilliams/wedding-website-template
 cd wedding-website-template
 
 # Install dependencies
@@ -49,7 +53,9 @@ netlify dev
 
 Visit [http://localhost:8888](http://localhost:8888)
 
-> **Important**: Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
+> [!IMPORTANT]
+>
+> - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
 
 > [!NOTE]
 >
