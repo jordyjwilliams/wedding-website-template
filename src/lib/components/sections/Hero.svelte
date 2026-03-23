@@ -4,6 +4,7 @@
   import { weddingCalendarLink } from '$lib/calendar';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
+  import CountdownTimer from '../CountdownTimer.svelte';
 
   function scrollToRSVP(): void {
     window.location.href = '/rsvp';
@@ -69,7 +70,7 @@
 
     <!-- Date & location -->
     <div
-      class="mb-12 flex animate-[fadeInUp_0.8s_ease-out_1s_both] flex-col items-center
+      class="mb-8 flex animate-[fadeInUp_0.8s_ease-out_1s_both] flex-col items-center
              gap-3"
     >
       <a
@@ -95,6 +96,14 @@
         <Icon icon="ph:map-pin-fill" width="20" class="text-primary" />
         {WEDDING.venue.displayShort}
       </a>
+    </div>
+
+    <!-- Countdown -->
+    <div class="mb-12 animate-[fadeInUp_0.8s_ease-out_1.1s_both]">
+      <p class="text-muted-foreground mb-3 text-xs font-semibold tracking-widest uppercase">
+        {WEDDING.countdown.isNotPastTarget}
+      </p>
+      <CountdownTimer />
     </div>
 
     <!-- CTA -->
