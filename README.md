@@ -129,13 +129,14 @@ npm run deploy
 > - Still under active development.
 
 # 💥🍀 TODOs/Planned
+
 - ⏱️ **Countdown** to wedding date.
 - 🐠 **Animataions**
-    - 🔠 Initials to be animated in navbar
-    - 💍 Rings interlocking.
-    - 🎊 Confetti button on RSVP.
+  - 🔠 Initials to be animated in navbar
+  - 💍 Rings interlocking.
+  - 🎊 Confetti button on RSVP.
 - 🎨 **Styling** General improvements.
-    - 🛰️ Navbar underlines.
-    - 📱 Enhance backgrounds on mobile.
-    - 📌 Further optimize usage and usability in general.
+  - 🛰️ Navbar underlines.
+  - 📱 Enhance backgrounds on mobile.
+  - 📌 Further optimize usage and usability in general.
 - 🗃️ Test/Validate and linkup google sheets.
