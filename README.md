@@ -37,12 +37,12 @@ Built with:
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 🥫 Prerequisites
 
 - Node.js 24+ and npm 11+
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
 
-### Installation
+### ⌨️ Installation
 
 ```bash
 # Clone the repository
@@ -59,7 +59,7 @@ cp .env.example .env
 # WEDDING_PASSCODE=YourSecretPasscode
 ```
 
-### Development
+### 💻 Development
 
 ```bash
 # Start development server with Netlify Functions
@@ -74,23 +74,21 @@ Visit [http://localhost:8888](http://localhost:8888)
 
 ### ✨ Make It **YOURS**...
 
-### TODO: To make it yours...
-
-#### Background images
+#### 🖼️ Background images
 
 > [!TIP]
 >
 > - All images in `static/images` are currently placeholder images/duplicates.
 > - Replaces these with memorabale images that you'd like for your site.
 
-#### Copy
+#### ✍️ Copy
 
 > [!WARNING]
 >
 > - Currently all placeholder/dummy text
 > - Fill this out as you desire.
 
-#### Google Sheets RSVP
+#### 💌 Google Sheets RSVP
 
 - This is left as optinal within template currently.
 - To set this up properly.
