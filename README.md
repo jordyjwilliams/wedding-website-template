@@ -32,6 +32,7 @@ Built with:
 - 🔆 **Light/Dark Mode Toggle** - Because why not 😂
 - 📝 **RSVP System** - Google Sheets integration
   - WIP: Not currently tested yet
+- 🚀 **Free Hosting** - [Deployed on Netlify](https://wedding-website-template.netlify.app/)
   - Deployed dummy template with placeholder/anon copy.
 
 ## 🚀 Quick Start
