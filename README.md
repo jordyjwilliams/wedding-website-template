@@ -71,10 +71,7 @@ Visit [http://localhost:8888](http://localhost:8888)
 >
 > - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
 
-> [!NOTE]
->
-> - This whole project is currently `WIP` and yet to be deployed.
-> - Below is me setting out how I plan to implement this.
+### ✨ Make It **YOURS**...
 
 ### TODO: To make it yours...
 
