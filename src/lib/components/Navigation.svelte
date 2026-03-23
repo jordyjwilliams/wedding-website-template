@@ -154,3 +154,14 @@
     </Sheet.Root>
   </div>
 </nav>
+
+<style>
+  /*
+    mode-watcher adds .dark to <html> when in dark mode.
+    The nav bg flips: dark in light-mode, light in dark-mode (bg-foreground/85).
+    Invert + hue-rotate keeps ring colours natural on the lighter dark-mode nav.
+  */
+  :global(.dark) .rings-animation {
+    filter: invert(1) hue-rotate(180deg);
+  }
+</style>
