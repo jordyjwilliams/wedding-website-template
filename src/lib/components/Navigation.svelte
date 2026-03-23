@@ -76,6 +76,14 @@
         class="font-script text-[2.2rem] leading-none font-bold no-underline
                transition-transform duration-200 hover:-translate-y-px"
         aria-label="Home"
+      >
+        <!-- TODO: Confirm if want differing animation on home vs other pages -->
+        <!-- Currently use rings on every page... -->
+        <!-- {#if $page.url.pathname === '/'} -->
+        <!-- {:else} {COPY.nav.brand} -->
+        <!-- {/if} -->
+        <!-- If we do want this - put in if/else as above... -->
+        <!-- END TODO -->
         <div style="width:44px;height:44px" class="rings-animation pointer-events-none">
           <DotLottieSvelte src="/animations/wedding-rings.lottie" loop autoplay />
         </div>
