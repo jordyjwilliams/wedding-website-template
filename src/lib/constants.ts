@@ -11,13 +11,11 @@ export const WEDDING = {
   // Dates
   // Example dates for template: Replace as needed!
   dates: {
-    start: '1990-01-01',
-    end: '1990-01-03',
-    ceremony: '1990-01-02',
-    displayFull: '1st - 3rd January 1990',
-    displayDay1: '1st January 1990',
-    displayDay2: '2nd January 1990',
-    displayDay3: '3rd January 1990',
+  // Countdown
+  // NOTE: all logic for dates will be set on component.
+  countdown: {
+    isPastTarget: "Today's the big day!",
+    isNotPastTarget: "Counting down to the big day",
   },
 
   // Venue
