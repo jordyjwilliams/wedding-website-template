@@ -76,7 +76,10 @@
         class="font-script text-[2.2rem] leading-none font-bold no-underline
                transition-transform duration-200 hover:-translate-y-px"
       >
-        {COPY.nav.brand}
+        <div style="width:44px;height:44px" class="rings-animation pointer-events-none">
+          <DotLottieSvelte src="/animations/wedding-rings.lottie" loop autoplay />
+        </div>
+        <span class="sr-only">{COPY.nav.brand}</span>
       </a>
     </div>
 
