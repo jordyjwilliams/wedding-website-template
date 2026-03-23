@@ -8,6 +8,8 @@ declare const process: {
 };
 
 const CORRECT_PASSCODE = process.env.WEDDING_PASSCODE || '';
+const SESSION_SIGNING_SECRET = process.env.SESSION_SIGNING_SECRET || '';
+const SESSION_DURATION_SECONDS = 24 * 60 * 60;
 
 if (!CORRECT_PASSCODE) {
   console.error('WEDDING_PASSCODE environment variable is not set!');
@@ -20,7 +22,6 @@ interface PasscodeRequest {
 interface PasscodeResponse {
   valid: boolean;
   message: string;
-  token?: string;
 }
 
 // Rate limiting: track attempts per IP
@@ -46,12 +47,30 @@ function recordAttempt(ip: string): void {
   attemptTracker.set(ip, recentAttempts);
 }
 
-// Generate a secure token using cryptographically secure random bytes
-function generateToken(): string {
+function generateNonce(): string {
   const randomBytes = new Uint8Array(16);
   globalThis.crypto.getRandomValues(randomBytes);
   const hex = Array.from(randomBytes).map((b) => b.toString(16).padStart(2, '0')).join('');
-  return `wt_${hex}`;
+  return hex;
+}
+
+function toHex(input: Uint8Array): string {
+  return Array.from(input)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+async function signPayload(payload: string, secret: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const key = await globalThis.crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await globalThis.crypto.subtle.sign('HMAC', key, encoder.encode(payload));
+  return toHex(new Uint8Array(signature));
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
@@ -64,6 +83,17 @@ export const handler: Handler = async (event: HandlerEvent) => {
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
   };
+
+  if (!SESSION_SIGNING_SECRET) {
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({
+        valid: false,
+        message: 'Server session signing key is not configured.',
+      }),
+    };
+  }
 
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -97,14 +127,23 @@ export const handler: Handler = async (event: HandlerEvent) => {
                     passcode.split('').reduce((acc, char, i) => acc | (char.charCodeAt(0) ^ CORRECT_PASSCODE.charCodeAt(i)), 0) === 0;
     
     if (isValid && passcode === CORRECT_PASSCODE) {
+      const expiresAt = Date.now() + SESSION_DURATION_SECONDS * 1000;
+      const nonce = generateNonce();
+      const payload = `${expiresAt}.${nonce}`;
+      const signature = await signPayload(payload, SESSION_SIGNING_SECRET);
+      const sessionToken = `${payload}.${signature}`;
+      const isHttps = (event.headers['x-forwarded-proto'] || 'https') === 'https';
+
       const response: PasscodeResponse = {
         valid: true,
         message: 'Access granted',
-        token: generateToken(),
       };
       return {
         statusCode: 200,
-        headers,
+        headers: {
+          ...headers,
+          'Set-Cookie': `wedding_auth=${sessionToken}; HttpOnly; Path=/; Max-Age=${SESSION_DURATION_SECONDS}; SameSite=Lax${isHttps ? '; Secure' : ''}`,
+        },
         body: JSON.stringify(response),
       };
     } else {
