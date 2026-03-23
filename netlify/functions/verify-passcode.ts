@@ -56,6 +56,14 @@ function generateToken(): string {
 
 export const handler: Handler = async (event: HandlerEvent) => {
   // Get client IP for rate limiting
+  const clientIp = (event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'unknown').split(',')[0].trim();
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+  };
 
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
