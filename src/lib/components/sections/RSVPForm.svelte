@@ -104,6 +104,15 @@
     return value === 'yes' || value === 'no';
   }
 
+  function updateAdditionalGuestName(index: number, value: string): void {
+    additionalGuestNames[index] = value;
+    additionalGuestNames = [...additionalGuestNames];
+
+    if (value.trim() !== '') {
+      additionalGuestNamesError = '';
+    }
+  }
+
   function validatePhone(phone: string): boolean {
     if (!phone || phone.trim() === '') return true; // Optional field
 
