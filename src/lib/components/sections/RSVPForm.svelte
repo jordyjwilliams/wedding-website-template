@@ -18,6 +18,8 @@
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type AttendanceResponse = 'yes' | 'no';
   type FormMessageType = 'success' | 'error' | '';
+  const GUEST_COUNT_MIN = 1;
+  const GUEST_COUNT_MAX = 5; // Including main guest
 
   let launchConfetti: () => void = $state(() => {});
 
