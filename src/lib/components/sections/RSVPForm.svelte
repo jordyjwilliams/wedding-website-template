@@ -60,7 +60,8 @@
   let showGuestCount = $derived(selectedAttendance === 'yes');
 
   let selectedAttendanceLabel = $derived(
-    attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label || 'Please select...'
+    attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label ||
+      COPY.rsvp.form.attending.placeholder
   );
 
   function getSuccessMessage(attendance: AttendanceResponse): string {
@@ -101,7 +102,7 @@
     event.preventDefault();
 
     if (!selectedAttendance) {
-      attendanceError = 'Please select whether you are attending before submitting.';
+      attendanceError = COPY.rsvp.form.attending.errorRequired;
       document.getElementById('attendance-trigger')?.focus();
       return;
     }
@@ -193,10 +194,9 @@
       successWasAttending = null;
 
       if (error instanceof Error && error.name === 'AbortError') {
-        formMessage =
-          '❌ Request timed out. Please check your internet connection and try again, or contact us directly.';
+        formMessage = `❌ ${COPY.rsvp.error.timeout}`;
       } else {
-        formMessage = '❌ Oops! Something went wrong. Please try again or contact us directly.';
+        formMessage = `❌ ${COPY.rsvp.error.submitFailed}`;
       }
     } finally {
       isLoading = false;
@@ -214,26 +214,26 @@
       <form onsubmit={handleSubmit} class="glass-card-form rsvp-form p-12">
         <div class="form-row">
           <div class="form-group-wrapper">
-            <Label for="firstName">{COPY.rsvp.form.name.label} *</Label>
+            <Label for="firstName">{COPY.rsvp.form.name.firstNameLabel} *</Label>
             <Input
               type="text"
               id="firstName"
               bind:value={formData.firstName}
               required
               disabled={isLoading}
-              placeholder="First name"
+              placeholder={COPY.rsvp.form.name.firstNamePlaceholder}
             />
           </div>
 
           <div class="form-group-wrapper">
-            <Label for="lastName">Last Name *</Label>
+            <Label for="lastName">{COPY.rsvp.form.name.lastNameLabel} *</Label>
             <Input
               type="text"
               id="lastName"
               bind:value={formData.lastName}
               required
               disabled={isLoading}
-              placeholder="Last name"
+              placeholder={COPY.rsvp.form.name.lastNamePlaceholder}
             />
           </div>
         </div>
