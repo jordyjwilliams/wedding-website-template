@@ -350,12 +350,16 @@
             {#if messageType === 'success'}
               <Alert.Root
                 variant="default"
-                class="border-green-200 bg-green-50 dark:border-green-900/50 dark:bg-green-950/50"
+                class={willAttend === 'yes'
+                  ? 'border-green-200 bg-green-50 dark:border-green-900/50 dark:bg-green-950/50'
+                  : 'border-border bg-card/90 dark:border-border/80 dark:bg-card/70'}
               >
                 <Icon
                   icon="ph:check-circle-fill"
                   width="20"
-                  class="text-green-600 dark:text-green-400"
+                  class={willAttend === 'yes'
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-foreground/70 dark:text-foreground/80'}
                 />
                 <Alert.Title>{COPY.rsvp.success.title}</Alert.Title>
                 <Alert.Description>{formMessage}</Alert.Description>
