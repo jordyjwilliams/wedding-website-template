@@ -66,11 +66,6 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        navPanel: {
-          DEFAULT: 'hsl(var(--nav-panel-bg) / <alpha-value>)',
-          fg: 'hsl(var(--nav-panel-fg) / <alpha-value>)',
-          separator: 'hsl(var(--nav-panel-separator) / <alpha-value>)',
-        },
       },
       borderRadius: {
         lg: 'var(--radius)',
