@@ -101,13 +101,11 @@
         {@const active = $page.url.pathname === link.href}
         <a
           href={resolve(link.href, {})}
-          class="after:bg-secondary hover:text-secondary relative py-1 text-sm font-medium tracking-wide
-                 no-underline transition-colors duration-200 after:absolute after:bottom-0
-                 after:left-0 after:h-0.5 after:transition-all
-                 after:duration-300
+          class="hover:text-secondary relative border-b-2 py-1 text-sm font-medium tracking-wide
+                 no-underline transition-all duration-200
                  {active
-            ? 'text-secondary after:w-full'
-            : 'text-background/90 after:w-0 hover:after:w-full'}"
+            ? 'text-secondary border-secondary'
+            : 'text-background/90 hover:border-secondary/85 border-transparent'}"
         >
           {link.label}
         </a>
