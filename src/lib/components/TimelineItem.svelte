@@ -78,23 +78,23 @@
     top: 0;
     width: 60px;
     height: 60px;
-    background: hsl(var(--white));
-    border: 3px solid hsl(var(--primary));
+    background: var(--color-card);
+    border: 3px solid var(--color-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 700;
-    color: hsl(var(--primary));
+    color: var(--color-primary);
     box-shadow: 0 5px 20px var(--shadow);
     z-index: 10;
   }
 
   .timeline-icon.highlight {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
-    border-color: hsl(var(--primary-dark));
-    color: hsl(var(--white));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border-color: var(--color-primary-dark);
+    color: var(--color-primary-foreground);
     animation: pulse 2s infinite;
   }
 
@@ -110,12 +110,12 @@
 
   h3 {
     font-size: 1.8rem;
-    color: hsl(var(--text-dark));
+    color: var(--color-foreground);
     margin-bottom: 0.5rem;
   }
 
   .timeline-date {
-    color: var(--primary);
+    color: var(--color-primary);
     font-weight: 600;
     margin-bottom: 1rem;
     font-size: 1.1rem;
@@ -130,7 +130,7 @@
   }
 
   .timeline-date :global(svg) {
-    color: var(--accent);
+    color: var(--color-accent);
     filter: drop-shadow(0 2px 4px rgba(122, 184, 212, 0.3));
     transition: transform 0.3s ease;
   }
@@ -156,7 +156,7 @@
   }
 
   p {
-    color: var(--text-light);
+    color: var(--color-muted-foreground);
     line-height: 1.7;
   }
 

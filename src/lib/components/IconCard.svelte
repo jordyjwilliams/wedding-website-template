@@ -20,7 +20,7 @@
     title,
     description,
     iconSize = 56,
-    iconAnimation = 'bounce',
+    iconAnimation = 'float',
     iconDelay = '0s',
     hoverLift = true,
     class: className,

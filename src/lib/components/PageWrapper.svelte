@@ -100,7 +100,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background: hsl(var(--background) / 0.7);
+    background: color-mix(in srgb, var(--color-background) 70%, transparent);
     opacity: var(--overlay-opacity);
     transition: opacity 0.6s ease-out;
     pointer-events: none;

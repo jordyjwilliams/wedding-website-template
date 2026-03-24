@@ -38,16 +38,16 @@
 
 <!--
   Height is set to var(--nav-height) = 4.5rem so Hero / sections
-  can use pt-[var(--nav-height)] to avoid overlap.
+  can use pt-(--nav-height) to avoid overlap.
 -->
 <nav
   class="fixed inset-x-0 top-0 z-50 h-(--nav-height) transition-all duration-300
          {scrolled
-    ? 'bg-foreground/88 shadow-glass backdrop-blur-xl'
-    : 'bg-foreground/94 backdrop-blur-md'}"
+    ? 'bg-card/88 border-border/40 shadow-glass border-b backdrop-blur-xl'
+    : 'bg-card/80 border-b border-transparent backdrop-blur-md'}"
 >
   <div
-    class="text-background 3xl:max-w-[100rem] mx-auto flex h-full max-w-7xl items-center gap-4
+    class="text-foreground 3xl:max-w-[100rem] mx-auto flex h-full max-w-7xl items-center gap-3
            px-6"
   >
     <!-- Left: brand + theme toggle -->
@@ -57,15 +57,15 @@
         onclick={toggleMode}
         variant="ghost"
         size="icon"
-        class="text-background hover:bg-background/10 hover:text-background relative
+        class="text-foreground hover:bg-accent/15 hover:text-foreground relative ml-1 h-9 w-9
                shrink-0 overflow-hidden"
       >
         <SunIcon
-          class="h-5 w-5 scale-100 rotate-0
+          class="h-[18px] w-[18px] scale-100 rotate-0
                  transition-all duration-300 dark:scale-0 dark:-rotate-90"
         />
         <MoonIcon
-          class="absolute inset-0 m-auto h-5 w-5 scale-0 rotate-90
+          class="absolute inset-0 m-auto h-[18px] w-[18px] scale-0 rotate-90
                  transition-all duration-300 dark:scale-100 dark:rotate-0"
         />
         <span class="sr-only">Toggle theme</span>
@@ -96,16 +96,16 @@
     <div class="flex-1"></div>
 
     <!-- Desktop links (right) -->
-    <nav class="hidden items-center gap-8 md:flex">
+    <nav class="hidden items-center gap-7 md:flex">
       {#each navLinks as link (link.href)}
         {@const active = $page.url.pathname === link.href}
         <a
           href={resolve(link.href, {})}
-          class="hover:text-secondary relative border-b-2 py-1 text-sm font-medium tracking-wide
+          class="relative border-b-2 py-1 text-[0.92rem] font-medium tracking-[0.06em]
                  no-underline transition-all duration-200
                  {active
-            ? 'text-secondary border-secondary'
-            : 'text-background/90 hover:border-secondary/85 border-transparent'}"
+            ? 'text-primary border-primary'
+            : 'text-muted-foreground hover:text-foreground hover:border-primary/70 border-transparent'}"
         >
           {link.label}
         </a>
@@ -118,7 +118,7 @@
         <Button
           variant="ghost"
           size="icon"
-          class="text-background hover:bg-background hover:text-background shrink-0 md:hidden"
+          class="text-foreground hover:bg-accent/20 hover:text-foreground shrink-0 md:hidden"
           aria-label="Open menu"
         >
           <Icon icon="ph:list" width="26" />
@@ -127,10 +127,10 @@
 
       <Sheet.Content
         side="right"
-        class="bg-foreground text-background flex w-72 flex-col
+        class="bg-card text-foreground flex w-72 flex-col
                border-none pt-(--nav-height) backdrop-blur-2xl"
       >
-        <Separator class="bg-background/20 mb-2" />
+        <Separator class="bg-border/50 mb-2" />
         <nav class="flex flex-col gap-1 px-2">
           {#each navLinks as link (link.href)}
             {@const active = $page.url.pathname === link.href}
@@ -139,8 +139,8 @@
               class="relative flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
                      font-medium no-underline transition-all duration-200
                      {active
-                ? 'bg-background text-background ring-secondary ring-1'
-                : 'text-background hover:bg-background'}"
+                ? 'bg-primary/15 text-primary ring-primary/40 ring-1'
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent/15'}"
               on:click={closeMobileMenu}
             >
               <Icon icon={link.icon} width="22" />
@@ -156,8 +156,8 @@
 <style>
   /*
     mode-watcher adds .dark to <html> when in dark mode.
-    The nav bg flips: dark in light-mode, light in dark-mode (bg-foreground/85).
-    Invert + hue-rotate keeps ring colours natural on the lighter dark-mode nav.
+    Navbar uses semantic card/foreground tokens in both themes.
+    Invert + hue-rotate keeps ring colours natural over the navbar background.
   */
   :global(.dark) .rings-animation {
     filter: invert(1) hue-rotate(180deg);

@@ -119,9 +119,9 @@
 
   // Uses the app's CSS variable colours so confetti always matches the theme.
   const COLORS = [
-    'hsl(var(--primary))',
-    'hsl(var(--secondary))',
-    'hsl(var(--accent))',
+    'var(--color-primary)',
+    'var(--color-secondary)',
+    'var(--color-accent)',
     '#f9c74f',
     '#f8961e',
     '#f3722c',

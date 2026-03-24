@@ -15,7 +15,7 @@
 
 <!-- min-h-screen ensures full viewport height; top padding = nav + breathing room -->
 <section
-  class="3xl:pt-28 relative flex min-h-[calc(100vh-var(--nav-height))] animate-[fadeIn_1s_ease-out_0.1s_both] items-center
+  class="3xl:pt-28 animate-fade-in relative flex min-h-[calc(100vh-var(--nav-height))] items-center
          justify-center overflow-hidden px-6
          pt-16 pb-16
          md:pt-20
@@ -31,7 +31,8 @@
     {#each heartPositions as left, i (i)}
       <span
         class="heart absolute opacity-0"
-        style="left: {left}; top: 100%; --delay: {i * 1.5}s; --duration: {12 + i * 3}s;"
+        style="left: {left}; top: 100%; animation: floatUp {12 + i * 3}s ease-in {i *
+          1.5}s infinite;"
       >
         <Icon icon="ph:heart-fill" width="22" />
       </span>
@@ -45,24 +46,24 @@
       class="font-heading text-foreground mb-8 text-[clamp(2.8rem,10vw,6rem)]
              leading-tight"
     >
-      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.4s_both]">
+      <span class="animate-fade-in-scale inline-block [animation-delay:0.4s]">
         {WEDDING.couple.bride}
       </span>
       <span
-        class="text-primary mx-2 inline-block animate-[spinIn_0.8s_ease-out_0.6s_both] text-[0.8em]
+        class="text-primary animate-spin-in mx-2 inline-block text-[0.8em] [animation-delay:0.6s]
                sm:mx-4"
       >
         &amp;
       </span>
-      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.8s_both]">
+      <span class="animate-fade-in-scale inline-block [animation-delay:0.8s]">
         {WEDDING.couple.groom}
       </span>
     </h1>
 
     <!-- Eyebrow -->
     <p
-      class="text-primary mb-6 animate-[fadeInDown_0.8s_ease-out_0.2s_both] text-base font-medium
-             tracking-[0.2em]
+      class="text-foreground animate-fade-in-down mb-6 text-base font-medium tracking-[0.2em]
+             [animation-delay:0.2s]
              sm:text-lg"
     >
       {COPY.hero.eyebrow}
@@ -70,14 +71,14 @@
 
     <!-- Date & location -->
     <div
-      class="mb-8 flex animate-[fadeInUp_0.8s_ease-out_1s_both] flex-col items-center
-             gap-3"
+      class="animate-fade-in-up mb-8 flex flex-col items-center gap-3
+             [animation-delay:1s]"
     >
       <a
         href={weddingCalendarLink}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-secondary hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4 py-2
+        class="text-foreground hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4 py-2
                text-xl font-semibold no-underline transition-all
                duration-200 hover:-translate-y-0.5
                sm:text-2xl"
@@ -89,7 +90,7 @@
         href={WEDDING.venue.website}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-muted-foreground hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4
+        class="text-primary hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4
                py-2 text-base no-underline transition-all
                duration-200 hover:-translate-y-0.5 sm:text-lg"
       >
@@ -99,7 +100,7 @@
     </div>
 
     <!-- Countdown -->
-    <div class="mb-12 animate-[fadeInUp_0.8s_ease-out_1.1s_both]">
+    <div class="animate-fade-in-up mb-12 [animation-delay:1.1s]">
       <p class="text-muted-foreground mb-3 text-xs font-semibold tracking-widest uppercase">
         {WEDDING.countdown.isNotPastTarget}
       </p>
@@ -107,9 +108,9 @@
     </div>
 
     <!-- CTA -->
-    <div class="animate-[fadeInUp_0.8s_ease-out_1.2s_both]">
+    <div class="animate-fade-in-up [animation-delay:1.2s]">
       <Button
-        variant="outline"
+        variant="glass"
         size="lg"
         onclick={scrollToRSVP}
         class="rounded-full px-8 font-semibold tracking-wide"
@@ -135,7 +136,7 @@
   .orb-1 {
     width: clamp(400px, 50vw, 700px);
     height: clamp(400px, 50vw, 700px);
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     top: -30%;
     right: -15%;
     animation-delay: 0s;
@@ -144,7 +145,7 @@
   .orb-2 {
     width: clamp(320px, 40vw, 560px);
     height: clamp(320px, 40vw, 560px);
-    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
     bottom: -20%;
     left: -12%;
     animation-delay: 8s;
@@ -153,7 +154,7 @@
   .orb-3 {
     width: clamp(260px, 30vw, 460px);
     height: clamp(260px, 30vw, 460px);
-    background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary-dark)));
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary-dark));
     top: 40%;
     left: 28%;
     animation-delay: 16s;
@@ -175,89 +176,16 @@
     }
   }
 
-  /* Floating heart animation */
+  /* Floating heart animation — floatUp keyframe lives in app.css */
   .heart {
-    animation: floatUp var(--duration, 15s) infinite ease-in;
-    animation-delay: var(--delay, 0s);
-    color: hsl(var(--primary));
+    color: var(--color-primary);
     will-change: transform, opacity;
     z-index: 2;
   }
 
   .heart :global(svg) {
-    filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.45))
-      drop-shadow(0 0 18px hsl(var(--accent) / 0.35));
-  }
-
-  @keyframes floatUp {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    15% {
-      opacity: 0.52;
-    }
-    85% {
-      opacity: 0.42;
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(55px, -120vh, 0) rotate(180deg);
-    }
-  }
-
-  /* Named keyframes referenced in Tailwind arbitrary animate classes */
-  @keyframes -global-fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes -global-fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes -global-fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes -global-fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes -global-spinIn {
-    from {
-      opacity: 0;
-      transform: rotate(-180deg) scale(0.5);
-    }
-    to {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--color-primary) 45%, transparent))
+      drop-shadow(0 0 18px color-mix(in srgb, var(--color-accent) 35%, transparent));
   }
 
   @media (max-width: 640px) {

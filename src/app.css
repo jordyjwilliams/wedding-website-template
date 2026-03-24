@@ -1,94 +1,104 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=DM+Serif+Display:ital@0;1&family=Nunito:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-@import 'tailwindcss/index.css';
+@import 'tailwindcss';
 
-:root {
-  /* ─── Layout ─────────────────────────────────────────────── */
-  --nav-height: 4.5rem;
+@custom-variant dark (&:where(.dark, .dark *));
 
-  /* ─── Typography ─────────────────────────────────────────── */
-  --font-family: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
+@theme {
+  /* ─── Typography ────────────────────────────────────────── */
+  --font-sans: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
   --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
 
-  /* ─── Color tokens (shadcn/ui compatible) ────────────────── */
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 200 45% 33%;
-  --primary-foreground: 210 40% 98%;
-  --primary-dark: 200 50% 25%;
-  --secondary: 200 25% 55%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 198 50% 65%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 200 20% 85%;
-  --input: 200 20% 85%;
-  --ring: 200 45% 33%;
+  /* ─── Color tokens — light mode defaults ─────────────────── */
+  --color-background: #ffffff;
+  --color-foreground: #020817;
+  --color-card: #ffffff;
+  --color-card-foreground: #020817;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #020817;
+  --color-primary: #2e617a;
+  --color-primary-foreground: #f8fafc;
+  --color-primary-dark: #204a60;
+  --color-secondary: #7096a9;
+  --color-secondary-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #79b8d2;
+  --color-accent-foreground: #0f172a;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #d1dbe0;
+  --color-input: #d1dbe0;
+  --color-ring: #2e617a;
+
+  /* ─── Animation tokens ──────────────────────────────────── */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-fade-in: fadeIn 1s ease-out both;
+  --animate-fade-in-up: fadeInUp 0.8s ease-out both;
+  --animate-fade-in-down: fadeInDown 0.8s ease-out both;
+  --animate-fade-in-scale: fadeInScale 0.8s ease-out both;
+  --animate-spin-in: spinIn 0.8s ease-out both;
+}
+
+:root {
+  /* ─── Layout / non-theme vars ───────────────────────────── */
+  --nav-height: 4.5rem;
   --radius: 0.5rem;
-  --white: 0 0% 100%;
-  --text-light: 215.4 16.3% 46.9%;
-  --text-dark: 222.2 84% 4.9%;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --card: 217.2 32.6% 17.5%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 198 50% 60%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --primary-dark: 200 50% 45%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 198 45% 55%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 200 45% 60%;
-  --white: 210 40% 98%;
-  --text-light: 215 20.2% 65.1%;
-  --text-dark: 210 40% 98%;
+  /* ─── Color token overrides for dark mode ────────────────── */
+  --color-background: #020817;
+  --color-foreground: #f8fafc;
+  --color-card: #1e293b;
+  --color-card-foreground: #f8fafc;
+  --color-popover: #020817;
+  --color-popover-foreground: #f8fafc;
+  --color-primary: #66adcc;
+  --color-primary-foreground: #0f172a;
+  --color-primary-dark: #3986ac;
+  --color-secondary: #1e293b;
+  --color-secondary-foreground: #f8fafc;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-accent: #59a1c0;
+  --color-accent-foreground: #f8fafc;
+  --color-destructive: #7f1d1d;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #1e293b;
+  --color-input: #1e293b;
+  --color-ring: #66adcc;
+
   color-scheme: dark;
 }
 
 /* ─── Base ───────────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-height) + 1rem);
-  -webkit-tap-highlight-color: transparent;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+    -webkit-tap-highlight-color: transparent;
+  }
 
-body {
-  overflow-x: hidden;
-  background-color: hsl(var(--background));
-  font-family: var(--font-family);
-  color: hsl(var(--foreground));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  body {
+    overflow-x: hidden;
+    background-color: var(--color-background);
+    font-family: var(--font-sans);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: 1.2;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+  }
 }
 
 /* ─── Container (consistent with tailwind container config) ── */
@@ -115,48 +125,48 @@ h6 {
 
 /* ─── Glass utilities ─────────────────────────────────────── */
 .glass {
-  background: hsl(var(--card) / 0.75);
+  background: color-mix(in srgb, var(--color-card) 75%, transparent);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid hsl(var(--border) / 0.4);
+  border: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
-    0 0 0 1px hsl(var(--white) / 0.1) inset;
+    0 0 0 1px color-mix(in srgb, white 10%, transparent) inset;
 }
 
 .glass-heavy {
-  background: hsl(var(--card) / 0.88);
+  background: color-mix(in srgb, var(--color-card) 88%, transparent);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid hsl(var(--border) / 0.5);
+  border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.1),
-    0 0 0 1px hsl(var(--white) / 0.12) inset;
+    0 0 0 1px color-mix(in srgb, white 12%, transparent) inset;
 }
 
 .dark .glass {
-  background: hsl(var(--card) / 0.6);
+  background: color-mix(in srgb, var(--color-card) 60%, transparent);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 1px hsl(var(--white) / 0.06) inset;
+    0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
 }
 
 .dark .glass-heavy {
-  background: hsl(var(--card) / 0.75);
+  background: color-mix(in srgb, var(--color-card) 75%, transparent);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 1px hsl(var(--white) / 0.08) inset;
+    0 0 0 1px color-mix(in srgb, white 8%, transparent) inset;
 }
 
 /* Alias for backward compat */
 .glass-card-form {
-  background: hsl(var(--card) / 0.88);
+  background: color-mix(in srgb, var(--color-card) 88%, transparent);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid hsl(var(--border) / 0.5);
+  border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.1),
-    0 0 0 1px hsl(var(--white) / 0.12) inset;
+    0 0 0 1px color-mix(in srgb, white 12%, transparent) inset;
   border-radius: calc(var(--radius) * 6);
 }
 
@@ -184,9 +194,92 @@ h6 {
 }
 
 /* ─── Touch-device tap highlight fix ─────────────────────── */
-@media (hover: none) {
-  a,
-  button {
-    -webkit-tap-highlight-color: transparent;
+@layer base {
+  @media (hover: none) {
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+}
+
+/* ─── Shared animation keyframes ─────────────────────────── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spinIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  15% {
+    opacity: 0.52;
+  }
+  85% {
+    opacity: 0.42;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(55px, -120vh, 0) rotate(180deg);
   }
 }
