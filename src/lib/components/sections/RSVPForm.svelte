@@ -59,6 +59,10 @@
     attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label || 'Please select...'
   );
 
+  function getSuccessMessage(attendance: string): string {
+    return attendance === 'yes' ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
+  }
+
   function validatePhone(phone: string): boolean {
     if (!phone || phone.trim() === '') return true; // Optional field
 
