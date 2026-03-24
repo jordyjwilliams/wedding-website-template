@@ -146,11 +146,15 @@
 
       clearTimeout(timeoutId);
 
+      const attendanceResponse = submitData.attendance;
+
       // Success
       messageType = 'success';
-      // TODO: make confetti conditional and message on if RSVP is `yes` or `no`.
-      formMessage = `✅ ${COPY.rsvp.success.message}`;
-      launchConfetti();
+      formMessage = `✅ ${getSuccessMessage(attendanceResponse)}`;
+
+      if (attendanceResponse === 'yes') {
+        launchConfetti();
+      }
 
       // Reset form
       formData = {
