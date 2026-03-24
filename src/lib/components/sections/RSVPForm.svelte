@@ -156,6 +156,31 @@
 
     attendanceError = '';
 
+    if (showGuestCount) {
+      const guestCount = Number.parseInt(formData.guestCount, 10);
+      const isInvalidGuestCount =
+        Number.isNaN(guestCount) || guestCount < GUEST_COUNT_MIN || guestCount > GUEST_COUNT_MAX;
+
+      if (isInvalidGuestCount) {
+        guestCountError = `Please enter a guest count between ${GUEST_COUNT_MIN} and ${GUEST_COUNT_MAX}.`;
+        document.getElementById('guestCount')?.focus();
+        return;
+      }
+    }
+
+    guestCountError = '';
+
+    if (showGuestCount && additionalGuestCount > 0) {
+      const missingGuestIndex = additionalGuestNames.findIndex((name) => name.trim() === '');
+      if (missingGuestIndex >= 0) {
+        additionalGuestNamesError = COPY.rsvp.form.guests.additionalNamesRequired;
+        document.getElementById(`guest-name-${missingGuestIndex + 2}`)?.focus();
+        return;
+      }
+    }
+
+    additionalGuestNamesError = '';
+
     // Validate phone before submitting
     if (formData.phone && !validatePhone(formData.phone)) {
       phoneError = COPY.rsvp.form.phone.errorRequired;
