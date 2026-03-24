@@ -107,6 +107,10 @@ export const COPY = {
       name: {
         label: 'Your Name',
         placeholder: 'Enter your full name',
+        firstNameLabel: 'First Name',
+        firstNamePlaceholder: 'First name',
+        lastNameLabel: 'Last Name',
+        lastNamePlaceholder: 'Last name',
       },
       email: {
         label: 'Email Address',
@@ -116,10 +120,15 @@ export const COPY = {
         label: 'Will you be attending?',
         yes: "Yes, I'll be there! 🎉",
         no: "Sorry, can't make it 😢",
+        placeholder: 'Please select...',
+        errorRequired: 'Please select whether you are attending before submitting.',
       },
       guests: {
         label: 'Number of Guests (including yourself)',
         description: 'Including yourself',
+        additionalNamesLabel: 'Additional Guest Full Name(s)',
+        additionalNamePlaceholderPrefix: 'Guest',
+        additionalNamesRequired: 'Please add the full name for each additional guest.',
       },
       phone: {
         label: 'Phone Number',
@@ -156,6 +165,9 @@ export const COPY = {
     error: {
       title: 'Oops!',
       message: 'Something went wrong. Please try again or contact us directly.',
+      timeout:
+        'Request timed out. Please check your internet connection and try again, or contact us directly.',
+      submitFailed: 'Oops! Something went wrong. Please try again or contact us directly.',
     },
 
     contact: {
