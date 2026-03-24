@@ -4,86 +4,62 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --font-sans: var(--font-family);
-  --font-heading: var(--font-heading);
+@theme {
+  /* ─── Typography ────────────────────────────────────────── */
+  --font-sans: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
+  --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary-dark: var(--primary-dark);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  /* ─── Color tokens — light mode defaults ─────────────────── */
+  --color-background: #ffffff;
+  --color-foreground: #020817;
+  --color-card: #ffffff;
+  --color-card-foreground: #020817;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #020817;
+  --color-primary: #2e617a;
+  --color-primary-foreground: #f8fafc;
+  --color-primary-dark: #204a60;
+  --color-secondary: #7096a9;
+  --color-secondary-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #79b8d2;
+  --color-accent-foreground: #0f172a;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #d1dbe0;
+  --color-input: #d1dbe0;
+  --color-ring: #2e617a;
 }
 
 :root {
-  /* ─── Layout ─────────────────────────────────────────────── */
+  /* ─── Layout / non-theme vars ───────────────────────────── */
   --nav-height: 4.5rem;
-
-  /* ─── Typography ─────────────────────────────────────────── */
-  --font-family: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
-  --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
-
-  /* ─── Hex theme tokens (primary source of truth) ─────────── */
-  --background: #ffffff;
-  --foreground: #020817;
-  --card: #ffffff;
-  --card-foreground: #020817;
-  --popover: #ffffff;
-  --popover-foreground: #020817;
-  --primary: #2e617a;
-  --primary-foreground: #f8fafc;
-  --primary-dark: #204a60;
-  --secondary: #7096a9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #79b8d2;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
-  --destructive-foreground: #f8fafc;
-  --border: #d1dbe0;
-  --input: #d1dbe0;
-  --ring: #2e617a;
-
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: #020817;
-  --foreground: #f8fafc;
-  --card: #1e293b;
-  --card-foreground: #f8fafc;
-  --popover: #020817;
-  --popover-foreground: #f8fafc;
-  --primary: #66adcc;
-  --primary-foreground: #0f172a;
-  --primary-dark: #3986ac;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #59a1c0;
-  --accent-foreground: #f8fafc;
-  --destructive: #7f1d1d;
-  --destructive-foreground: #f8fafc;
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #66adcc;
+  /* ─── Color token overrides for dark mode ────────────────── */
+  --color-background: #020817;
+  --color-foreground: #f8fafc;
+  --color-card: #1e293b;
+  --color-card-foreground: #f8fafc;
+  --color-popover: #020817;
+  --color-popover-foreground: #f8fafc;
+  --color-primary: #66adcc;
+  --color-primary-foreground: #0f172a;
+  --color-primary-dark: #3986ac;
+  --color-secondary: #1e293b;
+  --color-secondary-foreground: #f8fafc;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-accent: #59a1c0;
+  --color-accent-foreground: #f8fafc;
+  --color-destructive: #7f1d1d;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #1e293b;
+  --color-input: #1e293b;
+  --color-ring: #66adcc;
 
   color-scheme: dark;
 }
@@ -99,7 +75,7 @@
   body {
     overflow-x: hidden;
     background-color: var(--color-background);
-    font-family: var(--font-family);
+    font-family: var(--font-sans);
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
