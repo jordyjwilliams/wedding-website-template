@@ -379,13 +379,21 @@
             <Input
               type="number"
               id="guestCount"
-              bind:value={formData.guestCount}
-              min="1"
-              max="10"
+              value={formData.guestCount}
+              oninput={handleGuestCountInput}
+              min={GUEST_COUNT_MIN}
+              max={GUEST_COUNT_MAX}
               required={showGuestCount}
               disabled={isLoading}
               placeholder="1"
+              class={guestCountError ? 'border-red-500' : ''}
             />
+            {#if guestCountError}
+              <p class="mt-1 text-sm text-red-500">{guestCountError}</p>
+            {/if}
+          </div>
+        {/if}
+
           </div>
         {/if}
 
