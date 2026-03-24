@@ -190,9 +190,11 @@
 }
 
 /* ─── Touch-device tap highlight fix ─────────────────────── */
-@media (hover: none) {
-  a,
-  button {
-    -webkit-tap-highlight-color: transparent;
+@layer base {
+  @media (hover: none) {
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
   }
 }
