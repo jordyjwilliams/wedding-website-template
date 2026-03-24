@@ -21,7 +21,7 @@
 
   let launchConfetti: () => void = $state(() => {});
 
-  const attendanceOptions = [
+  const attendanceOptions: Array<{ value: AttendanceResponse; label: string }> = [
     { value: 'yes', label: COPY.rsvp.form.attending.yes },
     { value: 'no', label: COPY.rsvp.form.attending.no },
   ];
