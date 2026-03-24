@@ -169,7 +169,8 @@ Security defaults:
 - 🐠 **Animataions**
   - 🔠 Initials to be animated in navbar
 - 🎨 **Styling** General improvements.
-  - 🛰️ Navbar underlines.
-  - 📱 Enhance backgrounds on mobile.
-  - 📌 Further optimize usage and usability in general.
+  - ✅ 📌 Further optimize usage and usability in general.
+  - 🖼️ Differing colors on selected vs non-selected navbar/hover - nice to have not essential.
+  - 🛠️ Fix up tailwind config definitions and alpha values perhaps not getting rendered in svelte components
 - 🗃️ Test/Validate and linkup google sheets.
+  - 🔎 Once validated ensure only one submission per email (if already exists)
