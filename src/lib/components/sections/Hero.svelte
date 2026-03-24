@@ -109,7 +109,7 @@
     <!-- CTA -->
     <div class="animate-[fadeInUp_0.8s_ease-out_1.2s_both]">
       <Button
-        variant="outline"
+        variant="glass"
         size="lg"
         onclick={scrollToRSVP}
         class="rounded-full px-8 font-semibold tracking-wide"
