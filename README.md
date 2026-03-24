@@ -171,3 +171,4 @@ Security defaults:
 - 🎨 **Styling** General improvements.
   - ✅ 📌 Further optimize usage and usability in general.
 - 🗃️ Test/Validate and linkup google sheets.
+  - 🔎 Once validated ensure only one submission per email (if already exists)
