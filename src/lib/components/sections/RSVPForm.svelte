@@ -52,6 +52,8 @@
   let formMessage = $state('');
   let messageType = $state('');
   let phoneError = $state('');
+  let attendanceError = $state('');
+  let willAttend = $state<'yes' | 'no' | ''>('');
 
   let showGuestCount = $derived(selectedAttendance === 'yes');
 
