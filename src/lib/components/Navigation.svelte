@@ -140,7 +140,7 @@
                      font-medium no-underline transition-all duration-200
                      {active
                 ? 'bg-background text-background ring-secondary ring-1'
-                : 'text-background hover:bg-background/10 hover:text-background'}"
+                : 'text-background hover:bg-background'}"
               on:click={closeMobileMenu}
             >
               <Icon icon={link.icon} width="22" />
