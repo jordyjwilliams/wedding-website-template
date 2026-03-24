@@ -118,7 +118,7 @@
         <Button
           variant="ghost"
           size="icon"
-          class="text-background hover:bg-background/10 hover:text-background shrink-0 md:hidden"
+          class="text-background hover:bg-background hover:text-background shrink-0 md:hidden"
           aria-label="Open menu"
         >
           <Icon icon="ph:list" width="26" />
@@ -127,7 +127,7 @@
 
       <Sheet.Content
         side="right"
-        class="bg-foreground/90 text-background flex w-72 flex-col
+        class="bg-foreground text-background flex w-72 flex-col
                border-none pt-(--nav-height) backdrop-blur-2xl"
       >
         <Separator class="bg-background/20 mb-2" />
@@ -136,11 +136,11 @@
             {@const active = $page.url.pathname === link.href}
             <a
               href={resolve(link.href, {})}
-              class="flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
+              class="relative flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
                      font-medium no-underline transition-all duration-200
                      {active
-                ? 'bg-background/15 text-background'
-                : 'text-background/80 hover:bg-background/10 hover:text-background'}"
+                ? 'bg-background text-background ring-secondary ring-1'
+                : 'text-background hover:bg-background/10 hover:text-background'}"
               on:click={closeMobileMenu}
             >
               <Icon icon={link.icon} width="22" />
