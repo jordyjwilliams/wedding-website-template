@@ -215,10 +215,14 @@
 
     const submitData = {
       ...formData,
-      attendance: selectedAttendance || '',
-      guestCount: selectedAttendance === 'yes' ? formData.guestCount : '0',
+      attendance: attendanceResponse,
+      guestCount: attendanceResponse === 'yes' ? formData.guestCount : '0',
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
+      additionalGuestNames:
+        attendanceResponse === 'yes'
+          ? additionalGuestNames.map((name) => name.trim()).filter(Boolean)
+          : [],
       timestamp: new Date().toISOString(),
     };
 
