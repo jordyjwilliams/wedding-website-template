@@ -2,12 +2,12 @@
   import { type VariantProps, tv } from 'tailwind-variants';
 
   export const alertVariants = tv({
-    base: '[&>svg]:text-foreground relative w-full rounded-xl border p-4 backdrop-blur-[12px] shadow-md transition-all duration-200 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg~*]:pl-7',
+    base: '[&>svg]:text-foreground relative w-full rounded-xl border p-4 backdrop-blur-md shadow-md transition-all duration-200 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg~*]:pl-7',
     variants: {
       variant: {
         default: 'border-border/30 bg-card/85 text-foreground',
         destructive:
-          'border-destructive/50 bg-destructive/10 text-destructive backdrop-blur-[12px] dark:border-destructive [&>svg]:text-destructive',
+          'border-destructive/50 bg-destructive/10 text-destructive backdrop-blur-md dark:border-destructive [&>svg]:text-destructive',
       },
     },
     defaultVariants: {

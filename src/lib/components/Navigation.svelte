@@ -38,7 +38,7 @@
 
 <!--
   Height is set to var(--nav-height) = 4.5rem so Hero / sections
-  can use pt-[var(--nav-height)] to avoid overlap.
+  can use pt-(--nav-height) to avoid overlap.
 -->
 <nav
   class="fixed inset-x-0 top-0 z-50 h-(--nav-height) transition-all duration-300
