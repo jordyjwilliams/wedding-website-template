@@ -15,7 +15,7 @@
 
 <!-- min-h-screen ensures full viewport height; top padding = nav + breathing room -->
 <section
-  class="3xl:pt-28 relative flex min-h-[calc(100vh-var(--nav-height))] animate-[fadeIn_1s_ease-out_0.1s_both] items-center
+  class="3xl:pt-28 relative flex min-h-[calc(100vh-var(--nav-height))] animate-fade-in items-center
          justify-center overflow-hidden px-6
          pt-16 pb-16
          md:pt-20
@@ -31,7 +31,7 @@
     {#each heartPositions as left, i (i)}
       <span
         class="heart absolute opacity-0"
-        style="left: {left}; top: 100%; --delay: {i * 1.5}s; --duration: {12 + i * 3}s;"
+        style="left: {left}; top: 100%; animation: floatUp {12 + i * 3}s ease-in {i * 1.5}s infinite;"
       >
         <Icon icon="ph:heart-fill" width="22" />
       </span>
@@ -45,23 +45,23 @@
       class="font-heading text-foreground mb-8 text-[clamp(2.8rem,10vw,6rem)]
              leading-tight"
     >
-      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.4s_both]">
+      <span class="inline-block animate-fade-in-scale [animation-delay:0.4s]">
         {WEDDING.couple.bride}
       </span>
       <span
-        class="text-primary mx-2 inline-block animate-[spinIn_0.8s_ease-out_0.6s_both] text-[0.8em]
+        class="text-primary mx-2 inline-block animate-spin-in [animation-delay:0.6s] text-[0.8em]
                sm:mx-4"
       >
         &amp;
       </span>
-      <span class="inline-block animate-[fadeInScale_0.8s_ease-out_0.8s_both]">
+      <span class="inline-block animate-fade-in-scale [animation-delay:0.8s]">
         {WEDDING.couple.groom}
       </span>
     </h1>
 
     <!-- Eyebrow -->
     <p
-      class="text-foreground mb-6 animate-[fadeInDown_0.8s_ease-out_0.2s_both] text-base font-medium
+      class="text-foreground mb-6 animate-fade-in-down [animation-delay:0.2s] text-base font-medium
              tracking-[0.2em]
              sm:text-lg"
     >
@@ -70,7 +70,7 @@
 
     <!-- Date & location -->
     <div
-      class="mb-8 flex animate-[fadeInUp_0.8s_ease-out_1s_both] flex-col items-center
+      class="mb-8 flex animate-fade-in-up [animation-delay:1s] flex-col items-center
              gap-3"
     >
       <a
@@ -99,7 +99,7 @@
     </div>
 
     <!-- Countdown -->
-    <div class="mb-12 animate-[fadeInUp_0.8s_ease-out_1.1s_both]">
+    <div class="mb-12 animate-fade-in-up [animation-delay:1.1s]">
       <p class="text-muted-foreground mb-3 text-xs font-semibold tracking-widest uppercase">
         {WEDDING.countdown.isNotPastTarget}
       </p>
@@ -107,7 +107,7 @@
     </div>
 
     <!-- CTA -->
-    <div class="animate-[fadeInUp_0.8s_ease-out_1.2s_both]">
+    <div class="animate-fade-in-up [animation-delay:1.2s]">
       <Button
         variant="glass"
         size="lg"
@@ -175,10 +175,8 @@
     }
   }
 
-  /* Floating heart animation */
+  /* Floating heart animation — floatUp keyframe lives in app.css */
   .heart {
-    animation: floatUp var(--duration, 15s) infinite ease-in;
-    animation-delay: var(--delay, 0s);
     color: var(--color-primary);
     will-change: transform, opacity;
     z-index: 2;
@@ -187,77 +185,6 @@
   .heart :global(svg) {
     filter: drop-shadow(0 0 8px color-mix(in srgb, var(--color-primary) 45%, transparent))
       drop-shadow(0 0 18px color-mix(in srgb, var(--color-accent) 35%, transparent));
-  }
-
-  @keyframes floatUp {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    15% {
-      opacity: 0.52;
-    }
-    85% {
-      opacity: 0.42;
-    }
-    100% {
-      opacity: 0;
-      transform: translate3d(55px, -120vh, 0) rotate(180deg);
-    }
-  }
-
-  /* Named keyframes referenced in Tailwind arbitrary animate classes */
-  @keyframes -global-fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes -global-fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes -global-fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes -global-fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes -global-spinIn {
-    from {
-      opacity: 0;
-      transform: rotate(-180deg) scale(0.5);
-    }
-    to {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
   }
 
   @media (max-width: 640px) {
