@@ -112,6 +112,7 @@
     isLoading = true;
     formMessage = '';
     messageType = '';
+    willAttend = '';
 
     // TODO: Create the actual script and test this functionality
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
@@ -160,7 +161,8 @@
 
       // Success
       messageType = 'success';
-      formMessage = `✅ ${getSuccessMessage(attendanceResponse)}`;
+      willAttend = attendanceResponse === 'yes' ? 'yes' : 'no';
+      formMessage = `${getSuccessMessage(attendanceResponse)}`;
 
       if (attendanceResponse === 'yes') {
         launchConfetti();
@@ -178,6 +180,7 @@
         message: '',
       };
       selectedAttendance = undefined;
+      attendanceError = '';
 
       // Scroll to message
       setTimeout(() => {
@@ -189,6 +192,7 @@
     } catch (error) {
       console.error('Error:', error);
       messageType = 'error';
+      willAttend = '';
 
       if (error instanceof Error && error.name === 'AbortError') {
         formMessage =
@@ -271,10 +275,14 @@
             value={selectedAttendance}
             onValueChange={(v) => {
               selectedAttendance = v;
+              attendanceError = '';
             }}
             items={attendanceOptions}
           >
-            <Select.Trigger class="w-full">
+            <Select.Trigger
+              id="attendance-trigger"
+              class="w-full {attendanceError ? 'border-red-500' : ''}"
+            >
               {selectedAttendanceLabel}
             </Select.Trigger>
             <Select.Content>
@@ -283,6 +291,9 @@
               {/each}
             </Select.Content>
           </Select.Root>
+          {#if attendanceError}
+            <p class="mt-1 text-sm text-red-500">{attendanceError}</p>
+          {/if}
         </div>
 
         {#if showGuestCount}
