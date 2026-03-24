@@ -256,6 +256,9 @@
       formData = { ...INITIAL_FORM_DATA };
       selectedAttendance = undefined;
       attendanceError = '';
+      guestCountError = '';
+      additionalGuestNames = [];
+      additionalGuestNamesError = '';
 
       // Scroll to message
       setTimeout(() => {
