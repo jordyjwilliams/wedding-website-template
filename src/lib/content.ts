@@ -148,9 +148,9 @@ export const COPY = {
     success: {
       title: 'RSVP Received!',
       attending:
-        "Thank you! We're so excited to celebrate with you. You'll receive a confirmation email shortly.",
+        "🎊 Thank you! We're so excited to celebrate with you. You'll receive a confirmation email shortly.",
       notAttending:
-        "Thank you for letting us know. We'll miss celebrating with you in person and really appreciate your RSVP.",
+        "😢 Thank you for letting us know. We'll miss celebrating with you in person and really appreciate your RSVP.",
     },
 
     error: {
