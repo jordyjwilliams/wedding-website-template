@@ -84,9 +84,9 @@
 {:else}
   <!-- Login / passcode gate -->
   <div
-    class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[linear-gradient(135deg,hsl(var(--background)/0.96)_0%,hsl(var(--muted)/0.92)_100%),url('/images/heart-bg.webp')_center/cover]
+    class="relative flex min-h-screen items-center justify-center overflow-hidden
            px-4"
-    style="background-attachment: fixed;"
+    style="background-image: linear-gradient(135deg, color-mix(in srgb, var(--color-background) 96%, transparent) 0%, color-mix(in srgb, var(--color-muted) 92%, transparent) 100%), url('/images/heart-bg.webp'); background-position: center; background-size: cover; background-attachment: fixed;"
   >
     <!-- Ambient orbs -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -168,7 +168,7 @@
   .orb-1 {
     width: clamp(300px, 40vw, 500px);
     height: clamp(300px, 40vw, 500px);
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     top: -20%;
     left: -15%;
     animation-delay: 0s;
@@ -177,7 +177,7 @@
   .orb-2 {
     width: clamp(240px, 32vw, 420px);
     height: clamp(240px, 32vw, 420px);
-    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
     bottom: -18%;
     right: -12%;
     animation-delay: 6s;
@@ -186,7 +186,7 @@
   .orb-3 {
     width: clamp(180px, 24vw, 320px);
     height: clamp(180px, 24vw, 320px);
-    background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
     top: 45%;
     right: 8%;
     animation-delay: 12s;
