@@ -84,9 +84,8 @@
 {:else}
   <!-- Login / passcode gate -->
   <div
-    class="relative flex min-h-screen items-center justify-center overflow-hidden
+    class="login-bg relative flex min-h-screen items-center justify-center overflow-hidden
            px-4"
-    style="background-image: linear-gradient(135deg, color-mix(in srgb, var(--color-background) 96%, transparent) 0%, color-mix(in srgb, var(--color-muted) 92%, transparent) 100%), url('/images/heart-bg.webp'); background-position: center; background-size: cover; background-attachment: fixed;"
   >
     <!-- Ambient orbs -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -156,6 +155,20 @@
 {/if}
 
 <style>
+  /* Login page background — combines tinted gradient with hero image */
+  .login-bg {
+    background-image:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-background) 96%, transparent) 0%,
+        color-mix(in srgb, var(--color-muted) 92%, transparent) 100%
+      ),
+      url('/images/heart-bg.webp');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
   /* Ambient gradient orbs */
   .login-orb {
     position: absolute;
