@@ -16,10 +16,14 @@
   import { COPY } from '$lib/content';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
+  type AttendanceResponse = 'yes' | 'no';
+  type FormMessageType = 'success' | 'error' | '';
+  const GUEST_COUNT_MIN = 1;
+  const GUEST_COUNT_MAX = 5; // Including main guest
 
   let launchConfetti: () => void = $state(() => {});
 
-  const attendanceOptions = [
+  const attendanceOptions: Array<{ value: AttendanceResponse; label: string }> = [
     { value: 'yes', label: COPY.rsvp.form.attending.yes },
     { value: 'no', label: COPY.rsvp.form.attending.no },
   ];
@@ -29,35 +33,85 @@
     lastName: string;
     email: string;
     phone: string;
-    attendance: string;
     guestCount: string;
     dietaryRestrictions: string;
     message: string;
   }
 
-  let formData = $state<FormData>({
+  const INITIAL_FORM_DATA: FormData = {
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
-    attendance: '',
     guestCount: '1',
     dietaryRestrictions: '',
     message: '',
-  });
+  };
 
-  let selectedAttendance = $state<string | undefined>(undefined);
+  let formData = $state<FormData>({ ...INITIAL_FORM_DATA });
+
+  let selectedAttendance = $state<AttendanceResponse | undefined>(undefined);
 
   let isLoading = $state(false);
   let formMessage = $state('');
-  let messageType = $state('');
+  let messageType = $state<FormMessageType>('');
   let phoneError = $state('');
+  let attendanceError = $state('');
+  let guestCountError = $state('');
+  let additionalGuestNamesError = $state('');
+  let successWasAttending = $state<boolean | null>(null);
+  let additionalGuestNames = $state<string[]>([]);
 
   let showGuestCount = $derived(selectedAttendance === 'yes');
+  // Max of 4 additional guests (5 total including the main guest)
+  let additionalGuestCount = $derived(
+    showGuestCount
+      ? Math.max(
+          0,
+          Math.min(
+            GUEST_COUNT_MAX,
+            Math.max(GUEST_COUNT_MIN, Number.parseInt(formData.guestCount, 10) || GUEST_COUNT_MIN)
+          ) - 1
+        )
+      : 0
+  );
 
   let selectedAttendanceLabel = $derived(
-    attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label || 'Please select...'
+    attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label ||
+      COPY.rsvp.form.attending.placeholder
   );
+
+  $effect(() => {
+    if (!showGuestCount) {
+      additionalGuestNames = [];
+      additionalGuestNamesError = '';
+      return;
+    }
+
+    const targetCount = additionalGuestCount;
+    if (additionalGuestNames.length === targetCount) return;
+
+    additionalGuestNames = Array.from({ length: targetCount }, (_, index) => {
+      return additionalGuestNames[index] || '';
+    });
+  });
+
+  function getSuccessMessage(attendance: AttendanceResponse): string {
+    return attendance === 'yes' ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
+  }
+
+  function isAttendanceResponse(value: string): value is AttendanceResponse {
+    return value === 'yes' || value === 'no';
+  }
+
+  function updateAdditionalGuestName(index: number, value: string): void {
+    additionalGuestNames[index] = value;
+    additionalGuestNames = [...additionalGuestNames];
+
+    if (value.trim() !== '') {
+      additionalGuestNamesError = '';
+    }
+  }
 
   function validatePhone(phone: string): boolean {
     if (!phone || phone.trim() === '') return true; // Optional field
@@ -85,8 +139,47 @@
     }
   }
 
+  function handleGuestCountInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    formData.guestCount = target.value;
+    guestCountError = '';
+  }
+
   async function handleSubmit(event: Event): Promise<void> {
     event.preventDefault();
+
+    if (!selectedAttendance) {
+      attendanceError = COPY.rsvp.form.attending.errorRequired;
+      document.getElementById('attendance-trigger')?.focus();
+      return;
+    }
+
+    attendanceError = '';
+
+    if (showGuestCount) {
+      const guestCount = Number.parseInt(formData.guestCount, 10);
+      const isInvalidGuestCount =
+        Number.isNaN(guestCount) || guestCount < GUEST_COUNT_MIN || guestCount > GUEST_COUNT_MAX;
+
+      if (isInvalidGuestCount) {
+        guestCountError = `Please enter a guest count between ${GUEST_COUNT_MIN} and ${GUEST_COUNT_MAX}.`;
+        document.getElementById('guestCount')?.focus();
+        return;
+      }
+    }
+
+    guestCountError = '';
+
+    if (showGuestCount && additionalGuestCount > 0) {
+      const missingGuestIndex = additionalGuestNames.findIndex((name) => name.trim() === '');
+      if (missingGuestIndex >= 0) {
+        additionalGuestNamesError = COPY.rsvp.form.guests.additionalNamesRequired;
+        document.getElementById(`guest-name-${missingGuestIndex + 2}`)?.focus();
+        return;
+      }
+    }
+
+    additionalGuestNamesError = '';
 
     // Validate phone before submitting
     if (formData.phone && !validatePhone(formData.phone)) {
@@ -98,6 +191,7 @@
     isLoading = true;
     formMessage = '';
     messageType = '';
+    successWasAttending = null;
 
     // TODO: Create the actual script and test this functionality
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
@@ -112,16 +206,23 @@
       console.error('Google Script URL not configured');
       messageType = 'error';
       formMessage = `❌ ${COPY.rsvp.error.message}`;
+      successWasAttending = null;
       isLoading = false;
       return;
     }
 
+    const attendanceResponse = selectedAttendance;
+
     const submitData = {
       ...formData,
-      attendance: selectedAttendance || '',
-      guestCount: selectedAttendance === 'yes' ? formData.guestCount : '0',
+      attendance: attendanceResponse,
+      guestCount: attendanceResponse === 'yes' ? formData.guestCount : '0',
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
+      additionalGuestNames:
+        attendanceResponse === 'yes'
+          ? additionalGuestNames.map((name) => name.trim()).filter(Boolean)
+          : [],
       timestamp: new Date().toISOString(),
     };
 
@@ -144,22 +245,20 @@
 
       // Success
       messageType = 'success';
-      // TODO: make confetti conditional and message on if RSVP is `yes` or `no`.
-      formMessage = `✅ ${COPY.rsvp.success.message}`;
-      launchConfetti();
+      successWasAttending = attendanceResponse === 'yes';
+      formMessage = getSuccessMessage(attendanceResponse);
+
+      if (attendanceResponse === 'yes') {
+        launchConfetti();
+      }
 
       // Reset form
-      formData = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        attendance: '',
-        guestCount: '1',
-        dietaryRestrictions: '',
-        message: '',
-      };
+      formData = { ...INITIAL_FORM_DATA };
       selectedAttendance = undefined;
+      attendanceError = '';
+      guestCountError = '';
+      additionalGuestNames = [];
+      additionalGuestNamesError = '';
 
       // Scroll to message
       setTimeout(() => {
@@ -171,12 +270,12 @@
     } catch (error) {
       console.error('Error:', error);
       messageType = 'error';
+      successWasAttending = null;
 
       if (error instanceof Error && error.name === 'AbortError') {
-        formMessage =
-          '❌ Request timed out. Please check your internet connection and try again, or contact us directly.';
+        formMessage = `❌ ${COPY.rsvp.error.timeout}`;
       } else {
-        formMessage = '❌ Oops! Something went wrong. Please try again or contact us directly.';
+        formMessage = `❌ ${COPY.rsvp.error.submitFailed}`;
       }
     } finally {
       isLoading = false;
@@ -194,26 +293,26 @@
       <form onsubmit={handleSubmit} class="glass-card-form rsvp-form p-12">
         <div class="form-row">
           <div class="form-group-wrapper">
-            <Label for="firstName">{COPY.rsvp.form.name.label} *</Label>
+            <Label for="firstName">{COPY.rsvp.form.name.firstNameLabel} *</Label>
             <Input
               type="text"
               id="firstName"
               bind:value={formData.firstName}
               required
               disabled={isLoading}
-              placeholder="First name"
+              placeholder={COPY.rsvp.form.name.firstNamePlaceholder}
             />
           </div>
 
           <div class="form-group-wrapper">
-            <Label for="lastName">Last Name *</Label>
+            <Label for="lastName">{COPY.rsvp.form.name.lastNameLabel} *</Label>
             <Input
               type="text"
               id="lastName"
               bind:value={formData.lastName}
               required
               disabled={isLoading}
-              placeholder="Last name"
+              placeholder={COPY.rsvp.form.name.lastNamePlaceholder}
             />
           </div>
         </div>
@@ -247,16 +346,20 @@
         </div>
 
         <div class="form-group-wrapper">
-          <Label for="attendance">{COPY.rsvp.form.attending.label} *</Label>
+          <Label for="attendance-trigger">{COPY.rsvp.form.attending.label} *</Label>
           <Select.Root
             type="single"
             value={selectedAttendance}
             onValueChange={(v) => {
-              selectedAttendance = v;
+              selectedAttendance = isAttendanceResponse(v) ? v : undefined;
+              attendanceError = '';
             }}
             items={attendanceOptions}
           >
-            <Select.Trigger class="w-full">
+            <Select.Trigger
+              id="attendance-trigger"
+              class="w-full {attendanceError ? 'border-red-500' : ''}"
+            >
               {selectedAttendanceLabel}
             </Select.Trigger>
             <Select.Content>
@@ -265,6 +368,9 @@
               {/each}
             </Select.Content>
           </Select.Root>
+          {#if attendanceError}
+            <p class="mt-1 text-sm text-red-500">{attendanceError}</p>
+          {/if}
         </div>
 
         {#if showGuestCount}
@@ -273,13 +379,43 @@
             <Input
               type="number"
               id="guestCount"
-              bind:value={formData.guestCount}
-              min="1"
-              max="10"
+              value={formData.guestCount}
+              oninput={handleGuestCountInput}
+              min={GUEST_COUNT_MIN}
+              max={GUEST_COUNT_MAX}
               required={showGuestCount}
               disabled={isLoading}
               placeholder="1"
+              class={guestCountError ? 'border-red-500' : ''}
             />
+            {#if guestCountError}
+              <p class="mt-1 text-sm text-red-500">{guestCountError}</p>
+            {/if}
+          </div>
+        {/if}
+
+        {#if showGuestCount && additionalGuestCount > 0}
+          <div class="form-group-wrapper guest-count-animate">
+            <Label>{COPY.rsvp.form.guests.additionalNamesLabel} *</Label>
+            <div class="mt-2 space-y-3">
+              {#each additionalGuestNames as guestName, index (`guest-name-${index}`)}
+                <Input
+                  type="text"
+                  id={`guest-name-${index + 2}`}
+                  value={guestName}
+                  required
+                  disabled={isLoading}
+                  oninput={(event) => {
+                    const target = event.target as HTMLInputElement;
+                    updateAdditionalGuestName(index, target.value);
+                  }}
+                  placeholder={`${COPY.rsvp.form.guests.additionalNamePlaceholderPrefix} ${index + 2} full name`}
+                />
+              {/each}
+            </div>
+            {#if additionalGuestNamesError}
+              <p class="mt-1 text-sm text-red-500">{additionalGuestNamesError}</p>
+            {/if}
           </div>
         {/if}
 
@@ -317,16 +453,20 @@
         </Button>
 
         {#if formMessage}
-          <div class="mt-4">
+          <div class="form-message mt-4">
             {#if messageType === 'success'}
               <Alert.Root
                 variant="default"
-                class="border-green-200 bg-green-50 dark:border-green-900/50 dark:bg-green-950/50"
+                class={successWasAttending
+                  ? 'border-green-200 bg-green-50 dark:border-green-900/50 dark:bg-green-950/50'
+                  : 'border-border bg-card/90 dark:border-border/80 dark:bg-card/70'}
               >
                 <Icon
                   icon="ph:check-circle-fill"
                   width="20"
-                  class="text-green-600 dark:text-green-400"
+                  class={successWasAttending
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-foreground/70 dark:text-foreground/80'}
                 />
                 <Alert.Title>{COPY.rsvp.success.title}</Alert.Title>
                 <Alert.Description>{formMessage}</Alert.Description>
