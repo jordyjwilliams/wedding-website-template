@@ -47,16 +47,21 @@
     <AnimatedGrid class="mt-16" itemDelay={0.2}>
       <IconCard
         icon="ph:house-fill"
+        iconAnimation="float"
         title={COPY.weddingDetails.practical.accommodation.title}
         description={COPY.weddingDetails.practical.accommodation.description}
       />
       <IconCard
         icon="ph:backpack-fill"
+        iconAnimation="float"
+        iconDelay="0.5s"
         title={COPY.weddingDetails.practical.packing.title}
         description={COPY.weddingDetails.practical.packing.description}
       />
       <IconCard
         icon="ph:car-fill"
+        iconAnimation="float"
+        iconDelay="1s"
         title={COPY.weddingDetails.practical.transport.title}
         description={COPY.weddingDetails.practical.transport.description}
       />
