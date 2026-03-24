@@ -30,6 +30,14 @@
   --color-border: #d1dbe0;
   --color-input: #d1dbe0;
   --color-ring: #2e617a;
+
+  /* ─── Animation tokens ──────────────────────────────────── */
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-fade-in: fadeIn 1s ease-out both;
+  --animate-fade-in-up: fadeInUp 0.8s ease-out both;
+  --animate-fade-in-down: fadeInDown 0.8s ease-out both;
+  --animate-fade-in-scale: fadeInScale 0.8s ease-out both;
+  --animate-spin-in: spinIn 0.8s ease-out both;
 }
 
 :root {
@@ -192,5 +200,86 @@
     button {
       -webkit-tap-highlight-color: transparent;
     }
+  }
+}
+
+/* ─── Shared animation keyframes ─────────────────────────── */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spinIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  15% {
+    opacity: 0.52;
+  }
+  85% {
+    opacity: 0.42;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(55px, -120vh, 0) rotate(180deg);
   }
 }
