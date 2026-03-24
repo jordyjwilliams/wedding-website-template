@@ -486,7 +486,7 @@
         <Card.Root>
           <Card.Header class="text-center">
             <div class="mb-4">
-              <AnimatedIcon icon="ph:chat-circle-dots-fill" size={48} color="hsl(var(--accent))" />
+              <AnimatedIcon icon="ph:chat-circle-dots-fill" size={48} color="var(--color-accent)" />
             </div>
             <Card.Title>{COPY.rsvp.contact.title}</Card.Title>
           </Card.Header>
@@ -617,15 +617,15 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 0.75rem;
-    color: hsl(var(--foreground));
+    color: var(--color-foreground);
     text-decoration: none;
     border-radius: 0.5rem;
     transition: all 0.2s ease;
   }
 
   .contact-link:hover {
-    background: hsl(var(--accent) / 0.1);
-    color: hsl(var(--primary));
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    color: var(--color-primary);
     transform: translateX(2px);
   }
 
