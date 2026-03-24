@@ -135,7 +135,7 @@
   .orb-1 {
     width: clamp(400px, 50vw, 700px);
     height: clamp(400px, 50vw, 700px);
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     top: -30%;
     right: -15%;
     animation-delay: 0s;
@@ -144,7 +144,7 @@
   .orb-2 {
     width: clamp(320px, 40vw, 560px);
     height: clamp(320px, 40vw, 560px);
-    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
     bottom: -20%;
     left: -12%;
     animation-delay: 8s;
@@ -153,7 +153,7 @@
   .orb-3 {
     width: clamp(260px, 30vw, 460px);
     height: clamp(260px, 30vw, 460px);
-    background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary-dark)));
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary-dark));
     top: 40%;
     left: 28%;
     animation-delay: 16s;
@@ -179,14 +179,14 @@
   .heart {
     animation: floatUp var(--duration, 15s) infinite ease-in;
     animation-delay: var(--delay, 0s);
-    color: hsl(var(--primary));
+    color: var(--color-primary);
     will-change: transform, opacity;
     z-index: 2;
   }
 
   .heart :global(svg) {
-    filter: drop-shadow(0 0 8px hsl(var(--primary) / 0.45))
-      drop-shadow(0 0 18px hsl(var(--accent) / 0.35));
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--color-primary) 45%, transparent))
+      drop-shadow(0 0 18px color-mix(in srgb, var(--color-accent) 35%, transparent));
   }
 
   @keyframes floatUp {
