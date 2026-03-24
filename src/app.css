@@ -121,48 +121,48 @@
 
 /* ─── Glass utilities ─────────────────────────────────────── */
 .glass {
-  background: hsl(var(--card) / 0.75);
+  background: color-mix(in srgb, var(--card) 75%, transparent);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid hsl(var(--border) / 0.4);
+  border: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
-    0 0 0 1px hsl(var(--white) / 0.1) inset;
+    0 0 0 1px color-mix(in srgb, var(--white) 10%, transparent) inset;
 }
 
 .glass-heavy {
-  background: hsl(var(--card) / 0.88);
+  background: color-mix(in srgb, var(--card) 88%, transparent);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid hsl(var(--border) / 0.5);
+  border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.1),
-    0 0 0 1px hsl(var(--white) / 0.12) inset;
+    0 0 0 1px color-mix(in srgb, var(--white) 12%, transparent) inset;
 }
 
 .dark .glass {
-  background: hsl(var(--card) / 0.6);
+  background: color-mix(in srgb, var(--card) 60%, transparent);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 1px hsl(var(--white) / 0.06) inset;
+    0 0 0 1px color-mix(in srgb, var(--white) 6%, transparent) inset;
 }
 
 .dark .glass-heavy {
-  background: hsl(var(--card) / 0.75);
+  background: color-mix(in srgb, var(--card) 75%, transparent);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 1px hsl(var(--white) / 0.08) inset;
+    0 0 0 1px color-mix(in srgb, var(--white) 8%, transparent) inset;
 }
 
 /* Alias for backward compat */
 .glass-card-form {
-  background: hsl(var(--card) / 0.88);
+  background: color-mix(in srgb, var(--card) 88%, transparent);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid hsl(var(--border) / 0.5);
+  border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.1),
-    0 0 0 1px hsl(var(--white) / 0.12) inset;
+    0 0 0 1px color-mix(in srgb, var(--white) 12%, transparent) inset;
   border-radius: calc(var(--radius) * 6);
 }
 
