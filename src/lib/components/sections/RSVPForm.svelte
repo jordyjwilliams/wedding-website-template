@@ -94,6 +94,14 @@
   async function handleSubmit(event: Event): Promise<void> {
     event.preventDefault();
 
+    if (!selectedAttendance) {
+      attendanceError = 'Please select whether you are attending before submitting.';
+      document.getElementById('attendance-trigger')?.focus();
+      return;
+    }
+
+    attendanceError = '';
+
     // Validate phone before submitting
     if (formData.phone && !validatePhone(formData.phone)) {
       phoneError = COPY.rsvp.form.phone.errorRequired;
