@@ -81,6 +81,21 @@
       COPY.rsvp.form.attending.placeholder
   );
 
+  $effect(() => {
+    if (!showGuestCount) {
+      additionalGuestNames = [];
+      additionalGuestNamesError = '';
+      return;
+    }
+
+    const targetCount = additionalGuestCount;
+    if (additionalGuestNames.length === targetCount) return;
+
+    additionalGuestNames = Array.from({ length: targetCount }, (_, index) => {
+      return additionalGuestNames[index] || '';
+    });
+  });
+
   function getSuccessMessage(attendance: AttendanceResponse): string {
     return attendance === 'yes' ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
   }
