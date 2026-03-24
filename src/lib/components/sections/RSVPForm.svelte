@@ -57,9 +57,24 @@
   let messageType = $state<FormMessageType>('');
   let phoneError = $state('');
   let attendanceError = $state('');
+  let guestCountError = $state('');
+  let additionalGuestNamesError = $state('');
   let successWasAttending = $state<boolean | null>(null);
+  let additionalGuestNames = $state<string[]>([]);
 
   let showGuestCount = $derived(selectedAttendance === 'yes');
+  // Max of 4 additional guests (5 total including the main guest)
+  let additionalGuestCount = $derived(
+    showGuestCount
+      ? Math.max(
+          0,
+          Math.min(
+            GUEST_COUNT_MAX,
+            Math.max(GUEST_COUNT_MIN, Number.parseInt(formData.guestCount, 10) || GUEST_COUNT_MIN)
+          ) - 1
+        )
+      : 0
+  );
 
   let selectedAttendanceLabel = $derived(
     attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label ||
