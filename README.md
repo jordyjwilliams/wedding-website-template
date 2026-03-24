@@ -169,7 +169,5 @@ Security defaults:
 - 🐠 **Animataions**
   - 🔠 Initials to be animated in navbar
 - 🎨 **Styling** General improvements.
-  - 🛰️ Navbar underlines.
-  - 📱 Enhance backgrounds on mobile.
-  - 📌 Further optimize usage and usability in general.
+  - ✅ 📌 Further optimize usage and usability in general.
 - 🗃️ Test/Validate and linkup google sheets.
