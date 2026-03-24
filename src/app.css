@@ -69,30 +69,32 @@
 }
 
 /* ─── Base ───────────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-height) + 1rem);
-  -webkit-tap-highlight-color: transparent;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-height) + 1rem);
+    -webkit-tap-highlight-color: transparent;
+  }
 
-body {
-  overflow-x: hidden;
-  background-color: hsl(var(--background));
-  font-family: var(--font-family);
-  color: hsl(var(--foreground));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  body {
+    overflow-x: hidden;
+    background-color: var(--background);
+    font-family: var(--font-family);
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: 1.2;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+  }
 }
 
 /* ─── Container (consistent with tailwind container config) ── */
