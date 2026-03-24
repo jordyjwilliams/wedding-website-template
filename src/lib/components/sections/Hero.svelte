@@ -15,7 +15,7 @@
 
 <!-- min-h-screen ensures full viewport height; top padding = nav + breathing room -->
 <section
-  class="3xl:pt-28 relative flex min-h-[calc(100vh-var(--nav-height))] animate-fade-in items-center
+  class="3xl:pt-28 animate-fade-in relative flex min-h-[calc(100vh-var(--nav-height))] items-center
          justify-center overflow-hidden px-6
          pt-16 pb-16
          md:pt-20
@@ -31,7 +31,8 @@
     {#each heartPositions as left, i (i)}
       <span
         class="heart absolute opacity-0"
-        style="left: {left}; top: 100%; animation: floatUp {12 + i * 3}s ease-in {i * 1.5}s infinite;"
+        style="left: {left}; top: 100%; animation: floatUp {12 + i * 3}s ease-in {i *
+          1.5}s infinite;"
       >
         <Icon icon="ph:heart-fill" width="22" />
       </span>
@@ -45,24 +46,24 @@
       class="font-heading text-foreground mb-8 text-[clamp(2.8rem,10vw,6rem)]
              leading-tight"
     >
-      <span class="inline-block animate-fade-in-scale [animation-delay:0.4s]">
+      <span class="animate-fade-in-scale inline-block [animation-delay:0.4s]">
         {WEDDING.couple.bride}
       </span>
       <span
-        class="text-primary mx-2 inline-block animate-spin-in [animation-delay:0.6s] text-[0.8em]
+        class="text-primary animate-spin-in mx-2 inline-block text-[0.8em] [animation-delay:0.6s]
                sm:mx-4"
       >
         &amp;
       </span>
-      <span class="inline-block animate-fade-in-scale [animation-delay:0.8s]">
+      <span class="animate-fade-in-scale inline-block [animation-delay:0.8s]">
         {WEDDING.couple.groom}
       </span>
     </h1>
 
     <!-- Eyebrow -->
     <p
-      class="text-foreground mb-6 animate-fade-in-down [animation-delay:0.2s] text-base font-medium
-             tracking-[0.2em]
+      class="text-foreground animate-fade-in-down mb-6 text-base font-medium tracking-[0.2em]
+             [animation-delay:0.2s]
              sm:text-lg"
     >
       {COPY.hero.eyebrow}
@@ -70,8 +71,8 @@
 
     <!-- Date & location -->
     <div
-      class="mb-8 flex animate-fade-in-up [animation-delay:1s] flex-col items-center
-             gap-3"
+      class="animate-fade-in-up mb-8 flex flex-col items-center gap-3
+             [animation-delay:1s]"
     >
       <a
         href={weddingCalendarLink}
@@ -99,7 +100,7 @@
     </div>
 
     <!-- Countdown -->
-    <div class="mb-12 animate-fade-in-up [animation-delay:1.1s]">
+    <div class="animate-fade-in-up mb-12 [animation-delay:1.1s]">
       <p class="text-muted-foreground mb-3 text-xs font-semibold tracking-widest uppercase">
         {WEDDING.countdown.isNotPastTarget}
       </p>
