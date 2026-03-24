@@ -78,7 +78,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
   }
 
   @media (max-width: 768px) {
