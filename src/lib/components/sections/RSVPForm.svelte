@@ -118,7 +118,7 @@
     isLoading = true;
     formMessage = '';
     messageType = '';
-    willAttend = '';
+    successWasAttending = null;
 
     // TODO: Create the actual script and test this functionality
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
@@ -133,9 +133,12 @@
       console.error('Google Script URL not configured');
       messageType = 'error';
       formMessage = `❌ ${COPY.rsvp.error.message}`;
+      successWasAttending = null;
       isLoading = false;
       return;
     }
+
+    const attendanceResponse = selectedAttendance;
 
     const submitData = {
       ...formData,
@@ -163,28 +166,17 @@
 
       clearTimeout(timeoutId);
 
-      const attendanceResponse = submitData.attendance;
-
       // Success
       messageType = 'success';
-      willAttend = attendanceResponse === 'yes' ? 'yes' : 'no';
-      formMessage = `${getSuccessMessage(attendanceResponse)}`;
+      successWasAttending = attendanceResponse === 'yes';
+      formMessage = getSuccessMessage(attendanceResponse);
 
       if (attendanceResponse === 'yes') {
         launchConfetti();
       }
 
       // Reset form
-      formData = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        attendance: '',
-        guestCount: '1',
-        dietaryRestrictions: '',
-        message: '',
-      };
+      formData = { ...INITIAL_FORM_DATA };
       selectedAttendance = undefined;
       attendanceError = '';
 
@@ -198,7 +190,7 @@
     } catch (error) {
       console.error('Error:', error);
       messageType = 'error';
-      willAttend = '';
+      successWasAttending = null;
 
       if (error instanceof Error && error.name === 'AbortError') {
         formMessage =
@@ -275,12 +267,12 @@
         </div>
 
         <div class="form-group-wrapper">
-          <Label for="attendance">{COPY.rsvp.form.attending.label} *</Label>
+          <Label for="attendance-trigger">{COPY.rsvp.form.attending.label} *</Label>
           <Select.Root
             type="single"
             value={selectedAttendance}
             onValueChange={(v) => {
-              selectedAttendance = v;
+              selectedAttendance = isAttendanceResponse(v) ? v : undefined;
               attendanceError = '';
             }}
             items={attendanceOptions}
@@ -352,18 +344,18 @@
         </Button>
 
         {#if formMessage}
-          <div class="mt-4">
+          <div class="form-message mt-4">
             {#if messageType === 'success'}
               <Alert.Root
                 variant="default"
-                class={willAttend === 'yes'
+                class={successWasAttending
                   ? 'border-green-200 bg-green-50 dark:border-green-900/50 dark:bg-green-950/50'
                   : 'border-border bg-card/90 dark:border-border/80 dark:bg-card/70'}
               >
                 <Icon
                   icon="ph:check-circle-fill"
                   width="20"
-                  class={willAttend === 'yes'
+                  class={successWasAttending
                     ? 'text-green-600 dark:text-green-400'
                     : 'text-foreground/70 dark:text-foreground/80'}
                 />
