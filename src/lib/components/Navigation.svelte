@@ -147,6 +147,9 @@
             >
               <Icon icon={link.icon} width="22" />
               {link.label}
+              {#if active}
+                <span class="bg-secondary absolute right-4 bottom-2 h-0.5 w-10 rounded-full"></span>
+              {/if}
             </a>
           {/each}
         </nav>
