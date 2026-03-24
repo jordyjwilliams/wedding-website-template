@@ -43,8 +43,8 @@
 <nav
   class="fixed inset-x-0 top-0 z-50 h-(--nav-height) transition-all duration-300
          {scrolled
-    ? 'bg-foreground/60 shadow-glass backdrop-blur-xl'
-    : 'bg-foreground/85 backdrop-blur-md'}"
+    ? 'bg-foreground/88 shadow-glass backdrop-blur-xl'
+    : 'bg-foreground/94 backdrop-blur-md'}"
 >
   <div
     class="text-background 3xl:max-w-[100rem] mx-auto flex h-full max-w-7xl items-center gap-4
