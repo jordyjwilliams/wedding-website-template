@@ -61,7 +61,7 @@
 
     <!-- Eyebrow -->
     <p
-      class="text-primary mb-6 animate-[fadeInDown_0.8s_ease-out_0.2s_both] text-base font-medium
+      class="text-foreground mb-6 animate-[fadeInDown_0.8s_ease-out_0.2s_both] text-base font-medium
              tracking-[0.2em]
              sm:text-lg"
     >
@@ -77,7 +77,7 @@
         href={weddingCalendarLink}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-secondary hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4 py-2
+        class="text-foreground hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4 py-2
                text-xl font-semibold no-underline transition-all
                duration-200 hover:-translate-y-0.5
                sm:text-2xl"
@@ -89,7 +89,7 @@
         href={WEDDING.venue.website}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-muted-foreground hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4
+        class="text-primary hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4
                py-2 text-base no-underline transition-all
                duration-200 hover:-translate-y-0.5 sm:text-lg"
       >
