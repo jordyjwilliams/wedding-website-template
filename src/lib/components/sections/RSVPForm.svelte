@@ -16,6 +16,8 @@
   import { COPY } from '$lib/content';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
+  type AttendanceResponse = 'yes' | 'no';
+  type FormMessageType = 'success' | 'error' | '';
 
   let launchConfetti: () => void = $state(() => {});
 
