@@ -35,6 +35,11 @@
   --white: 0 0% 100%;
   --text-light: 215.4 16.3% 46.9%;
   --text-dark: 222.2 84% 4.9%;
+
+  /* Mobile nav panel tokens */
+  --nav-panel-bg: 0 0% 100%;
+  --nav-panel-fg: 222.2 84% 4.9%;
+  --nav-panel-separator: 222.2 30% 30%;
 }
 
 .dark {
@@ -61,6 +66,11 @@
   --white: 210 40% 98%;
   --text-light: 215 20.2% 65.1%;
   --text-dark: 210 40% 98%;
+
+  /* Keep mobile nav panel high-contrast in dark mode as well */
+  --nav-panel-bg: 222.2 84% 4.9%;
+  --nav-panel-fg: 210 40% 98%;
+  --nav-panel-separator: 210 40% 98%;
   color-scheme: dark;
 }
 
