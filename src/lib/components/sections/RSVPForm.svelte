@@ -139,6 +139,12 @@
     }
   }
 
+  function handleGuestCountInput(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    formData.guestCount = target.value;
+    guestCountError = '';
+  }
+
   async function handleSubmit(event: Event): Promise<void> {
     event.preventDefault();
 
