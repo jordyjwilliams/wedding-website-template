@@ -31,31 +31,31 @@
     lastName: string;
     email: string;
     phone: string;
-    attendance: string;
     guestCount: string;
     dietaryRestrictions: string;
     message: string;
   }
 
-  let formData = $state<FormData>({
+  const INITIAL_FORM_DATA: FormData = {
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
-    attendance: '',
     guestCount: '1',
     dietaryRestrictions: '',
     message: '',
-  });
+  };
 
-  let selectedAttendance = $state<string | undefined>(undefined);
+  let formData = $state<FormData>({ ...INITIAL_FORM_DATA });
+
+  let selectedAttendance = $state<AttendanceResponse | undefined>(undefined);
 
   let isLoading = $state(false);
   let formMessage = $state('');
-  let messageType = $state('');
+  let messageType = $state<FormMessageType>('');
   let phoneError = $state('');
   let attendanceError = $state('');
-  let willAttend = $state<'yes' | 'no' | ''>('');
+  let successWasAttending = $state<boolean | null>(null);
 
   let showGuestCount = $derived(selectedAttendance === 'yes');
 
