@@ -37,11 +37,11 @@
   .animated-icon {
     font-size: var(--icon-size, 3.5rem);
     display: inline-block;
-    color: var(--icon-color, hsl(var(--primary)));
+    color: var(--icon-color, var(--color-primary));
   }
 
   .animated-icon :global(svg) {
-    filter: drop-shadow(0 4px 8px hsl(var(--primary) / 0.3));
+    filter: drop-shadow(0 4px 8px color-mix(in srgb, var(--color-primary) 30%, transparent));
   }
 
   .animated-icon.bounce {
