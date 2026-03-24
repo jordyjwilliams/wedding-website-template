@@ -53,7 +53,3 @@ jobs:
         run: npm audit --audit-level=moderate || true
       - name: Build (Vite)
         run: npm run build
-      - name: Deploy Preview (skeleton)
-        if: github.event_name == 'pull_request'
-        run: echo "Deploy preview step to run run here (e.g., through netlify CLI)"
-        # TODO: Implement actual deploy preview logic (e.g., netlify deploy --build --json)
