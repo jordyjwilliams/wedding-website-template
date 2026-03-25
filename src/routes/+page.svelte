@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { isSessionValid } from '$lib/auth';
+  import { clearAuth, isSessionValid } from '$lib/auth';
   import Icon from '@iconify/svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
@@ -14,6 +14,7 @@
   let passcode: string = '';
   let error: string = '';
   let isLoading: boolean = false;
+  let isDebugLogoutLoading: boolean = false;
   let shake: boolean = false;
   let isAuthenticated: boolean = false;
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
@@ -72,6 +73,17 @@
       setTimeout(() => (shake = false), 500);
     } finally {
       isLoading = false;
+    }
+  }
+
+  async function handleDebugLogout(): Promise<void> {
+    if (isDebugLogoutLoading) return;
+
+    isDebugLogoutLoading = true;
+    await clearAuth();
+
+    if (typeof window !== 'undefined') {
+      window.location.reload();
     }
   }
 </script>
