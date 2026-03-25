@@ -13,9 +13,9 @@
   import { DotLottieSvelte } from '@lottiefiles/dotlottie-svelte';
   import { COPY } from '$lib/content';
 
-  let mobileMenuOpen: boolean = false;
-  let scrolled: boolean = false;
-  let isDebugLogoutLoading: boolean = false;
+  let mobileMenuOpen = $state(false);
+  let scrolled = $state(false);
+  let isDebugLogoutLoading = $state(false);
   const DEBUG_MODE =
     import.meta.env.VITE_DEBUG === 'true' || import.meta.env.VITE_DEBUG_MODE === 'true';
 
@@ -175,7 +175,7 @@
                      {active
                 ? 'bg-primary/15 text-primary ring-primary/40 ring-1'
                 : 'text-muted-foreground hover:text-foreground hover:bg-accent/15'}"
-              on:click={closeMobileMenu}
+              onclick={closeMobileMenu}
             >
               <Icon icon={link.icon} width="22" />
               {link.label}

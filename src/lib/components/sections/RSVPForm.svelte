@@ -12,14 +12,14 @@
   import * as Select from '$lib/components/ui/select';
   import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
   import Confetti from '$lib/components/Confetti.svelte';
-  import { WEDDING } from '$lib/constants';
+  import { RSVP_LIMITS, WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type AttendanceResponse = 'yes' | 'no';
   type FormMessageType = 'success' | 'error' | '';
-  const GUEST_COUNT_MIN = 1;
-  const GUEST_COUNT_MAX = 5; // Including main guest
+  const GUEST_COUNT_MIN = RSVP_LIMITS.guestCountMin;
+  const GUEST_COUNT_MAX = RSVP_LIMITS.guestCountMax;
 
   let launchConfetti: () => void = $state(() => {});
 
@@ -119,6 +119,7 @@
     // Remove spaces and common formatting characters
     const cleanPhone = phone.replace(/[\s()-]/g, '');
 
+    // NOTE: currently tested on AU and US style numbers: Adjust as necessary.
     // Australian mobile format: +61 4XX XXX XXX or 04XX XXX XXX
     const australianMobileRegex = /^(\+61|0)?4\d{8}$/;
 
@@ -231,7 +232,11 @@
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-      const _response = await fetch(GOOGLE_SCRIPT_URL, {
+      // TODO: when this is linked up and tested - ensure `cors` mode is handled correctly.
+      // It could be that we need to use `no-cors` here - Address when testing.
+      // Unsure if Google Apps Script returns CORS headers for browser-origin requests.
+      // Ensure we can get response status on submission etc. EG do we need to infer - or can we set this nicely.
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -240,6 +245,8 @@
         body: JSON.stringify(submitData),
         signal: controller.signal,
       });
+
+      void response;
 
       clearTimeout(timeoutId);
 
@@ -338,10 +345,10 @@
             oninput={handlePhoneInput}
             disabled={isLoading}
             placeholder={COPY.rsvp.form.phone.placeholder}
-            class={phoneError ? 'border-red-500' : ''}
+            class={phoneError ? 'border-destructive' : ''}
           />
           {#if phoneError}
-            <p class="mt-1 text-sm text-red-500">{phoneError}</p>
+            <p class="text-destructive mt-1 text-sm">{phoneError}</p>
           {/if}
         </div>
 
@@ -358,7 +365,7 @@
           >
             <Select.Trigger
               id="attendance-trigger"
-              class="w-full {attendanceError ? 'border-red-500' : ''}"
+              class="w-full {attendanceError ? 'border-destructive' : ''}"
             >
               {selectedAttendanceLabel}
             </Select.Trigger>
@@ -369,7 +376,7 @@
             </Select.Content>
           </Select.Root>
           {#if attendanceError}
-            <p class="mt-1 text-sm text-red-500">{attendanceError}</p>
+            <p class="text-destructive mt-1 text-sm">{attendanceError}</p>
           {/if}
         </div>
 
@@ -386,10 +393,10 @@
               required={showGuestCount}
               disabled={isLoading}
               placeholder="1"
-              class={guestCountError ? 'border-red-500' : ''}
+              class={guestCountError ? 'border-destructive' : ''}
             />
             {#if guestCountError}
-              <p class="mt-1 text-sm text-red-500">{guestCountError}</p>
+              <p class="text-destructive mt-1 text-sm">{guestCountError}</p>
             {/if}
           </div>
         {/if}
@@ -414,7 +421,7 @@
               {/each}
             </div>
             {#if additionalGuestNamesError}
-              <p class="mt-1 text-sm text-red-500">{additionalGuestNamesError}</p>
+              <p class="text-destructive mt-1 text-sm">{additionalGuestNamesError}</p>
             {/if}
           </div>
         {/if}

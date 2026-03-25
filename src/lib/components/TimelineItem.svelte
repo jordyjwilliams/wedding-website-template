@@ -80,7 +80,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-primary);
-    box-shadow: 0 5px 20px var(--shadow);
+    box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
     z-index: 10;
   }
 
@@ -94,10 +94,10 @@
   @keyframes pulse {
     0%,
     100% {
-      box-shadow: 0 5px 20px var(--shadow);
+      box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
     }
     50% {
-      box-shadow: 0 5px 30px rgba(212, 165, 116, 0.6);
+      box-shadow: 0 5px 30px color-mix(in srgb, var(--color-accent) 60%, transparent);
     }
   }
 
@@ -119,17 +119,17 @@
     padding: 0.5rem 1rem;
     border-radius: 8px;
     transition: all 0.3s ease;
-    background: rgba(122, 184, 212, 0.1);
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
   }
 
   .timeline-date :global(svg) {
     color: var(--color-accent);
-    filter: drop-shadow(0 2px 4px rgba(122, 184, 212, 0.3));
+    filter: drop-shadow(0 2px 4px color-mix(in srgb, var(--color-accent) 30%, transparent));
     transition: transform 0.3s ease;
   }
 
   a.timeline-date:hover {
-    background: rgba(122, 184, 212, 0.2);
+    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
     transform: translateY(-2px);
   }
 
