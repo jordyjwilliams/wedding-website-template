@@ -65,13 +65,6 @@
     animation: fadeInSlide 0.8s ease-out var(--delay, 0s) forwards;
   }
 
-  @keyframes fadeInSlide {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
   .timeline-icon {
     position: absolute;
     left: 0;

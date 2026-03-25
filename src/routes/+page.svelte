@@ -205,30 +205,6 @@
     animation-delay: 12s;
   }
 
-  @keyframes floatOrb {
-    0%,
-    100% {
-      transform: translate(0, 0);
-    }
-    33% {
-      transform: translate(28px, -28px);
-    }
-    66% {
-      transform: translate(-18px, 18px);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(28px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   .login-card {
     animation: fadeInUp 0.7s ease-out both;
   }
