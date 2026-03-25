@@ -160,22 +160,6 @@
     animation-delay: 16s;
   }
 
-  @keyframes floatOrb {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    25% {
-      transform: translate(40px, -40px) scale(1.08);
-    }
-    50% {
-      transform: translate(-25px, 25px) scale(0.94);
-    }
-    75% {
-      transform: translate(50px, 15px) scale(1.04);
-    }
-  }
-
   /* Floating heart animation — floatUp keyframe lives in app.css */
   .heart {
     color: var(--color-primary);
