@@ -338,10 +338,10 @@
             oninput={handlePhoneInput}
             disabled={isLoading}
             placeholder={COPY.rsvp.form.phone.placeholder}
-            class={phoneError ? 'border-red-500' : ''}
+            class={phoneError ? 'border-destructive' : ''}
           />
           {#if phoneError}
-            <p class="mt-1 text-sm text-red-500">{phoneError}</p>
+            <p class="text-destructive mt-1 text-sm">{phoneError}</p>
           {/if}
         </div>
 
@@ -358,7 +358,7 @@
           >
             <Select.Trigger
               id="attendance-trigger"
-              class="w-full {attendanceError ? 'border-red-500' : ''}"
+              class="w-full {attendanceError ? 'border-destructive' : ''}"
             >
               {selectedAttendanceLabel}
             </Select.Trigger>
@@ -369,7 +369,7 @@
             </Select.Content>
           </Select.Root>
           {#if attendanceError}
-            <p class="mt-1 text-sm text-red-500">{attendanceError}</p>
+            <p class="text-destructive mt-1 text-sm">{attendanceError}</p>
           {/if}
         </div>
 
@@ -386,10 +386,10 @@
               required={showGuestCount}
               disabled={isLoading}
               placeholder="1"
-              class={guestCountError ? 'border-red-500' : ''}
+              class={guestCountError ? 'border-destructive' : ''}
             />
             {#if guestCountError}
-              <p class="mt-1 text-sm text-red-500">{guestCountError}</p>
+              <p class="text-destructive mt-1 text-sm">{guestCountError}</p>
             {/if}
           </div>
         {/if}
@@ -414,7 +414,7 @@
               {/each}
             </div>
             {#if additionalGuestNamesError}
-              <p class="mt-1 text-sm text-red-500">{additionalGuestNamesError}</p>
+              <p class="text-destructive mt-1 text-sm">{additionalGuestNamesError}</p>
             {/if}
           </div>
         {/if}
