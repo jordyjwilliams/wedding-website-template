@@ -119,6 +119,7 @@
     // Remove spaces and common formatting characters
     const cleanPhone = phone.replace(/[\s()-]/g, '');
 
+    // NOTE: currently tested on AU and US style numbers: Adjust as necessary.
     // Australian mobile format: +61 4XX XXX XXX or 04XX XXX XXX
     const australianMobileRegex = /^(\+61|0)?4\d{8}$/;
 
