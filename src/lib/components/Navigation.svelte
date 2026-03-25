@@ -67,6 +67,21 @@
   >
     <!-- Left: brand + theme toggle -->
     <div class="flex shrink-0 items-center gap-2">
+      <!-- Debug: logout button for testing auth -->
+      {#if DEBUG_MODE}
+        <Button
+          onclick={handleDebugLogout}
+          variant="ghost"
+          size="icon"
+          class="text-foreground hover:bg-accent/15 hover:text-foreground relative h-9 w-9 shrink-0"
+          aria-label="Debug logout"
+          disabled={isDebugLogoutLoading}
+        >
+          <Icon icon="ph:lock-fill" width="18" />
+          <span class="sr-only">Debug logout</span>
+        </Button>
+      {/if}
+
       <!-- Theme toggle -->
       <Button
         onclick={toggleMode}
@@ -85,20 +100,6 @@
         />
         <span class="sr-only">Toggle theme</span>
       </Button>
-
-      {#if DEBUG_MODE}
-        <Button
-          onclick={handleDebugLogout}
-          variant="ghost"
-          size="icon"
-          class="text-foreground hover:bg-accent/15 hover:text-foreground relative h-9 w-9 shrink-0"
-          aria-label="Debug logout"
-          disabled={isDebugLogoutLoading}
-        >
-          <Icon icon="ph:lock-fill" width="18" />
-          <span class="sr-only">Debug logout</span>
-        </Button>
-      {/if}
 
       <!-- Brand -->
       <a
