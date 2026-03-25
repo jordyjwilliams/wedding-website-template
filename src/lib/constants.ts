@@ -55,7 +55,7 @@ export const WEDDING = {
 
 export const RSVP_LIMITS = {
   guestCountMin: 1,
-  guestCountMax: 5,
+  guestCountMax: 5, // Including main guest
 } as const;
 
 // Love story facts
