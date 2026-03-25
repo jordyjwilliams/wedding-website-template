@@ -170,29 +170,6 @@
   border-radius: calc(var(--radius) * 6);
 }
 
-/* ─── Gradient orb shared utility ────────────────────────── */
-.gradient-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.35;
-  animation: float-orb 25s infinite ease-in-out;
-  pointer-events: none;
-}
-
-@keyframes float-orb {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(40px, -40px) scale(1.08);
-  }
-  66% {
-    transform: translate(-30px, 25px) scale(0.94);
-  }
-}
-
 /* ─── Touch-device tap highlight fix ─────────────────────── */
 @layer base {
   @media (hover: none) {
@@ -281,5 +258,32 @@
   100% {
     opacity: 0;
     transform: translate3d(55px, -120vh, 0) rotate(180deg);
+  }
+}
+
+@keyframes floatOrb {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(40px, -40px) scale(1.08);
+  }
+  50% {
+    transform: translate(-25px, 25px) scale(0.94);
+  }
+  75% {
+    transform: translate(50px, 15px) scale(1.04);
+  }
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
