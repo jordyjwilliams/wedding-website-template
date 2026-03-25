@@ -96,7 +96,7 @@
         <Button
           size="sm"
           variant="outline"
-          class="pointer-events-auto glass rounded-full"
+          class="glass pointer-events-auto rounded-full"
           onclick={handleDebugLogout}
           disabled={isDebugLogoutLoading}
         >
