@@ -232,6 +232,10 @@
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
+      // TODO: when this is linked up and tested - ensure `cors` mode is handled correctly.
+      // It could be that we need to use `no-cors` here - Address when testing.
+      // Unsure if Google Apps Script returns CORS headers for browser-origin requests.
+      // Ensure we can get response status on submission etc. EG do we need to infer - or can we set this nicely.
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
