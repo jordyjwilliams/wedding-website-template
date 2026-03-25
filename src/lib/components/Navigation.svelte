@@ -2,6 +2,7 @@
   import { resolve } from '$app/paths';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
+  import { clearAuth } from '$lib/auth';
   import * as Sheet from '$lib/components/ui/sheet';
   import { Button } from '$lib/components/ui/button';
   import { Separator } from '$lib/components/ui/separator';
@@ -14,6 +15,9 @@
 
   let mobileMenuOpen: boolean = false;
   let scrolled: boolean = false;
+  let isDebugLogoutLoading: boolean = false;
+  const DEBUG_MODE =
+    import.meta.env.VITE_DEBUG === 'true' || import.meta.env.VITE_DEBUG_MODE === 'true';
 
   onMount(() => {
     const handleScroll = () => {
@@ -25,6 +29,17 @@
 
   function closeMobileMenu(): void {
     mobileMenuOpen = false;
+  }
+
+  async function handleDebugLogout(): Promise<void> {
+    if (isDebugLogoutLoading) return;
+
+    isDebugLogoutLoading = true;
+    await clearAuth();
+
+    if (typeof window !== 'undefined') {
+      window.location.href = resolve('/', {});
+    }
   }
 
   const navLinks = [
@@ -70,6 +85,20 @@
         />
         <span class="sr-only">Toggle theme</span>
       </Button>
+
+      {#if DEBUG_MODE}
+        <Button
+          onclick={handleDebugLogout}
+          variant="ghost"
+          size="icon"
+          class="text-foreground hover:bg-accent/15 hover:text-foreground relative h-9 w-9 shrink-0"
+          aria-label="Debug logout"
+          disabled={isDebugLogoutLoading}
+        >
+          <Icon icon="ph:lock-fill" width="18" />
+          <span class="sr-only">Debug logout</span>
+        </Button>
+      {/if}
 
       <!-- Brand -->
       <a

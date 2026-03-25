@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { clearAuth, isSessionValid } from '$lib/auth';
+  import { isSessionValid } from '$lib/auth';
   import Icon from '@iconify/svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
@@ -14,7 +14,6 @@
   let passcode: string = '';
   let error: string = '';
   let isLoading: boolean = false;
-  let isDebugLogoutLoading: boolean = false;
   let shake: boolean = false;
   let isAuthenticated: boolean = false;
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
@@ -75,35 +74,11 @@
       isLoading = false;
     }
   }
-
-  async function handleDebugLogout(): Promise<void> {
-    if (isDebugLogoutLoading) return;
-
-    isDebugLogoutLoading = true;
-    await clearAuth();
-
-    if (typeof window !== 'undefined') {
-      window.location.reload();
-    }
-  }
 </script>
 
 {#if isAuthenticated}
   <!-- Show home content when authenticated -->
   <PageWrapper backgroundImage="/images/hero-bg.webp" backgroundPosition="center top">
-    {#if DEBUG_MODE}
-      <div class="pointer-events-none fixed top-[calc(var(--nav-height)+0.75rem)] right-4 z-50">
-        <Button
-          size="sm"
-          variant="outline"
-          class="glass pointer-events-auto rounded-full"
-          onclick={handleDebugLogout}
-          disabled={isDebugLogoutLoading}
-        >
-          {isDebugLogoutLoading ? 'Logging out...' : 'Debug Logout'}
-        </Button>
-      </div>
-    {/if}
     <Hero />
   </PageWrapper>
 {:else}
