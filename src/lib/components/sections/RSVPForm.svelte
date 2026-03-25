@@ -12,14 +12,14 @@
   import * as Select from '$lib/components/ui/select';
   import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
   import Confetti from '$lib/components/Confetti.svelte';
-  import { WEDDING } from '$lib/constants';
+  import { RSVP_LIMITS, WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type AttendanceResponse = 'yes' | 'no';
   type FormMessageType = 'success' | 'error' | '';
-  const GUEST_COUNT_MIN = 1;
-  const GUEST_COUNT_MAX = 5; // Including main guest
+  const GUEST_COUNT_MIN = RSVP_LIMITS.guestCountMin;
+  const GUEST_COUNT_MAX = RSVP_LIMITS.guestCountMax;
 
   let launchConfetti: () => void = $state(() => {});
 
