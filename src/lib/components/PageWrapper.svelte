@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, setContext, type Snippet } from 'svelte';
+  import { onMount, type Snippet } from 'svelte';
 
   interface Props {
     backgroundImage?: string;
@@ -23,12 +23,6 @@
   let visible = $state(false);
   let overlayOpacity = $state(initialOverlayOpacity);
   let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
-
-  setContext('scrollOpacity', {
-    get value() {
-      return overlayOpacity * 100;
-    },
-  });
 
   onMount(() => {
     visible = true;
