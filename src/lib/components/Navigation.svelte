@@ -35,10 +35,14 @@
     if (isDebugLogoutLoading) return;
 
     isDebugLogoutLoading = true;
-    await clearAuth();
-
-    if (typeof window !== 'undefined') {
-      window.location.href = resolve('/', {});
+    try {
+      await clearAuth();
+      if (typeof window !== 'undefined') {
+        window.location.replace(resolve('/', {}));
+      }
+    } finally {
+      // Ensure the debug logout button is re-enabled if navigation fails or an error occurs
+      isDebugLogoutLoading = false;
     }
   }
 
