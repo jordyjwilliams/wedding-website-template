@@ -232,7 +232,7 @@
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-      const _response = await fetch(GOOGLE_SCRIPT_URL, {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -241,6 +241,8 @@
         body: JSON.stringify(submitData),
         signal: controller.signal,
       });
+
+      void response;
 
       clearTimeout(timeoutId);
 
