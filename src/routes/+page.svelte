@@ -91,6 +91,19 @@
 {#if isAuthenticated}
   <!-- Show home content when authenticated -->
   <PageWrapper backgroundImage="/images/hero-bg.webp" backgroundPosition="center top">
+    {#if DEBUG_MODE}
+      <div class="pointer-events-none fixed top-[calc(var(--nav-height)+0.75rem)] right-4 z-50">
+        <Button
+          size="sm"
+          variant="outline"
+          class="pointer-events-auto glass rounded-full"
+          onclick={handleDebugLogout}
+          disabled={isDebugLogoutLoading}
+        >
+          {isDebugLogoutLoading ? 'Logging out...' : 'Debug Logout'}
+        </Button>
+      </div>
+    {/if}
     <Hero />
   </PageWrapper>
 {:else}
