@@ -53,13 +53,6 @@ export const WEDDING = {
   },
 } as const;
 
-// Navigation routes
-export const ROUTES = {
-  home: '/',
-  wedding: '/wedding',
-  rsvp: '/rsvp',
-} as const;
-
 // Love story facts
 export const LOVE_FACTS = [
   {
