@@ -11,11 +11,11 @@
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
-  let passcode: string = '';
-  let error: string = '';
-  let isLoading: boolean = false;
-  let shake: boolean = false;
-  let isAuthenticated: boolean = false;
+  let passcode = $state('');
+  let error = $state('');
+  let isLoading = $state(false);
+  let shake = $state(false);
+  let isAuthenticated = $state(false);
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
 
   onMount(async () => {
@@ -122,7 +122,13 @@
             <Icon icon="ph:key-duotone" width="20" class="inline-block shrink-0" />
           </p>
 
-          <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+          <form
+            onsubmit={(event) => {
+              event.preventDefault();
+              void handleSubmit();
+            }}
+            class="space-y-4"
+          >
             <Input
               type="password"
               bind:value={passcode}
