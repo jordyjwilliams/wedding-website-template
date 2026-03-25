@@ -53,6 +53,11 @@ export const WEDDING = {
   },
 } as const;
 
+export const RSVP_LIMITS = {
+  guestCountMin: 1,
+  guestCountMax: 5,
+} as const;
+
 // Love story facts
 export const LOVE_FACTS = [
   {
