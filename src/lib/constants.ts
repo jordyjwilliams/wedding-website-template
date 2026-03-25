@@ -87,7 +87,7 @@ export const TIMELINE_EVENTS = [
     title: 'Saturday — Ceremony & Celebration 💒',
     date: WEDDING.dates.displayDay2,
     description:
-      'The ceremony will be held on the grounds overlooking the ocean, followed by lawn games, canapés and a relaxed dinner and dancing under the stars. TODO: Define this all properly...',
+      'The ceremony will be held on the grounds overlooking the ocean, followed by lawn games, canapés and a relaxed dinner and dancing under the stars.',
     isHighlight: true,
   },
   {
