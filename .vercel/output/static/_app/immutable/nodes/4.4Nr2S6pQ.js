@@ -1,1 +1,0 @@
-import"../chunks/Ji1wATZ5.js";import"../chunks/Cfug8aQt.js";import{l as e,u as t}from"../chunks/JvcNjxeS.js";import"../chunks/D7SQmQG6.js";function n(n){t(n,{backgroundImage:`/images/couple-bg.webp`,backgroundPosition:`center top`,children:(t,n)=>{e(t,{})},$$slots:{default:!0}})}export{n as component};
