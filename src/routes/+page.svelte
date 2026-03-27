@@ -36,7 +36,7 @@
     }
 
     try {
-      const response = await fetch('/.netlify/functions/verify-passcode', {
+      const response = await fetch('/api/verify-passcode', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {

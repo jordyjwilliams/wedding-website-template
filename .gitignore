@@ -9,8 +9,11 @@ dist
 # SvelteKit auto-generated: Using `tsconfig`
 jsconfig.json
 
-# Netlify
+# Netlify (legacy — no longer used)
 .netlify
+
+# Vercel
+.vercel
 
 # Deno (not used, but Netlify CLI may generate)
 deno.lock

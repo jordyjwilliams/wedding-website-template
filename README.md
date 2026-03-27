@@ -8,7 +8,7 @@ Built with:
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
 [![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
-[![Netlify](https://img.shields.io/badge/Netlify-Functions-00C7B7?logo=netlify)](https://www.netlify.com/)
+[![Vercel](https://img.shields.io/badge/Vercel-Functions-000000?logo=vercel)](https://vercel.com/)
 
 ## 🔎 [Example](https://wedding-website-template.netlify.app/)
 
@@ -32,7 +32,7 @@ Built with:
 - 🔆 **Light/Dark Mode Toggle** - Because why not 😂
 - 📝 **RSVP System** - Google Sheets integration
   - WIP: Not currently tested yet
-- 🚀 **Free Hosting** - [Deployed on Netlify](https://wedding-website-template.netlify.app/)
+- 🚀 **Free Hosting** - Deployed on [Vercel](https://vercel.com/) (Hobby tier)
   - Deployed dummy template with placeholder/anon copy.
   - See [`DEPLOYMENT.md`](DEPLOYMENT.md) for a full evaluation of hosting options (Netlify, Vercel, Cloudflare Pages) — relevant if you are deploying a private production site.
 
@@ -41,7 +41,7 @@ Built with:
 ### 🥫 Prerequisites
 
 - Node.js 24+ and npm 11+
-- [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
+- [Vercel CLI](https://vercel.com/docs/cli) (optional, for manual deploys): `npm install -g vercel`
 
 ### ⌨️ Installation
 
@@ -63,7 +63,7 @@ cp .env.example .env
 
 #### Required Environment Variables
 
-Set these in local `.env` and in Netlify dashboard:
+Set these in local `.env` and in the Vercel dashboard (Project → Settings → Environment Variables):
 
 - `WEDDING_PASSCODE`: passcode guests enter on the login screen.
 - `SESSION_SIGNING_SECRET`: strong random signing secret used for HMAC session cookies.
@@ -77,15 +77,11 @@ openssl rand -hex 32
 ### 💻 Development
 
 ```bash
-# Start development server with Netlify Functions
-netlify dev
+# Start development server (functions run via Vite)
+npm run dev
 ```
 
-Visit [http://localhost:8888](http://localhost:8888)
-
-> [!IMPORTANT]
->
-> - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
+Visit [http://localhost:5173](http://localhost:5173)
 
 ### ✨ Make It **YOURS**...
 
@@ -119,8 +115,8 @@ Visit [http://localhost:8888](http://localhost:8888)
 # Updating dependencies
 npm run update-deps
 npx npm-check-updates
-# Run development server with functions
-netlify dev
+# Run development server (API routes served by Vite)
+npm run dev
 
 # Type checking
 npm run check
@@ -132,7 +128,7 @@ npm run build
 npm run lint
 npm run format
 
-# Deploy to production
+# Deploy to production (requires Vercel CLI)
 npm run deploy
 ```
 
@@ -146,10 +142,10 @@ npm run deploy
 
 This template uses server-verified sessions:
 
-- Passcode verification is handled server-side using Netlify Functions.
+- Passcode verification is handled server-side using SvelteKit API routes (Vercel Serverless Functions).
 - Successful login sets a signed, HttpOnly cookie (`wedding_auth`).
-- Session validity is checked server-side (`/.netlify/functions/check-session`).
-- Logout clears the cookie server-side (`/.netlify/functions/logout-session`).
+- Session validity is checked server-side (`/api/check-session`).
+- Logout clears the cookie server-side (`/api/logout-session`).
 - Session lifetime is 24 hours (`SESSION_DURATION_SECONDS = 24 * 60 * 60`).
 
 Security defaults:
