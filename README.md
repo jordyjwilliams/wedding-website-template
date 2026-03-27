@@ -34,6 +34,7 @@ Built with:
   - WIP: Not currently tested yet
 - 🚀 **Free Hosting** - [Deployed on Netlify](https://wedding-website-template.netlify.app/)
   - Deployed dummy template with placeholder/anon copy.
+  - See [`DEPLOYMENT.md`](DEPLOYMENT.md) for a full evaluation of hosting options (Netlify, Vercel, Cloudflare Pages) — relevant if you are deploying a private production site.
 
 ## 🚀 Quick Start
 
@@ -136,6 +137,10 @@ npm run deploy
 ```
 
 # 🚀 Deployment
+
+> [!TIP]
+>
+> See [`DEPLOYMENT.md`](DEPLOYMENT.md) for a full evaluation of hosting options (Netlify vs Vercel vs Cloudflare Pages), with a specific recommendation for deploying a **private production site** for free.
 
 ## 🔐 Authentication + Security
 
