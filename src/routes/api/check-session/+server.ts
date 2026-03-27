@@ -1,16 +1,14 @@
-import type { Handler, HandlerEvent } from '@netlify/functions';
+// SvelteKit API route for session validation
+// Replaces: netlify/functions/check-session.ts
 
-declare const process: {
-  env: Record<string, string | undefined>;
-};
-
-const SESSION_SIGNING_SECRET = process.env.SESSION_SIGNING_SECRET || '';
+import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
 interface SessionResponse {
   valid: boolean;
 }
 
-function parseCookie(cookieHeader: string | undefined, key: string): string | null {
+function parseCookie(cookieHeader: string | null, key: string): string | null {
   if (!cookieHeader) return null;
   const cookies = cookieHeader.split(';').map((part) => part.trim());
   const match = cookies.find((cookie) => cookie.startsWith(`${key}=`));
@@ -63,58 +61,46 @@ function isTokenShapeValid(token: string): boolean {
   return true;
 }
 
-export const handler: Handler = async (event: HandlerEvent) => {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    'Cache-Control': 'no-store',
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
-  };
+const securityHeaders = {
+  'Cache-Control': 'no-store',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+};
 
-  if (event.httpMethod !== 'GET') {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ valid: false }),
-    };
-  }
+export const GET: RequestHandler = async ({ request }) => {
+  const SESSION_SIGNING_SECRET = process.env.SESSION_SIGNING_SECRET || '';
 
   if (!SESSION_SIGNING_SECRET) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ valid: false }),
-    };
+    return json({ valid: false } satisfies SessionResponse, {
+      status: 500,
+      headers: securityHeaders,
+    });
   }
 
-  const token = parseCookie(event.headers.cookie, 'wedding_auth');
+  const cookieHeader = request.headers.get('cookie');
+  const token = parseCookie(cookieHeader, 'wedding_auth');
+
   if (!token || !isTokenShapeValid(token)) {
-    const response: SessionResponse = { valid: false };
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify(response),
-    };
+    return json({ valid: false } satisfies SessionResponse, {
+      status: 200,
+      headers: securityHeaders,
+    });
   }
 
   const [expiresAtRaw, nonce, signature] = token.split('.');
   const expiresAt = Number(expiresAtRaw);
   if (!Number.isFinite(expiresAt) || Date.now() > expiresAt) {
-    const response: SessionResponse = { valid: false };
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify(response),
-    };
+    return json({ valid: false } satisfies SessionResponse, {
+      status: 200,
+      headers: securityHeaders,
+    });
   }
 
   const payload = `${expiresAt}.${nonce}`;
   const signatureValid = await verifySignature(payload, signature, SESSION_SIGNING_SECRET);
 
-  const response: SessionResponse = { valid: signatureValid };
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify(response),
-  };
+  return json({ valid: signatureValid } satisfies SessionResponse, {
+    status: 200,
+    headers: securityHeaders,
+  });
 };

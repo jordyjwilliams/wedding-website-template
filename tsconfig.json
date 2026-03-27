@@ -25,5 +25,5 @@
     "module": "esnext",
     "target": "es2017"
   },
-  "exclude": ["node_modules", ".svelte-kit", "dist", "build", "static", ".netlify"]
+  "exclude": ["node_modules", ".svelte-kit", "dist", "build", "static", ".vercel"]
 }
