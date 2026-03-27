@@ -1,6 +1,6 @@
 # 🚀 Deployment Evaluation
 
-> **TL;DR** — Stay on Netlify for this public template. For a **private production site**, migrate to **Vercel** (Hobby tier): it is the only option among these three that supports private personal repositories for free, has a more generous serverless function quota, and requires zero upfront cost.
+> **TL;DR** — Stay on Netlify. The legacy Starter plan **does** support personal private GitHub repos for free, making it viable for the private production site. Vercel Hobby is also free and more future-proof (no plan-migration risk, 8× the function quota). See the [Recommendation](#-recommendation) section for the full trade-off.
 
 ---
 
@@ -20,24 +20,25 @@ This template is a SvelteKit app that requires:
 
 ### Netlify (Current)
 
-| Feature                 | Free (New)        | Legacy Free          |
-| ----------------------- | ----------------- | -------------------- |
-| Bandwidth               | 100 GB/month      | 100 GB/month         |
-| Serverless functions    | 125,000 req/month | 125,000 req/month    |
-| Build minutes           | 300/month         | 300/month            |
-| Custom domain + SSL     | ✅                | ✅                   |
-| **Private repo deploy** | ❌                | ❌                   |
-| Cost                    | Free              | Free (grandfathered) |
-
-> [!IMPORTANT]
->
-> **Private repositories require a paid Netlify plan.** The Starter plan starts at ~$9/month and the Pro plan at ~$19/member/month. Neither legacy nor current free tiers support deploying from a private repo.
+| Feature                          | Free (New)        | Legacy Starter       |
+| -------------------------------- | ----------------- | -------------------- |
+| Bandwidth                        | 100 GB/month      | 100 GB/month         |
+| Serverless functions             | 125,000 req/month | 125,000 req/month    |
+| Build minutes                    | 300/month         | 300/month            |
+| Custom domain + SSL              | ✅                | ✅                   |
+| **Personal private repo deploy** | ❌                | ✅                   |
+| **Org private repo deploy**      | ❌                | ❌ (Pro+ required)   |
+| Cost                             | Free              | Free (grandfathered) |
 
 > [!NOTE]
 >
-> The legacy free plan (currently in use by this template) is being migrated to a new credit-based system. Once switched, the transition is irreversible. Limits remain the same but are now tracked as credits (300 credits/month on the free tier).
+> The legacy Starter plan (currently in use by this template) **does support deploying from personal private GitHub repositories** — i.e. repos owned by an individual GitHub account. Organisation-owned private repos require a Pro plan (~$19/member/month) on both legacy and new plans.
 
-**Migration effort if staying on Netlify for private production repo:** You would need to upgrade to a paid plan (~$9+/month).
+> [!IMPORTANT]
+>
+> The legacy free plan is being migrated to a new credit-based system. Once you switch, the change is **irreversible** — you lose legacy plan features including personal private repo support on the free tier. New accounts get the credit-based plan automatically, which does **not** include private repo support.
+
+**Conclusion for staying on Netlify:** If your production site lives in a personal private repo on a legacy Starter account, you can stay on Netlify for free today. The main risk is that migrating away from the legacy plan (or creating a new account) loses this perk.
 
 ---
 
@@ -87,18 +88,19 @@ This template is a SvelteKit app that requires:
 
 ## 📊 Summary Table
 
-|                         | **Netlify (current)** | **Vercel Hobby** | **Cloudflare Pages** |
-| ----------------------- | --------------------- | ---------------- | -------------------- |
-| Free tier               | ✅                    | ✅               | ✅                   |
-| Bandwidth               | 100 GB/month          | 100 GB/month     | Unlimited            |
-| Function quota          | 125k req/month        | **1M req/month** | 100k req/day         |
-| Build minutes           | 300/month             | 6,000/month      | 500/month            |
-| Custom domain (free)    | ✅                    | ✅               | ✅                   |
-| **Private repo (free)** | ❌                    | ✅               | ✅                   |
-| Standard Node.js env    | ✅                    | ✅               | ❌                   |
-| SvelteKit adapter       | `adapter-netlify`     | `adapter-vercel` | `adapter-cloudflare` |
-| Migration effort        | — (none)              | **Medium**       | High                 |
-| Cost for private repo   | ~$9+/month            | Free             | Free                 |
+|                                    | **Netlify legacy Starter** | **Vercel Hobby** | **Cloudflare Pages** |
+| ---------------------------------- | -------------------------- | ---------------- | -------------------- |
+| Free tier                          | ✅                         | ✅               | ✅                   |
+| Bandwidth                          | 100 GB/month               | 100 GB/month     | Unlimited            |
+| Function quota                     | 125k req/month             | **1M req/month** | 100k req/day         |
+| Build minutes                      | 300/month                  | 6,000/month      | 500/month            |
+| Custom domain (free)               | ✅                         | ✅               | ✅                   |
+| **Personal private repo (free)**   | ✅ (legacy only)           | ✅               | ✅                   |
+| **Org private repo (free)**        | ❌                         | ❌               | ✅                   |
+| Standard Node.js env               | ✅                         | ✅               | ❌                   |
+| SvelteKit adapter                  | `adapter-netlify`          | `adapter-vercel` | `adapter-cloudflare` |
+| Migration effort                   | — (none)                   | **Medium**       | High                 |
+| Risk of losing private repo access | ⚠️ if plan switches        | None             | None                 |
 
 ---
 
@@ -106,25 +108,30 @@ This template is a SvelteKit app that requires:
 
 ### For this public template repo → **Stay on Netlify**
 
-No changes needed. The template deploys from a public repo and the free tier works fine. The 125k function invocations/month is more than enough for demo/template traffic. No reason to migrate.
+No changes needed. The template deploys from a public repo and the free tier works fine. No reason to migrate.
 
-### For the private production wedding site → **Migrate to Vercel**
+### For the private production wedding site → **Netlify legacy Starter is fine, for now**
 
-Vercel is the clearest win for the production deployment:
+If you already have a legacy Netlify Starter account, you can deploy a personal private repo from it for free today. The limits (125k function invocations/month, 100 GB bandwidth) are more than sufficient for a ~50–100 guest wedding site.
 
-1. **Private repos are free** — the single most important constraint is solved at zero cost.
-2. **1M function invocations/month** — 8× more headroom than Netlify, while a wedding with 50–100 guests will use a tiny fraction of this.
-3. **Standard Node.js runtime** — the existing TypeScript auth functions translate cleanly to SvelteKit API routes with minimal changes. No runtime surprises.
-4. **No ongoing cost** — stays free for the lifetime of a personal wedding site.
-5. **SvelteKit is well-supported** — `@sveltejs/adapter-vercel` is an official adapter maintained by the SvelteKit team.
+**However**, there are two reasons to still consider Vercel:
 
-Cloudflare Pages is free and has unlimited bandwidth, but the migration cost is higher (different runtime API, environment variable model, CPU time constraints) and the payoff for this specific use case (low traffic, no bandwidth concerns) is marginal.
+1. **The legacy plan is a ticking clock.** If you ever create a new Netlify account (or are prompted to migrate), you lose personal private repo support on the free tier. Vercel's Hobby plan has no such fragility — private personal repos are a documented, stable feature of the tier.
+2. **Vercel has 8× the function quota** (1M vs 125k/month) and 20× the build minutes (6,000 vs 300/month), for the same price: free.
+
+If you are comfortable managing the Netlify legacy plan risk and want zero migration effort, **stay on Netlify**. If you want a more future-proof setup with headroom for growth, **migrate to Vercel**.
+
+> [!NOTE]
+>
+> See the companion branch [`copilot/vercel-migration-example`](https://github.com/jordyjwilliams/wedding-website-template/compare/copilot/vercel-migration-example) for a fully working example of what the Vercel migration looks like in code.
+
+Cloudflare Pages is free and has unlimited bandwidth and supports org repos, but the migration cost is higher (different runtime API, environment variable model) and the payoff for this specific use case is marginal.
 
 ---
 
-## 🔧 Migration Path (Netlify → Vercel, for private production site)
+## 🔧 Migration Path (Netlify → Vercel, optional)
 
-If you choose to migrate the production site to Vercel, the key steps are:
+If you decide to move the production site to Vercel, the key steps are:
 
 1. **Replace the adapter**
 
