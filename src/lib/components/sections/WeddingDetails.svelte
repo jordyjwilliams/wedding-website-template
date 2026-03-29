@@ -1,12 +1,7 @@
 <script lang="ts">
   import { weddingCalendarLink } from '$lib/calendar';
   import { WeddingBadge } from '$lib/components/ui/badge';
-  import {
-    SectionHeader,
-    SectionCta,
-    AnimatedSection,
-    TimelineItem,
-  } from '$lib/components';
+  import { SectionHeader, SectionCta, AnimatedSection, TimelineItem } from '$lib/components';
   import { TIMELINE_EVENTS, CEREMONY_TIMELINE } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>
@@ -45,13 +40,15 @@
       {/each}
     </div>
     <!-- CTA: FAQs -->
-    <SectionCta
-      text={COPY.weddingDetails.ctaText}
-      buttonLabel={COPY.weddingDetails.ctaButton}
-      href="/faqs"
-      openInNewTab={false}
-      className="animate-fade-in-up [animation-delay:1.2s] mx-auto max-w-4xl"
-    />
+    <div class="mx-auto max-w-4xl">
+      <SectionCta
+        text={COPY.weddingDetails.ctaText}
+        buttonLabel={COPY.weddingDetails.ctaButton}
+        href="/faqs"
+        openInNewTab={false}
+        className="animate-fade-in-up [animation-delay:1.2s]"
+      />
+    </div>
   </div>
 </AnimatedSection>
 
