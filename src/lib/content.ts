@@ -131,8 +131,8 @@ export const COPY = {
         additionalNamesRequired: 'Please add the full name for each additional guest.',
       },
       phone: {
-        label: 'Phone Number',
-        placeholder: '+61 123 456 789...',
+        label: 'Phone Number: (Include Country Code)',
+        placeholder: '+61 123 456 789 (AU) or +1 123 456 7890 (US)...',
         error: 'Please enter a valid mobile number (e.g., +61 4XX XXX XXX or 04XX XXX XXX)',
         errorRequired: 'Please enter a valid mobile number before submitting',
       },
