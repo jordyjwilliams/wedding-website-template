@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button';
-  import { SectionHeader, AnimatedSection, AnimatedGrid, IconCard } from '$lib/components';
+  import { SectionHeader, SectionCta, AnimatedSection, AnimatedGrid, IconCard } from '$lib/components';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>
@@ -44,23 +43,11 @@
     </AnimatedGrid>
 
     <!-- CTA: Venue link -->
-    <div
-      class="glass mt-12 rounded-3xl px-8 py-12 text-center
-             md:px-16"
-    >
-      <p class="text-foreground mb-8 text-xl font-medium">{COPY.venue.ctaText}</p>
-      <Button
-        href={WEDDING.venue.website}
-        target="_blank"
-        rel="noopener noreferrer"
-        size="lg"
-        class="group rounded-full px-10"
-      >
-        {COPY.venue.ctaButton}
-        <span class="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
-          →
-        </span>
-      </Button>
-    </div>
+    <SectionCta
+      text={COPY.venue.ctaText}
+      buttonLabel={COPY.venue.ctaButton}
+      href={WEDDING.venue.website}
+      className="animate-fade-in-up [animation-delay:1.2s]"
+    />
   </div>
 </AnimatedSection>
