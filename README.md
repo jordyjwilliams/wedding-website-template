@@ -186,3 +186,6 @@ Security defaults:
 - ✍️ **Content**
   - 🙋 More data on FAQ page. Nicer rendering of cards from copy.
   - 📸 Add gallery to our story page.
+- 🙋 **FAQs**
+  - 🏖️ Summary/expanded view for each entry.
+  - 🌴 Set each entry in grid baased on data in content.
