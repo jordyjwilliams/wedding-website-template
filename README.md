@@ -81,6 +81,27 @@ Visit [http://localhost:8888](http://localhost:8888)
 >
 > - All images in `static/images` are currently placeholder images/duplicates.
 > - Replaces these with memorabale images that you'd like for your site.
+> - Names kept consistent eg `{{page}}-bg.webp`.
+
+> [!NOTE]
+>
+> - Use WebP for consistent rendering across pages.
+> - `ffmpeg` can be used to convert.
+> - Example command: `ffmpeg -i "$HOME/Downloads/example-image.jpg" -c:v libwebp -quality 76 -compression_level 6 -preset picture "$HOME/Downloads/{{page}}-bg.webp"`
+>   - Can add `-vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080"` to attempt to automatically re-scale images.
+
+Convert all files in `static/images` to normalized WebP outputs:
+
+```bash
+find static/images -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print0 |
+while IFS= read -r -d '' f; do
+  out="static/images/$(basename "${f%.*}").webp"
+  ffmpeg -y -i "$f" \
+    -vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080" \
+    -c:v libwebp -quality 76 -compression_level 6 -preset picture \
+    "$out"
+done
+```
 
 #### ✍️ Copy
 
