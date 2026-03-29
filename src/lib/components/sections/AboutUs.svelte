@@ -16,26 +16,36 @@
     >
       <!-- Text content -->
       <div>
-        <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
+        <div class="animate-fade-in-up [animation-delay:0.1s]">
+          <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
+        </div>
 
         <p
-          class="font-heading text-primary-dark mb-6 text-[1.7rem] leading-snug
-                 italic"
+          class="font-heading text-primary-dark animate-fade-in-up mb-6 text-[1.7rem] leading-snug
+                 italic
+                 [animation-delay:0.2s]"
         >
           {COPY.about.intro}
         </p>
 
-        <p class="text-muted-foreground mb-6 text-[1.1rem] leading-[1.8]">
+        <p
+          class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.3s]"
+        >
           {COPY.about.story}
         </p>
-        <p class="text-muted-foreground mb-6 text-[1.1rem] leading-[1.8]">
+        <p
+          class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.4s]"
+        >
           {COPY.about.storyExtended}
         </p>
 
         <!-- Fun facts -->
         <div class="mt-10 flex flex-col gap-3">
-          {#each LOVE_FACTS as fact (fact.label)}
-            <div class="group transition-transform duration-300 hover:translate-x-2">
+          {#each LOVE_FACTS as fact, index (fact.label)}
+            <div
+              class="group animate-fade-in-up transition-transform duration-300 hover:translate-x-2"
+              style:animation-delay="{0.45 + index * 0.08}s"
+            >
               <Card.Root class="glass border-none shadow-none">
                 <Card.Content class="flex items-start gap-4 p-5">
                   <WeddingBadge size="icon-lg">{fact.icon}</WeddingBadge>

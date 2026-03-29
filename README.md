@@ -167,10 +167,11 @@ Security defaults:
 # 💥🍀 TODOs/Planned
 
 - 🐠 **Animataions**
-  - 🔠 Initials to be animated in navbar
+  - 🖼️ Fix up all animations RE consistency/tweaking.
 - 🎨 **Styling** General improvements.
   - ✅ 📌 Further optimize usage and usability in general.
-  - 🖼️ Differing colors on selected vs non-selected navbar/hover - nice to have not essential.
-  - 🛠️ Fix up tailwind config definitions and alpha values perhaps not getting rendered in svelte components
+  - 🔢 Replace numbers with days on `Wedding` page.
 - 🗃️ Test/Validate and linkup google sheets.
   - 🔎 Once validated ensure only one submission per email (if already exists)
+- ✍️ **Content**
+  - 🙋 More data on FAQ page. Nicer rendering of cards from copy.
