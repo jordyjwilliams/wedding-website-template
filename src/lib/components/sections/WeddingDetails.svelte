@@ -4,8 +4,6 @@
   import {
     SectionHeader,
     AnimatedSection,
-    AnimatedGrid,
-    IconCard,
     TimelineItem,
   } from '$lib/components';
   import { TIMELINE_EVENTS, CEREMONY_TIMELINE } from '$lib/constants';
@@ -19,6 +17,8 @@
       emoji={COPY.weddingDetails.emoji}
       intro={COPY.weddingDetails.intro}
     />
+
+    <!-- Wedding Timeline -->
 
     <div class="timeline">
       {#each TIMELINE_EVENTS as event, index (event.dayNumber)}
@@ -43,29 +43,7 @@
         </TimelineItem>
       {/each}
     </div>
-
-    <AnimatedGrid class="mt-16" itemDelay={0.2}>
-      <IconCard
-        icon="ph:house-fill"
-        iconAnimation="float"
-        title={COPY.weddingDetails.practical.accommodation.title}
-        description={COPY.weddingDetails.practical.accommodation.description}
-      />
-      <IconCard
-        icon="ph:backpack-fill"
-        iconAnimation="float"
-        iconDelay="0.5s"
-        title={COPY.weddingDetails.practical.packing.title}
-        description={COPY.weddingDetails.practical.packing.description}
-      />
-      <IconCard
-        icon="ph:car-fill"
-        iconAnimation="float"
-        iconDelay="1s"
-        title={COPY.weddingDetails.practical.transport.title}
-        description={COPY.weddingDetails.practical.transport.description}
-      />
-    </AnimatedGrid>
+   <!-- CTA: FAQs -->
   </div>
 </AnimatedSection>
 
