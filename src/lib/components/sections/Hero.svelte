@@ -111,7 +111,7 @@
         href="/rsvp"
         class="rounded-full px-8 font-semibold tracking-wide"
       >
-        {COPY.hero.cta}
+        {COPY.hero.ctaButton}
       </Button>
     </div>
   </div>

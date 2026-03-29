@@ -23,7 +23,7 @@ export const COPY = {
   // Hero Section
   hero: {
     eyebrow: 'are getting married',
-    cta: 'RSVP Now →',
+    ctaButton: 'RSVP Now →',
   },
 
   // About Us Section
