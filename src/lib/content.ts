@@ -42,6 +42,7 @@ export const COPY = {
   },
 
   // Wedding Details Section
+  // NOTE: all other info on `WeddingDetails` is set by `event` and `ceremony`
   weddingDetails: {
     title: 'Wedding Weekend',
     emoji: '',
