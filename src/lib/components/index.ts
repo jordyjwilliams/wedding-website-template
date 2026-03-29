@@ -7,6 +7,7 @@ export { default as CountdownTimer } from './CountdownTimer.svelte';
 export { default as IconCard } from './IconCard.svelte';
 export { default as Navigation } from './Navigation.svelte';
 export { default as PageWrapper } from './PageWrapper.svelte';
+export { default as SectionCta } from './SectionCta.svelte';
 export { default as SectionHeader } from './SectionHeader.svelte';
 export { default as TimelineItem } from './TimelineItem.svelte';
 
