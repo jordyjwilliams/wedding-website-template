@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --host",
-    "dev:netlify": "netlify dev",
     "build": "vite build",
     "preview": "vite preview --host",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -13,7 +12,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "deploy": "npm run build && netlify deploy --prod",
+    "deploy": "npm run build && vercel --prod",
     "update-deps": "npm update --save --save-dev && npm audit fix"
   },
   "devDependencies": {
@@ -22,13 +21,13 @@
     "@internationalized/date": "^3.12.0",
     "@lottiefiles/dotlottie-svelte": "^0.9.8",
     "@lucide/svelte": "^0.577.0",
-    "@netlify/functions": "^5.1.5",
-    "@sveltejs/adapter-netlify": "^6.0.4",
+    "@sveltejs/adapter-vercel": "^6.3.3",
     "@sveltejs/kit": "^2.55.0",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/vite": "^4.2.2",
     "@tsconfig/svelte": "^5.0.8",
+    "@types/node": "^25.5.0",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
     "autoprefixer": "^10.4.27",

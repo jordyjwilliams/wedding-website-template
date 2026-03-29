@@ -51,7 +51,7 @@ export default [
     },
   },
   {
-    ignores: ['build/', '.svelte-kit/', 'dist/', 'node_modules/', '.netlify/', 'todo/'],
+    ignores: ['build/', '.svelte-kit/', 'dist/', 'node_modules/', '.netlify/', '.vercel/', 'todo/'],
   },
   {
     // Google Apps Script environment configuration

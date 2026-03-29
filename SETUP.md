@@ -27,10 +27,10 @@ WEDDING_PASSCODE=YourActualPasscode2026
 ### 3. Start Development Server
 
 ```bash
-netlify dev
+npm run dev
 ```
 
-Visit: http://localhost:8888
+Visit: http://localhost:5173
 
 ## Testing Passcode
 
@@ -45,21 +45,24 @@ Visit: http://localhost:8888
 - [ ] (Optional) Configure Google Sheets RSVP (see `google-apps-script.js`)
   - See note in readme. Yet to be tested
 
-## Deploy to Netlify
+## Deploy to Vercel
 
 ### Option 1: Connect GitHub Repository
 
 1. Push your code to GitHub
-2. Go to [netlify.com](https://app.netlify.com)
-3. Click "Add new site" → "Import an existing project"
+2. Go to [vercel.com](https://vercel.com) and sign in
+3. Click "Add New Project" → "Import Git Repository"
 4. Select your GitHub repository
-5. Netlify auto-detects settings from `netlify.toml`
-6. **Important**: Add `WEDDING_PASSCODE` in Site settings → Environment variables
+5. Vercel auto-detects SvelteKit from `svelte.config.js`
+6. **Important**: Add environment variables in Project → Settings → Environment Variables:
+   - `WEDDING_PASSCODE`
+   - `SESSION_SIGNING_SECRET`
 7. Deploy!
 
-### Option 2: Manual Deploy
+### Option 2: Manual Deploy via CLI
 
 ```bash
+npm install -g vercel
 npm run deploy
 ```
 
@@ -71,11 +74,12 @@ The `.env` file is in `.gitignore` and should NEVER be committed to your reposit
 
 ### ✅ Production Environment Variables
 
-When deploying to Netlify, you MUST set `WEDDING_PASSCODE` in the Netlify dashboard:
+When deploying to Vercel, you MUST set both variables in the Vercel dashboard:
 
-1. Go to your site in Netlify
-2. Site settings → Environment variables
+1. Go to your project on vercel.com
+2. Project Settings → Environment Variables
 3. Add: `WEDDING_PASSCODE` = `YourActualPasscode`
+4. Add: `SESSION_SIGNING_SECRET` = `<output of openssl rand -hex 32>`
 
 ### 📁 Local Documentation
 
@@ -88,14 +92,14 @@ When deploying to Netlify, you MUST set `WEDDING_PASSCODE` in the Netlify dashbo
 ### Passcode not working locally
 
 - Make sure `.env` file exists
-- Check `WEDDING_PASSCODE` is set correctly
-- Restart `netlify dev` after changing `.env`
+- Check `WEDDING_PASSCODE` and `SESSION_SIGNING_SECRET` are set correctly
+- Restart `npm run dev` after changing `.env`
 
 ### Passcode not working in production
 
-- Verify environment variable is set in Netlify dashboard
+- Verify both environment variables are set in the Vercel dashboard
 - Redeploy the site after adding environment variables
-- Check function logs in Netlify dashboard
+- Check function logs in Vercel dashboard (Project → Functions tab)
 
 ### Build errors
 

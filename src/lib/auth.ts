@@ -5,7 +5,7 @@ interface SessionCheckResponse {
 
 export async function isSessionValid(): Promise<boolean> {
   try {
-    const response = await fetch('/.netlify/functions/check-session', {
+    const response = await fetch('/api/check-session', {
       method: 'GET',
       credentials: 'same-origin',
       cache: 'no-store',
@@ -24,7 +24,7 @@ export async function isSessionValid(): Promise<boolean> {
 
 export async function clearAuth(): Promise<void> {
   try {
-    await fetch('/.netlify/functions/logout-session', {
+    await fetch('/api/logout-session', {
       method: 'POST',
       credentials: 'same-origin',
       cache: 'no-store',
