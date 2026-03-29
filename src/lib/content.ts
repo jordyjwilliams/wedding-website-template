@@ -49,14 +49,15 @@ export const COPY = {
     emoji: '',
     intro: `Join us for a three-day celebration at the stunning ${WEDDING.venue.name} on the ${WEDDING.venue.address}`,
     ctaText: 'Want to learn more about our event, or have questions?',
-    ctaButton: "Check out our FAQs",
+    ctaButton: 'Check out our FAQs',
   },
 
   // FAQ Section
   faq: {
     title: 'FAQ',
     emoji: '',
-    intro: "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
+    intro:
+      "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
     practical: {
       accommodation: {
         title: 'Accommodation',

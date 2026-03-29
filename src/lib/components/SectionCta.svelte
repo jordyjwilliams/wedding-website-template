@@ -9,13 +9,7 @@
     openInNewTab?: boolean;
   }
 
-  let {
-    text,
-    buttonLabel,
-    href,
-    className = '',
-    openInNewTab = true,
-  }: Props = $props();
+  let { text, buttonLabel, href, className = '', openInNewTab = true }: Props = $props();
 </script>
 
 <div class={`glass mt-12 rounded-3xl px-8 py-12 text-center md:px-16 ${className}`.trim()}>
