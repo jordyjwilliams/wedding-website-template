@@ -1,42 +1,35 @@
 // Shared authentication utilities
-export const SESSION_DURATION_HOURS = 24;
-
-interface AuthData {
-  authenticated: boolean;
-  timestamp: number;
-  token: string;
+interface SessionCheckResponse {
+  valid: boolean;
 }
 
-export function isSessionValid(): boolean {
-  const authData = localStorage.getItem('wedding_auth');
-  if (!authData) return false;
-
+export async function isSessionValid(): Promise<boolean> {
   try {
-    const { authenticated, timestamp, token } = JSON.parse(authData) as AuthData;
-    if (!authenticated || !timestamp || !token) return false;
+    const response = await fetch('/.netlify/functions/check-session', {
+      method: 'GET',
+      credentials: 'same-origin',
+      cache: 'no-store',
+      headers: {
+        Accept: 'application/json',
+      },
+    });
 
-    const now = Date.now();
-    const sessionAge = now - timestamp;
-    const maxAge = SESSION_DURATION_HOURS * 60 * 60 * 1000;
-
-    if (sessionAge > maxAge) {
-      localStorage.removeItem('wedding_auth');
-      return false;
-    }
-
-    // Validate token format (must be returned from server)
-    if (!token.startsWith('wt_') || token.length < 32) {
-      localStorage.removeItem('wedding_auth');
-      return false;
-    }
-
-    return true;
+    if (!response.ok) return false;
+    const data = (await response.json()) as SessionCheckResponse;
+    return data.valid === true;
   } catch {
-    localStorage.removeItem('wedding_auth');
     return false;
   }
 }
 
-export function clearAuth(): void {
-  localStorage.removeItem('wedding_auth');
+export async function clearAuth(): Promise<void> {
+  try {
+    await fetch('/.netlify/functions/logout-session', {
+      method: 'POST',
+      credentials: 'same-origin',
+      cache: 'no-store',
+    });
+  } catch {
+    // Ignore network errors while logging out.
+  }
 }

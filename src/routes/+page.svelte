@@ -11,16 +11,16 @@
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
-  let passcode: string = '';
-  let error: string = '';
-  let isLoading: boolean = false;
-  let shake: boolean = false;
-  let isAuthenticated: boolean = false;
+  let passcode = $state('');
+  let error = $state('');
+  let isLoading = $state(false);
+  let shake = $state(false);
+  let isAuthenticated = $state(false);
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
 
-  onMount(() => {
+  onMount(async () => {
     // Check authentication status
-    isAuthenticated = isSessionValid();
+    isAuthenticated = await isSessionValid();
   });
 
   async function handleSubmit(): Promise<void> {
@@ -38,6 +38,7 @@
     try {
       const response = await fetch('/.netlify/functions/verify-passcode', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -52,14 +53,8 @@
 
       const data = await response.json();
 
-      if (data.valid && data.token) {
-        // Store authentication with timestamp and server-generated token
-        const authData = {
-          authenticated: true,
-          timestamp: Date.now(),
-          token: data.token,
-        };
-        localStorage.setItem('wedding_auth', JSON.stringify(authData));
+      if (data.valid) {
+        // Session cookie is set by server on successful verification.
         isAuthenticated = true;
         // Force full reload to re-evaluate layout and show navbar
         if (typeof window !== 'undefined') {
@@ -89,9 +84,8 @@
 {:else}
   <!-- Login / passcode gate -->
   <div
-    class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[linear-gradient(135deg,hsl(var(--background)/0.96)_0%,hsl(var(--muted)/0.92)_100%),url('/images/heart-bg.webp')_center/cover]
+    class="login-bg relative flex min-h-screen items-center justify-center overflow-hidden
            px-4"
-    style="background-attachment: fixed;"
   >
     <!-- Ambient orbs -->
     <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -128,7 +122,13 @@
             <Icon icon="ph:key-duotone" width="20" class="inline-block shrink-0" />
           </p>
 
-          <form on:submit|preventDefault={handleSubmit} class="space-y-4">
+          <form
+            onsubmit={(event) => {
+              event.preventDefault();
+              void handleSubmit();
+            }}
+            class="space-y-4"
+          >
             <Input
               type="password"
               bind:value={passcode}
@@ -161,6 +161,20 @@
 {/if}
 
 <style>
+  /* Login page background — combines tinted gradient with hero image */
+  .login-bg {
+    background-image:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-background) 96%, transparent) 0%,
+        color-mix(in srgb, var(--color-muted) 92%, transparent) 100%
+      ),
+      url('/images/heart-bg.webp');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
   /* Ambient gradient orbs */
   .login-orb {
     position: absolute;
@@ -173,7 +187,7 @@
   .orb-1 {
     width: clamp(300px, 40vw, 500px);
     height: clamp(300px, 40vw, 500px);
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     top: -20%;
     left: -15%;
     animation-delay: 0s;
@@ -182,7 +196,7 @@
   .orb-2 {
     width: clamp(240px, 32vw, 420px);
     height: clamp(240px, 32vw, 420px);
-    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
     bottom: -18%;
     right: -12%;
     animation-delay: 6s;
@@ -191,34 +205,10 @@
   .orb-3 {
     width: clamp(180px, 24vw, 320px);
     height: clamp(180px, 24vw, 320px);
-    background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
     top: 45%;
     right: 8%;
     animation-delay: 12s;
-  }
-
-  @keyframes floatOrb {
-    0%,
-    100% {
-      transform: translate(0, 0);
-    }
-    33% {
-      transform: translate(28px, -28px);
-    }
-    66% {
-      transform: translate(-18px, 18px);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(28px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   .login-card {

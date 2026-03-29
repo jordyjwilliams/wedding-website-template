@@ -22,14 +22,14 @@ export const COPY = {
 
   // Hero Section
   hero: {
-    eyebrow: "✨ We're getting married ✨",
+    eyebrow: 'are getting married',
     cta: 'RSVP Now →',
   },
 
   // About Us Section
   about: {
     title: 'Our Story',
-    emoji: '💕',
+    emoji: '',
     intro: "Every love story is beautiful, but we think our's is pretty cute.",
     story: `Once upon a time, ${WEDDING.couple.groom} was sitting on a train from Prague to Kutna Hora when he met ${WEDDING.couple.bride} (and Megan!). From a chance conversation, the rest, as they say is history.`,
     storyExtended: `
@@ -39,20 +39,20 @@ export const COPY = {
       European cities, or just enjoying a quiet coffee on a Sunday morning. Now, we're ready for
       our biggest adventure yet...
     `,
-    factsSectionTitle: 'worked this out properly...',
+    factsSectionTitle: 'A Few Fun Facts',
   },
 
   // Wedding Details Section
   weddingDetails: {
     title: 'Wedding Weekend',
-    emoji: '🌊',
+    emoji: '',
     intro: `Join us for a three-day celebration at the stunning ${WEDDING.venue.name} on the ${WEDDING.venue.address}`,
 
     practical: {
       accommodation: {
         title: 'Accommodation',
         description:
-          "Seacroft offers a mix of rooms and cabins. We'll allocate rooms once we have everyone's RSVPs and will confirm details closer to the date.",
+          'Share accommodation details here, including room options, booking approach, and when guests can expect confirmation.',
       },
       packing: {
         title: 'What to Pack',
@@ -62,7 +62,7 @@ export const COPY = {
       transport: {
         title: 'Getting There',
         description:
-          "Seacroft is located along the Great Ocean Road. Car-pooling is encouraged; we'll share more detailed directions closer to the day.",
+          'Add travel guidance, transfer options, and any parking or car-pooling recommendations for guests.',
       },
     },
   },
@@ -70,7 +70,7 @@ export const COPY = {
   // Venue Section
   venue: {
     title: WEDDING.venue.name,
-    emoji: '🐠🏖️🏛️',
+    emoji: '',
     intro: WEDDING.venue.description,
 
     features: {
@@ -103,13 +103,17 @@ export const COPY = {
   // RSVP Section
   rsvp: {
     title: 'RSVP',
-    emoji: '💌',
+    emoji: '',
     intro: "We'd love to know if you can join us! Please RSVP by [date].",
 
     form: {
       name: {
         label: 'Your Name',
         placeholder: 'Enter your full name',
+        firstNameLabel: 'First Name',
+        firstNamePlaceholder: 'First name',
+        lastNameLabel: 'Last Name',
+        lastNamePlaceholder: 'Last name',
       },
       email: {
         label: 'Email Address',
@@ -119,10 +123,15 @@ export const COPY = {
         label: 'Will you be attending?',
         yes: "Yes, I'll be there! 🎉",
         no: "Sorry, can't make it 😢",
+        placeholder: 'Please select...',
+        errorRequired: 'Please select whether you are attending before submitting.',
       },
       guests: {
         label: 'Number of Guests (including yourself)',
         description: 'Including yourself',
+        additionalNamesLabel: 'Additional Guest Full Name(s)',
+        additionalNamePlaceholderPrefix: 'Guest',
+        additionalNamesRequired: 'Please add the full name for each additional guest.',
       },
       phone: {
         label: 'Phone Number',
@@ -149,14 +158,19 @@ export const COPY = {
     },
 
     success: {
-      title: 'RSVP Received! 🎊',
-      message:
-        "Thank you! We're so excited to celebrate with you. You'll receive a confirmation email shortly.",
+      title: 'RSVP Received!',
+      attending:
+        "🎊 Thank you! We're so excited to celebrate with you. You'll receive a confirmation email shortly.",
+      notAttending:
+        "😢 Thank you for letting us know. We'll miss celebrating with you in person and really appreciate your RSVP.",
     },
 
     error: {
       title: 'Oops!',
       message: 'Something went wrong. Please try again or contact us directly.',
+      timeout:
+        'Request timed out. Please check your internet connection and try again, or contact us directly.',
+      submitFailed: 'Oops! Something went wrong. Please try again or contact us directly.',
     },
 
     contact: {

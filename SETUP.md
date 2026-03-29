@@ -41,11 +41,9 @@ Visit: http://localhost:8888
 ## Customization Checklist
 
 - [ ] Set `WEDDING_PASSCODE` in `.env`
-- [ ] Update names in `src/lib/components/Hero.svelte`
-- [ ] Update wedding dates in `src/lib/components/Hero.svelte`
-- [ ] Add your love story in `src/lib/components/AboutUs.svelte`
-- [ ] Update wedding schedule in `src/lib/components/WeddingDetails.svelte`
+- [ ] Update all copy in `src/lib/content.ts` and `src/lib/constants.ts`
 - [ ] (Optional) Configure Google Sheets RSVP (see `google-apps-script.js`)
+  - See note in readme. Yet to be tested
 
 ## Deploy to Netlify
 
@@ -81,12 +79,9 @@ When deploying to Netlify, you MUST set `WEDDING_PASSCODE` in the Netlify dashbo
 
 ### 📁 Local Documentation
 
-The `todo/` directory contains detailed documentation but is not committed to the repository. Check there for:
-
-- Detailed deployment guides
-- Security best practices
-- Development workflows
-- Enhancement ideas
+- Currently I set this up such that the `todo/` directory contains internal and non-committed documentation.
+- Use this if you require.
+- I used this to store generic notes that I did not want comitted.
 
 ## Troubleshooting
 
@@ -113,4 +108,4 @@ npm run build
 
 ## Need Help?
 
-See the main [README.md](README.md) or check `todo/` directory for detailed documentation.
+See the main [README.md](README.md).

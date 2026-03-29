@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, setContext, type Snippet } from 'svelte';
+  import { onMount, type Snippet } from 'svelte';
 
   interface Props {
     backgroundImage?: string;
@@ -23,12 +23,6 @@
   let visible = $state(false);
   let overlayOpacity = $state(initialOverlayOpacity);
   let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
-
-  setContext('scrollOpacity', {
-    get value() {
-      return overlayOpacity * 100;
-    },
-  });
 
   onMount(() => {
     visible = true;
@@ -100,7 +94,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background: hsl(var(--background) / 0.7);
+    background: color-mix(in srgb, var(--color-background) 70%, transparent);
     opacity: var(--overlay-opacity);
     transition: opacity 0.6s ease-out;
     pointer-events: none;

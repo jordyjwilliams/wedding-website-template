@@ -1,7 +1,6 @@
 <script lang="ts">
   import * as Card from '$lib/components/ui/card';
   import { AnimatedIcon } from '$lib/components';
-  import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -12,7 +11,6 @@
     iconAnimation?: 'bounce' | 'float' | 'none';
     iconDelay?: string;
     hoverLift?: boolean;
-    children?: Snippet;
   }
 
   let {
@@ -20,7 +18,7 @@
     title,
     description,
     iconSize = 56,
-    iconAnimation = 'bounce',
+    iconAnimation = 'float',
     iconDelay = '0s',
     hoverLift = true,
     class: className,

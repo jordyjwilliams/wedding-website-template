@@ -65,57 +65,50 @@
     animation: fadeInSlide 0.8s ease-out var(--delay, 0s) forwards;
   }
 
-  @keyframes fadeInSlide {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
   .timeline-icon {
     position: absolute;
     left: 0;
     top: 0;
     width: 60px;
     height: 60px;
-    background: hsl(var(--white));
-    border: 3px solid hsl(var(--primary));
+    background: var(--color-card);
+    border: 3px solid var(--color-primary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 700;
-    color: hsl(var(--primary));
-    box-shadow: 0 5px 20px var(--shadow);
+    color: var(--color-primary);
+    box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
     z-index: 10;
   }
 
   .timeline-icon.highlight {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
-    border-color: hsl(var(--primary-dark));
-    color: hsl(var(--white));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border-color: var(--color-primary-dark);
+    color: var(--color-primary-foreground);
     animation: pulse 2s infinite;
   }
 
   @keyframes pulse {
     0%,
     100% {
-      box-shadow: 0 5px 20px var(--shadow);
+      box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
     }
     50% {
-      box-shadow: 0 5px 30px rgba(212, 165, 116, 0.6);
+      box-shadow: 0 5px 30px color-mix(in srgb, var(--color-accent) 60%, transparent);
     }
   }
 
   h3 {
     font-size: 1.8rem;
-    color: hsl(var(--text-dark));
+    color: var(--color-foreground);
     margin-bottom: 0.5rem;
   }
 
   .timeline-date {
-    color: var(--primary);
+    color: var(--color-primary);
     font-weight: 600;
     margin-bottom: 1rem;
     font-size: 1.1rem;
@@ -126,17 +119,17 @@
     padding: 0.5rem 1rem;
     border-radius: 8px;
     transition: all 0.3s ease;
-    background: rgba(122, 184, 212, 0.1);
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
   }
 
   .timeline-date :global(svg) {
-    color: var(--accent);
-    filter: drop-shadow(0 2px 4px rgba(122, 184, 212, 0.3));
+    color: var(--color-accent);
+    filter: drop-shadow(0 2px 4px color-mix(in srgb, var(--color-accent) 30%, transparent));
     transition: transform 0.3s ease;
   }
 
   a.timeline-date:hover {
-    background: rgba(122, 184, 212, 0.2);
+    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
     transform: translateY(-2px);
   }
 
@@ -156,7 +149,7 @@
   }
 
   p {
-    color: var(--text-light);
+    color: var(--color-muted-foreground);
     line-height: 1.7;
   }
 

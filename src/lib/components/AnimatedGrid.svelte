@@ -36,10 +36,11 @@
     gap: var(--gap);
   }
 
+  /* Staggered fade-in-up for direct children — uses global fadeInUp keyframe */
   .animated-grid :global(> *) {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 0.8s ease-out both;
   }
 
   .animated-grid :global(> *:nth-child(1)) {
@@ -64,12 +65,5 @@
 
   .animated-grid :global(> *:nth-child(6)) {
     animation-delay: calc(var(--item-delay) * 6);
-  }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 </style>

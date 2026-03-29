@@ -19,6 +19,13 @@ export const WEDDING = {
     displayDay3: '21st March 2027',
   },
 
+  // Countdown
+  // NOTE: all logic for dates will be set on component.
+  countdown: {
+    isPastTarget: "Today's the big day!",
+    isNotPastTarget: 'Counting down to the big day',
+  },
+
   // Venue
   venue: {
     name: 'Seacroft Estate',
@@ -43,11 +50,9 @@ export const WEDDING = {
   },
 } as const;
 
-// Navigation routes
-export const ROUTES = {
-  home: '/',
-  wedding: '/wedding',
-  rsvp: '/rsvp',
+export const RSVP_LIMITS = {
+  guestCountMin: 1,
+  guestCountMax: 5, // Including main guest
 } as const;
 
 // Love story facts

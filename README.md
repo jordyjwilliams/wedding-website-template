@@ -1,6 +1,8 @@
 # 💒 Wedding Website - Jordy & Nicole
 
-A wedding website built with:
+A wedding website built using [this public template](https://wedding-website-template.netlify.app/)
+
+Built with:
 
 [![Svelte](https://img.shields.io/badge/Svelte-5.14-FF3E00?logo=svelte)](https://svelte.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript)](https://www.typescriptlang.org/)
@@ -12,13 +14,17 @@ A wedding website built with:
 
 - 🔒 **Authentication** - Server-side passcode verification
 - 🎨 **Theming** - Modern design with beautiful animations
+  - More optimizations and themeing/animations to come.
 - 📱 **Responsive** - Optimized for mobile and desktop
+- 🔆 **Light/Dark Mode Toggle** - Because why not 😂
 - 📝 **RSVP System** - Google Sheets integration
-- 🚀 **Free Hosting** - Deployed on Netlify: TODO
+  - WIP: Not currently tested yet
+- 🚀 **Free Hosting** - [Deployed on Netlify](https://wedding-website-template.netlify.app/)
+  - Deployed dummy template with placeholder/anon copy.
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 🥫 Prerequisites
 
 - Node.js 24+ and npm 11+
 - [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
@@ -36,11 +42,25 @@ npm install
 # Copy environment variables
 cp .env.example .env
 
-# Edit .env and set your passcode
+# Required auth variables
 # WEDDING_PASSCODE=YourSecretPasscode
+# SESSION_SIGNING_SECRET=<generate with: openssl rand -hex 32>
 ```
 
-### Development
+#### Required Environment Variables
+
+Set these in local `.env` and in Netlify dashboard:
+
+- `WEDDING_PASSCODE`: passcode guests enter on the login screen.
+- `SESSION_SIGNING_SECRET`: strong random signing secret used for HMAC session cookies.
+
+Generate a strong signing secret on macOS:
+
+```bash
+openssl rand -hex 32
+```
+
+### 💻 Development
 
 ```bash
 # Start development server with Netlify Functions
@@ -49,23 +69,35 @@ netlify dev
 
 Visit [http://localhost:8888](http://localhost:8888)
 
-> **Important**: Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
-
-> [!NOTE]
+> [!IMPORTANT]
 >
-> - This whole project is currently `WIP` and yet to be deployed.
-> - Below is me setting out how I plan to implement this.
+> - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
 
-### TODOs
+### ✨ Make It **YOURS**...
 
-#### Copy
+#### 🖼️ Background images
 
-Currently placeholder text... To write and fill this out all copy nicely...
+> [!TIP]
+>
+> - All images in `static/images` are currently placeholder images/duplicates.
+> - Replaces these with memorabale images that you'd like for your site.
 
-#### Google Sheets RSVP
+#### ✍️ Copy
+
+> [!WARNING]
+>
+> - Currently all placeholder/dummy text
+> - Fill this out as you desire.
+
+#### 💌 Google Sheets RSVP
 
 - This is left as optinal within template currently.
 - To set this up properly.
+
+> [!NOTE]
+>
+> - This is yet to be properly tested.
+> - Placeholder stubs for now.
 
 ## 🛠 Development Scripts
 
@@ -89,3 +121,43 @@ npm run format
 # Deploy to production
 npm run deploy
 ```
+
+# 🚀 Deployment
+
+## 🔐 Authentication + Security
+
+This template uses server-verified sessions:
+
+- Passcode verification is handled server-side using Netlify Functions.
+- Successful login sets a signed, HttpOnly cookie (`wedding_auth`).
+- Session validity is checked server-side (`/.netlify/functions/check-session`).
+- Logout clears the cookie server-side (`/.netlify/functions/logout-session`).
+- Session lifetime is 24 hours (`SESSION_DURATION_SECONDS = 24 * 60 * 60`).
+
+Security defaults:
+
+- Cookies are sent with `SameSite=Lax` and `Secure` on HTTPS.
+- Auth function responses set `Cache-Control: no-store` and hardening headers.
+- Basic brute-force throttling is enabled: 5 attempts per 15 minutes.
+
+> [!NOTE]
+>
+> **Known Limitation**
+>
+> - Rate limiting is in-memory in a serverless function, so it is best-effort across cold starts/scale-out.
+
+> [!WARNING]
+>
+> - Currently I have only deployed the `template` version of this wedding website.
+> - Still under active development.
+
+# 💥🍀 TODOs/Planned
+
+- 🐠 **Animataions**
+  - 🔠 Initials to be animated in navbar
+- 🎨 **Styling** General improvements.
+  - ✅ 📌 Further optimize usage and usability in general.
+  - 🖼️ Differing colors on selected vs non-selected navbar/hover - nice to have not essential.
+  - 🛠️ Fix up tailwind config definitions and alpha values perhaps not getting rendered in svelte components
+- 🗃️ Test/Validate and linkup google sheets.
+  - 🔎 Once validated ensure only one submission per email (if already exists)

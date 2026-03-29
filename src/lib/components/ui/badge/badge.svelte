@@ -7,10 +7,10 @@
       variant: {
         default: 'bg-primary text-primary-foreground hover:bg-primary/90 border-transparent',
         secondary:
-          'bg-secondary/20 text-secondary-foreground hover:bg-secondary/30 border-secondary/30 backdrop-blur-[8px]',
+          'bg-secondary/20 text-secondary-foreground hover:bg-secondary/30 border-secondary/30 backdrop-blur-sm',
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/80 border-transparent',
-        outline: 'text-foreground bg-card/80 backdrop-blur-[8px] hover:bg-card border-border/30',
+        outline: 'text-foreground bg-card/80 backdrop-blur-sm hover:bg-card border-border/30',
       },
     },
     defaultVariants: {
