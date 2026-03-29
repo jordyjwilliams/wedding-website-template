@@ -185,3 +185,4 @@ Security defaults:
   - 🔎 Once validated ensure only one submission per email (if already exists)
 - ✍️ **Content**
   - 🙋 More data on FAQ page. Nicer rendering of cards from copy.
+  - 📸 Add gallery to our story page.
