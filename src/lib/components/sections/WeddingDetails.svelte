@@ -1,12 +1,7 @@
 <script lang="ts">
   import { weddingCalendarLink } from '$lib/calendar';
   import { WeddingBadge } from '$lib/components/ui/badge';
-  import {
-    SectionHeader,
-    SectionCta,
-    AnimatedSection,
-    TimelineItem,
-  } from '$lib/components';
+  import { SectionHeader, SectionCta, AnimatedSection, TimelineItem } from '$lib/components';
   import { TIMELINE_EVENTS, CEREMONY_TIMELINE } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>

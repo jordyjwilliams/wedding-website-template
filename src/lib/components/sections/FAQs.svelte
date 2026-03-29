@@ -1,20 +1,11 @@
 <script lang="ts">
-  import {
-    SectionHeader,
-    AnimatedSection,
-    AnimatedGrid,
-    IconCard,
-  } from '$lib/components';
+  import { SectionHeader, AnimatedSection, AnimatedGrid, IconCard } from '$lib/components';
   import { COPY } from '$lib/content';
 </script>
 
 <AnimatedSection class="py-20 md:py-28">
   <div class="container">
-    <SectionHeader
-      title={COPY.faq.title}
-      emoji={COPY.faq.emoji}
-      intro={COPY.faq.intro}
-    />
+    <SectionHeader title={COPY.faq.title} emoji={COPY.faq.emoji} intro={COPY.faq.intro} />
 
     <AnimatedGrid class="mt-16" itemDelay={0.2}>
       <IconCard

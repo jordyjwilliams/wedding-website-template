@@ -86,14 +86,14 @@
 
   .page-wrapper--fade-down {
     transform: translateY(-20px);
-    transition: 
+    transition:
       opacity var(--entrance-duration, 0.6s) ease-out,
       transform var(--entrance-duration, 0.6s) ease-out;
   }
 
   .page-wrapper--fade-up {
     transform: translateY(20px);
-    transition: 
+    transition:
       opacity var(--entrance-duration, 0.6s) ease-out,
       transform var(--entrance-duration, 0.6s) ease-out;
   }

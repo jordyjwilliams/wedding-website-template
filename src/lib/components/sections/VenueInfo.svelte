@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { SectionHeader, SectionCta, AnimatedSection, AnimatedGrid, IconCard } from '$lib/components';
+  import {
+    SectionHeader,
+    SectionCta,
+    AnimatedSection,
+    AnimatedGrid,
+    IconCard,
+  } from '$lib/components';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>

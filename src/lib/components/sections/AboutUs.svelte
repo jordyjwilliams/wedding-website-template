@@ -22,16 +22,20 @@
 
         <p
           class="font-heading text-primary-dark animate-fade-in-up mb-6 text-[1.7rem] leading-snug
-                 [animation-delay:0.2s]
-                 italic"
+                 italic
+                 [animation-delay:0.2s]"
         >
           {COPY.about.intro}
         </p>
 
-        <p class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.3s]">
+        <p
+          class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.3s]"
+        >
           {COPY.about.story}
         </p>
-        <p class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.4s]">
+        <p
+          class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.4s]"
+        >
           {COPY.about.storyExtended}
         </p>
 
