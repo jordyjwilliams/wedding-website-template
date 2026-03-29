@@ -43,7 +43,7 @@
       />
     </AnimatedGrid>
 
-    <!-- CTA block -->
+    <!-- CTA: Venue link -->
     <div
       class="glass mt-12 rounded-3xl px-8 py-12 text-center
              md:px-16"
