@@ -51,6 +51,11 @@ export const COPY = {
     ctaButton: "Check out our FAQs",
   },
 
+  // FAQ Section
+  faq: {
+    title: 'FAQ',
+    emoji: '',
+    intro: "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
     practical: {
       accommodation: {
         title: 'Accommodation',
