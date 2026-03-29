@@ -6,6 +6,8 @@
     backgroundColor?: string;
     backgroundPosition?: string;
     children?: Snippet;
+    pageEntranceAnimation?: 'fade' | 'fade-down' | 'fade-up';
+    pageEntranceDuration?: number;
   }
 
   let {
@@ -13,6 +15,8 @@
     backgroundColor,
     backgroundPosition = 'center',
     children,
+    pageEntranceAnimation = 'fade',
+    pageEntranceDuration = 600,
   }: Props = $props();
 
   const initialOverlayOpacity: number = 0.85;
@@ -54,12 +58,13 @@
   handled via media query on mobile — avoids SSR window.innerWidth access.
 -->
 <div
-  class="page-wrapper"
+  class="page-wrapper page-wrapper--{pageEntranceAnimation}"
   class:visible
   class:has-bg={!!backgroundImage}
   style:--overlay-opacity={overlayOpacity}
   style:--bg-image={backgroundImage ? `url('${backgroundImage}')` : 'none'}
   style:--bg-position={backgroundPosition}
+  style:--entrance-duration="{pageEntranceDuration}ms"
   style:background={!backgroundImage ? backgroundColor || 'transparent' : undefined}
 >
   {#if children}
@@ -68,15 +73,34 @@
 </div>
 
 <style>
+  /* Default fade entrance animation */
   .page-wrapper {
     opacity: 0;
-    transition: opacity 0.6s ease-out;
     min-height: 100vh;
     position: relative;
   }
 
+  .page-wrapper--fade {
+    transition: opacity var(--entrance-duration, 0.6s) ease-out;
+  }
+
+  .page-wrapper--fade-down {
+    transform: translateY(-20px);
+    transition: 
+      opacity var(--entrance-duration, 0.6s) ease-out,
+      transform var(--entrance-duration, 0.6s) ease-out;
+  }
+
+  .page-wrapper--fade-up {
+    transform: translateY(20px);
+    transition: 
+      opacity var(--entrance-duration, 0.6s) ease-out,
+      transform var(--entrance-duration, 0.6s) ease-out;
+  }
+
   .page-wrapper.visible {
     opacity: 1;
+    transform: translateY(0);
   }
 
   /* Background image applied via CSS so background-attachment
