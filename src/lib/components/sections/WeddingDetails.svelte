@@ -1,5 +1,6 @@
 <script lang="ts">
   import { weddingCalendarLink } from '$lib/calendar';
+  import { Button } from '$lib/components/ui/button';
   import { WeddingBadge } from '$lib/components/ui/badge';
   import {
     SectionHeader,
@@ -44,6 +45,24 @@
       {/each}
     </div>
    <!-- CTA: FAQs -->
+    <div
+      class="glass mt-12 rounded-3xl px-8 py-12 text-center
+             md:px-16 animate-fade-in-up [animation-delay:1.2s]"
+    >
+      <p class="text-foreground mb-8 text-xl font-medium">{COPY.weddingDetails.ctaText}</p>
+      <Button
+        href="/faq"
+        target="_blank"
+        rel="noopener noreferrer"
+        size="lg"
+        class="group rounded-full px-10"
+      >
+        {COPY.weddingDetails.ctaButton}
+        <span class="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
+          →
+        </span>
+      </Button>
+    </div>
   </div>
 </AnimatedSection>
 

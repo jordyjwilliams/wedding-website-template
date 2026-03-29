@@ -47,6 +47,9 @@ export const COPY = {
     title: 'Wedding Weekend',
     emoji: '',
     intro: `Join us for a three-day celebration at the stunning ${WEDDING.venue.name} on the ${WEDDING.venue.address}`,
+    ctaText: 'Want to learn more about our event, or have questions?',
+    ctaButton: "Check out our FAQs",
+  },
 
     practical: {
       accommodation: {
