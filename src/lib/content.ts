@@ -78,7 +78,7 @@ export const COPY = {
       weather: {
         title: 'Weather',
         description:
-          'Give guests an idea of what the weather might be like during the wedding weekend, and any recommendations for what to pack.',
+          'You may think Australia is all hot and sunny, but March can be unpredictable! Melbourne and surrounds can have all seasons in one day. March in Australia is "Autumn/Fall". Average highs of ~22°C (~70°F) to average lows of 13°C (~55°F). We recommend packing layers to stay comfortable throughout the day and evening, and maybe an umbrella just in case!',
       },
       kids: {
         title: 'Kids',
