@@ -493,7 +493,7 @@
         <Card.Root>
           <Card.Header class="text-center">
             <div class="mb-4">
-              <AnimatedIcon icon="ph:chat-circle-dots-fill" size={48} color="var(--color-accent)" />
+              <AnimatedIcon icon="ph:chat-circle-dots-fill" size={48} color="var(--color-accent)" animation="bounce"/>
             </div>
             <Card.Title>{COPY.rsvp.contact.title}</Card.Title>
           </Card.Header>
