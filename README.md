@@ -174,4 +174,4 @@ Security defaults:
 - 🗃️ Test/Validate and linkup google sheets.
   - 🔎 Once validated ensure only one submission per email (if already exists)
 - ✍️ **Content**
-    - 🙋 More data on FAQ page. Nicer rendering of cards from copy.
+  - 🙋 More data on FAQ page. Nicer rendering of cards from copy.
