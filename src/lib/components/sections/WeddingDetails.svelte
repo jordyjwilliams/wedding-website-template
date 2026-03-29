@@ -45,13 +45,15 @@
       {/each}
     </div>
     <!-- CTA: FAQs -->
-    <SectionCta
-      text={COPY.weddingDetails.ctaText}
-      buttonLabel={COPY.weddingDetails.ctaButton}
-      href="/faqs"
-      openInNewTab={false}
-      className="animate-fade-in-up [animation-delay:1.2s] mx-auto max-w-4xl"
-    />
+    <div class="max-w-4xl mx-auto">
+      <SectionCta
+        text={COPY.weddingDetails.ctaText}
+        buttonLabel={COPY.weddingDetails.ctaButton}
+        href="/faqs"
+        openInNewTab={false}
+        className="animate-fade-in-up [animation-delay:1.2s]"
+      />
+    </div>
   </div>
 </AnimatedSection>
 
