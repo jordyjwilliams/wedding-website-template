@@ -17,6 +17,7 @@ export const COPY = {
     aboutUs: 'Our Story',
     wedding: 'Wedding',
     venue: 'Venue',
+    faqs: 'FAQs',
     rsvp: 'RSVP',
   },
 
