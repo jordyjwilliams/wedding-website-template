@@ -15,12 +15,14 @@
   let sectionEl: HTMLElement;
 
   onMount(() => {
-    // If element is already fully above the fold, show it immediately
-    // (avoids an observable async-callback delay on page load)
+    // If element is already in view on initial load, defer visibility by one frame
+    // so the browser paints the initial state before transitioning to visible.
     if (sectionEl) {
       const rect = sectionEl.getBoundingClientRect();
       if (rect.top < window.innerHeight && rect.bottom > 0) {
-        visible = true;
+        requestAnimationFrame(() => {
+          visible = true;
+        });
         return () => {};
       }
     }
@@ -57,8 +59,8 @@
     opacity: 0;
     transform: translateY(30px);
     transition:
-      opacity 0.8s ease-out,
-      transform 0.8s ease-out;
+      opacity var(--duration-section-entrance, 0.8s) var(--easing-entrance, ease-out),
+      transform var(--duration-section-entrance, 0.8s) var(--easing-entrance, ease-out);
     transition-delay: var(--delay, 0s);
   }
 

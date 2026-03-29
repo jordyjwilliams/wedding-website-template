@@ -17,13 +17,14 @@ export const COPY = {
     aboutUs: 'Our Story',
     wedding: 'Wedding',
     venue: 'Venue',
+    faqs: 'FAQs',
     rsvp: 'RSVP',
   },
 
   // Hero Section
   hero: {
     eyebrow: 'are getting married',
-    cta: 'RSVP Now →',
+    ctaButton: 'RSVP Now →',
   },
 
   // About Us Section
@@ -43,11 +44,21 @@ export const COPY = {
   },
 
   // Wedding Details Section
+  // NOTE: all other info on `WeddingDetails` is set by `event` and `ceremony`
   weddingDetails: {
     title: 'Wedding Weekend',
     emoji: '',
     intro: `Join us for a three-day celebration at the stunning ${WEDDING.venue.name} on the ${WEDDING.venue.address}`,
+    ctaText: 'Want to learn more about our event, or have questions?',
+    ctaButton: 'Check out our FAQs',
+  },
 
+  // FAQ Section
+  faq: {
+    title: 'FAQ',
+    emoji: '',
+    intro:
+      "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
     practical: {
       accommodation: {
         title: 'Accommodation',

@@ -6,10 +6,6 @@
   import { COPY } from '$lib/content';
   import CountdownTimer from '../CountdownTimer.svelte';
 
-  function scrollToRSVP(): void {
-    window.location.href = '/rsvp';
-  }
-
   const heartPositions = ['15%', '35%', '55%', '75%', '25%', '85%'];
 </script>
 
@@ -107,15 +103,15 @@
       <CountdownTimer />
     </div>
 
-    <!-- CTA -->
+    <!-- CTA: RSVP -->
     <div class="animate-fade-in-up [animation-delay:1.2s]">
       <Button
         variant="glass"
         size="lg"
-        onclick={scrollToRSVP}
+        href="/rsvp"
         class="rounded-full px-8 font-semibold tracking-wide"
       >
-        {COPY.hero.cta}
+        {COPY.hero.ctaButton}
       </Button>
     </div>
   </div>

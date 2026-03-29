@@ -1,13 +1,7 @@
 <script lang="ts">
   import { weddingCalendarLink } from '$lib/calendar';
   import { WeddingBadge } from '$lib/components/ui/badge';
-  import {
-    SectionHeader,
-    AnimatedSection,
-    AnimatedGrid,
-    IconCard,
-    TimelineItem,
-  } from '$lib/components';
+  import { SectionHeader, SectionCta, AnimatedSection, TimelineItem } from '$lib/components';
   import { TIMELINE_EVENTS, CEREMONY_TIMELINE } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>
@@ -19,6 +13,8 @@
       emoji={COPY.weddingDetails.emoji}
       intro={COPY.weddingDetails.intro}
     />
+
+    <!-- Wedding Timeline -->
 
     <div class="timeline">
       {#each TIMELINE_EVENTS as event, index (event.dayNumber)}
@@ -43,29 +39,16 @@
         </TimelineItem>
       {/each}
     </div>
-
-    <AnimatedGrid class="mt-16" itemDelay={0.2}>
-      <IconCard
-        icon="ph:house-fill"
-        iconAnimation="float"
-        title={COPY.weddingDetails.practical.accommodation.title}
-        description={COPY.weddingDetails.practical.accommodation.description}
+    <!-- CTA: FAQs -->
+    <div class="mx-auto max-w-4xl">
+      <SectionCta
+        text={COPY.weddingDetails.ctaText}
+        buttonLabel={COPY.weddingDetails.ctaButton}
+        href="/faqs"
+        openInNewTab={false}
+        className="animate-fade-in-up [animation-delay:1.2s]"
       />
-      <IconCard
-        icon="ph:backpack-fill"
-        iconAnimation="float"
-        iconDelay="0.5s"
-        title={COPY.weddingDetails.practical.packing.title}
-        description={COPY.weddingDetails.practical.packing.description}
-      />
-      <IconCard
-        icon="ph:car-fill"
-        iconAnimation="float"
-        iconDelay="1s"
-        title={COPY.weddingDetails.practical.transport.title}
-        description={COPY.weddingDetails.practical.transport.description}
-      />
-    </AnimatedGrid>
+    </div>
   </div>
 </AnimatedSection>
 
