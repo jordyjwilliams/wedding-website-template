@@ -68,8 +68,8 @@
                  sm:max-w-md lg:max-w-full"
         >
           <img
-            src="/images/wedding-details-bg.webp"
-            alt="Couple portrait"
+            src="/images/proposal.webp"
+            alt="Engagement at Larkya La Pass"
             class="block aspect-3/4 h-auto w-full object-cover"
           />
         </div>
