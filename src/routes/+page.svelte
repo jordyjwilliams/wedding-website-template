@@ -166,10 +166,10 @@
     background-image:
       linear-gradient(
         135deg,
-        color-mix(in srgb, var(--color-background) 96%, transparent) 0%,
-        color-mix(in srgb, var(--color-muted) 92%, transparent) 100%
+        color-mix(in srgb, var(--color-background) 70%, transparent) 0%,
+        color-mix(in srgb, var(--color-muted) 70%, transparent) 100%
       ),
-      url('/images/heart-bg.webp');
+      url('/images/hero-bg.webp');
     background-position: center;
     background-size: cover;
     background-attachment: fixed;

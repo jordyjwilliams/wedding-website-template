@@ -94,6 +94,27 @@ Visit [http://localhost:8888](http://localhost:8888)
 >
 > - All images in `static/images` are currently placeholder images/duplicates.
 > - Replaces these with memorabale images that you'd like for your site.
+> - Names kept consistent eg `{{page}}-bg.webp`.
+
+> [!NOTE]
+>
+> - Use WebP for consistent rendering across pages.
+> - `ffmpeg` can be used to convert.
+> - Example command: `ffmpeg -i "$HOME/Downloads/example-image.jpg" -c:v libwebp -quality 76 -compression_level 6 -preset picture "$HOME/Downloads/{{page}}-bg.webp"`
+>   - Can add `-vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080"` to attempt to automatically re-scale images.
+
+Convert all files in `static/images` to normalized WebP outputs:
+
+```bash
+find static/images -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) -print0 |
+while IFS= read -r -d '' f; do
+  out="static/images/$(basename "${f%.*}").webp"
+  ffmpeg -y -i "$f" \
+    -vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080" \
+    -c:v libwebp -quality 76 -compression_level 6 -preset picture \
+    "$out"
+done
+```
 
 #### ✍️ Copy
 
@@ -170,8 +191,14 @@ Security defaults:
   - 🖼️ Fix up all animations RE consistency/tweaking.
 - 🎨 **Styling** General improvements.
   - ✅ 📌 Further optimize usage and usability in general.
+  - 👓 Fix redability of text on all pages.
+  - 🎨 Tweak all colors and theming.
   - 🔢 Replace numbers with days on `Wedding` page.
 - 🗃️ Test/Validate and linkup google sheets.
   - 🔎 Once validated ensure only one submission per email (if already exists)
 - ✍️ **Content**
   - 🙋 More data on FAQ page. Nicer rendering of cards from copy.
+  - 📸 Add gallery to our story page.
+- 🙋 **FAQs**
+  - 🏖️ Summary/expanded view for each entry.
+  - 🌴 Set each entry in grid baased on data in content.

@@ -2,6 +2,6 @@
   import { AboutUs, PageWrapper } from '$lib/components';
 </script>
 
-<PageWrapper backgroundImage="/images/couple-bg.webp" backgroundPosition="center top">
+<PageWrapper backgroundImage="/images/story-bg.webp" backgroundPosition="center top">
   <AboutUs />
 </PageWrapper>
