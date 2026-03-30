@@ -64,6 +64,31 @@ export const COPY = {
         description:
           'Share accommodation details here, including room options, booking approach, and when guests can expect confirmation.',
       },
+      dressCode: {
+        title: 'Dress Code',
+        description:
+          'Provide details about the dress code for the wedding, including any specific themes or guidelines for guests.',
+      },
+      gifts: {
+        title: 'Gifts',
+        description:
+          'Include information about your gift registry or preferences, and any instructions for guests who wish to bring a gift.',
+      },
+      weather: {
+        title: 'Weather',
+        description:
+          'Short description of weather to expect, and any recommendations for guests to prepare for the conditions (e.g., sunscreen, umbrellas, layers).',
+      },
+      kids: {
+        title: 'Kids',
+        description:
+          'Let guests know whether children are welcome at the wedding, and if so, any special arrangements or activities for them.',
+      },
+      plusOne: {
+        title: 'Plus Ones',
+        description:
+          'Clarify your policy on plus ones, including whether guests can bring a date and any guidelines for doing so.',
+      },
       packing: {
         title: 'What to Pack',
         description:
@@ -73,6 +98,16 @@ export const COPY = {
         title: 'Getting There',
         description:
           'Add travel guidance, transfer options, and any parking or car-pooling recommendations for guests.',
+      },
+      accommodationAlternatives: {
+        title: 'Accommodation Alternatives',
+        description:
+          'If you would rather stay off site, or the venue has limited capacity, provide alternative accommodation options nearby for guests to consider.',
+      },
+      thingsToDo: {
+        title: 'Things to Do',
+        description:
+          'Share some of your favourite local spots and activities for guests who might want to explore the area during the wedding weekend.',
       },
     },
   },
