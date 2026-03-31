@@ -64,7 +64,7 @@ export const COPY = {
         'Feel free to reach out to us directly if you have any specific questions or need assistance.',
       icon: 'ph:question-bold',
     },
-    practical: {
+    questionData: {
       accommodation: {
         title: 'Accommodation',
         icon: 'ph:house-bold',
