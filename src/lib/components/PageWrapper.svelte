@@ -169,22 +169,19 @@
     z-index: 0;
   }
 
-  /* Mobile: fixed bg causes rendering bugs on iOS */
-  @media (max-width: 640px) {
-    .page-wrapper.has-bg {
-      background-attachment: scroll;
-    }
-
-    .page-wrapper.has-bg::before {
-      position: absolute;
-    }
-  }
-
-  /* Ultra-wide: contain rather than cover so image isn't over-stretched */
-  @media (min-width: 1920px) {
-    .page-wrapper.has-bg {
-      background-size: cover;
-    }
+  /* Gradient overlay for login page — applied on top of base overlay */
+  .page-wrapper.has-bg.has-gradient-overlay::after {
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-background) 40%, transparent) 0%,
+        color-mix(in srgb, var(--color-muted) 40%, transparent) 100%
+      ),
+      color-mix(
+        in srgb,
+        var(--color-background) calc(var(--overlay-opacity, 0.62) * 100%),
+        transparent
+      );
   }
 
   .page-wrapper > :global(*) {
