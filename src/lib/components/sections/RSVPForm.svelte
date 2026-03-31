@@ -297,7 +297,7 @@
     <SectionHeader title={COPY.rsvp.title} emoji={COPY.rsvp.emoji} intro={COPY.rsvp.intro} />
 
     <div class="rsvp-container">
-      <form onsubmit={handleSubmit} class="glass rounded-3xl rsvp-form p-12">
+      <form onsubmit={handleSubmit} class="glass rsvp-form rounded-3xl p-12">
         <div class="form-row">
           <div class="form-group-wrapper">
             <Label for="firstName">{COPY.rsvp.form.name.firstNameLabel} *</Label>
