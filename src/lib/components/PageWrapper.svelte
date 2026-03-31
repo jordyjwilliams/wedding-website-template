@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, type Snippet } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   interface Props {
     backgroundImage?: string;
@@ -9,6 +10,9 @@
     children?: Snippet;
     pageEntranceAnimation?: 'fade' | 'fade-down' | 'fade-up';
     pageEntranceDuration?: number;
+    showOrbs?: boolean;
+    showHearts?: boolean;
+    showGradientOverlay?: boolean;
   }
 
   let {
@@ -19,6 +23,9 @@
     children,
     pageEntranceAnimation = 'fade',
     pageEntranceDuration = 600,
+    showOrbs = false,
+    showHearts = false,
+    showGradientOverlay = false,
   }: Props = $props();
 
   const initialOverlayOpacity: number = 0.62;
