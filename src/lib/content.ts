@@ -58,6 +58,12 @@ export const COPY = {
     emoji: '',
     intro:
       "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
+    contact: {
+      title: 'Still have questions?',
+      content:
+        'Feel free to reach out to us directly if you have any specific questions or need assistance.',
+      icon: 'ph:question-bold',
+    },
     practical: {
       accommodation: {
         title: 'Accommodation',
