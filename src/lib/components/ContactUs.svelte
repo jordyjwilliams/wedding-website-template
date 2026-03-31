@@ -33,7 +33,7 @@
           icon={icon || 'ph:chat-circle-dots-fill'}
           size={48}
           color="var(--color-accent)"
-          animation="bounce"
+          animation="pulse"
         />
       </div>
       <Card.Title>{title}</Card.Title>
