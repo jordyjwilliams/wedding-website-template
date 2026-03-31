@@ -12,6 +12,7 @@
   let error = $state('');
   let isLoading = $state(false);
   let shake = $state(false);
+  let hasError = $state(false);
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
 
   async function handleSubmit(): Promise<void> {
@@ -63,6 +64,7 @@
   function handleError(errorMessage: string): void {
     error = errorMessage;
     shake = true;
+    hasError = true;
     setTimeout(() => {
       shake = false;
       passcode = '';
@@ -73,7 +75,7 @@
 <!-- Login / passcode gate -->
 <div class="flex min-h-screen items-center justify-center overflow-hidden px-4">
   <!-- Card -->
-  <div class="login-card relative z-10 w-full max-w-md" class:shake>
+  <div class="login-card relative z-10 w-full max-w-md" class:shake class:has-error={hasError}>
     <Card.Root class="glass-heavy rounded-3xl text-center">
       <Card.Content class="px-8 pt-8 pb-10 sm:px-10">
         <!-- Lock icon -->
@@ -139,11 +141,15 @@
 
 <style>
   .login-card {
-    animation: fadeInUp 0.7s ease-out both;
+    animation: fadeInUp 0.7s ease-out forwards;
+  }
+
+  .login-card.has-error {
+    animation: none;
   }
 
   .login-card.shake {
-    animation: shake 0.5s ease-in-out both;
+    animation: shake 0.5s ease-in-out;
   }
 
   @keyframes shake {
