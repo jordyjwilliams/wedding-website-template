@@ -5,18 +5,22 @@
   import Icon from '@iconify/svelte';
   import { COPY } from '$lib/content';
 
-  const faqs = [
-    { icon: 'ph:house-bold', ...COPY.faq.practical.accommodation },
-    { icon: 'ph:high-heel-bold', ...COPY.faq.practical.dressCode },
-    { icon: 'ph:backpack-bold', ...COPY.faq.practical.packing },
-    { icon: 'ph:car-bold', ...COPY.faq.practical.transport },
-    { icon: 'ph:gift-bold', ...COPY.faq.practical.gifts },
-    { icon: 'ph:cloud-sun-bold', ...COPY.faq.practical.weather },
-    { icon: 'ph:hand-heart-bold', ...COPY.faq.practical.plusOne },
-    { icon: 'ph:baby-carriage-bold', ...COPY.faq.practical.kids },
-    { icon: 'ph:bed-bold', ...COPY.faq.practical.accommodationAlternatives },
-    { icon: 'ph:map-pin-area-bold', ...COPY.faq.practical.thingsToDo },
-  ];
+  const questionDataKeys = Object.keys(COPY.faq.questionData) as Array<
+    keyof typeof COPY.faq.questionData
+  >;
+
+  let openItems = $state<string[]>([]);
+
+  const allOpen = $derived(openItems.length === questionDataKeys.length);
+  const anyOpen = $derived(openItems.length > 0);
+
+  function expandAll() {
+    openItems = questionDataKeys.map((key) => `faq-${String(key)}`);
+  }
+
+  function collapseAll() {
+    openItems = [];
+  }
 </script>
 
 <AnimatedSection class="py-20 md:py-28">
