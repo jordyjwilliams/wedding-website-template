@@ -79,7 +79,7 @@
     <Card.Root class="glass-heavy rounded-3xl text-center">
       <Card.Content class="px-8 pt-8 pb-10 sm:px-10">
         <!-- Lock icon -->
-        <div class="text-primary animate-pulse-soft mb-4">
+        <div class="text-primary mb-4 animate-pulse">
           <Icon icon="ph:lock-fill" width="48" class="mx-auto" />
         </div>
 
@@ -128,9 +128,9 @@
           </Button>
 
           {#if error}
-            <Alert.Root variant="destructive" class="mt-4">
+            <Alert.Root variant="destructive" class="mt-4 border-destructive/60 bg-destructive/15">
               <Icon icon="ph:warning-circle-fill" width="20" />
-              <Alert.Description>{error}</Alert.Description>
+              <Alert.Description class="font-semibold">{error}</Alert.Description>
             </Alert.Root>
           {/if}
         </form>
