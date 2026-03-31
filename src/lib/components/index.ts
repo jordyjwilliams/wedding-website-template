@@ -14,6 +14,7 @@ export { default as TimelineItem } from './TimelineItem.svelte';
 // Section components
 export { default as AboutUs } from './sections/AboutUs.svelte';
 export { default as Hero } from './sections/Hero.svelte';
+export { default as LoginGate } from './sections/LoginGate.svelte';
 export { default as RSVPForm } from './sections/RSVPForm.svelte';
 export { default as VenueInfo } from './sections/VenueInfo.svelte';
 export { default as FAQs } from './sections/FAQs.svelte';
