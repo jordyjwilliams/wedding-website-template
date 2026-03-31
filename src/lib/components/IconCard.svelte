@@ -32,7 +32,7 @@
          {className || ''}"
   {...restProps}
 >
-  <Card.Root class="glass h-full">
+  <Card.Root class="glass h-full rounded-3xl">
     <Card.Content class="flex flex-col items-center pt-6 text-center">
       <div class="mb-6">
         <AnimatedIcon {icon} size={iconSize} animation={iconAnimation} delay={iconDelay} />

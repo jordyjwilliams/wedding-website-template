@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Badge } from '$lib/components/ui/badge';
-  import { weddingBadgeVariants } from './wedding-variants';
+  import { weddingBadgeVariants } from '$lib/components/ui/badge/wedding-variants';
   import Icon from '@iconify/svelte';
   import type { Snippet } from 'svelte';
 
@@ -8,7 +8,7 @@
     icon?: string;
     iconWidth?: number;
     size?: 'icon' | 'icon-lg' | 'event';
-    variant?: 'default' | 'secondary' | 'outline' | 'destructive';
+    variant?: 'default' | 'secondary' | 'outline' | 'destructive' | 'glass';
     class?: string;
     children?: Snippet;
   }
@@ -17,7 +17,7 @@
     icon,
     iconWidth = 16,
     size = 'icon',
-    variant = 'secondary',
+    variant = 'glass',
     class: className,
     children,
     ...restProps

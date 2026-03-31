@@ -16,10 +16,7 @@
     >
       <!-- Text content -->
       <div>
-        <div class="animate-fade-in-up [animation-delay:0.1s]">
-          <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
-        </div>
-
+        <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
         <p
           class="font-heading text-primary-dark animate-fade-in-up mb-6 text-[1.7rem] leading-snug
                  italic
@@ -46,7 +43,7 @@
               class="group animate-fade-in-up transition-transform duration-300 hover:translate-x-2"
               style:animation-delay="{0.45 + index * 0.08}s"
             >
-              <Card.Root class="glass border-none shadow-none">
+              <Card.Root class="glass rounded-3xl">
                 <Card.Content class="flex items-start gap-4 p-5">
                   <WeddingBadge size="icon-lg">{fact.icon}</WeddingBadge>
                   <p class="text-muted-foreground m-0 leading-relaxed">

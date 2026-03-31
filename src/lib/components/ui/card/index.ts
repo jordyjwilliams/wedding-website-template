@@ -1,9 +1,9 @@
-import Root from './card.svelte';
-import Content from './card-content.svelte';
-import Description from './card-description.svelte';
-import Footer from './card-footer.svelte';
-import Header from './card-header.svelte';
-import Title from './card-title.svelte';
+import Root from '$lib/components/ui/card/card.svelte';
+import Content from '$lib/components/ui/card/card-content.svelte';
+import Description from '$lib/components/ui/card/card-description.svelte';
+import Footer from '$lib/components/ui/card/card-footer.svelte';
+import Header from '$lib/components/ui/card/card-header.svelte';
+import Title from '$lib/components/ui/card/card-title.svelte';
 
 export {
   Root,
@@ -20,5 +20,3 @@ export {
   Header as CardHeader,
   Title as CardTitle,
 };
-
-export { default as GlassCard } from './GlassCard.svelte';
