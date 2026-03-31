@@ -56,6 +56,11 @@
             Collapse all
           </Button>
         </div>
+
+        <Accordion.Root type="multiple" bind:value={openItems} class="px-3 sm:px-5">
+          {#each questionDataKeys as key, index (key)}
+            {@const faq = COPY.faq.questionData[key]}
+            {@const itemValue = `faq-${String(key)}`}
       <ContactUs
         class="mt-12"
         title={COPY.faq.contact.title}
