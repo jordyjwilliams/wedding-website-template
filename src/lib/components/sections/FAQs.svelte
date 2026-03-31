@@ -100,4 +100,28 @@
       transform: scale(1.1) rotate(-4deg);
     }
   }
+
+  .faq-bullets {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .faq-bullets li {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--color-muted-foreground);
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  .faq-bullets li::before {
+    content: '•';
+    position: absolute;
+    left: 0.25rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
 </style>
