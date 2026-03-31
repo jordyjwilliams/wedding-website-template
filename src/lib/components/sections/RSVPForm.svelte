@@ -4,16 +4,14 @@
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
   import { Textarea } from '$lib/components/ui/textarea';
-  import { Separator } from '$lib/components/ui/separator';
-  import { WeddingBadge } from '$lib/components/ui/badge';
   import { Spinner } from '$lib/components/ui/spinner';
   import * as Alert from '$lib/components/ui/alert';
-  import * as Card from '$lib/components/ui/card';
   import * as Select from '$lib/components/ui/select';
-  import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
+  import { SectionHeader, AnimatedSection } from '$lib/components';
   import Confetti from '$lib/components/Confetti.svelte';
-  import { RSVP_LIMITS, WEDDING } from '$lib/constants';
+  import { RSVP_LIMITS } from '$lib/constants';
   import { COPY } from '$lib/content';
+  import ContactUs from '$lib/components/ContactUs.svelte';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type AttendanceResponse = 'yes' | 'no';
@@ -488,64 +486,7 @@
           </div>
         {/if}
       </form>
-
-      <div class="help-card">
-        <Card.Root class="glass rounded-3xl">
-          <Card.Header class="text-center">
-            <div class="mb-4">
-              <AnimatedIcon
-                icon="ph:chat-circle-dots-fill"
-                size={48}
-                color="var(--color-accent)"
-                animation="bounce"
-              />
-            </div>
-            <Card.Title>{COPY.rsvp.contact.title}</Card.Title>
-          </Card.Header>
-          <Card.Content class="text-center">
-            <p class="text-muted-foreground mb-6">
-              {COPY.rsvp.contact.description}
-            </p>
-            <div class="space-y-4">
-              <div class="flex flex-col items-center space-y-3">
-                <WeddingBadge size="event">{COPY.rsvp.contact.bride}</WeddingBadge>
-                <div class="flex w-full flex-col gap-2 text-sm">
-                  <a href="mailto:{WEDDING.contact.bride.email}" class="contact-link">
-                    <Icon icon="ph:envelope-simple-fill" width="16" />
-                    {WEDDING.contact.bride.email}
-                  </a>
-                  <a
-                    href="tel:{WEDDING.contact.bride.phone.replace(/\s/g, '')}"
-                    class="contact-link"
-                  >
-                    <Icon icon="ph:phone-fill" width="16" />
-                    {WEDDING.contact.bride.phone}
-                  </a>
-                </div>
-              </div>
-
-              <Separator />
-
-              <div class="flex flex-col items-center space-y-3">
-                <WeddingBadge size="event">{COPY.rsvp.contact.groom}</WeddingBadge>
-                <div class="flex w-full flex-col gap-2 text-sm">
-                  <a href="mailto:{WEDDING.contact.groom.email}" class="contact-link">
-                    <Icon icon="ph:envelope-simple-fill" width="16" />
-                    {WEDDING.contact.groom.email}
-                  </a>
-                  <a
-                    href="tel:{WEDDING.contact.groom.phone.replace(/\s/g, '')}"
-                    class="contact-link"
-                  >
-                    <Icon icon="ph:phone-fill" width="16" />
-                    {WEDDING.contact.groom.phone}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </Card.Content>
-        </Card.Root>
-      </div>
+      <ContactUs title={COPY.rsvp.contact.title} content={COPY.rsvp.contact.description} />
     </div>
   </div>
 </AnimatedSection>
