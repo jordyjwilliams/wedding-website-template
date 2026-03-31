@@ -56,16 +56,12 @@
 
 <style>
   .animated-section {
-    opacity: 0;
     transform: translateY(30px);
-    transition:
-      opacity var(--duration-section-entrance, 0.8s) var(--easing-entrance, ease-out),
-      transform var(--duration-section-entrance, 0.8s) var(--easing-entrance, ease-out);
+    transition: transform var(--duration-section-entrance, 0.8s) var(--easing-entrance, ease-out);
     transition-delay: var(--delay, 0s);
   }
 
   .animated-section.visible {
-    opacity: 1;
     transform: translateY(0);
   }
 </style>
