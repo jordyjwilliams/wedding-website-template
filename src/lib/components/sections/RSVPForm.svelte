@@ -505,21 +505,6 @@
     margin: 0 auto;
   }
 
-  .rsvp-form {
-    animation: slideInLeft 0.8s ease-out;
-  }
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
   @keyframes slideDown {
     from {
       opacity: 0;
@@ -544,18 +529,8 @@
   }
 
   .guest-count-animate {
-    animation: slideDown 0.3s ease-out;
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    animation: slideDown calc(var(--duration-item-stagger, 0.2s) * 1.5)
+      var(--easing-entrance, ease-out);
   }
 
   @media (max-width: 1024px) {
