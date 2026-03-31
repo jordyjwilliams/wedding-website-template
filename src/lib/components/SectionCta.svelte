@@ -13,9 +13,7 @@
   let { text, buttonLabel, href, className = '', openInNewTab = true }: Props = $props();
 </script>
 
-<Card.Root
-  class={`glass mt-12 rounded-3xl px-8 py-12 text-center md:px-16 ${className}`.trim()}
->
+<Card.Root class={`glass mt-12 rounded-3xl px-8 py-12 text-center md:px-16 ${className}`.trim()}>
   <p class="text-foreground mb-8 text-xl font-medium">{text}</p>
   <Button
     {href}
