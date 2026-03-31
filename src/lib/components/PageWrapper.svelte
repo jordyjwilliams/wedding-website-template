@@ -81,6 +81,14 @@
     {/each}
   </div>
 {/if}
+{#if showOrbs}
+  <!-- Static orbs as background layer -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+{/if}
 
 <style>
   /* Default fade entrance animation */
@@ -157,6 +165,39 @@
     position: relative;
     z-index: 1;
   }
+
+  /* Gradient ambient orbs — static background */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.28;
+  }
+
+  .orb-1 {
+    width: clamp(400px, 50vw, 700px);
+    height: clamp(400px, 50vw, 700px);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    top: -30%;
+    right: -15%;
+  }
+
+  .orb-2 {
+    width: clamp(320px, 40vw, 560px);
+    height: clamp(320px, 40vw, 560px);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+    bottom: -20%;
+    left: -12%;
+  }
+
+  .orb-3 {
+    width: clamp(260px, 30vw, 460px);
+    height: clamp(260px, 30vw, 460px);
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary-dark));
+    top: 40%;
+    left: 28%;
+  }
+
   /* Floating heart animation — floatUp keyframe lives in app.css */
   .heart {
     color: var(--color-primary);
