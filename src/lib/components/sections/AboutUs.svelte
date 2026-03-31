@@ -16,7 +16,7 @@
     >
       <!-- Text content -->
       <div>
-          <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
+        <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
         <p
           class="font-heading text-primary-dark animate-fade-in-up mb-6 text-[1.7rem] leading-snug
                  italic
