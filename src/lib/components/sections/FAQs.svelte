@@ -61,6 +61,11 @@
           {#each questionDataKeys as key, index (key)}
             {@const faq = COPY.faq.questionData[key]}
             {@const itemValue = `faq-${String(key)}`}
+            <Accordion.Item
+              value={itemValue}
+              class="faq-item border-border/40"
+              style="animation-delay: {index * 0.05}s"
+            >
       <ContactUs
         class="mt-12"
         title={COPY.faq.contact.title}
