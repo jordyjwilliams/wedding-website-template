@@ -75,6 +75,14 @@
   /* ─── Layout / non-theme vars ───────────────────────────── */
   --nav-height: 4.5rem;
   --radius: 0.625rem;
+
+  /* ─── Shared glass tokens ────────────────────────────────── */
+  --glass-surface: 56%;
+  --glass-surface-heavy: 66%;
+  --glass-border: 60%;
+  --glass-highlight: 12%;
+  --glass-shadow: oklch(23.4% 0.036 239 / 0.16);
+  --glass-shadow-soft: oklch(23.4% 0.036 239 / 0.1);
 }
 
 .dark {
@@ -99,6 +107,13 @@
   --color-border: oklch(27.95% 0.0368 260);
   --color-input: oklch(27.95% 0.0368 260);
   --color-ring: oklch(71.27% 0.0845 228);
+
+  --glass-surface: 56%;
+  --glass-surface-heavy: 68%;
+  --glass-border: 62%;
+  --glass-highlight: 10%;
+  --glass-shadow: oklch(0% 0 none / 0.34);
+  --glass-shadow-soft: oklch(0% 0 none / 0.22);
 
   color-scheme: dark;
 }
