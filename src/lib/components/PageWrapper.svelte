@@ -88,7 +88,7 @@
     class:has-gradient-overlay={showGradientOverlay}
     style:--overlay-opacity={overlayOpacity}
     style:--entrance-duration="{pageEntranceDuration}ms"
-    style:--bg-image="url('{backgroundImage}')"
+    style:--bg-image={`url('${backgroundImage}')`}
     style:--bg-position={backgroundPosition}
   >
     {#if children}
