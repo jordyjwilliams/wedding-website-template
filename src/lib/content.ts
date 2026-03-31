@@ -61,51 +61,61 @@ export const COPY = {
     practical: {
       accommodation: {
         title: 'Accommodation',
+        icon: 'ph:house-bold',
         description:
           'Share accommodation details here, including room options, booking approach, and when guests can expect confirmation.',
       },
       dressCode: {
         title: 'Dress Code',
+        icon: 'ph:high-heel-bold',
         description:
           'Provide details about the dress code for the wedding, including any specific themes or guidelines for guests.',
       },
       gifts: {
         title: 'Gifts',
+        icon: 'ph:gift-bold',
         description:
           'Include information about your gift registry or preferences, and any instructions for guests who wish to bring a gift.',
       },
       weather: {
         title: 'Weather',
+        icon: 'ph:cloud-sun-bold',
         description:
           'Short description of weather to expect, and any recommendations for guests to prepare for the conditions (e.g., sunscreen, umbrellas, layers).',
       },
       kids: {
         title: 'Kids',
+        icon: 'ph:baby-carriage-bold',
         description:
           'Let guests know whether children are welcome at the wedding, and if so, any special arrangements or activities for them.',
       },
       plusOne: {
         title: 'Plus Ones',
+        icon: 'ph:hand-heart-bold',
         description:
           'Clarify your policy on plus ones, including whether guests can bring a date and any guidelines for doing so.',
       },
       packing: {
         title: 'What to Pack',
+        icon: 'ph:backpack-bold',
         description:
           "Think coastal comfort: layers for cool evenings, comfortable shoes, and anything you'd like for beach walks and outdoor time.",
       },
       transport: {
         title: 'Getting There',
+        icon: 'ph:car-bold',
         description:
-          'Add travel guidance, transfer options, and any parking or car-pooling recommendations for guests.',
+          'Add travel guidance, transfer options, and any parking or car-pooling recommendations for guests.\ntest\ntest lorum ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       accommodationAlternatives: {
         title: 'Accommodation Alternatives',
+        icon: 'ph:bed-bold',
         description:
           'If you would rather stay off site, or the venue has limited capacity, provide alternative accommodation options nearby for guests to consider.',
       },
       thingsToDo: {
         title: 'Things to Do',
+        icon: 'ph:map-pin-area-bold',
         description:
           'Share some of your favourite local spots and activities for guests who might want to explore the area during the wedding weekend.',
       },
