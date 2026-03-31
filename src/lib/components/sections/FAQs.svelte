@@ -106,6 +106,9 @@
                 {/if}
               </Accordion.Content>
             </Accordion.Item>
+          {/each}
+        </Accordion.Root>
+      </div>
       <ContactUs
         class="mt-12"
         title={COPY.faq.contact.title}
