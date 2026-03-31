@@ -124,4 +124,16 @@
     line-height: 1;
   }
 
+  /* Snappy staggered entrance for list items */
+  :global(.faq-item) {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out both;
+    transition: transform 0.3s ease;
+  }
+
+  :global(.faq-item:hover) {
+    transform: translateY(-2px);
+  }
+
+
 </style>
