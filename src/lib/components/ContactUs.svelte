@@ -15,7 +15,18 @@
     title: string;
     content: string;
     icon?: string;
-    animation?: string;
+    animation?:
+      | 'none'
+      | 'pulse'
+      | 'bounce'
+      | 'ping'
+      | 'spin'
+      | 'float'
+      | 'fade-in'
+      | 'fade-in-up'
+      | 'fade-in-down'
+      | 'fade-in-scale'
+      | 'spin-in';
   }
 
   let { title, content, icon, animation, class: className, ...restProps }: Props = $props();
