@@ -63,3 +63,41 @@
     </div>
   </div>
 </AnimatedSection>
+
+<style>
+  :global(:root) {
+    --faq-motion-duration: 0.6s;
+    --faq-motion-ease: ease-out;
+  }
+
+  .faq-icon {
+    transform: scale(1) rotate(0deg);
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+    color: var(--color-primary);
+    transition:
+      transform var(--faq-motion-duration) var(--faq-motion-ease),
+      background-color var(--faq-motion-duration) var(--faq-motion-ease),
+      color var(--faq-motion-duration) var(--faq-motion-ease),
+      box-shadow var(--faq-motion-duration) var(--faq-motion-ease);
+  }
+
+  .faq-icon.icon-open {
+    transform: scale(1.1) rotate(-4deg);
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-primary) 18%, transparent);
+    animation: faqPulse calc(var(--faq-motion-duration) * 1.417) var(--faq-motion-ease);
+  }
+
+  @keyframes faqPulse {
+    0% {
+      transform: scale(0.96) rotate(-1deg);
+    }
+    55% {
+      transform: scale(1.15) rotate(-5deg);
+    }
+    100% {
+      transform: scale(1.1) rotate(-4deg);
+    }
+  }
+</style>
