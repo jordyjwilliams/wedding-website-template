@@ -66,6 +66,26 @@
               class="faq-item border-border/40"
               style="animation-delay: {index * 0.05}s"
             >
+              <Accordion.Trigger
+                class="faq-trigger w-full px-2 py-5 text-left text-[0.9375rem] font-semibold hover:no-underline"
+              >
+                <span class="flex min-w-0 items-center gap-4">
+                  <!-- Icon only animates when THIS item is open -->
+                  <span
+                    class="faq-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                    class:icon-open={openItems.includes(itemValue)}
+                  >
+                    <Icon icon={faq.icon} width="20" />
+                  </span>
+                  <span
+                    class="text-foreground group-aria-expanded/accordion-trigger:text-primary min-w-0 leading-snug transition-all
+                         duration-300
+                         group-aria-expanded/accordion-trigger:font-bold"
+                  >
+                    {faq.title}
+                  </span>
+                </span>
+              </Accordion.Trigger>
       <ContactUs
         class="mt-12"
         title={COPY.faq.contact.title}
