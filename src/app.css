@@ -116,10 +116,16 @@
     overflow-x: hidden;
     background-color: var(--color-background);
     font-family: var(--font-sans);
+    line-height: 1.6;
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     @apply bg-background text-foreground;
+  }
+
+  p,
+  li {
+    line-height: 1.65;
   }
 
   h1,
