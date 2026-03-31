@@ -51,18 +51,22 @@
           window.location.reload();
         }
       } else {
-        error = COPY.login.errors.incorrect;
-        shake = true;
-        setTimeout(() => (shake = false), 500);
-        passcode = '';
+        handleError(COPY.login.errors.incorrect);
       }
     } catch {
-      error = COPY.login.errors.connection;
-      shake = true;
-      setTimeout(() => (shake = false), 500);
+      handleError(COPY.login.errors.connection);
     } finally {
       isLoading = false;
     }
+  }
+
+  function handleError(errorMessage: string): void {
+    error = errorMessage;
+    shake = true;
+    setTimeout(() => {
+      shake = false;
+      passcode = '';
+    }, 500);
   }
 </script>
 
