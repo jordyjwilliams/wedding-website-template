@@ -94,7 +94,7 @@ We recommend light layers for outdoor events, and comfortable shoes for the welc
         icon: 'ph:gift-bold',
         description: `Your presence is our greatest gift! We've set up a registry if you'd like to give something.`,
         bullets: [
-          'Registry link: [coming soon]',
+          'Registry link: [coming soon](https://www.example.com/registry)',
           'Monetary gifts welcome via bank transfer',
           'Gift vouchers to local experiences appreciated',
           'No gifts necessary — your attendance means the world',
