@@ -8,7 +8,7 @@
     icon?: string;
     iconWidth?: number;
     size?: 'icon' | 'icon-lg' | 'event';
-    variant?: 'default' | 'secondary' | 'outline' | 'destructive';
+    variant?: 'default' | 'secondary' | 'outline' | 'destructive' | 'glass';
     class?: string;
     children?: Snippet;
   }
@@ -17,7 +17,7 @@
     icon,
     iconWidth = 16,
     size = 'icon',
-    variant = 'secondary',
+    variant = 'glass',
     class: className,
     children,
     ...restProps
