@@ -1,6 +1,7 @@
 <script lang="ts">
   import { SectionHeader, AnimatedSection } from '$lib/components';
   import * as Accordion from '$lib/components/ui/accordion';
+  import ContactUs from '$lib/components/ContactUs.svelte';
   import Icon from '@iconify/svelte';
   import { COPY } from '$lib/content';
 
@@ -22,28 +23,12 @@
   <div class="container">
     <SectionHeader title={COPY.faq.title} emoji={COPY.faq.emoji} intro={COPY.faq.intro} />
 
-    <div class="mx-auto mt-16 max-w-2xl">
-      <Accordion.Root type="multiple" class="glass rounded-2xl px-2">
-        {#each faqs as faq, i}
-          <Accordion.Item value={`faq-${i}`} class="border-border/40">
-            <Accordion.Trigger
-              class="hover:no-underline py-5 text-base font-semibold"
-            >
-              <span class="flex items-center gap-3">
-                <span class="text-primary shrink-0">
-                  <Icon icon={faq.icon} width="22" />
-                </span>
-                {faq.title}
-              </span>
-            </Accordion.Trigger>
-            <Accordion.Content>
-              <p class="text-muted-foreground pb-2 pl-9 leading-relaxed">
-                {faq.description}
-              </p>
-            </Accordion.Content>
-          </Accordion.Item>
-        {/each}
-      </Accordion.Root>
+      <ContactUs
+        class="mt-12"
+        title={COPY.faq.contact.title}
+        content={COPY.faq.contact.content}
+        icon={COPY.faq.contact.icon}
+      />
     </div>
   </div>
 </AnimatedSection>
