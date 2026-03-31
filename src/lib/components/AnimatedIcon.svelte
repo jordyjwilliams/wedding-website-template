@@ -5,7 +5,7 @@
   interface Props extends HTMLAttributes<HTMLDivElement> {
     icon: string;
     size?: number;
-    animation?: 'bounce' | 'float' | 'none';
+    animation?: string;
     color?: string;
     delay?: string;
   }
@@ -22,9 +22,7 @@
 </script>
 
 <div
-  class="animated-icon {className || ''}"
-  class:animate-bounce={animation === 'bounce'}
-  class:animate-float={animation === 'float'}
+  class="animated-icon {className || ''} {animation !== 'none' ? `animate-${animation}` : ''}"
   style:--icon-size="{size}px"
   style:--icon-color={color}
   style:animation-delay={delay}
