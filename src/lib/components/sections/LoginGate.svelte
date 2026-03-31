@@ -128,7 +128,7 @@
           </Button>
 
           {#if error}
-            <Alert.Root variant="destructive" class="mt-4 border-destructive bg-destructive/10">
+            <Alert.Root variant="destructive" class="border-destructive bg-destructive/10 mt-4">
               <Icon icon="ph:warning-circle-fill" width="20" />
               <Alert.Description class="font-bold">{error}</Alert.Description>
             </Alert.Root>
