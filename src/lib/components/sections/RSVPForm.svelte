@@ -297,7 +297,7 @@
     <SectionHeader title={COPY.rsvp.title} emoji={COPY.rsvp.emoji} intro={COPY.rsvp.intro} />
 
     <div class="rsvp-container">
-      <form onsubmit={handleSubmit} class="glass-card-form rsvp-form p-12">
+      <form onsubmit={handleSubmit} class="glass rounded-3xl rsvp-form p-12">
         <div class="form-row">
           <div class="form-group-wrapper">
             <Label for="firstName">{COPY.rsvp.form.name.firstNameLabel} *</Label>
@@ -490,7 +490,7 @@
       </form>
 
       <div class="help-card">
-        <Card.Root>
+        <Card.Root class="glass rounded-3xl">
           <Card.Header class="text-center">
             <div class="mb-4">
               <AnimatedIcon
