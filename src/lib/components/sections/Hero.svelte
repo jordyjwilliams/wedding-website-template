@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import { Button } from '$lib/components/ui/button';
+  import { AnimatedSection } from '$lib/components';
   import { weddingCalendarLink } from '$lib/calendar';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
@@ -10,8 +11,8 @@
 </script>
 
 <!-- min-h-screen ensures full viewport height; top padding = nav + breathing room -->
-<section
-  class="3xl:pt-28 animate-fade-in relative flex min-h-[calc(100vh-var(--nav-height))] items-center
+<AnimatedSection
+  class="3xl:pt-28 relative flex min-h-[calc(100vh-var(--nav-height))] items-center
          justify-center overflow-hidden px-6
          pt-16 pb-16
          md:pt-20
@@ -115,7 +116,7 @@
       </Button>
     </div>
   </div>
-</section>
+</AnimatedSection>
 
 <style>
   /* Keep only what can't be expressed cleanly in Tailwind */
