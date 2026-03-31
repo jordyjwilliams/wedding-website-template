@@ -28,6 +28,10 @@
   <div class="container">
     <SectionHeader title={COPY.faq.title} emoji={COPY.faq.emoji} intro={COPY.faq.intro} />
 
+        <!-- Controls inside glass container -->
+        <div
+          class="border-border/50 flex items-center justify-end gap-2 border-b px-4 py-3 sm:px-6"
+        >
           <Button
             variant="ghost"
             size="sm"
@@ -46,6 +50,10 @@
             disabled={!anyOpen}
             class="text-muted-foreground hover:text-foreground gap-1.5 text-xs"
           >
+            <Icon icon="ph:arrows-in-bold" width="14" />
+            Collapse all
+          </Button>
+        </div>
       <ContactUs
         class="mt-12"
         title={COPY.faq.contact.title}
