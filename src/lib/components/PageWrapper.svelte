@@ -141,24 +141,30 @@
     opacity: 1;
   }
 
-  /* Background image applied via CSS so background-attachment
-     can be toggled in media queries (avoids window.innerWidth in SSR) */
-  .page-wrapper.has-bg {
-    background-image: var(--bg-image);
-    background-position: var(--bg-position, center);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
-
-  /* Frosted overlay */
+  /* Fixed background — truly locked to viewport, not affected by page scroll */
   .page-wrapper.has-bg::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: color-mix(in srgb, var(--color-background) 70%, transparent);
-    opacity: var(--overlay-opacity);
-    transition: opacity 0.6s ease-out;
+    background-image: var(--bg-image);
+    background-position: var(--bg-position, center);
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Fixed frosted overlay — also locked to viewport */
+  .page-wrapper.has-bg::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: color-mix(
+      in srgb,
+      var(--color-background) calc(var(--overlay-opacity, 0.62) * 100%),
+      transparent
+    );
+    transition: background 0.6s ease-out;
     pointer-events: none;
     z-index: 0;
   }
