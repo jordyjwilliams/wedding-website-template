@@ -28,6 +28,8 @@
     showGradientOverlay = false,
   }: Props = $props();
 
+  const heartPositions = ['15%', '35%', '55%', '75%', '25%', '85%'];
+
   const initialOverlayOpacity: number = 0.62;
   const minOverlayOpacity: number = 0.42;
   const restoreDelayMs: number = 60;
@@ -66,24 +68,19 @@
   });
 </script>
 
-<!--
-  background-attachment: fixed is set in CSS (not inline) so it's
-  handled via media query on mobile — avoids SSR window.innerWidth access.
--->
-<div
-  class="page-wrapper page-wrapper--{pageEntranceAnimation}"
-  class:visible
-  class:has-bg={!!backgroundImage}
-  style:--overlay-opacity={overlayOpacity}
-  style:--bg-image={backgroundImage ? `url('${backgroundImage}')` : 'none'}
-  style:--bg-position={backgroundPosition}
-  style:--entrance-duration="{pageEntranceDuration}ms"
-  style:background={!backgroundImage ? backgroundColor || 'transparent' : undefined}
->
-  {#if children}
-    {@render children()}
-  {/if}
-</div>
+{#if showHearts}
+  <!-- Floating hearts from bottom — truly fixed to viewport -->
+  <div class="pointer-events-none fixed bottom-0 left-0 z-10 w-full" aria-hidden="true">
+    {#each heartPositions as left, i (i)}
+      <span
+        class="heart absolute opacity-0"
+        style="left: {left}; animation: floatUp {12 + i * 3}s ease-in {i * 1.5}s infinite;"
+      >
+        <Icon icon="ph:heart-fill" width="22" />
+      </span>
+    {/each}
+  </div>
+{/if}
 
 <style>
   /* Default fade entrance animation */
@@ -159,5 +156,23 @@
   .page-wrapper > :global(*) {
     position: relative;
     z-index: 1;
+  }
+  /* Floating heart animation — floatUp keyframe lives in app.css */
+  .heart {
+    color: var(--color-primary);
+    will-change: transform, opacity;
+    z-index: 2;
+  }
+
+  .heart :global(svg) {
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--color-primary) 45%, transparent))
+      drop-shadow(0 0 18px color-mix(in srgb, var(--color-accent) 35%, transparent));
+  }
+
+  @media (max-width: 640px) {
+    .orb {
+      filter: blur(70px);
+      opacity: 0.22;
+    }
   }
 </style>
