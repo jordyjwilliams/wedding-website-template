@@ -28,6 +28,8 @@
   <div class="container">
     <SectionHeader title={COPY.faq.title} emoji={COPY.faq.emoji} intro={COPY.faq.intro} />
 
+    <div class="mx-auto mt-16 max-w-4xl">
+      <div class="glass overflow-hidden rounded-3xl">
         <!-- Controls inside glass container -->
         <div
           class="border-border/50 flex items-center justify-end gap-2 border-b px-4 py-3 sm:px-6"
@@ -134,6 +136,4 @@
   :global(.faq-item:hover) {
     transform: translateY(-2px);
   }
-
-
 </style>
