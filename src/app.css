@@ -220,7 +220,8 @@
   background: color-mix(in srgb, var(--color-card) calc(var(--glass-surface) + 24%), transparent);
   backdrop-filter: blur(22px) saturate(178%);
   -webkit-backdrop-filter: blur(22px) saturate(178%);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-border) calc(var(--glass-border) - 8%), transparent);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-border) calc(var(--glass-border) - 8%), transparent);
   box-shadow: 0 10px 32px var(--glass-shadow-soft);
 }
 
