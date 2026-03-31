@@ -82,6 +82,8 @@
   .animated-section {
     --x-offset: 0px;
     --y-offset: var(--distance, 30px);
+    visibility: hidden;
+    will-change: transform;
     transform: translate3d(var(--x-offset), var(--y-offset), 0);
     transition: transform var(--duration-section-entrance, 0.8s) var(--easing-entrance, ease-out);
     transition-delay: var(--delay, 0s);
@@ -108,10 +110,12 @@
   }
 
   .animated-section.visible {
+    visibility: visible;
     transform: translate3d(0, 0, 0);
   }
 
   .animated-section.no-entrance {
+    visibility: visible;
     transform: none;
     transition: none;
   }
