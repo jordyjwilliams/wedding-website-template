@@ -21,8 +21,8 @@
     pageEntranceDuration = 600,
   }: Props = $props();
 
-  const initialOverlayOpacity: number = 0.85;
-  const minOverlayOpacity: number = 0.6;
+  const initialOverlayOpacity: number = 0.62;
+  const minOverlayOpacity: number = 0.42;
   const restoreDelayMs: number = 60;
   const scrollIntensity: number = 0.45;
 
