@@ -1,19 +1,14 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import type { HTMLAttributes } from 'svelte/elements';
-  import { Button } from '$lib/components/ui/button';
-  import { Input } from '$lib/components/ui/input';
-  import { Label } from '$lib/components/ui/label';
-  import { Textarea } from '$lib/components/ui/textarea';
+
   import { Separator } from '$lib/components/ui/separator';
   import { WeddingBadge } from '$lib/components/ui/badge';
-  import { Spinner } from '$lib/components/ui/spinner';
-  import * as Alert from '$lib/components/ui/alert';
   import * as Card from '$lib/components/ui/card';
-  import * as Select from '$lib/components/ui/select';
-  import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
-  import Confetti from '$lib/components/Confetti.svelte';
-  import { RSVP_LIMITS, WEDDING } from '$lib/constants';
+
+  import { AnimatedIcon } from '$lib/components';
+
+  import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
