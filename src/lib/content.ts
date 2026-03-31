@@ -1,7 +1,7 @@
 // All website copy/content organized by section
 // This makes it easy to update text without touching components
 
-import { WEDDING } from './constants';
+import { WEDDING } from '$lib/constants';
 
 export const COPY = {
   // Meta / SEO

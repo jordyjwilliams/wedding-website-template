@@ -5,7 +5,7 @@
   import { weddingCalendarLink } from '$lib/calendar';
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
-  import CountdownTimer from '../CountdownTimer.svelte';
+  import CountdownTimer from '$lib/components/CountdownTimer.svelte';
 </script>
 
 <!-- min-h-screen ensures full viewport height; top padding = nav + breathing room -->

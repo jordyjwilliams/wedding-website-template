@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Badge } from '$lib/components/ui/badge';
-  import { weddingBadgeVariants } from './wedding-variants';
+  import { weddingBadgeVariants } from '$lib/components/ui/badge/wedding-variants';
   import Icon from '@iconify/svelte';
   import type { Snippet } from 'svelte';
 
