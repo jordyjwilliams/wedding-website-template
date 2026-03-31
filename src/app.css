@@ -107,6 +107,7 @@
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--nav-height) + 1rem);
     -webkit-tap-highlight-color: transparent;
+  	@apply font-sans;
   }
 
   body {
@@ -116,6 +117,7 @@
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  	@apply bg-background text-foreground;
   }
 
   h1,
@@ -127,6 +129,9 @@
     font-family: var(--font-heading);
     font-weight: 600;
     line-height: 1.2;
+  }
+	* {
+		@apply border-border outline-ring/50;
   }
 }
 
