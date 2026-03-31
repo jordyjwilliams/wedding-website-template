@@ -11,6 +11,8 @@
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/80 border-transparent',
         outline: 'text-foreground bg-card/80 backdrop-blur-sm hover:bg-card border-border/30',
+        glass:
+          'text-foreground border-border/60 bg-[color-mix(in_srgb,var(--color-card)_var(--glass-surface),transparent)] backdrop-blur-lg shadow-[0_10px_24px_var(--glass-shadow-soft)] hover:border-primary/55 hover:bg-[color-mix(in_srgb,var(--color-card)_calc(var(--glass-surface)+6%),transparent)]',
       },
     },
     defaultVariants: {

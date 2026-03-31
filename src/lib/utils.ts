@@ -30,7 +30,10 @@ export function parseInlineLinks(input: string): InlineLinkSegment[] {
 
     const label = String(rawLabel);
     const href = String(rawHref).trim();
-    segments.push({ text: isSafeHref(href) ? label : fullMatch, href: isSafeHref(href) ? href : null });
+    segments.push({
+      text: isSafeHref(href) ? label : fullMatch,
+      href: isSafeHref(href) ? href : null,
+    });
 
     cursor = matchIndex + fullMatch.length;
   }

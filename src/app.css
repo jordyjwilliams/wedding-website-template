@@ -75,6 +75,14 @@
   /* ─── Layout / non-theme vars ───────────────────────────── */
   --nav-height: 4.5rem;
   --radius: 0.625rem;
+
+  /* ─── Shared glass tokens ────────────────────────────────── */
+  --glass-surface: 56%;
+  --glass-surface-heavy: 66%;
+  --glass-border: 60%;
+  --glass-highlight: 12%;
+  --glass-shadow: oklch(23.4% 0.036 239 / 0.16);
+  --glass-shadow-soft: oklch(23.4% 0.036 239 / 0.1);
 }
 
 .dark {
@@ -99,6 +107,13 @@
   --color-border: oklch(27.95% 0.0368 260);
   --color-input: oklch(27.95% 0.0368 260);
   --color-ring: oklch(71.27% 0.0845 228);
+
+  --glass-surface: 56%;
+  --glass-surface-heavy: 68%;
+  --glass-border: 62%;
+  --glass-highlight: 10%;
+  --glass-shadow: oklch(0% 0 none / 0.34);
+  --glass-shadow-soft: oklch(0% 0 none / 0.22);
 
   color-scheme: dark;
 }
@@ -167,37 +182,47 @@
 
 /* ─── Glass utilities ─────────────────────────────────────── */
 .glass {
-  background: color-mix(in srgb, var(--color-card) 62%, transparent);
-  backdrop-filter: blur(18px) saturate(170%);
-  -webkit-backdrop-filter: blur(18px) saturate(170%);
-  border: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+  background: color-mix(in srgb, var(--color-card) var(--glass-surface), transparent);
+  backdrop-filter: blur(20px) saturate(175%);
+  -webkit-backdrop-filter: blur(20px) saturate(175%);
+  border: 1px solid color-mix(in srgb, var(--color-border) var(--glass-border), transparent);
   box-shadow:
-    0 12px 36px oklch(23.4% 0.036 239 / 0.13),
-    0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
+    0 14px 40px var(--glass-shadow),
+    0 0 0 1px color-mix(in srgb, white var(--glass-highlight), transparent) inset;
 }
 
 .glass-heavy {
-  background: color-mix(in srgb, var(--color-card) 72%, transparent);
+  background: color-mix(in srgb, var(--color-card) var(--glass-surface-heavy), transparent);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid color-mix(in srgb, var(--color-border) 58%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) var(--glass-border), transparent);
   box-shadow:
-    0 20px 60px oklch(23.4% 0.036 239 / 0.16),
-    0 0 0 1px color-mix(in srgb, white 8%, transparent) inset;
+    0 20px 60px var(--glass-shadow),
+    0 0 0 1px color-mix(in srgb, white calc(var(--glass-highlight) + 2%), transparent) inset;
 }
 
 .dark .glass {
-  background: color-mix(in srgb, var(--color-card) 60%, transparent);
-  box-shadow:
-    0 8px 32px oklch(0% 0 none / 0.3),
-    0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
+  background: color-mix(in srgb, var(--color-card) var(--glass-surface), transparent);
 }
 
 .dark .glass-heavy {
-  background: color-mix(in srgb, var(--color-card) 75%, transparent);
-  box-shadow:
-    0 20px 60px oklch(0% 0 none / 0.4),
-    0 0 0 1px color-mix(in srgb, white 8%, transparent) inset;
+  background: color-mix(in srgb, var(--color-card) var(--glass-surface-heavy), transparent);
+}
+
+.glass-nav-soft {
+  background: color-mix(in srgb, var(--color-card) calc(var(--glass-surface) + 16%), transparent);
+  backdrop-filter: blur(14px) saturate(165%);
+  -webkit-backdrop-filter: blur(14px) saturate(165%);
+  border-bottom: 1px solid transparent;
+}
+
+.glass-nav-solid {
+  background: color-mix(in srgb, var(--color-card) calc(var(--glass-surface) + 24%), transparent);
+  backdrop-filter: blur(22px) saturate(178%);
+  -webkit-backdrop-filter: blur(22px) saturate(178%);
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--color-border) calc(var(--glass-border) - 8%), transparent);
+  box-shadow: 0 10px 32px var(--glass-shadow-soft);
 }
 
 /* ─── Touch-device tap highlight fix ─────────────────────── */

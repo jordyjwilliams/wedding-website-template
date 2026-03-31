@@ -80,21 +80,9 @@
   }
 
   .help-card {
-    animation: slideInRight 0.8s ease-out;
     position: sticky;
     top: 6rem;
     height: fit-content;
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
   }
 
   .contact-link {
