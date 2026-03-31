@@ -33,7 +33,7 @@
   <div class="timeline-icon" class:highlight={isHighlight}>
     <span>{dayNumber}</span>
   </div>
-  <Card.Root class="glass p-8">
+  <Card.Root class="glass rounded-3xl p-8">
     <h3>{title}</h3>
     {#if dateHref}
       <a href={dateHref} target="_blank" rel="noopener noreferrer" class="timeline-date">

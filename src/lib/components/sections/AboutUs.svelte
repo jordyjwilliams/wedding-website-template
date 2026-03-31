@@ -46,7 +46,7 @@
               class="group animate-fade-in-up transition-transform duration-300 hover:translate-x-2"
               style:animation-delay="{0.45 + index * 0.08}s"
             >
-              <Card.Root class="glass border-none shadow-none">
+              <Card.Root class="glass rounded-3xl">
                 <Card.Content class="flex items-start gap-4 p-5">
                   <WeddingBadge size="icon-lg">{fact.icon}</WeddingBadge>
                   <p class="text-muted-foreground m-0 leading-relaxed">
