@@ -117,13 +117,14 @@
 {/if}
 
 <style>
-  /* Default fade entrance animation */
   .page-wrapper {
     opacity: 0;
     min-height: 100vh;
     position: relative;
   }
 
+  /* All animations are opacity-only for pages with fixed backgrounds */
+  /* (transforms break position:fixed on pseudo-elements) */
   .page-wrapper--fade {
     transition: opacity var(--entrance-duration, 0.6s) ease-out;
   }
