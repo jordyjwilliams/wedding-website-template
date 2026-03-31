@@ -81,6 +81,32 @@
     {/each}
   </div>
 {/if}
+{#if backgroundImage}
+  <div
+    class="page-wrapper page-wrapper--{pageEntranceAnimation} has-bg"
+    class:visible
+    class:has-gradient-overlay={showGradientOverlay}
+    style:--overlay-opacity={overlayOpacity}
+    style:--entrance-duration="{pageEntranceDuration}ms"
+    style:--bg-image="url('{backgroundImage}')"
+    style:--bg-position={backgroundPosition}
+  >
+    {#if children}
+      {@render children()}
+    {/if}
+  </div>
+{:else}
+  <div
+    class="page-wrapper page-wrapper--{pageEntranceAnimation}"
+    class:visible
+    style:--entrance-duration="{pageEntranceDuration}ms"
+    style:background={backgroundColor || 'transparent'}
+  >
+    {#if children}
+      {@render children()}
+    {/if}
+  </div>
+{/if}
 {#if showOrbs}
   <!-- Static orbs as background layer -->
   <div class="pointer-events-none absolute inset-0" aria-hidden="true">
