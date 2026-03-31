@@ -20,5 +20,3 @@ export {
   Header as CardHeader,
   Title as CardTitle,
 };
-
-export { default as GlassCard } from './GlassCard.svelte';
