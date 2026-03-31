@@ -9,7 +9,25 @@
   import { AnimatedIcon } from '$lib/components';
 
   import { WEDDING } from '$lib/constants';
-  import { COPY } from '$lib/content';
+
+  type ContactItem = {
+    label: string;
+    email: string;
+    phone: string;
+  };
+
+  const defaultContacts: ContactItem[] = [
+    {
+      label: WEDDING.couple.bride,
+      email: WEDDING.contact.bride.email,
+      phone: WEDDING.contact.bride.phone,
+    },
+    {
+      label: WEDDING.couple.groom,
+      email: WEDDING.contact.groom.email,
+      phone: WEDDING.contact.groom.phone,
+    },
+  ];
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     title: string;
@@ -27,9 +45,18 @@
       | 'fade-in-down'
       | 'fade-in-scale'
       | 'spin-in';
+    contacts?: ContactItem[];
   }
 
-  let { title, content, icon, animation, class: className, ...restProps }: Props = $props();
+  let {
+    title,
+    content,
+    icon,
+    animation,
+    contacts = defaultContacts,
+    class: className,
+    ...restProps
+  }: Props = $props();
 </script>
 
 <div class="help-card {className || ''}" {...restProps}>
@@ -50,35 +77,25 @@
         {content}
       </p>
       <div class="space-y-4">
-        <div class="flex flex-col items-center space-y-3">
-          <WeddingBadge size="event">{COPY.rsvp.contact.bride}</WeddingBadge>
-          <div class="flex w-full flex-col gap-2 text-sm">
-            <a href="mailto:{WEDDING.contact.bride.email}" class="contact-link">
-              <Icon icon="ph:envelope-simple-fill" width="16" />
-              {WEDDING.contact.bride.email}
-            </a>
-            <a href="tel:{WEDDING.contact.bride.phone.replace(/\s/g, '')}" class="contact-link">
-              <Icon icon="ph:phone-fill" width="16" />
-              {WEDDING.contact.bride.phone}
-            </a>
+        {#each contacts as contact, i (`${contact.label}-${contact.email}`)}
+          <div class="flex flex-col items-center space-y-3">
+            <WeddingBadge size="event">{contact.label}</WeddingBadge>
+            <div class="flex w-full flex-col gap-2 text-sm">
+              <a href="mailto:{contact.email}" class="contact-link">
+                <Icon icon="ph:envelope-simple-fill" width="16" />
+                {contact.email}
+              </a>
+              <a href="tel:{contact.phone.replace(/\s/g, '')}" class="contact-link">
+                <Icon icon="ph:phone-fill" width="16" />
+                {contact.phone}
+              </a>
+            </div>
           </div>
-        </div>
 
-        <Separator />
-
-        <div class="flex flex-col items-center space-y-3">
-          <WeddingBadge size="event">{COPY.rsvp.contact.groom}</WeddingBadge>
-          <div class="flex w-full flex-col gap-2 text-sm">
-            <a href="mailto:{WEDDING.contact.groom.email}" class="contact-link">
-              <Icon icon="ph:envelope-simple-fill" width="16" />
-              {WEDDING.contact.groom.email}
-            </a>
-            <a href="tel:{WEDDING.contact.groom.phone.replace(/\s/g, '')}" class="contact-link">
-              <Icon icon="ph:phone-fill" width="16" />
-              {WEDDING.contact.groom.phone}
-            </a>
-          </div>
-        </div>
+          {#if i < contacts.length - 1}
+            <Separator />
+          {/if}
+        {/each}
       </div>
     </Card.Content>
   </Card.Root>
@@ -116,8 +133,5 @@
     .help-card {
       position: static;
     }
-  }
-
-  @media (max-width: 768px) {
   }
 </style>
