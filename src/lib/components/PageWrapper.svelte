@@ -91,9 +91,20 @@
     style:--bg-image={`url('${backgroundImage}')`}
     style:--bg-position={backgroundPosition}
   >
-    {#if children}
-      {@render children()}
+    {#if showOrbs}
+      <!-- Static orbs as background layer -->
+      <div class="page-wrapper__orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
     {/if}
+
+    <div class="page-wrapper__content">
+      {#if children}
+        {@render children()}
+      {/if}
+    </div>
   </div>
 {:else}
   <div
@@ -102,17 +113,20 @@
     style:--entrance-duration="{pageEntranceDuration}ms"
     style:background={backgroundColor || 'transparent'}
   >
-    {#if children}
-      {@render children()}
+    {#if showOrbs}
+      <!-- Static orbs as background layer -->
+      <div class="page-wrapper__orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
     {/if}
-  </div>
-{/if}
-{#if showOrbs}
-  <!-- Static orbs as background layer -->
-  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+
+    <div class="page-wrapper__content">
+      {#if children}
+        {@render children()}
+      {/if}
+    </div>
   </div>
 {/if}
 
@@ -121,6 +135,19 @@
     opacity: 0;
     min-height: 100vh;
     position: relative;
+  }
+
+  .page-wrapper__orbs {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .page-wrapper__content {
+    position: relative;
+    z-index: 1;
   }
 
   /* All animations are opacity-only for pages with fixed backgrounds */
@@ -182,11 +209,6 @@
         var(--color-background) calc(var(--overlay-opacity, 0.62) * 100%),
         transparent
       );
-  }
-
-  .page-wrapper > :global(*) {
-    position: relative;
-    z-index: 1;
   }
 
   /* Gradient ambient orbs — static background */
