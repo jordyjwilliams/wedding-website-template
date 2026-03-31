@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parseInlineLinks } from '$lib/utils';
+  import { parseInlineLinks } from '$lib/utils.js';
 
   let { text, class: className = '' }: { text: string; class?: string } = $props();
 </script>
