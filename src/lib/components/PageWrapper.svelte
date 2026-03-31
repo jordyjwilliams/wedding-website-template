@@ -5,6 +5,7 @@
     backgroundImage?: string;
     backgroundColor?: string;
     backgroundPosition?: string;
+    overlayOnScroll?: boolean;
     children?: Snippet;
     pageEntranceAnimation?: 'fade' | 'fade-down' | 'fade-up';
     pageEntranceDuration?: number;
@@ -14,6 +15,7 @@
     backgroundImage,
     backgroundColor,
     backgroundPosition = 'center',
+    overlayOnScroll = true,
     children,
     pageEntranceAnimation = 'fade',
     pageEntranceDuration = 600,
@@ -30,6 +32,10 @@
 
   onMount(() => {
     visible = true;
+
+    if (!overlayOnScroll) {
+      return () => {};
+    }
 
     const handleScroll = () => {
       const scrollPercent =
