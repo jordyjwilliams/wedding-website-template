@@ -72,7 +72,7 @@
 :root {
   /* ─── Layout / non-theme vars ───────────────────────────── */
   --nav-height: 4.5rem;
-  --radius: 0.5rem;
+  --radius: 0.625rem;
 }
 
 .dark {
