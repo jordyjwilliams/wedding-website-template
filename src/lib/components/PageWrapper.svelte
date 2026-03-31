@@ -130,22 +130,15 @@
   }
 
   .page-wrapper--fade-down {
-    transform: translateY(-20px);
-    transition:
-      opacity var(--entrance-duration, 0.6s) ease-out,
-      transform var(--entrance-duration, 0.6s) ease-out;
+    transition: opacity var(--entrance-duration, 0.6s) ease-out;
   }
 
   .page-wrapper--fade-up {
-    transform: translateY(20px);
-    transition:
-      opacity var(--entrance-duration, 0.6s) ease-out,
-      transform var(--entrance-duration, 0.6s) ease-out;
+    transition: opacity var(--entrance-duration, 0.6s) ease-out;
   }
 
   .page-wrapper.visible {
     opacity: 1;
-    transform: translateY(0);
   }
 
   /* Background image applied via CSS so background-attachment
