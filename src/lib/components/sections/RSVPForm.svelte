@@ -547,13 +547,6 @@
     animation: slideDown 0.3s ease-out;
   }
 
-  .help-card {
-    animation: slideInRight 0.8s ease-out;
-    position: sticky;
-    top: 6rem;
-    height: fit-content;
-  }
-
   @keyframes slideInRight {
     from {
       opacity: 0;
@@ -565,34 +558,9 @@
     }
   }
 
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    color: var(--color-foreground);
-    text-decoration: none;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
-  }
-
-  .contact-link:hover {
-    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
-    color: var(--color-primary);
-    transform: translateX(2px);
-  }
-
-  .contact-link :global(svg) {
-    flex-shrink: 0;
-  }
-
   @media (max-width: 1024px) {
     .rsvp-container {
       grid-template-columns: 1fr;
-    }
-
-    .help-card {
-      position: static;
     }
   }
 
