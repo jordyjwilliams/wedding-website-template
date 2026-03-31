@@ -85,11 +85,6 @@
 </div>
 
 <style>
-  :global(.rsvp-section) {
-    padding: 6rem 0;
-    min-height: 100vh;
-  }
-
   .help-card {
     position: sticky;
     top: 6rem;
@@ -124,8 +119,5 @@
   }
 
   @media (max-width: 768px) {
-    :global(.rsvp-section) {
-      padding: 4rem 0;
-    }
   }
 </style>
