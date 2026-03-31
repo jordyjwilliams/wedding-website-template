@@ -1,85 +1,49 @@
 <script lang="ts">
-  import { SectionHeader, AnimatedSection, AnimatedGrid, IconCard } from '$lib/components';
+  import { SectionHeader, AnimatedSection } from '$lib/components';
+  import * as Accordion from '$lib/components/ui/accordion';
+  import Icon from '@iconify/svelte';
   import { COPY } from '$lib/content';
+
+  const faqs = [
+    { icon: 'ph:house-bold', ...COPY.faq.practical.accommodation },
+    { icon: 'ph:high-heel-bold', ...COPY.faq.practical.dressCode },
+    { icon: 'ph:backpack-bold', ...COPY.faq.practical.packing },
+    { icon: 'ph:car-bold', ...COPY.faq.practical.transport },
+    { icon: 'ph:gift-bold', ...COPY.faq.practical.gifts },
+    { icon: 'ph:cloud-sun-bold', ...COPY.faq.practical.weather },
+    { icon: 'ph:hand-heart-bold', ...COPY.faq.practical.plusOne },
+    { icon: 'ph:baby-carriage-bold', ...COPY.faq.practical.kids },
+    { icon: 'ph:bed-bold', ...COPY.faq.practical.accommodationAlternatives },
+    { icon: 'ph:map-pin-area-bold', ...COPY.faq.practical.thingsToDo },
+  ];
 </script>
 
 <AnimatedSection class="py-20 md:py-28">
   <div class="container">
     <SectionHeader title={COPY.faq.title} emoji={COPY.faq.emoji} intro={COPY.faq.intro} />
 
-    <AnimatedGrid class="mt-16" itemDelay={0.2}>
-      <IconCard
-        icon="ph:house-bold"
-        iconAnimation="float"
-        title={COPY.faq.practical.accommodation.title}
-        description={COPY.faq.practical.accommodation.description}
-      />
-      <IconCard
-        icon="ph:high-heel-bold"
-        iconAnimation="float"
-        iconDelay="0.25s"
-        title={COPY.faq.practical.dressCode.title}
-        description={COPY.faq.practical.dressCode.description}
-      />
-      <IconCard
-        icon="ph:backpack-bold"
-        iconAnimation="float"
-        iconDelay="0.5s"
-        title={COPY.faq.practical.packing.title}
-        description={COPY.faq.practical.packing.description}
-      />
-      <IconCard
-        icon="ph:car-bold"
-        iconAnimation="float"
-        iconDelay="1s"
-        title={COPY.faq.practical.transport.title}
-        description={COPY.faq.practical.transport.description}
-      />
-      <IconCard
-        icon="ph:gift-bold"
-        iconAnimation="float"
-        iconDelay="1.25s"
-        title={COPY.faq.practical.gifts.title}
-        description={COPY.faq.practical.gifts.description}
-      />
-      <IconCard
-        icon="ph:cloud-sun-bold"
-        iconAnimation="float"
-        iconDelay="1.5s"
-        title={COPY.faq.practical.weather.title}
-        description={COPY.faq.practical.weather.description}
-      />
-      <IconCard
-        icon="ph:hand-heart-bold"
-        iconAnimation="float"
-        iconDelay="1.75s"
-        title={COPY.faq.practical.plusOne.title}
-        description={COPY.faq.practical.plusOne.description}
-      />
-      <IconCard
-        icon="ph:baby-carriage-bold"
-        iconAnimation="float"
-        iconDelay="2s"
-        title={COPY.faq.practical.kids.title}
-        description={COPY.faq.practical.kids.description}
-      />
-      <IconCard
-        icon="ph:bed-bold"
-        iconAnimation="float"
-        iconDelay="2.25s"
-        title={COPY.faq.practical.accommodationAlternatives.title}
-        description={COPY.faq.practical.accommodationAlternatives.description}
-      />
-      <IconCard
-        icon="ph:map-pin-area-bold"
-        iconAnimation="float"
-        iconDelay="2.5s"
-        title={COPY.faq.practical.thingsToDo.title}
-        description={COPY.faq.practical.thingsToDo.description}
-      />
-    </AnimatedGrid>
+    <div class="mx-auto mt-16 max-w-2xl">
+      <Accordion.Root type="multiple" class="glass rounded-2xl px-2">
+        {#each faqs as faq, i}
+          <Accordion.Item value={`faq-${i}`} class="border-border/40">
+            <Accordion.Trigger
+              class="hover:no-underline py-5 text-base font-semibold"
+            >
+              <span class="flex items-center gap-3">
+                <span class="text-primary shrink-0">
+                  <Icon icon={faq.icon} width="22" />
+                </span>
+                {faq.title}
+              </span>
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <p class="text-muted-foreground pb-2 pl-9 leading-relaxed">
+                {faq.description}
+              </p>
+            </Accordion.Content>
+          </Accordion.Item>
+        {/each}
+      </Accordion.Root>
+    </div>
   </div>
 </AnimatedSection>
-
-<style>
-</style>
