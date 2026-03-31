@@ -20,9 +20,10 @@
     title: string;
     content: string;
     icon?: string;
+    animation?: string;
   }
 
-  let { title, content, icon, class: className, ...restProps }: Props = $props();
+  let { title, content, icon, animation, class: className, ...restProps }: Props = $props();
 </script>
 
 <div class="help-card {className || ''}" {...restProps}>
@@ -33,7 +34,7 @@
           icon={icon || 'ph:chat-circle-dots-fill'}
           size={48}
           color="var(--color-accent)"
-          animation="pulse"
+          {animation}
         />
       </div>
       <Card.Title>{title}</Card.Title>
