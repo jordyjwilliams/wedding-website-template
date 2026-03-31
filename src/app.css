@@ -161,36 +161,36 @@
 
 /* ─── Glass utilities ─────────────────────────────────────── */
 .glass {
-  background: color-mix(in srgb, var(--color-card) 75%, transparent);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
+  background: color-mix(in srgb, var(--color-card) 62%, transparent);
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.08),
-    0 0 0 1px color-mix(in srgb, white 10%, transparent) inset;
+    0 12px 36px oklch(23.4% 0.036 239 / 0.13),
+    0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
 }
 
 .glass-heavy {
-  background: color-mix(in srgb, var(--color-card) 88%, transparent);
+  background: color-mix(in srgb, var(--color-card) 72%, transparent);
   backdrop-filter: blur(24px) saturate(200%);
   -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) 58%, transparent);
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.1),
-    0 0 0 1px color-mix(in srgb, white 12%, transparent) inset;
+    0 20px 60px oklch(23.4% 0.036 239 / 0.16),
+    0 0 0 1px color-mix(in srgb, white 8%, transparent) inset;
 }
 
 .dark .glass {
   background: color-mix(in srgb, var(--color-card) 60%, transparent);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 8px 32px oklch(0% 0 none / 0.3),
     0 0 0 1px color-mix(in srgb, white 6%, transparent) inset;
 }
 
 .dark .glass-heavy {
   background: color-mix(in srgb, var(--color-card) 75%, transparent);
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 20px 60px oklch(0% 0 none / 0.4),
     0 0 0 1px color-mix(in srgb, white 8%, transparent) inset;
 }
 
