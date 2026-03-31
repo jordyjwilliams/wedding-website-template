@@ -86,6 +86,26 @@
                   </span>
                 </span>
               </Accordion.Trigger>
+              <Accordion.Content
+                class="border-primary/20 mx-2 mb-5 border-l-2 pl-4 text-[0.9rem] leading-relaxed"
+              >
+                <div class="space-y-4">
+                  {#each COPY.faq.questionData[key].description.split('\n\n') as paragraph, i (i)}
+                    {#if paragraph.trim()}
+                      <p class="text-muted-foreground">{paragraph.trim()}</p>
+                    {/if}
+                  {/each}
+                </div>
+
+                {#if COPY.faq.questionData[key].bullets && COPY.faq.questionData[key].bullets.length > 0}
+                  <ul class="faq-bullets mt-4 space-y-2.5">
+                    {#each COPY.faq.questionData[key].bullets as bullet, i (i)}
+                      <li>{bullet}</li>
+                    {/each}
+                  </ul>
+                {/if}
+              </Accordion.Content>
+            </Accordion.Item>
       <ContactUs
         class="mt-12"
         title={COPY.faq.contact.title}
