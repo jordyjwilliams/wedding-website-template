@@ -16,10 +16,7 @@
     >
       <!-- Text content -->
       <div>
-        <div class="animate-fade-in-up [animation-delay:0.1s]">
           <SectionHeader title={COPY.about.title} emoji={COPY.about.emoji} />
-        </div>
-
         <p
           class="font-heading text-primary-dark animate-fade-in-up mb-6 text-[1.7rem] leading-snug
                  italic
