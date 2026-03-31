@@ -1,5 +1,6 @@
 <script lang="ts">
   import { SectionHeader, AnimatedSection } from '$lib/components';
+  import InlineLinks from '$lib/components/InlineLinks.svelte';
   import * as Accordion from '$lib/components/ui/accordion';
   import { Button } from '$lib/components/ui/button';
   import ContactUs from '$lib/components/ContactUs.svelte';
@@ -100,7 +101,7 @@
                 {#if COPY.faq.questionData[key].bullets && COPY.faq.questionData[key].bullets.length > 0}
                   <ul class="faq-bullets mt-4 space-y-2.5">
                     {#each COPY.faq.questionData[key].bullets as bullet, i (i)}
-                      <li>{bullet}</li>
+                      <li><InlineLinks text={bullet} /></li>
                     {/each}
                   </ul>
                 {/if}
