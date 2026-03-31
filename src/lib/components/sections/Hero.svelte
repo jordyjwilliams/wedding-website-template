@@ -6,8 +6,6 @@
   import { WEDDING } from '$lib/constants';
   import { COPY } from '$lib/content';
   import CountdownTimer from '../CountdownTimer.svelte';
-
-  const heartPositions = ['15%', '35%', '55%', '75%', '25%', '85%'];
 </script>
 
 <!-- min-h-screen ensures full viewport height; top padding = nav + breathing room -->
@@ -18,24 +16,6 @@
          md:pt-20
          md:pb-24"
 >
-  <!-- Ambient gradient orbs -->
-  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
-    <!-- Floating hearts -->
-    {#each heartPositions as left, i (i)}
-      <span
-        class="heart absolute opacity-0"
-        style="left: {left}; top: 100%; animation: floatUp {12 + i * 3}s ease-in {i *
-          1.5}s infinite;"
-      >
-        <Icon icon="ph:heart-fill" width="22" />
-      </span>
-    {/each}
-  </div>
-
   <!-- Content -->
   <div class="3xl:max-w-5xl relative z-10 mx-auto max-w-4xl text-center">
     <!-- Couple names -->
@@ -117,62 +97,3 @@
     </div>
   </div>
 </AnimatedSection>
-
-<style>
-  /* Keep only what can't be expressed cleanly in Tailwind */
-
-  /* Gradient ambient orbs */
-  .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.28;
-    animation: floatOrb 28s infinite ease-in-out;
-  }
-
-  .orb-1 {
-    width: clamp(400px, 50vw, 700px);
-    height: clamp(400px, 50vw, 700px);
-    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-    top: -30%;
-    right: -15%;
-    animation-delay: 0s;
-  }
-
-  .orb-2 {
-    width: clamp(320px, 40vw, 560px);
-    height: clamp(320px, 40vw, 560px);
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
-    bottom: -20%;
-    left: -12%;
-    animation-delay: 8s;
-  }
-
-  .orb-3 {
-    width: clamp(260px, 30vw, 460px);
-    height: clamp(260px, 30vw, 460px);
-    background: linear-gradient(135deg, var(--color-accent), var(--color-primary-dark));
-    top: 40%;
-    left: 28%;
-    animation-delay: 16s;
-  }
-
-  /* Floating heart animation — floatUp keyframe lives in app.css */
-  .heart {
-    color: var(--color-primary);
-    will-change: transform, opacity;
-    z-index: 2;
-  }
-
-  .heart :global(svg) {
-    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--color-primary) 45%, transparent))
-      drop-shadow(0 0 18px color-mix(in srgb, var(--color-accent) 35%, transparent));
-  }
-
-  @media (max-width: 640px) {
-    .orb {
-      filter: blur(70px);
-      opacity: 0.22;
-    }
-  }
-</style>
