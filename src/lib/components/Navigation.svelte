@@ -63,8 +63,8 @@
 <nav
   class="fixed inset-x-0 top-0 z-50 h-(--nav-height) transition-all duration-300
          {scrolled
-    ? 'bg-card/88 border-border/40 shadow-glass border-b backdrop-blur-xl'
-    : 'bg-card/80 border-b border-transparent backdrop-blur-md'}"
+  ? 'glass-nav-solid'
+  : 'glass-nav-soft'}"
 >
   <div
     class="text-foreground 3xl:max-w-[100rem] mx-auto flex h-full max-w-7xl items-center gap-3
@@ -154,7 +154,7 @@
 
       <Sheet.Content
         side="right"
-        class="bg-card text-foreground flex w-72 flex-col
+        class="glass-heavy text-foreground flex w-72 flex-col
                border-none pt-(--nav-height) backdrop-blur-2xl"
       >
         <Separator class="bg-border/50 mb-2" />
