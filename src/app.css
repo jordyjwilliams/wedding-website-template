@@ -109,6 +109,7 @@
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--nav-height) + 1rem);
     -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
     @apply font-sans;
   }
 
