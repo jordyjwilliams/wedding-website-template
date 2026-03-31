@@ -183,8 +183,8 @@
   /* Snappy staggered entrance for list items */
   :global(.faq-item) {
     opacity: 0;
-    animation: fadeInUp 0.5s ease-out both;
-    transition: transform 0.3s ease;
+    animation: fadeInUp calc(var(--duration-item-stagger, 0.2s) * 2.5) var(--easing-entrance, ease-out) both;
+    transition: transform calc(var(--duration-item-stagger, 0.2s) * 1.5) var(--easing-entrance, ease-out);
   }
 
   :global(.faq-item:hover) {
