@@ -2,11 +2,13 @@
 
 @import 'tailwindcss/index.css';
 
+@import "@fontsource-variable/nunito-sans";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   /* ─── Typography ────────────────────────────────────────── */
-  --font-sans: 'Nunito', Inter, system-ui, -apple-system, sans-serif;
+  --font-sans: 'Nunito Sans Variable', sans-serif;
   --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
 
   /* ─── Color tokens — light mode defaults ─────────────────── */
