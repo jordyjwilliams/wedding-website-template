@@ -13,7 +13,7 @@
   let {
     icon,
     size = 56,
-    animation = 'bounce',
+    animation = 'pulse',
     color,
     delay = '0s',
     class: className,
