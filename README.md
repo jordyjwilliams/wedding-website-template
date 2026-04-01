@@ -39,8 +39,8 @@ Built with:
 
 ### 🥫 Prerequisites
 
-- Node.js 24+ and npm 11+
-- [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
+- Node.js 24+ and pnpm 10+
+- [Netlify CLI](https://docs.netlify.com/cli/get-started/): `pnpm install -g netlify-cli`
 
 ### ⌨️ Installation
 
@@ -50,7 +50,7 @@ git clone https://github.com/jordyjwilliams/wedding-website-template
 cd wedding-website-template
 
 # Install dependencies
-npm install
+pnpm install
 
 # Copy environment variables
 cp .env.example .env
@@ -84,7 +84,7 @@ Visit [http://localhost:8888](http://localhost:8888)
 
 > [!IMPORTANT]
 >
-> - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
+> - Use `netlify dev` instead of `pnpm run dev` to enable Netlify Functions for passcode authentication.
 
 ### ✨ Make It **YOURS**...
 
@@ -137,23 +137,23 @@ done
 
 ```bash
 # Updating dependencies
-npm run update-deps
+pnpm run update-deps
 npx npm-check-updates
 # Run development server with functions
 netlify dev
 
 # Type checking
-npm run check
+pnpm run check
 
 # Build for production
-npm run build
+pnpm run build
 
 # Lint and format
-npm run lint
-npm run format
+pnpm run lint
+pnpm run format
 
-# Deploy to production
-npm run deploy
+# Deploy to production: cli (handled by Netlify repo integration)
+pnpm run deploy
 ```
 
 # 🚀 Deployment
