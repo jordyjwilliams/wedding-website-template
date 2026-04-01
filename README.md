@@ -4,9 +4,9 @@ A [generic template](https://wedding-website-template.netlify.app/) to use for a
 
 Built with:
 
-[![Svelte](https://img.shields.io/badge/Svelte-5.14-FF3E00?logo=svelte)](https://svelte.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript)](https://www.typescriptlang.org/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Svelte](https://img.shields.io/badge/Svelte-FF3E00?logo=svelte)](https://svelte.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
 [![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/136fb0f2-b55b-429a-887f-595e9e6c6d72/deploy-status)](https://app.netlify.com/projects/wedding-website-template/deploys)
 
