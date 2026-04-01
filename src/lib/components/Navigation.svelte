@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
-  import { authState } from '$lib/auth-state.svelte';
   import { clearAuth } from '$lib/auth';
   import * as Sheet from '$lib/components/ui/sheet';
   import { Button } from '$lib/components/ui/button';
