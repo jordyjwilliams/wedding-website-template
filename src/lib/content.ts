@@ -6,7 +6,7 @@ import { WEDDING } from '$lib/constants';
 export const COPY = {
   // Meta / SEO
   meta: {
-    title: `${WEDDING.couple.full} — Wedding`,
+    title: `${WEDDING.couple.initials} — Wedding`,
     description: `Join us for a three-day wedding weekend at ${WEDDING.venue.displayShort}`,
   },
 
