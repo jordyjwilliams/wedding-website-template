@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
+  import { authState } from '$lib/auth-state.svelte';
   import { clearAuth } from '$lib/auth';
   import * as Sheet from '$lib/components/ui/sheet';
   import { Button } from '$lib/components/ui/button';
@@ -37,9 +39,9 @@
     isDebugLogoutLoading = true;
     try {
       await clearAuth();
-      if (typeof window !== 'undefined') {
-        window.location.replace(resolve('/', {}));
-      }
+      authState.isAuthenticated = false;
+      authState.isChecking = false;
+      await goto(resolve('/', {}), { replaceState: true });
     } finally {
       // Ensure the debug logout button is re-enabled if navigation fails or an error occurs
       isDebugLogoutLoading = false;
