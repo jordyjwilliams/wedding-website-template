@@ -4,10 +4,10 @@ A [generic template](https://wedding-website-template.netlify.app/) to use for a
 
 Built with:
 
-[![Svelte](https://img.shields.io/badge/Svelte-5.14-FF3E00?logo=svelte)](https://svelte.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript)](https://www.typescriptlang.org/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
-[![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
+[![Svelte](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjordyjwilliams%2Fwedding-website-template%2Fmain%2Fpackage.json&query=%24.devDependencies.svelte&label=Svelte&color=FF3E00&logo=svelte)](https://svelte.dev/)
+[![TypeScript](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjordyjwilliams%2Fwedding-website-template%2Fmain%2Fpackage.json&query=%24.devDependencies.typescript&label=TypeScript&color=3178C6&logo=typescript)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjordyjwilliams%2Fwedding-website-template%2Fmain%2Fpackage.json&query=%24.devDependencies.tailwindcss&label=Tailwind&color=38B2AC&logo=tailwind-css)](https://tailwindcss.com/)
+[![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-000000?logo=svelte)](https://www.shadcn-svelte.com/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/136fb0f2-b55b-429a-887f-595e9e6c6d72/deploy-status)](https://app.netlify.com/projects/wedding-website-template/deploys)
 
 ## 🔎 [Example](https://wedding-website-template.netlify.app/)
@@ -39,8 +39,8 @@ Built with:
 
 ### 🥫 Prerequisites
 
-- Node.js 24+ and npm 11+
-- [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
+- Node.js 24+ and pnpm 10+
+- [Netlify CLI](https://docs.netlify.com/cli/get-started/)
 
 ### ⌨️ Installation
 
@@ -50,7 +50,7 @@ git clone https://github.com/jordyjwilliams/wedding-website-template
 cd wedding-website-template
 
 # Install dependencies
-npm install
+pnpm install
 
 # Copy environment variables
 cp .env.example .env
@@ -84,7 +84,7 @@ Visit [http://localhost:8888](http://localhost:8888)
 
 > [!IMPORTANT]
 >
-> - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
+> - Use `netlify dev` instead of `pnpm run dev` to enable Netlify Functions for passcode authentication.
 
 ### ✨ Make It **YOURS**...
 
@@ -137,23 +137,23 @@ done
 
 ```bash
 # Updating dependencies
-npm run update-deps
+pnpm run update-deps
 npx npm-check-updates
 # Run development server with functions
 netlify dev
 
 # Type checking
-npm run check
+pnpm run check
 
 # Build for production
-npm run build
+pnpm run build
 
 # Lint and format
-npm run lint
-npm run format
+pnpm run lint
+pnpm run format
 
-# Deploy to production
-npm run deploy
+# Deploy to production: cli (handled by Netlify repo integration)
+pnpm run deploy
 ```
 
 # 🚀 Deployment
