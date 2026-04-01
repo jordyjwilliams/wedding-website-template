@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite dev --host",
     "dev:netlify": "netlify dev",
     "build": "vite build",
