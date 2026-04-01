@@ -18,6 +18,11 @@
   let hasError = $state(false);
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
 
+  interface VerifyPasscodeResponse {
+    valid?: boolean;
+    message?: string;
+  }
+
   async function handleSubmit(): Promise<void> {
     if (!passcode.trim()) return;
 
