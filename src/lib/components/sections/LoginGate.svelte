@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
   import Icon from '@iconify/svelte';
+  import { refreshAuthState } from '$lib/auth-state.svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Spinner } from '$lib/components/ui/spinner';
@@ -46,11 +49,8 @@
       const data = await response.json();
 
       if (data.valid) {
-        // Session cookie is set by server on successful verification.
-        // Reload page to re-evaluate auth state
-        if (typeof window !== 'undefined') {
-          window.location.reload();
-        }
+        await refreshAuthState();
+        await goto(resolve('/', {}), { replaceState: true });
       } else {
         handleError(COPY.login.errors.incorrect);
       }
