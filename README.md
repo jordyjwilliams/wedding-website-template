@@ -10,7 +10,6 @@ Built with:
 [![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/136fb0f2-b55b-429a-887f-595e9e6c6d72/deploy-status)](https://app.netlify.com/projects/wedding-website-template/deploys)
 
-
 ## 🔎 [Example](https://wedding-website-template.netlify.app/)
 
 - 🧪 View this [example template here](https://wedding-website-template.netlify.app/).
