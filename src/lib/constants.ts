@@ -8,6 +8,7 @@ export const WEDDING = {
     bride: 'Partner1',
     groom: 'Partner2',
     full: 'Partner1 & Partner2',
+    initials: 'P1 & P2',
   },
 
   // Dates
