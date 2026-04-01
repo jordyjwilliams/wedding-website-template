@@ -25,8 +25,10 @@
   }
 
   function getLoginErrorMessage(response: Response, data: VerifyPasscodeResponse): string {
-    if (data.code === 'RATE_LIMITED' || response.status === 429) return COPY.login.errors.tooManyRequests;
-    if (data.code === 'INVALID_PASSCODE' || response.status === 401) return COPY.login.errors.incorrect;
+    if (data.code === 'RATE_LIMITED' || response.status === 429)
+      return COPY.login.errors.tooManyRequests;
+    if (data.code === 'INVALID_PASSCODE' || response.status === 401)
+      return COPY.login.errors.incorrect;
     // Fallback: Generic error message for any other cases (network issues, server errors, unexpected responses, etc.)
     return COPY.login.errors.connection;
   }
