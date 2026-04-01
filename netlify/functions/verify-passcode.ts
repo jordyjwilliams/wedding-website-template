@@ -33,6 +33,12 @@ interface PasscodeResponse {
   code: PasscodeCode;
 }
 
+type HandlerResponse = {
+  statusCode: number;
+  headers: Record<string, string>;
+  body: string;
+};
+
 // Rate limiting: track attempts per IP
 const attemptTracker = new Map<string, number[]>();
 const MAX_ATTEMPTS = 5;
@@ -89,7 +95,7 @@ function jsonResponse(
   headers: Record<string, string>,
   payload: PasscodeResponse,
   extraHeaders: Record<string, string> = {}
-) {
+): HandlerResponse {
   return {
     statusCode,
     headers: {
