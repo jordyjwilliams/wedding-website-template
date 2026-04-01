@@ -145,7 +145,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
       message: 'Too many attempts. Please try again later.',
       code: 'RATE_LIMITED',
     };
-    return jsonResponse(429, headers, response);
+    const rateLimitHeaders: Record<string, string> = {
+      ...headers,
+      'Retry-After': `${Math.ceil(WINDOW_MS / 1000)}`,
+    };
+    return jsonResponse(429, rateLimitHeaders, response);
   }
 
   try {
