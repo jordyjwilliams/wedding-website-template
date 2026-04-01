@@ -120,29 +120,32 @@ export const handler: Handler = async (event: HandlerEvent) => {
   };
 
   if (!SESSION_SIGNING_SECRET) {
-    return jsonResponse(500, headers, {
+    const response: PasscodeResponse = {
       valid: false,
       message: 'Server session signing key is not configured.',
       code: 'SERVER_MISCONFIGURED',
-    });
+    };
+    return jsonResponse(500, headers, response);
   }
 
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
-    return jsonResponse(405, headers, {
+    const response: PasscodeResponse = {
       valid: false,
       message: 'Method not allowed',
       code: 'METHOD_NOT_ALLOWED',
-    });
+    };
+    return jsonResponse(405, headers, response);
   }
 
   // Check rate limit
   if (isRateLimited(clientIp)) {
-    return jsonResponse(429, headers, {
+    const response: PasscodeResponse = {
       valid: false,
       message: 'Too many attempts. Please try again later.',
       code: 'RATE_LIMITED',
-    });
+    };
+    return jsonResponse(429, headers, response);
   }
 
   try {
