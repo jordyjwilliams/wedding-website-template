@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { resolve } from '$app/paths';
   import Icon from '@iconify/svelte';
+  import { refreshAuthState } from '$lib/auth-state.svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Spinner } from '$lib/components/ui/spinner';
@@ -14,6 +17,21 @@
   let shake = $state(false);
   let hasError = $state(false);
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
+
+  interface VerifyPasscodeResponse {
+    valid?: boolean;
+    message?: string;
+    code?: string;
+  }
+
+  function getLoginErrorMessage(response: Response, data: VerifyPasscodeResponse): string {
+    if (data.code === 'RATE_LIMITED' || response.status === 429)
+      return COPY.login.errors.tooManyRequests;
+    if (data.code === 'INVALID_PASSCODE' || response.status === 401)
+      return COPY.login.errors.incorrect;
+    // Fallback: Generic error message for any other cases (network issues, server errors, unexpected responses, etc.)
+    return COPY.login.errors.connection;
+  }
 
   async function handleSubmit(): Promise<void> {
     if (!passcode.trim()) return;
@@ -43,16 +61,13 @@
         await new Promise((resolve) => setTimeout(resolve, 2000));
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as VerifyPasscodeResponse;
 
       if (data.valid) {
-        // Session cookie is set by server on successful verification.
-        // Reload page to re-evaluate auth state
-        if (typeof window !== 'undefined') {
-          window.location.reload();
-        }
+        await refreshAuthState();
+        await goto(resolve('/', {}), { replaceState: true });
       } else {
-        handleError(COPY.login.errors.incorrect);
+        handleError(getLoginErrorMessage(response, data));
       }
     } catch {
       handleError(COPY.login.errors.connection);

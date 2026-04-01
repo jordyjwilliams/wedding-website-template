@@ -19,10 +19,25 @@ interface PasscodeRequest {
   passcode: string;
 }
 
+type PasscodeCode =
+  | 'ACCESS_GRANTED'
+  | 'SERVER_MISCONFIGURED'
+  | 'METHOD_NOT_ALLOWED'
+  | 'RATE_LIMITED'
+  | 'INVALID_PASSCODE'
+  | 'INVALID_REQUEST';
+
 interface PasscodeResponse {
   valid: boolean;
   message: string;
+  code: PasscodeCode;
 }
+
+type HandlerResponse = {
+  statusCode: number;
+  headers: Record<string, string>;
+  body: string;
+};
 
 // Rate limiting: track attempts per IP
 const attemptTracker = new Map<string, number[]>();
@@ -75,6 +90,22 @@ async function signPayload(payload: string, secret: string): Promise<string> {
   return toHex(new Uint8Array(signature));
 }
 
+function jsonResponse(
+  statusCode: number,
+  headers: Record<string, string>,
+  payload: PasscodeResponse,
+  extraHeaders: Record<string, string> = {}
+): HandlerResponse {
+  return {
+    statusCode,
+    headers: {
+      ...headers,
+      ...extraHeaders,
+    },
+    body: JSON.stringify(payload),
+  };
+}
+
 export const handler: Handler = async (event: HandlerEvent) => {
   // Get client IP for rate limiting
   const clientIp = (event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'unknown')
@@ -89,35 +120,36 @@ export const handler: Handler = async (event: HandlerEvent) => {
   };
 
   if (!SESSION_SIGNING_SECRET) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        valid: false,
-        message: 'Server session signing key is not configured.',
-      }),
+    const response: PasscodeResponse = {
+      valid: false,
+      message: 'Server session signing key is not configured.',
+      code: 'SERVER_MISCONFIGURED',
     };
+    return jsonResponse(500, headers, response);
   }
 
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers,
-      body: JSON.stringify({ error: 'Method not allowed' }),
+    const response: PasscodeResponse = {
+      valid: false,
+      message: 'Method not allowed',
+      code: 'METHOD_NOT_ALLOWED',
     };
+    return jsonResponse(405, headers, response);
   }
 
   // Check rate limit
   if (isRateLimited(clientIp)) {
-    return {
-      statusCode: 429,
-      headers,
-      body: JSON.stringify({
-        valid: false,
-        message: 'Too many attempts. Please try again later.',
-      }),
+    const response: PasscodeResponse = {
+      valid: false,
+      message: 'Too many attempts. Please try again later.',
+      code: 'RATE_LIMITED',
     };
+    const rateLimitHeaders: Record<string, string> = {
+      ...headers,
+      'Retry-After': `${Math.ceil(WINDOW_MS / 1000)}`,
+    };
+    return jsonResponse(429, rateLimitHeaders, response);
   }
 
   try {
@@ -147,35 +179,25 @@ export const handler: Handler = async (event: HandlerEvent) => {
       const response: PasscodeResponse = {
         valid: true,
         message: 'Access granted',
+        code: 'ACCESS_GRANTED',
       };
-      return {
-        statusCode: 200,
-        headers: {
-          ...headers,
-          'Set-Cookie': `wedding_auth=${sessionToken}; HttpOnly; Path=/; Max-Age=${SESSION_DURATION_SECONDS}; SameSite=Lax${isHttps ? '; Secure' : ''}`,
-        },
-        body: JSON.stringify(response),
-      };
+      return jsonResponse(200, headers, response, {
+        'Set-Cookie': `wedding_auth=${sessionToken}; HttpOnly; Path=/; Max-Age=${SESSION_DURATION_SECONDS}; SameSite=Lax${isHttps ? '; Secure' : ''}`,
+      });
     } else {
       const response: PasscodeResponse = {
         valid: false,
         message: 'Invalid passcode',
+        code: 'INVALID_PASSCODE',
       };
-      return {
-        statusCode: 401,
-        headers,
-        body: JSON.stringify(response),
-      };
+      return jsonResponse(401, headers, response);
     }
   } catch {
     const response: PasscodeResponse = {
       valid: false,
       message: 'Invalid request',
+      code: 'INVALID_REQUEST',
     };
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify(response),
-    };
+    return jsonResponse(400, headers, response);
   }
 };

@@ -1,17 +1,18 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { isSessionValid } from '$lib/auth';
+  import { authState } from '$lib/auth-state.svelte';
   import { Hero, LoginGate, PageWrapper } from '$lib/components';
-
-  let isAuthenticated = $state(false);
-
-  onMount(async () => {
-    // Check authentication status
-    isAuthenticated = await isSessionValid();
-  });
 </script>
 
-{#if isAuthenticated}
+{#if authState.isChecking}
+  <!-- Show just background whilst state is loading -->
+  <PageWrapper
+    backgroundImage="/images/hero-bg.webp"
+    backgroundPosition="center"
+    showOrbs={true}
+    showHearts={true}
+    showGradientOverlay={true}
+  />
+{:else if authState.isAuthenticated}
   <!-- Show home content when authenticated -->
   <PageWrapper
     backgroundImage="/images/hero-bg.webp"

@@ -37,8 +37,10 @@
     isDebugLogoutLoading = true;
     try {
       await clearAuth();
+      // Force a full reload so that +layout and global auth checks run again,
+      // avoiding a potential desync between client state and the session cookie.
       if (typeof window !== 'undefined') {
-        window.location.replace(resolve('/', {}));
+        window.location.assign(resolve('/', {}));
       }
     } finally {
       // Ensure the debug logout button is re-enabled if navigation fails or an error occurs

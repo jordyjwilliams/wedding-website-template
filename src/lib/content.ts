@@ -313,6 +313,7 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
     errors: {
       incorrect: "Hmm, that code doesn't look quite right. Try again?",
       connection: 'Connection error. Please try again.',
+      tooManyRequests: 'You have tried too many times. Please wait a bit and try again.',
     },
   },
 } as const;
