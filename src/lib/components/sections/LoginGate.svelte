@@ -21,6 +21,14 @@
   interface VerifyPasscodeResponse {
     valid?: boolean;
     message?: string;
+    code?: string;
+  }
+
+  function getLoginErrorMessage(response: Response, data: VerifyPasscodeResponse): string {
+    if (data.code === 'RATE_LIMITED' || response.status === 429) return COPY.login.errors.tooManyRequests;
+    if (data.code === 'INVALID_PASSCODE' || response.status === 401) return COPY.login.errors.incorrect;
+    // Fallback: Generic error message for any other cases (network issues, server errors, unexpected responses, etc.)
+    return COPY.login.errors.connection;
   }
 
   async function handleSubmit(): Promise<void> {
@@ -51,13 +59,13 @@
         await new Promise((resolve) => setTimeout(resolve, 2000));
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as VerifyPasscodeResponse;
 
       if (data.valid) {
         await refreshAuthState();
         await goto(resolve('/', {}), { replaceState: true });
       } else {
-        handleError(COPY.login.errors.incorrect);
+        handleError(getLoginErrorMessage(response, data));
       }
     } catch {
       handleError(COPY.login.errors.connection);
