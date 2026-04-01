@@ -2,6 +2,7 @@
   import { authState } from '$lib/auth-state.svelte';
   import { Hero, LoginGate, PageWrapper } from '$lib/components';
 </script>
+
 {#if authState.isChecking}
   <!-- Show just background whilst state is loading -->
   <PageWrapper
