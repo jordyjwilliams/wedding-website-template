@@ -40,7 +40,7 @@ Built with:
 ### 🥫 Prerequisites
 
 - Node.js 24+ and pnpm 10+
-- [Netlify CLI](https://docs.netlify.com/cli/get-started/): `pnpm install -g netlify-cli`
+- [Netlify CLI](https://docs.netlify.com/cli/get-started/)
 
 ### ⌨️ Installation
 
