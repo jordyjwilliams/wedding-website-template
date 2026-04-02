@@ -1,5 +1,6 @@
 import { afterEach, vi, beforeAll } from 'vitest';
-import { cleanup } from '@testing-library/svelte';
+// TODO: add cleanup usage for UI tests
+// import { cleanup } from '@testing-library/svelte';
 
 // These must be set at module load time because some Netlify functions
 // read env vars during import and log warnings if they are missing.
@@ -12,7 +13,7 @@ globalThis.document = globalThis.document || {};
 
 // Cleanup after each test
 afterEach(() => {
-  cleanup();
+  // cleanup();
   vi.clearAllMocks();
 });
 
