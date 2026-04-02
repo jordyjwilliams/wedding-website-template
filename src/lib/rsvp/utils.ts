@@ -1,5 +1,6 @@
 export type AttendanceResponse = 'yes' | 'no';
 
+// Necessary to handle initial undefined/unselected state.
 export function isAttendanceResponse(value: string): value is AttendanceResponse {
   return value === 'yes' || value === 'no';
 }
