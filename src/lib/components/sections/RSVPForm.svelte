@@ -73,13 +73,7 @@
   // Max of 4 additional guests (5 total including the main guest)
   let additionalGuestCount = $derived(
     showGuestCount
-      ? Math.max(
-          0,
-          Math.min(
-            GUEST_COUNT_MAX,
-            Math.max(GUEST_COUNT_MIN, Number.parseInt(formData.guestCount, 10) || GUEST_COUNT_MIN)
-          ) - 1
-        )
+      ? Math.max(0, getNormalizedGuestCount(formData.guestCount) - 1)
       : 0
   );
 
@@ -177,9 +171,9 @@
     attendanceError = '';
 
     if (showGuestCount) {
-      const guestCount = Number.parseInt(formData.guestCount, 10);
+      const guestCount = parseGuestCount(formData.guestCount);
       const isInvalidGuestCount =
-        Number.isNaN(guestCount) || guestCount < GUEST_COUNT_MIN || guestCount > GUEST_COUNT_MAX;
+        guestCount === null || guestCount < GUEST_COUNT_MIN || guestCount > GUEST_COUNT_MAX;
 
       if (isInvalidGuestCount) {
         guestCountError = `Please enter a guest count between ${GUEST_COUNT_MIN} and ${GUEST_COUNT_MAX}.`;
@@ -232,17 +226,18 @@
     }
 
     const attendanceResponse = selectedAttendance;
+    const normalizedGuestCount = getNormalizedGuestCount(formData.guestCount);
+    const normalizedAdditionalGuestNames = additionalGuestNames
+      .map((name) => name.trim())
+      .filter(Boolean);
 
     const submitData = {
       ...formData,
       attendance: attendanceResponse,
-      guestCount: attendanceResponse === 'yes' ? formData.guestCount : '0',
+      guestCount: attendanceResponse === 'yes' ? String(normalizedGuestCount) : '0',
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
-      additionalGuestNames:
-        attendanceResponse === 'yes'
-          ? additionalGuestNames.map((name) => name.trim()).filter(Boolean)
-          : [],
+      additionalGuestNames: attendanceResponse === 'yes' ? normalizedAdditionalGuestNames : [],
       timestamp: new Date().toISOString(),
     };
 
