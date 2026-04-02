@@ -8,6 +8,30 @@ type TestEvent = Partial<HandlerEvent> & {
   body?: string;
 };
 
+// Helper to create valid session tokens
+async function createSessionToken(secret: string): Promise<string> {
+  const expiresAt = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+  const nonce = Array.from(globalThis.crypto.getRandomValues(new Uint8Array(16)))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+  const payload = `${expiresAt}.${nonce}`;
+
+  const encoder = new TextEncoder();
+  const key = await globalThis.crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  const signature = await globalThis.crypto.subtle.sign('HMAC', key, encoder.encode(payload));
+  const signatureHex = Array.from(new Uint8Array(signature))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+
+  return `${payload}.${signatureHex}`;
+}
+
 describe('check-session Netlify function', () => {
   beforeEach(() => {
     process.env.SESSION_SIGNING_SECRET = 'test-secret-key-32-chars-minimum!';
