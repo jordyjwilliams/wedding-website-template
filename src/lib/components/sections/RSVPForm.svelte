@@ -241,11 +241,10 @@
       timestamp: new Date().toISOString(),
     };
 
-    try {
-      // Add timeout to prevent hanging
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
+    try {
       // TODO: when this is linked up and tested - ensure `cors` mode is handled correctly.
       // It could be that we need to use `no-cors` here - Address when testing.
       // Unsure if Google Apps Script returns CORS headers for browser-origin requests.
@@ -261,8 +260,6 @@
       });
 
       void response;
-
-      clearTimeout(timeoutId);
 
       // Success
       messageType = 'success';
@@ -299,6 +296,7 @@
         formMessage = `❌ ${COPY.rsvp.error.submitFailed}`;
       }
     } finally {
+      clearTimeout(timeoutId);
       isLoading = false;
     }
   }
