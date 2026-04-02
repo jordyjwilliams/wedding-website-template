@@ -9,7 +9,7 @@
   package = "@netlify/plugin-csp-nonce"
   [plugins.inputs]
     reportOnly = false
-    unsafeEval = true
+    unsafeEval = false
     unsafeInline = false
 
 [dev]
