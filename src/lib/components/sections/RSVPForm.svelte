@@ -159,7 +159,7 @@
     guestCountError = '';
   }
 
-  async function handleSubmit(event: Event): Promise<void> {
+  async function handleSubmit(event: SubmitEvent): Promise<void> {
     event.preventDefault();
 
     if (!selectedAttendance) {
@@ -231,7 +231,7 @@
       .map((name) => name.trim())
       .filter(Boolean);
 
-    const submitData = {
+    const submitData: SubmitData = {
       ...formData,
       attendance: attendanceResponse,
       guestCount: attendanceResponse === 'yes' ? String(normalizedGuestCount) : '0',
