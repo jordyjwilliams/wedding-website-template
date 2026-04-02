@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import type { HandlerEvent } from '@netlify/functions';
+import type { HandlerEvent, HandlerContext } from '@netlify/functions';
 import { handler as checkSessionHandler } from '../../../../netlify/functions/check-session';
+
+const mockContext: HandlerContext = {} as HandlerContext;
 
 type TestEvent = Partial<HandlerEvent> & {
   httpMethod: string;
@@ -48,7 +50,7 @@ describe('check-session Netlify function', () => {
       headers: {},
       body: '',
     };
-    const result = await checkSessionHandler(event as HandlerEvent);
+    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
 
     expect(result.statusCode).toBeGreaterThanOrEqual(400);
   });
@@ -78,7 +80,7 @@ describe('check-session Netlify function', () => {
     };
 
     const { handler } = await import('../../../../netlify/functions/check-session');
-    const result = await handler(event as HandlerEvent);
+    const result = await handler(event as HandlerEvent, mockContext);
 
     expect(result.statusCode).toBe(500);
   });
@@ -88,7 +90,7 @@ describe('check-session Netlify function', () => {
       httpMethod: 'GET',
       headers: {},
     };
-    const result = await checkSessionHandler(event as HandlerEvent);
+    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
 
     expect(result.headers['X-Content-Type-Options']).toBe('nosniff');
     expect(result.headers['X-Frame-Options']).toBe('DENY');
