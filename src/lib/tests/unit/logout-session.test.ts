@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { HandlerEvent, HandlerContext } from '@netlify/functions';
+import type { HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions';
 import { handler as logoutSessionHandler } from '../../../../netlify/functions/logout-session';
 
 // NOTE: logout-session: called in clearAuth
@@ -19,7 +19,10 @@ describe('logout-session Netlify function', () => {
       httpMethod: 'GET',
       headers: {},
     };
-    const result = await logoutSessionHandler(event as HandlerEvent, mockContext);
+    const result = (await logoutSessionHandler(
+      event as HandlerEvent,
+      mockContext
+    )) as HandlerResponse;
 
     expect(result.statusCode).toBe(405);
   });
@@ -52,10 +55,13 @@ describe('logout-session Netlify function', () => {
         'x-forwarded-proto': proto,
       },
     };
-    const result = await logoutSessionHandler(event as HandlerEvent, mockContext);
+    const result = (await logoutSessionHandler(
+      event as HandlerEvent,
+      mockContext
+    )) as HandlerResponse;
 
     expect(result.statusCode).toBe(200);
-    const setCookie = result.headers['Set-Cookie'];
+    const setCookie = result.headers!['Set-Cookie'];
 
     if (includeBaseCookieAssertions) {
       expect(setCookie).toBeDefined();
@@ -77,10 +83,13 @@ describe('logout-session Netlify function', () => {
       httpMethod: 'POST',
       headers: { 'x-forwarded-proto': 'https' },
     };
-    const result = await logoutSessionHandler(event as HandlerEvent, mockContext);
+    const result = (await logoutSessionHandler(
+      event as HandlerEvent,
+      mockContext
+    )) as HandlerResponse;
 
-    expect(result.headers['X-Content-Type-Options']).toBe('nosniff');
-    expect(result.headers['X-Frame-Options']).toBe('DENY');
-    expect(result.headers['Cache-Control']).toBe('no-store');
+    expect(result.headers!['X-Content-Type-Options']).toBe('nosniff');
+    expect(result.headers!['X-Frame-Options']).toBe('DENY');
+    expect(result.headers!['Cache-Control']).toBe('no-store');
   });
 });

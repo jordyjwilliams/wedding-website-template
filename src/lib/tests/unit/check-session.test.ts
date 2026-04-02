@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import type { HandlerEvent, HandlerContext } from '@netlify/functions';
+import type { HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions';
 import { handler as checkSessionHandler } from '../../../../netlify/functions/check-session';
 
 const mockContext: HandlerContext = {} as HandlerContext;
@@ -50,23 +50,29 @@ describe('check-session Netlify function', () => {
       headers: {},
       body: '',
     };
-    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
+    const result = (await checkSessionHandler(
+      event as HandlerEvent,
+      mockContext
+    )) as HandlerResponse;
 
     expect(result.statusCode).toBeGreaterThanOrEqual(400);
   });
 
   it('returns valid response when authenticated', async () => {
-    const token = await createSessionToken(process.env.SESSION_SIGNING_SECRET);
+    const token = await createSessionToken(process.env.SESSION_SIGNING_SECRET!);
     const event: TestEvent = {
       httpMethod: 'GET',
       headers: {
         cookie: `wedding_auth=${token}`,
       },
     };
-    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
+    const result = (await checkSessionHandler(
+      event as HandlerEvent,
+      mockContext
+    )) as HandlerResponse;
 
     expect(result.statusCode).toBe(200);
-    const body = JSON.parse(result.body);
+    const body = JSON.parse(result.body!);
     expect(body).toHaveProperty('valid');
     expect(body.valid).toBe(true);
   });
@@ -80,7 +86,7 @@ describe('check-session Netlify function', () => {
     };
 
     const { handler } = await import('../../../../netlify/functions/check-session');
-    const result = await handler(event as HandlerEvent, mockContext);
+    const result = (await handler(event as HandlerEvent, mockContext)) as HandlerResponse;
 
     expect(result.statusCode).toBe(500);
   });
@@ -91,10 +97,13 @@ describe('check-session Netlify function', () => {
       headers: {},
       // No wedding_auth cookie
     };
-    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
+    const result = (await checkSessionHandler(
+      event as HandlerEvent,
+      mockContext
+    )) as HandlerResponse;
     // failed successfully. Here we are just checking current status.
     expect(result.statusCode).toBe(200);
-    const body = JSON.parse(result.body);
+    const body = JSON.parse(result.body!);
     expect(body.valid).toBe(false);
   });
 
@@ -103,10 +112,13 @@ describe('check-session Netlify function', () => {
       httpMethod: 'GET',
       headers: {},
     };
-    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
+    const result = (await checkSessionHandler(
+      event as HandlerEvent,
+      mockContext
+    )) as HandlerResponse;
 
-    expect(result.headers['X-Content-Type-Options']).toBe('nosniff');
-    expect(result.headers['X-Frame-Options']).toBe('DENY');
-    expect(result.headers['Cache-Control']).toBe('no-store');
+    expect(result.headers!['X-Content-Type-Options']).toBe('nosniff');
+    expect(result.headers!['X-Frame-Options']).toBe('DENY');
+    expect(result.headers!['Cache-Control']).toBe('no-store');
   });
 });
