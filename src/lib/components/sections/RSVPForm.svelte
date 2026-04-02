@@ -12,9 +12,15 @@
   import { RSVP_LIMITS } from '$lib/constants';
   import { COPY } from '$lib/content';
   import ContactUs from '$lib/components/ContactUs.svelte';
+  import {
+    getNormalizedGuestCount,
+    isAttendanceResponse,
+    parseGuestCount,
+    validatePhone,
+    type AttendanceResponse,
+  } from '$lib/rsvp/utils';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
-  type AttendanceResponse = 'yes' | 'no';
   type FormMessageType = 'success' | 'error' | '';
   const GUEST_COUNT_MIN = RSVP_LIMITS.guestCountMin;
   const GUEST_COUNT_MAX = RSVP_LIMITS.guestCountMax;
@@ -72,7 +78,12 @@
   let showGuestCount = $derived(selectedAttendance === 'yes');
   // Max of 4 additional guests (5 total including the main guest)
   let additionalGuestCount = $derived(
-    showGuestCount ? Math.max(0, getNormalizedGuestCount(formData.guestCount) - 1) : 0
+    showGuestCount
+      ? Math.max(
+          0,
+          getNormalizedGuestCount(formData.guestCount, GUEST_COUNT_MIN, GUEST_COUNT_MAX) - 1
+        )
+      : 0
   );
 
   let selectedAttendanceLabel = $derived(
@@ -99,10 +110,6 @@
     return attendance === 'yes' ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
   }
 
-  function isAttendanceResponse(value: string): value is AttendanceResponse {
-    return value === 'yes' || value === 'no';
-  }
-
   function updateAdditionalGuestName(index: number, value: string): void {
     additionalGuestNames[index] = value;
     additionalGuestNames = [...additionalGuestNames];
@@ -110,34 +117,6 @@
     if (value.trim() !== '') {
       additionalGuestNamesError = '';
     }
-  }
-
-  function parseGuestCount(value: string): number | null {
-    const parsed = Number.parseInt(value, 10);
-    return Number.isNaN(parsed) ? null : parsed;
-  }
-
-  function getNormalizedGuestCount(value: string): number {
-    const parsedGuestCount = parseGuestCount(value);
-    if (parsedGuestCount === null) return GUEST_COUNT_MIN;
-
-    return Math.min(GUEST_COUNT_MAX, Math.max(GUEST_COUNT_MIN, parsedGuestCount));
-  }
-
-  function validatePhone(phone: string): boolean {
-    if (!phone || phone.trim() === '') return true; // Optional field
-
-    // Remove spaces and common formatting characters
-    const cleanPhone = phone.replace(/[\s()-]/g, '');
-
-    // NOTE: currently tested on AU and US style numbers: Adjust as necessary.
-    // Australian mobile format: +61 4XX XXX XXX or 04XX XXX XXX
-    const australianMobileRegex = /^(\+61|0)?4\d{8}$/;
-
-    // International format: + followed by 7-15 digits
-    const internationalRegex = /^\+\d{7,15}$/;
-
-    return australianMobileRegex.test(cleanPhone) || internationalRegex.test(cleanPhone);
   }
 
   function handlePhoneInput(event: Event): void {
@@ -224,7 +203,11 @@
     }
 
     const attendanceResponse = selectedAttendance;
-    const normalizedGuestCount = getNormalizedGuestCount(formData.guestCount);
+    const normalizedGuestCount = getNormalizedGuestCount(
+      formData.guestCount,
+      GUEST_COUNT_MIN,
+      GUEST_COUNT_MAX
+    );
     const normalizedAdditionalGuestNames = additionalGuestNames
       .map((name) => name.trim())
       .filter(Boolean);
