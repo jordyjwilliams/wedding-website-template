@@ -2,6 +2,9 @@
   command = "pnpm run build"
   publish = "build"
 
+[build.environment]
+  CSP_NONCE_DISTRIBUTION = "1"
+
 [functions]
   directory = "netlify/functions"
 
