@@ -37,5 +37,5 @@ if (!globalThis.crypto) {
       sign: async () => new ArrayBuffer(64),
       verify: async () => true,
     },
-  } as unknown as SubtleCrypto & { getRandomValues: (arr: Uint8Array) => Uint8Array };
+  } as unknown as Crypto;
 }
