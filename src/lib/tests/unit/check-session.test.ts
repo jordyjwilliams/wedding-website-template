@@ -54,16 +54,19 @@ describe('check-session Netlify function', () => {
   });
 
   it('returns valid response when authenticated', async () => {
+    const token = await createSessionToken(process.env.SESSION_SIGNING_SECRET);
     const event: TestEvent = {
       httpMethod: 'GET',
-      headers: {},
+      headers: {
+        cookie: `wedding_auth=${token}`,
+      },
     };
-    const result = await checkSessionHandler(event as HandlerEvent);
+    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
 
-    expect(result.statusCode).toBeGreaterThanOrEqual(200);
+    expect(result.statusCode).toBe(200);
     const body = JSON.parse(result.body);
     expect(body).toHaveProperty('valid');
-    expect(typeof body.valid).toBe('boolean');
+    expect(body.valid).toBe(true);
   });
 
   it('handles missing SECRET gracefully', async () => {
