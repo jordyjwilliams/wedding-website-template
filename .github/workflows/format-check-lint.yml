@@ -40,7 +40,7 @@ jobs:
         run: pnpm run format:check
       - name: Lint (ESLint)
         run: pnpm run lint
-      - name: Type check (svelte-check).
+      - name: Type check (svelte-check)
         run: pnpm run check
       - name: Security Audit (pnpm audit)
         run: pnpm audit --audit-level=low || true
