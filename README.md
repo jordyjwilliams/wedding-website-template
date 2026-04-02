@@ -68,6 +68,7 @@ Set these in local `.env` and in Netlify dashboard:
 - `WEDDING_PASSCODE` (required): passcode guests enter on the login screen.
 - `SESSION_SIGNING_SECRET` (required): strong random signing secret used for HMAC session cookies.
 - `PUBLIC_SITE_URL` (optional): canonical site URL included in Google Calendar event details.
+  - If left commented: Uses site origin (where deployed)
 
 Generate a strong signing secret on macOS:
 
