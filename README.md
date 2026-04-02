@@ -89,6 +89,20 @@ Visit [http://localhost:8888](http://localhost:8888)
 >
 > - Use `netlify dev` instead of `pnpm run dev` to enable Netlify Functions for passcode authentication.
 
+### 🧪 Testing
+
+Unit tests with **Vitest**
+
+```bash
+# Watch mode
+pnpm test
+
+# With coverage
+pnpm test:coverage
+```
+
+Structure split into `unit` and planning to add `ui`.
+
 ### ✨ Make It **YOURS**...
 
 #### 🖼️ Background images
@@ -204,4 +218,4 @@ Security defaults:
   - 📸 Add gallery of image and extended story text to: our story page.
   - 🌐 Use existing `InlineLinkSegment` for all text from `COPY` and `CONTENT` where it makes sence.
 - 🧪 **Unit Tests**
-  - 📝 Consider adding to repo.
+  - 🖥️ **@testing-library/svelte**: for ui tests.
