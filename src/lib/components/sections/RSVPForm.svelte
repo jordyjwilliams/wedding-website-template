@@ -36,6 +36,15 @@
     message: string;
   }
 
+  interface SubmitData extends FormData {
+    attendance: AttendanceResponse;
+    guestCount: string;
+    dietaryRestrictions: string;
+    message: string;
+    additionalGuestNames: string[];
+    timestamp: string;
+  }
+
   const INITIAL_FORM_DATA: FormData = {
     firstName: '',
     lastName: '',
