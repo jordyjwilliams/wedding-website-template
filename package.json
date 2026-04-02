@@ -25,6 +25,7 @@
     "@lottiefiles/dotlottie-svelte": "^0.9.10",
     "@lucide/svelte": "^1.7.0",
     "@netlify/functions": "^5.1.5",
+    "@netlify/plugin-csp-nonce": "^1.6.2",
     "@sveltejs/adapter-netlify": "^6.0.4",
     "@sveltejs/kit": "^2.55.0",
     "@sveltejs/vite-plugin-svelte": "^7.0.0",
