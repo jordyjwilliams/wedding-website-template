@@ -120,6 +120,18 @@
     }
   }
 
+  function parseGuestCount(value: string): number | null {
+    const parsed = Number.parseInt(value, 10);
+    return Number.isNaN(parsed) ? null : parsed;
+  }
+
+  function getNormalizedGuestCount(value: string): number {
+    const parsedGuestCount = parseGuestCount(value);
+    if (parsedGuestCount === null) return GUEST_COUNT_MIN;
+
+    return Math.min(GUEST_COUNT_MAX, Math.max(GUEST_COUNT_MIN, parsedGuestCount));
+  }
+
   function validatePhone(phone: string): boolean {
     if (!phone || phone.trim() === '') return true; // Optional field
 
