@@ -37,6 +37,8 @@ describe('logout-session Netlify function', () => {
       expectSecure: true,
       includeBaseCookieAssertions: false,
     },
+    // In the deployed site https will be enforced.
+    // This is a purely theoretical test.
     {
       name: 'handles HTTP protocol (no Secure flag)',
       proto: 'http',
