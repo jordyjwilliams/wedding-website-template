@@ -85,6 +85,19 @@ describe('check-session Netlify function', () => {
     expect(result.statusCode).toBe(500);
   });
 
+  it('returns valid=false when not authenticated', async () => {
+    const event: TestEvent = {
+      httpMethod: 'GET',
+      headers: {},
+      // No wedding_auth cookie
+    };
+    const result = await checkSessionHandler(event as HandlerEvent, mockContext);
+    // failed successfully. Here we are just checking current status.
+    expect(result.statusCode).toBe(200);
+    const body = JSON.parse(result.body);
+    expect(body.valid).toBe(false);
+  });
+
   it('includes security headers', async () => {
     const event: TestEvent = {
       httpMethod: 'GET',
