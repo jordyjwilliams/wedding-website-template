@@ -2,6 +2,9 @@ import { describe, it, expect } from 'vitest';
 import type { HandlerEvent, HandlerContext } from '@netlify/functions';
 import { handler as logoutSessionHandler } from '../../../../netlify/functions/logout-session';
 
+// NOTE: logout-session: called in clearAuth
+// Only component that uses it is only visable if VITE_DEBUG_MODE=true
+
 const mockContext: HandlerContext = {} as HandlerContext;
 
 type TestEvent = Partial<HandlerEvent> & {
