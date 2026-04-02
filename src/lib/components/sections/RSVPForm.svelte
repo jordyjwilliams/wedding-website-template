@@ -72,9 +72,7 @@
   let showGuestCount = $derived(selectedAttendance === 'yes');
   // Max of 4 additional guests (5 total including the main guest)
   let additionalGuestCount = $derived(
-    showGuestCount
-      ? Math.max(0, getNormalizedGuestCount(formData.guestCount) - 1)
-      : 0
+    showGuestCount ? Math.max(0, getNormalizedGuestCount(formData.guestCount) - 1) : 0
   );
 
   let selectedAttendanceLabel = $derived(
