@@ -41,7 +41,7 @@ function normalizeUrl(url: string): string {
 }
 
 function getWeddingWebsiteUrl(): string {
-  const publicSiteUrl = import.meta.env.PUBLIC_SITE_URL || '';
+  const publicSiteUrl = import.meta.env.VITE_PUBLIC_SITE_URL || '';
 
   if (publicSiteUrl) {
     return normalizeUrl(publicSiteUrl);
