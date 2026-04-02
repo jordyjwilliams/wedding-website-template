@@ -1,7 +1,6 @@
 // Generate calendar invite links
 
 import { browser } from '$app/environment';
-import { PUBLIC_SITE_URL } from '$env/static/public';
 import { WEDDING } from '$lib/constants';
 import { COPY } from '$lib/content';
 
@@ -42,8 +41,10 @@ function normalizeUrl(url: string): string {
 }
 
 function getWeddingWebsiteUrl(): string {
-  if (PUBLIC_SITE_URL) {
-    return normalizeUrl(PUBLIC_SITE_URL);
+  const publicSiteUrl = import.meta.env.PUBLIC_SITE_URL || '';
+
+  if (publicSiteUrl) {
+    return normalizeUrl(publicSiteUrl);
   }
 
   return browser ? normalizeUrl(window.location.origin) : '';
