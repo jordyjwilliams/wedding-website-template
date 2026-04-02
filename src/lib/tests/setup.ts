@@ -3,8 +3,8 @@ import { cleanup } from '@testing-library/svelte';
 
 // These must be set at module load time because some Netlify functions
 // read env vars during import and log warnings if they are missing.
-process.env.WEDDING_PASSCODE ||= 'test-passcode-123';
-process.env.SESSION_SIGNING_SECRET ||= 'test-secret-key-32-chars-minimum!';
+process.env.WEDDING_PASSCODE = 'test-passcode-123';
+process.env.SESSION_SIGNING_SECRET = 'test-secret-key-32-chars-minimum!';
 
 // Set environment for client-side rendering
 globalThis.window = globalThis.window || {};
