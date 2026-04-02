@@ -42,6 +42,8 @@ jobs:
         run: pnpm run lint
       - name: Type check (svelte-check)
         run: pnpm run check
+      - name: Test (Unit tests)
+        run: pnpm test
       - name: Security Audit (pnpm audit)
         run: pnpm audit --audit-level=low || true
       - name: Build (Vite)
