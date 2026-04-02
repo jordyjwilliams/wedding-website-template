@@ -5,16 +5,41 @@ import { parseInlineLinks } from '$lib/utils';
 // REF: https://github.com/huntabyte/shadcn-svelte/blob/4de0a05f149a3f9f4fb10016dea3ea62b4e9b760/docs/src/lib/utils.ts#L4-L6
 
 describe('parseInlineLinks() - markdown link parser', () => {
-  it('parses simple markdown link', () => {
-    const input = '[example](https://example.com)';
+  it.each([
+    {
+      name: 'parses simple markdown link',
+      input: '[example](https://example.com)',
+      expected: [{ text: 'example', href: 'https://example.com' }],
+    },
+    {
+      name: 'handles relative links (/path)',
+      input: '[internal](/about)',
+      expected: [{ text: 'internal', href: '/about' }],
+    },
+    {
+      name: 'handles email links (mailto:)',
+      input: '[contact](mailto:test@example.com)',
+      expected: [{ text: 'contact', href: 'mailto:test@example.com' }],
+    },
+    {
+      name: 'handles phone links (tel:)',
+      input: '[call us](tel:+1234567890)',
+      expected: [{ text: 'call us', href: 'tel:+1234567890' }],
+    },
+    {
+      name: 'handles hash/anchor links (#section)',
+      input: '[jump](#top)',
+      expected: [{ text: 'jump', href: '#top' }],
+    },
+    {
+      name: 'handles plain text without links',
+      input: 'Just plain text here',
+      expected: [{ text: 'Just plain text here', href: null }],
+    },
+  ])('$name', ({ input, expected }) => {
     const result = parseInlineLinks(input);
 
-    expect(result).toEqual([
-      {
-        text: 'example',
-        href: 'https://example.com',
-      },
-    ]);
+    expect(result).toEqual(expected);
   });
 
   it('parses multiple markdown links', () => {
@@ -42,82 +67,23 @@ describe('parseInlineLinks() - markdown link parser', () => {
     ]);
   });
 
-  it('handles relative links (/path)', () => {
-    const input = '[internal](/about)';
-    const result = parseInlineLinks(input);
-
-    expect(result).toEqual([
-      {
-        text: 'internal',
-        href: '/about',
-      },
-    ]);
-  });
-
-  it('handles email links (mailto:)', () => {
-    const input = '[contact](mailto:test@example.com)';
-    const result = parseInlineLinks(input);
-
-    expect(result).toEqual([
-      {
-        text: 'contact',
-        href: 'mailto:test@example.com',
-      },
-    ]);
-  });
-
-  it('handles phone links (tel:)', () => {
-    const input = '[call us](tel:+1234567890)';
-    const result = parseInlineLinks(input);
-
-    expect(result).toEqual([
-      {
-        text: 'call us',
-        href: 'tel:+1234567890',
-      },
-    ]);
-  });
-
-  it('handles hash/anchor links (#section)', () => {
-    const input = '[jump](#top)';
-    const result = parseInlineLinks(input);
-
-    expect(result).toEqual([
-      {
-        text: 'jump',
-        href: '#top',
-      },
-    ]);
-  });
-
-  it('blocks unsafe URLs with no href safe', () => {
-    const input = '[click](javascript:alert("xss"))';
+  it.each([
+    {
+      name: 'blocks unsafe URLs with no href safe',
+      input: '[click](javascript:alert("xss"))',
+      blockedText: 'javascript',
+    },
+    {
+      name: 'blocks data URLs (unsafe)',
+      input: '[image](data:text/html,<script>alert("xss")</script>)',
+      blockedText: 'data',
+    },
+  ])('$name', ({ input, blockedText }) => {
     const result = parseInlineLinks(input);
 
     // Unsafe URLs should not be parsed as links - the whole markdown should be returned as text
     expect(result[0]?.href).toBeNull();
-    expect(result[0]?.text).toContain('javascript');
-  });
-
-  it('blocks data URLs (unsafe)', () => {
-    const input = '[image](data:text/html,<script>alert("xss")</script>)';
-    const result = parseInlineLinks(input);
-
-    // Data URLs are not safe - should not be parsed as links
-    expect(result[0]?.href).toBeNull();
-    expect(result[0]?.text).toContain('data');
-  });
-
-  it('handles plain text without links', () => {
-    const input = 'Just plain text here';
-    const result = parseInlineLinks(input);
-
-    expect(result).toEqual([
-      {
-        text: 'Just plain text here',
-        href: null,
-      },
-    ]);
+    expect(result[0]?.text).toContain(blockedText);
   });
 
   it('handles empty string', () => {
