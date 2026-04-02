@@ -10,7 +10,7 @@
   [plugins.inputs]
     reportOnly = false
     unsafeEval = true
-    unsafeInline = true
+    unsafeInline = false
 
 [dev]
   targetPort = 5173
