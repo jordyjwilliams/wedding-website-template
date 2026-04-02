@@ -24,50 +24,50 @@ describe('logout-session Netlify function', () => {
     expect(result.statusCode).toBe(405);
   });
 
-  it('clears auth cookie on POST', async () => {
+  it.each([
+    {
+      name: 'clears auth cookie on POST',
+      proto: 'https',
+      expectSecure: true,
+      includeBaseCookieAssertions: true,
+    },
+    {
+      name: 'sets secure cookie attributes',
+      proto: 'https',
+      expectSecure: true,
+      includeBaseCookieAssertions: false,
+    },
+    {
+      name: 'handles HTTP protocol (no Secure flag)',
+      proto: 'http',
+      expectSecure: false,
+      includeBaseCookieAssertions: false,
+    },
+  ])('$name', async ({ proto, expectSecure, includeBaseCookieAssertions }) => {
     const event: TestEvent = {
       httpMethod: 'POST',
       headers: {
-        'x-forwarded-proto': 'https',
+        'x-forwarded-proto': proto,
       },
     };
     const result = await logoutSessionHandler(event as HandlerEvent, mockContext);
 
     expect(result.statusCode).toBe(200);
-    expect(result.headers['Set-Cookie']).toBeDefined();
-    expect(result.headers['Set-Cookie']).toContain('wedding_auth=');
-    expect(result.headers['Set-Cookie']).toContain('Max-Age=0'); // Immediately expires
-  });
-
-  it('sets secure cookie attributes', async () => {
-    const event: TestEvent = {
-      httpMethod: 'POST',
-      headers: {
-        'x-forwarded-proto': 'https',
-      },
-    };
-    const result = await logoutSessionHandler(event as HandlerEvent, mockContext);
-
-    expect(result.headers['Set-Cookie']).toContain('HttpOnly');
-    expect(result.headers['Set-Cookie']).toContain('SameSite=Lax');
-    expect(result.headers['Set-Cookie']).toContain('Secure');
-  });
-
-  // NOTE: https enforced by setup and netlify.
-  // Theoretical validation.
-  it('handles HTTP protocol (no Secure flag)', async () => {
-    const event: TestEvent = {
-      httpMethod: 'POST',
-      headers: {
-        'x-forwarded-proto': 'http',
-      },
-    };
-    const result = await logoutSessionHandler(event as HandlerEvent, mockContext);
-    expect(result.statusCode).toBe(200);
-    // Should not have Secure flag for HTTP
     const setCookie = result.headers['Set-Cookie'];
+
+    if (includeBaseCookieAssertions) {
+      expect(setCookie).toBeDefined();
+      expect(setCookie).toContain('wedding_auth=');
+      expect(setCookie).toContain('Max-Age=0'); // Immediately expires
+    }
+
     expect(setCookie).toContain('HttpOnly');
     expect(setCookie).toContain('SameSite=Lax');
+    if (expectSecure) {
+      expect(setCookie).toContain('Secure');
+    } else {
+      expect(setCookie).not.toContain('Secure');
+    }
   });
 
   it('includes security headers', async () => {
