@@ -8,6 +8,13 @@
 [functions]
   directory = "netlify/functions"
 
+[[plugins]]
+  package = "@netlify/plugin-csp-nonce"
+  [plugins.inputs]
+    reportOnly = false
+    unsafeEval = false
+    unsafeInline = false
+
 [dev]
   targetPort = 5173
   port = 8888
