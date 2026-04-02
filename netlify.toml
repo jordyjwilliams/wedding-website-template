@@ -1,19 +1,9 @@
 [build]
-  command = "pnpm run build"
+  command = "pnpm build"
   publish = "build"
-
-[build.environment]
-  CSP_NONCE_DISTRIBUTION = "1"
 
 [functions]
   directory = "netlify/functions"
-
-[[plugins]]
-  package = "@netlify/plugin-csp-nonce"
-  [plugins.inputs]
-    reportOnly = false
-    unsafeEval = false
-    unsafeInline = false
 
 [dev]
   targetPort = 5173
