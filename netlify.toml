@@ -36,7 +36,8 @@
     Content-Security-Policy = """
       default-src 'none';
       script-src 'self' 'wasm-unsafe-eval';
-      style-src 'self' 'wasm-unsafe-eval';
+      style-src 'self';
+      object-src 'self';
       connect-src 'self';
       img-src 'self';
       base-uri 'self'
