@@ -27,9 +27,20 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Restrict permissions for powerful features to prevent abuse
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    # Ref: https://content-security-policy.com/
+    # wasm-unsafe-eval required for dotlottie-svelte
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src#unsafe_webassembly_execution
     # https://github.com/LottieFiles/dotlottie-web/issues/434
     # https://github.com/LottieFiles/dotlottie-web/issues/221
     # https://github.com/LottieFiles/dotlottie-web/issues/337#issuecomment-2309497241
-    Content-Security-Policy = "script-src 'wasm-unsafe-eval'"
+    Content-Security-Policy = """
+      default-src 'none';
+      script-src 'self' 'wasm-unsafe-eval';
+      style-src 'self' 'wasm-unsafe-eval';
+      connect-src 'self';
+      img-src 'self';
+      base-uri 'self'
+      frame-ancestors 'none';
+      form-action 'self'
+    """
 
