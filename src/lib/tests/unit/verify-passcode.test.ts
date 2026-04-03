@@ -110,13 +110,12 @@ describe('verify-passcode Netlify function', () => {
 
   it('declares native Netlify rate limiting for passcode verification', () => {
     expect(verifyPasscodeConfig.path).toBe('/.netlify/functions/verify-passcode');
-      expect(verifyPasscodeConfig.rateLimit).toBeDefined();
-      if (!verifyPasscodeConfig.rateLimit) {
-        throw new Error('Expected verify-passcode rate limit config to be defined');
-      }
-      expect(verifyPasscodeConfig.rateLimit.windowLimit).toBe(5);
-      expect(verifyPasscodeConfig.rateLimit.windowSize).toBe(900);
-      expect(verifyPasscodeConfig.rateLimit.aggregateBy).toEqual(['ip', 'domain']);
+    expect(verifyPasscodeConfig.rateLimit).toBeDefined();
+    if (!verifyPasscodeConfig.rateLimit) {
+      throw new Error('Expected verify-passcode rate limit config to be defined');
+    }
+    expect(verifyPasscodeConfig.rateLimit.windowLimit).toBe(5);
+    expect(verifyPasscodeConfig.rateLimit.windowSize).toBe(900);
+    expect(verifyPasscodeConfig.rateLimit.aggregateBy).toEqual(['ip', 'domain']);
   });
-
 });
