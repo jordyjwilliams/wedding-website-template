@@ -21,9 +21,8 @@
 [[headers]]
   for = "/*"
   [headers.values]
-  # 2 hours max-age for HSTS
     Strict-Transport-Security = '''
-      max-age=7200;
+      max-age=63072000;
       includeSubDomains;
       preload'''
     X-Frame-Options = "DENY"
