@@ -26,4 +26,5 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    # Restrict permissions for powerful features to prevent abuse
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
