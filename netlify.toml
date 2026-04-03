@@ -27,3 +27,9 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Restrict permissions for powerful features to prevent abuse
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src#unsafe_webassembly_execution
+    # https://github.com/LottieFiles/dotlottie-web/issues/434
+    # https://github.com/LottieFiles/dotlottie-web/issues/221
+    # https://github.com/LottieFiles/dotlottie-web/issues/337#issuecomment-2309497241
+    Content-Security-Policy = "script-src 'wasm-unsafe-eval'"
+
