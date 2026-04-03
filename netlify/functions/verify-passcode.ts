@@ -123,8 +123,14 @@ export const handler: Handler = async (event: HandlerEvent) => {
   try {
     const { passcode } = JSON.parse(event.body || '{}') as PasscodeRequest;
 
-    // Record this attempt
-    recordAttempt(clientIp);
+    if (typeof passcode !== 'string') {
+      const response: PasscodeResponse = {
+        valid: false,
+        message: 'Invalid request',
+        code: 'INVALID_REQUEST',
+      };
+      return jsonResponse(400, headers, response);
+    }
 
     // Verify passcode using constant-time comparison to prevent timing attacks
     const isValid =
