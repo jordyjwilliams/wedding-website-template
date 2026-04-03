@@ -28,14 +28,16 @@
     # Restrict permissions for powerful features to prevent abuse
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
     # Ref: https://content-security-policy.com/
-    # wasm-unsafe-eval required for dotlottie-svelte
+    # unsafe-eval required for dotlottie-svelte
     # https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src#unsafe_webassembly_execution
     # https://github.com/LottieFiles/dotlottie-web/issues/434
     # https://github.com/LottieFiles/dotlottie-web/issues/221
     # https://github.com/LottieFiles/dotlottie-web/issues/337#issuecomment-2309497241
+    # NOTE: wasm-unsafe-eval did not work here...
+    # TODO: fix unsafe-eval usage.
     Content-Security-Policy = """
       default-src 'none';
-      script-src 'self' 'wasm-unsafe-eval';
+      script-src 'self' 'unsafe-eval';
       style-src 'self';
       object-src 'self';
       connect-src 'self';
