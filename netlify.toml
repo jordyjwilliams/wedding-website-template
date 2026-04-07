@@ -5,20 +5,6 @@
 [functions]
   directory = "netlify/functions"
 
-# Ref: https://content-security-policy.com/
-# unsafe-eval required for dotlottie-svelte
-# https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src#unsafe_webassembly_execution
-# https://github.com/LottieFiles/dotlottie-web/issues/434
-# https://github.com/LottieFiles/dotlottie-web/issues/221
-# https://github.com/LottieFiles/dotlottie-web/issues/337#issuecomment-2309497241
-# NOTE: wasm-unsafe-eval did not work here...
-# TODO: fix unsafe-eval usage.
-[[integrations]]
-  name = "content-security-policy"
-  [integrations.config]
-    # Keep nonce-based script CSP managed by the extension.
-    unsafeEval = true
-
 [dev]
   targetPort = 5173
   port = 8888
