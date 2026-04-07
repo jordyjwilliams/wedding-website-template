@@ -8,7 +8,7 @@ const REQUIRED_CSP_DIRECTIVES: Record<string, string> = {
   'form-action': "'self'",
 };
 
-const REQUIRED_SCRIPT_SRC_TOKENS = ["'wasm-unsafe-eval'", "'unsafe-eval'"];
+const REQUIRED_SCRIPT_SRC_TOKENS = ["'wasm-unsafe-eval'"];
 
 function mergeCspDirectives(cspValue: string): string {
   const directives = cspValue

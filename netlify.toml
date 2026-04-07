@@ -5,6 +5,10 @@
 [functions]
   directory = "netlify/functions"
 
+[[edge_functions]]
+  function = "security_headers"
+  path = "/*"
+
 [dev]
   targetPort = 5173
   port = 8888
@@ -22,14 +26,5 @@
   for = "/*"
   [headers.values]
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
-    X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    # Restrict permissions for powerful features to prevent abuse
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
-    # Supplemental CSP directives for scanner coverage.
-    # Keep script-src directives owned by the Netlify CSP extension to avoid nonce conflicts.
-    Content-Security-Policy = "object-src 'none'; base-uri 'self'"
-    # Introduce Trusted Types in report-only mode first to avoid breaking existing scripts.
-    Content-Security-Policy-Report-Only = "require-trusted-types-for 'script'"
 
