@@ -5,6 +5,20 @@
 [functions]
   directory = "netlify/functions"
 
+# Ref: https://content-security-policy.com/
+# unsafe-eval required for dotlottie-svelte
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src#unsafe_webassembly_execution
+# https://github.com/LottieFiles/dotlottie-web/issues/434
+# https://github.com/LottieFiles/dotlottie-web/issues/221
+# https://github.com/LottieFiles/dotlottie-web/issues/337#issuecomment-2309497241
+# NOTE: wasm-unsafe-eval did not work here...
+# TODO: fix unsafe-eval usage.
+[[integrations]]
+  name = "content-security-policy"
+  [integrations.config]
+    # Keep nonce-based script CSP managed by the extension.
+    unsafeEval = true
+
 [dev]
   targetPort = 5173
   port = 8888
@@ -27,13 +41,9 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Restrict permissions for powerful features to prevent abuse
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
-    # Ref: https://content-security-policy.com/
-    # unsafe-eval required for dotlottie-svelte
-    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/script-src#unsafe_webassembly_execution
-    # https://github.com/LottieFiles/dotlottie-web/issues/434
-    # https://github.com/LottieFiles/dotlottie-web/issues/221
-    # https://github.com/LottieFiles/dotlottie-web/issues/337#issuecomment-2309497241
-    # NOTE: wasm-unsafe-eval did not work here...
-    # TODO: fix unsafe-eval usage.
-    Content-Security-Policy = "default-src 'none'; script-src 'wasm-unsafe-eval'; style-src 'self'; object-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+    # Supplemental CSP directives for scanner coverage.
+    # Keep script-src directives owned by the Netlify CSP extension to avoid nonce conflicts.
+    Content-Security-Policy = "object-src 'none'; base-uri 'self'"
+    # Introduce Trusted Types in report-only mode first to avoid breaking existing scripts.
+    Content-Security-Policy-Report-Only = "require-trusted-types-for 'script'"
 
