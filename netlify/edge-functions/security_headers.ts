@@ -1,4 +1,4 @@
-// @ts-ignore cannot find module in Node type-checking
+// @ts-expect-error cannot find module in Node type-checking
 import type { Config, Context } from 'netlify:edge';
 
 const REQUIRED_CSP_DIRECTIVES: Record<string, string> = {
