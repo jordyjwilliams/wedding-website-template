@@ -5,6 +5,10 @@
 [functions]
   directory = "netlify/functions"
 
+[[edge_functions]]
+  function = "security_headers"
+  path = "/*"
+
 [dev]
   targetPort = 5173
   port = 8888
@@ -34,5 +38,4 @@
   for = "/*"
   [headers.values]
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
-    X-Frame-Options = "DENY"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
