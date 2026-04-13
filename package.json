@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "vite dev --host",
+    "dev": "vite dev --host --port 5174",
     "dev:netlify": "netlify dev",
     "build": "vite build",
     "preview": "vite preview --host",
@@ -27,6 +27,7 @@
     "@internationalized/date": "^3.12.0",
     "@lottiefiles/dotlottie-svelte": "^0.9.10",
     "@lucide/svelte": "^1.7.0",
+    "@netlify/blobs": "^10.7.4",
     "@netlify/functions": "^5.1.5",
     "@sveltejs/adapter-netlify": "^6.0.4",
     "@sveltejs/kit": "^2.55.0",

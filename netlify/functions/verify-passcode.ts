@@ -1,7 +1,7 @@
 // Netlify Serverless Function for Secure Passcode Verification
 // This runs on the server, so the actual passcode is never exposed to clients
 
-import type { Handler, HandlerEvent } from '@netlify/functions';
+import type { Config, Handler, HandlerEvent } from '@netlify/functions';
 
 declare const process: {
   env: Record<string, string | undefined>;
@@ -9,7 +9,17 @@ declare const process: {
 
 const CORRECT_PASSCODE = process.env.WEDDING_PASSCODE || '';
 const SESSION_SIGNING_SECRET = process.env.SESSION_SIGNING_SECRET || '';
-const SESSION_DURATION_SECONDS = 24 * 60 * 60;
+const SESSION_DURATION_SECONDS = process.env.SESSION_DURATION_SECONDS
+  ? parseInt(process.env.SESSION_DURATION_SECONDS, 10)
+  : 24 * 60 * 60; // Default to 24 hours if not set
+// For local dev testing, allow overriding rate limits via env vars for quicker iteration.
+// Usage: RATE_LIMIT_TEST_WINDOW=10 RATE_LIMIT_TEST_LIMIT=2 pnpm netlify:dev
+const RATE_LIMIT_WINDOW_SECONDS = process.env.RATE_LIMIT_TEST_WINDOW
+  ? parseInt(process.env.RATE_LIMIT_TEST_WINDOW, 10)
+  : 15 * 60;
+const RATE_LIMIT_WINDOW_LIMIT = process.env.RATE_LIMIT_TEST_LIMIT
+  ? parseInt(process.env.RATE_LIMIT_TEST_LIMIT, 10)
+  : 5;
 
 if (!CORRECT_PASSCODE) {
   console.error('WEDDING_PASSCODE environment variable is not set!');
@@ -23,7 +33,6 @@ type PasscodeCode =
   | 'ACCESS_GRANTED'
   | 'SERVER_MISCONFIGURED'
   | 'METHOD_NOT_ALLOWED'
-  | 'RATE_LIMITED'
   | 'INVALID_PASSCODE'
   | 'INVALID_REQUEST';
 
@@ -38,29 +47,6 @@ type HandlerResponse = {
   headers: Record<string, string>;
   body: string;
 };
-
-// Rate limiting: track attempts per IP
-const attemptTracker = new Map<string, number[]>();
-const MAX_ATTEMPTS = 5;
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
-
-// Check if IP has exceeded rate limit
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const attempts = attemptTracker.get(ip) || [];
-  const recentAttempts = attempts.filter((t) => now - t < WINDOW_MS);
-  attemptTracker.set(ip, recentAttempts);
-  return recentAttempts.length >= MAX_ATTEMPTS;
-}
-
-// Record an attempt for an IP
-function recordAttempt(ip: string): void {
-  const now = Date.now();
-  const attempts = attemptTracker.get(ip) || [];
-  const recentAttempts = attempts.filter((t) => now - t < WINDOW_MS);
-  recentAttempts.push(now);
-  attemptTracker.set(ip, recentAttempts);
-}
 
 function generateNonce(): string {
   const randomBytes = new Uint8Array(16);
@@ -107,11 +93,6 @@ function jsonResponse(
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
-  // Get client IP for rate limiting
-  const clientIp = (event.headers['client-ip'] || event.headers['x-forwarded-for'] || 'unknown')
-    .split(',')[0]
-    .trim();
-
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-store',
@@ -138,25 +119,17 @@ export const handler: Handler = async (event: HandlerEvent) => {
     return jsonResponse(405, headers, response);
   }
 
-  // Check rate limit
-  if (isRateLimited(clientIp)) {
-    const response: PasscodeResponse = {
-      valid: false,
-      message: 'Too many attempts. Please try again later.',
-      code: 'RATE_LIMITED',
-    };
-    const rateLimitHeaders: Record<string, string> = {
-      ...headers,
-      'Retry-After': `${Math.ceil(WINDOW_MS / 1000)}`,
-    };
-    return jsonResponse(429, rateLimitHeaders, response);
-  }
-
   try {
     const { passcode } = JSON.parse(event.body || '{}') as PasscodeRequest;
 
-    // Record this attempt
-    recordAttempt(clientIp);
+    if (typeof passcode !== 'string') {
+      const response: PasscodeResponse = {
+        valid: false,
+        message: 'Invalid request',
+        code: 'INVALID_REQUEST',
+      };
+      return jsonResponse(400, headers, response);
+    }
 
     // Verify passcode using constant-time comparison to prevent timing attacks
     const isValid =
@@ -200,4 +173,14 @@ export const handler: Handler = async (event: HandlerEvent) => {
     };
     return jsonResponse(400, headers, response);
   }
+};
+
+// Native Netlify edge rate limiting applies before this handler runs.
+export const config: Config = {
+  path: '/.netlify/functions/verify-passcode',
+  rateLimit: {
+    windowLimit: RATE_LIMIT_WINDOW_LIMIT,
+    windowSize: RATE_LIMIT_WINDOW_SECONDS,
+    aggregateBy: ['ip', 'domain'],
+  },
 };

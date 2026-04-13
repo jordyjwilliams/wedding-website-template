@@ -1,6 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import type { HandlerEvent, HandlerContext, HandlerResponse } from '@netlify/functions';
-import { handler as verifyPasscodeHandler } from '../../../../netlify/functions/verify-passcode';
+import {
+  config as verifyPasscodeConfig,
+  handler as verifyPasscodeHandler,
+} from '../../../../netlify/functions/verify-passcode';
 
 const mockContext: HandlerContext = {} as HandlerContext;
 
@@ -105,31 +108,14 @@ describe('verify-passcode Netlify function', () => {
     expect(body.message).toBe('Invalid request');
   });
 
-  it('rate limits repeated attempts from the same spoofed client IP', async () => {
-    const spoofedIp = '198.51.100.77';
-    const event: TestEvent = {
-      httpMethod: 'POST',
-      headers: { 'client-ip': spoofedIp },
-      body: JSON.stringify({ passcode: 'wrong-passcode' }),
-    };
-
-    // First five attempts should not yet be rate-limited.
-    for (let i = 0; i < 5; i++) {
-      const result = (await verifyPasscodeHandler(
-        event as HandlerEvent,
-        mockContext
-      )) as HandlerResponse;
-      expect(result.statusCode).toBe(401);
+  it('declares native Netlify rate limiting for passcode verification', () => {
+    expect(verifyPasscodeConfig.path).toBe('/.netlify/functions/verify-passcode');
+    expect(verifyPasscodeConfig.rateLimit).toBeDefined();
+    if (!verifyPasscodeConfig.rateLimit) {
+      throw new Error('Expected verify-passcode rate limit config to be defined');
     }
-
-    // Sixth attempt should be blocked by rate limiting.
-    const rateLimited = (await verifyPasscodeHandler(
-      event as HandlerEvent,
-      mockContext
-    )) as HandlerResponse;
-    expect(rateLimited.statusCode).toBe(429);
-    expect(rateLimited.headers!['Retry-After']).toBeDefined();
-    const body = JSON.parse(rateLimited.body!);
-    expect(body.code).toBe('RATE_LIMITED');
+    expect(verifyPasscodeConfig.rateLimit.windowLimit).toBe(5);
+    expect(verifyPasscodeConfig.rateLimit.windowSize).toBe(900);
+    expect(verifyPasscodeConfig.rateLimit.aggregateBy).toEqual(['ip', 'domain']);
   });
 });
