@@ -48,18 +48,6 @@ type HandlerResponse = {
   body: string;
 };
 
-// Native Netlify edge rate limiting applies before this handler runs.
-export const config: Config = {
-  path: '/.netlify/functions/verify-passcode',
-  rateLimit: {
-    // action: 'rewrite',
-    // to: '/.netlify/functions/rate-limited-passcode',
-    windowLimit: RATE_LIMIT_WINDOW_LIMIT,
-    windowSize: RATE_LIMIT_WINDOW_SECONDS,
-    aggregateBy: ['ip', 'domain'],
-  },
-};
-
 function generateNonce(): string {
   const randomBytes = new Uint8Array(16);
   globalThis.crypto.getRandomValues(randomBytes);
@@ -185,4 +173,14 @@ export const handler: Handler = async (event: HandlerEvent) => {
     };
     return jsonResponse(400, headers, response);
   }
+};
+
+// Native Netlify edge rate limiting applies before this handler runs.
+export const config: Config = {
+  path: '/.netlify/functions/verify-passcode',
+  rateLimit: {
+    windowLimit: RATE_LIMIT_WINDOW_LIMIT,
+    windowSize: RATE_LIMIT_WINDOW_SECONDS,
+    aggregateBy: ['ip', 'domain'],
+  },
 };
