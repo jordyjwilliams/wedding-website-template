@@ -9,8 +9,17 @@ declare const process: {
 
 const CORRECT_PASSCODE = process.env.WEDDING_PASSCODE || '';
 const SESSION_SIGNING_SECRET = process.env.SESSION_SIGNING_SECRET || '';
-const SESSION_DURATION_SECONDS = 24 * 60 * 60;
-const RATE_LIMIT_WINDOW_SECONDS = 15 * 60;
+const SESSION_DURATION_SECONDS = process.env.SESSION_DURATION_SECONDS
+  ? parseInt(process.env.SESSION_DURATION_SECONDS, 10)
+  : 24 * 60 * 60; // Default to 24 hours if not set
+// For local dev testing, allow overriding rate limits via env vars for quicker iteration.
+// Usage: RATE_LIMIT_TEST_WINDOW=10 RATE_LIMIT_TEST_LIMIT=2 pnpm netlify:dev
+const RATE_LIMIT_WINDOW_SECONDS = process.env.RATE_LIMIT_TEST_WINDOW
+  ? parseInt(process.env.RATE_LIMIT_TEST_WINDOW, 10)
+  : 15 * 60;
+const RATE_LIMIT_WINDOW_LIMIT = process.env.RATE_LIMIT_TEST_LIMIT
+  ? parseInt(process.env.RATE_LIMIT_TEST_LIMIT, 10)
+  : 5;
 
 if (!CORRECT_PASSCODE) {
   console.error('WEDDING_PASSCODE environment variable is not set!');
@@ -43,7 +52,9 @@ type HandlerResponse = {
 export const config: Config = {
   path: '/.netlify/functions/verify-passcode',
   rateLimit: {
-    windowLimit: 5,
+    // action: 'rewrite',
+    // to: '/.netlify/functions/rate-limited-passcode',
+    windowLimit: RATE_LIMIT_WINDOW_LIMIT,
     windowSize: RATE_LIMIT_WINDOW_SECONDS,
     aggregateBy: ['ip', 'domain'],
   },
