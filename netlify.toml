@@ -10,28 +10,10 @@
   path = "/*"
 
 [dev]
-  targetPort = 5173
+  targetPort = 5174
   port = 8888
   publish = "build"
 
-# Force HTTPS on all requests
-[[redirects]]
-  from = "http://*"
-  to = "https://:splat"
-  status = 301
-  force = true
-
-# Global rate limiting for all site paths
-[[redirects]]
-  from = "/*"
-  to = "/:splat"
-  status = 200
-  force = true
-  [redirects.rate_limit]
-    action = "rate_limit"
-    window_limit = 180
-    window_size = 60
-    aggregate_by = ["ip", "domain"]
 
 # Security headers
 [[headers]]
