@@ -27,9 +27,8 @@
         description={COPY.venue.features.views.description}
       />
       <IconCard
-        iconDelay="1s"
         icon="ph:tree-palm"
-        iconSize={64}xwxw
+        iconSize="{64}xwxw"
         iconAnimation="float"
         iconDelay="0.5s"
         title={COPY.venue.features.beach.title}
