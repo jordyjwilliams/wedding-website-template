@@ -28,7 +28,7 @@
       />
       <IconCard
         icon="ph:tree-palm"
-        iconSize="{64}xwxw"
+        iconSize={64}
         iconAnimation="float"
         iconDelay="0.5s"
         title={COPY.venue.features.beach.title}
