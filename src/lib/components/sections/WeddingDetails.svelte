@@ -1,6 +1,7 @@
 <script lang="ts">
   import { weddingCalendarLink } from '$lib/calendar';
-  import { WeddingBadge } from '$lib/components/ui/badge';
+  import { Badge } from '$lib/components/ui/badge';
+  import Icon from '@iconify/svelte';
   import { SectionHeader, SectionCta, AnimatedSection, TimelineItem } from '$lib/components';
   import { TIMELINE_EVENTS, CEREMONY_TIMELINE } from '$lib/constants';
   import { COPY } from '$lib/content';
@@ -27,15 +28,19 @@
           isHighlight={event.isHighlight}
           description={event.description}
         >
-          {#if event.isHighlight}
-            {#snippet _highlights()}
+          {#snippet _highlights()}
+            {#if event.isHighlight}
               {#each CEREMONY_TIMELINE as ceremony (ceremony.time)}
-                <WeddingBadge icon={ceremony.icon} size="event">
+                <Badge
+                  variant="glass"
+                  class="text-muted-foreground inline-flex items-center gap-2 px-4 py-1 text-base"
+                >
+                  <Icon icon={ceremony.icon} width={16} class="inline" />
                   {ceremony.time} — {ceremony.event}
-                </WeddingBadge>
+                </Badge>
               {/each}
-            {/snippet}
-          {/if}
+            {/if}
+          {/snippet}
         </TimelineItem>
       {/each}
     </div>

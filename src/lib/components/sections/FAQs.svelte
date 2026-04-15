@@ -105,17 +105,19 @@
                     {/each}
                   </ul>
                 {/if}
+                {#if key === 'contact' && COPY.faq.contact}
+                  <ContactUs
+                    class="mt-12"
+                    title={COPY.faq.contact.title}
+                    content={COPY.faq.contact.content}
+                    icon={COPY.faq.contact.icon}
+                  />
+                {/if}
               </Accordion.Content>
             </Accordion.Item>
           {/each}
         </Accordion.Root>
       </div>
-      <ContactUs
-        class="mt-12"
-        title={COPY.faq.contact.title}
-        content={COPY.faq.contact.content}
-        icon={COPY.faq.contact.icon}
-      />
     </div>
   </div>
 </AnimatedSection>
