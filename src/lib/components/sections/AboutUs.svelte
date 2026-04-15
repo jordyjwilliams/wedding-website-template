@@ -1,7 +1,6 @@
 <script lang="ts">
   import * as Card from '$lib/components/ui/card';
-  import { WeddingBadge } from '$lib/components/ui/badge';
-  import { SectionHeader, AnimatedSection } from '$lib/components';
+  import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
   import { LOVE_FACTS } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>
@@ -45,7 +44,13 @@
             >
               <Card.Root class="glass rounded-3xl">
                 <Card.Content class="flex items-start gap-4 p-5">
-                  <WeddingBadge size="icon-lg">{fact.icon}</WeddingBadge>
+                  <AnimatedIcon
+                    icon={fact.icon}
+                    animation={fact.animation}
+                    size={30}
+                    class="shrink-0"
+                    color="var(--color-primary)"
+                  />
                   <p class="text-muted-foreground m-0 leading-relaxed">
                     <strong class="text-foreground">{fact.label}:</strong>
                     {fact.text}

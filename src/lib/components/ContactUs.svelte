@@ -3,7 +3,7 @@
   import type { HTMLAttributes } from 'svelte/elements';
 
   import { Separator } from '$lib/components/ui/separator';
-  import { WeddingBadge } from '$lib/components/ui/badge';
+  import { Badge } from '$lib/components/ui/badge';
   import * as Card from '$lib/components/ui/card';
 
   import { AnimatedIcon } from '$lib/components';
@@ -63,12 +63,9 @@
   <Card.Root class="glass rounded-3xl">
     <Card.Header class="text-center">
       <div class="mb-4">
-        <AnimatedIcon
-          icon={icon || 'ph:chat-circle-dots-fill'}
-          size={48}
-          color="var(--color-accent)"
-          {animation}
-        />
+        {#if icon}
+          <AnimatedIcon {icon} size={48} color="var(--color-accent)" {animation} />
+        {/if}
       </div>
       <Card.Title>{title}</Card.Title>
     </Card.Header>
@@ -79,7 +76,7 @@
       <div class="space-y-4">
         {#each contacts as contact, i (`${contact.label}-${contact.email}`)}
           <div class="flex flex-col items-center space-y-3">
-            <WeddingBadge size="event">{contact.label}</WeddingBadge>
+            <Badge variant="glass" class="px-4 py-1 text-base">{contact.label}</Badge>
             <div class="flex w-full flex-col gap-2 text-sm">
               <a href="mailto:{contact.email}" class="contact-link">
                 <Icon icon="ph:envelope-simple-fill" width="16" />
