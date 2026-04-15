@@ -1,18 +1,17 @@
 // All website copy/content organized by section
 // This makes it easy to update text without touching components
 
-import { WEDDING } from './constants';
+import { WEDDING } from '$lib/constants';
 
 export const COPY = {
   // Meta / SEO
   meta: {
-    title: `${WEDDING.couple.full} — Wedding`,
+    title: `${WEDDING.couple.initials} — Wedding`,
     description: `Join us for a three-day wedding weekend at ${WEDDING.venue.displayShort}`,
   },
 
   // Navigation
   nav: {
-    brand: 'J & N',
     home: 'Home',
     aboutUs: 'Our Story',
     wedding: 'Wedding',
@@ -59,56 +58,143 @@ export const COPY = {
     emoji: '',
     intro:
       "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
-    practical: {
+    contact: {
+      title: '',
+      content:
+        'Feel free to reach out to us directly if you have any specific questions or need assistance.',
+      icon: undefined,
+    },
+    questionData: {
       accommodation: {
         title: 'Accommodation',
-        description:
-          'Share accommodation details here, including room options, booking approach, and when guests can expect confirmation.',
+        icon: 'ph:house-bold',
+        description: `Share accommodation details here, including room options, booking approach, and when guests can expect confirmation.`,
+        bullets: [
+          'Check-in available from 2pm Friday',
+          'Complimentary breakfast included daily',
+          'Free on-site parking for all guests',
+          'Contact concierge for early check-in requests',
+        ],
       },
       dressCode: {
         title: 'Dress Code',
-        description:
-          'Provide details about the dress code for the wedding, including any specific themes or guidelines for guests.',
+        icon: 'ph:high-heel-bold',
+        description: `Formal elegant attire requested for the ceremony and reception.
+
+We recommend light layers for outdoor events, and comfortable shoes for the welcome drinks and garden strolls.`,
+        bullets: [
+          'Ceremony: Formal elegant (suits, dresses, cocktail attire)',
+          'Reception: Same as ceremony',
+          'Welcome drinks: Smart casual fine',
+          'Outdoor events: Layer up, sun protection recommended',
+        ],
       },
       gifts: {
         title: 'Gifts',
-        description:
-          'Include information about your gift registry or preferences, and any instructions for guests who wish to bring a gift.',
+        icon: 'ph:gift-bold',
+        description: `Your presence is our greatest gift! We've set up a registry if you'd like to give something.`,
+        bullets: [
+          'Registry link: [coming soon](https://www.example.com/registry)',
+          'Monetary gifts welcome via bank transfer',
+          'Gift vouchers to local experiences appreciated',
+          'No gifts necessary — your attendance means the world',
+        ],
       },
       weather: {
         title: 'Weather',
-        description:
-          'You may think Australia is all hot and sunny, but March can be unpredictable! Melbourne and surrounds can have all seasons in one day. March in Australia is "Autumn/Fall". Average highs of ~22°C (~70°F) to average lows of 13°C (~55°F). We recommend packing layers to stay comfortable throughout the day and evening, and maybe an umbrella just in case!',
+        icon: 'ph:cloud-sun-bold',
+        description: `Expect mild summer weather with occasional warm afternoons.
+
+Pack layers for cooler evenings and bring sun protection for daytime events.`,
+        bullets: [
+          'Average temperature: 22-26°C (72-79°F)',
+          'Pack: Light layers, hat, sunscreen, sunglasses',
+          'Umbrella recommended (occasional showers)',
+          'Comfortable walking shoes essential',
+        ],
       },
       kids: {
         title: 'Kids',
-        description:
-          'Let guests know whether children are welcome at the wedding, and if so, any special arrangements or activities for them.',
+        icon: 'ph:baby-carriage-bold',
+        description: `Children are absolutely welcome! We want families to celebrate together.`,
+        bullets: [
+          'Kids activities and childcare available during reception',
+          'High chairs and bottle warmers provided',
+          'Special kids menu available',
+          'Quiet space available for breaks',
+        ],
       },
       plusOne: {
         title: 'Plus Ones',
-        description:
-          'Clarify your policy on plus ones, including whether guests can bring a date and any guidelines for doing so.',
+        icon: 'ph:hand-heart-bold',
+        description: `We've allocated plus ones based on your invitation. Additional guests have been included where indicated.`,
+        bullets: [
+          'Plus ones confirmed on your invitation',
+          'Partners/spouses automatically included',
+          'Feel free to bring a date if indicated on your invite',
+          'Let us know ASAP if circumstances change',
+        ],
       },
       packing: {
         title: 'What to Pack',
-        description:
-          "Think coastal comfort: layers for cool evenings, comfortable shoes, and anything you'd like for beach walks and outdoor time.",
+        icon: 'ph:backpack-bold',
+        description: `Think coastal comfort! Here's a packing guide for our weekend celebration.`,
+        bullets: [
+          'Light layers and comfortable shoes for all day',
+          'Sun protection: hat, sunscreen, sunglasses',
+          'Formal outfit for ceremony and reception',
+          'Smart casual for other events',
+          'Light jacket or wrap for cool evenings',
+          "Beach outfit if you'd like to explore nearby",
+        ],
       },
       transport: {
         title: 'Getting There',
-        description:
-          'Add travel guidance, transfer options, and any parking or car-pooling recommendations for guests.',
+        icon: 'ph:car-bold',
+        description: `Multiple transport options available for your convenience.`,
+        bullets: [
+          'Complimentary shuttle service from downtown (details TBA)',
+          'Ample on-site parking available (free for guests)',
+          'Public transit: Bus route 42 or train station 10-min walk',
+          'Ride-share pickup near main entrance',
+          'Carpooling encouraged — ask on the Facebook group',
+          'Contact us if you need transport assistance',
+        ],
       },
       accommodationAlternatives: {
         title: 'Accommodation Alternatives',
-        description:
-          'If you would rather stay off site, or the venue has limited capacity, provide alternative accommodation options nearby for guests to consider.',
+        icon: 'ph:bed-bold',
+        description: `While we have on-site options, here are excellent nearby alternatives if you prefer to stay off-site.`,
+        bullets: [
+          'Hotel A: 5 mins away (mention discount code if available)',
+          'Hotel B: 10 mins away (group rate available)',
+          'Airbnb/vacation rentals: Highly rated in surrounding area',
+          'Budget options: Hostels and guest houses nearby',
+          'All within 15-minute radius of venue',
+        ],
       },
       thingsToDo: {
         title: 'Things to Do',
-        description:
-          'Share some of your favourite local spots and activities for guests who might want to explore the area during the wedding weekend.',
+        icon: 'ph:map-pin-area-bold',
+        description: `Explore the beautiful area during the wedding weekend. Here are some favorite local spots.`,
+        bullets: [
+          'Scenic beach walks along the coastline',
+          'Local farmers market (Saturdays 8am-1pm)',
+          'Hiking trails with stunning views',
+          'Quaint village shops and cafes',
+          'Water sports rentals on the beach',
+          'Local restaurants: [add recommendations]',
+        ],
+      },
+      contact: {
+        title: 'Still Have Questions?',
+        icon: 'ph:question-bold',
+        description: `If you have any remaining questions about the wedding weekend, feel free to reach out to us.`,
+        bullets: [
+          'Contact us via email or phone',
+          'Check the FAQ section on our website',
+          'Join the wedding Facebook group for updates',
+        ],
       },
     },
   },
@@ -120,8 +206,8 @@ export const COPY = {
     intro: WEDDING.venue.description,
 
     features: {
-      chapel: {
-        title: 'The Chapel',
+      accommodation: {
+        title: 'Accommodation',
         description:
           "Inside: A beautifully restored 1920's chapel with stunning stained glass windows, original wood panelling, and ocean views through unique rectangular windows.",
       },
@@ -131,7 +217,7 @@ export const COPY = {
           'Outside: Set on 25 acres with 180-degree ocean views overlooking the Great Ocean Road. Perfect for photos and unforgettable sunsets.',
       },
       beach: {
-        title: '(Private-ish) Beach',
+        title: 'Beach',
         description:
           'Beach: Access to a secluded beach across the road. Perfect for morning swims, sunset walks, or just relaxing by the water.',
       },
@@ -144,6 +230,8 @@ export const COPY = {
 
     ctaText: 'Want to learn more about this amazing venue?',
     ctaButton: `Explore ${WEDDING.venue.name}`,
+    faqText: 'Got further questions about the venue or logistics?',
+    faqButton: `See our FAQs`,
   },
 
   // RSVP Section
@@ -231,7 +319,7 @@ export const COPY = {
   // Login/Passcode Page
   login: {
     eyebrow: 'are getting married!',
-    welcome: `We're so excited to celebrate with you at ${WEDDING.venue.displayShort}. Enter the passcode from your invitation to view all the wedding details.`,
+    welcome: `We're so excited to celebrate with you at ${WEDDING.venue.displayShort}.\n\nEnter the passcode from your invitation.`,
     privacy: 'This keeps our special day a little more private',
     placeholder: 'Enter passcode',
     submit: 'Enter Site ✨',
@@ -240,6 +328,7 @@ export const COPY = {
     errors: {
       incorrect: "Hmm, that code doesn't look quite right. Try again?",
       connection: 'Connection error. Please try again.',
+      tooManyRequests: 'You have tried too many times. Please wait a bit and try again.',
     },
   },
 } as const;

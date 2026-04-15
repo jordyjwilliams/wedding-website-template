@@ -1,5 +1,6 @@
 // Generate calendar invite links
 
+import { browser } from '$app/environment';
 import { WEDDING } from '$lib/constants';
 import { COPY } from '$lib/content';
 
@@ -35,14 +36,32 @@ function addDays(isoDate: string, days: number): string {
   return date.toISOString().slice(0, 10);
 }
 
+function normalizeUrl(url: string): string {
+  return url.trim().replace(/\/+$/, '');
+}
+
+function getWeddingWebsiteUrl(): string {
+  const publicSiteUrl = import.meta.env.VITE_PUBLIC_SITE_URL || '';
+
+  if (publicSiteUrl) {
+    return normalizeUrl(publicSiteUrl);
+  }
+
+  return browser ? normalizeUrl(window.location.origin) : '';
+}
+
+const weddingWebsiteUrl = getWeddingWebsiteUrl();
+const weddingDetails = weddingWebsiteUrl
+  ? `${COPY.meta.description}\n\nWebsite: ${weddingWebsiteUrl}`
+  : COPY.meta.description;
+
 // Wedding event details
 export const WEDDING_EVENT: CalendarEvent = {
   title: `${WEDDING.couple.full}'s Wedding Weekend`,
   startDate: toCalendarDate(WEDDING.dates.start),
   endDate: toCalendarDate(addDays(WEDDING.dates.end, 1)),
   location: WEDDING.venue.fullAddress,
-  // TODO: link to website when deployed.
-  details: `${COPY.meta.description}`,
+  details: weddingDetails,
 };
 
 export const weddingCalendarLink = generateGoogleCalendarLink(WEDDING_EVENT);

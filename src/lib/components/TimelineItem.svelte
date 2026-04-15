@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
-  import { GlassCard } from '$lib/components/ui/card';
+  import * as Card from '$lib/components/ui/card';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
 
@@ -33,7 +33,7 @@
   <div class="timeline-icon" class:highlight={isHighlight}>
     <span>{dayNumber}</span>
   </div>
-  <GlassCard glass="heavy" class="p-8">
+  <Card.Root class="glass rounded-3xl p-8">
     <h3>{title}</h3>
     {#if dateHref}
       <a href={dateHref} target="_blank" rel="noopener noreferrer" class="timeline-date">
@@ -47,12 +47,12 @@
       </p>
     {/if}
     <p>{description}</p>
-    {#if _highlights}
+    {#if isHighlight && _highlights}
       <div class="timeline-highlights">
         {@render _highlights()}
       </div>
     {/if}
-  </GlassCard>
+  </Card.Root>
 </div>
 
 <style>
@@ -156,7 +156,8 @@
   .timeline-highlights {
     margin-top: 1.5rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.8rem;
   }
 
@@ -169,10 +170,6 @@
       width: 50px;
       height: 50px;
       font-size: 1.2rem;
-    }
-
-    .timeline-highlights {
-      flex-direction: column;
     }
   }
 </style>

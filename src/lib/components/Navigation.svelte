@@ -37,8 +37,10 @@
     isDebugLogoutLoading = true;
     try {
       await clearAuth();
+      // Force a full reload so that +layout and global auth checks run again,
+      // avoiding a potential desync between client state and the session cookie.
       if (typeof window !== 'undefined') {
-        window.location.replace(resolve('/', {}));
+        window.location.assign(resolve('/', {}));
       }
     } finally {
       // Ensure the debug logout button is re-enabled if navigation fails or an error occurs
@@ -62,9 +64,7 @@
 -->
 <nav
   class="fixed inset-x-0 top-0 z-50 h-(--nav-height) transition-all duration-300
-         {scrolled
-    ? 'bg-card/88 border-border/40 shadow-glass border-b backdrop-blur-xl'
-    : 'bg-card/80 border-b border-transparent backdrop-blur-md'}"
+         {scrolled ? 'glass-nav-solid' : 'glass-nav-soft'}"
 >
   <div
     class="text-foreground 3xl:max-w-[100rem] mx-auto flex h-full max-w-7xl items-center gap-3
@@ -96,11 +96,11 @@
                shrink-0 overflow-hidden"
       >
         <SunIcon
-          class="h-[18px] w-[18px] scale-100 rotate-0
+          class="h-4.5 w-4.5 scale-100 rotate-0
                  transition-all duration-300 dark:scale-0 dark:-rotate-90"
         />
         <MoonIcon
-          class="absolute inset-0 m-auto h-[18px] w-[18px] scale-0 rotate-90
+          class="absolute inset-0 m-auto h-4.5 w-4.5 scale-0 rotate-90
                  transition-all duration-300 dark:scale-100 dark:rotate-0"
         />
         <span class="sr-only">Toggle theme</span>
@@ -154,7 +154,7 @@
 
       <Sheet.Content
         side="right"
-        class="bg-card text-foreground flex w-72 flex-col
+        class="glass-heavy text-foreground flex w-72 flex-col
                border-none pt-(--nav-height) backdrop-blur-2xl"
       >
         <Separator class="bg-border/50 mb-2" />

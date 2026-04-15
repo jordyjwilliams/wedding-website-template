@@ -5,15 +5,12 @@
   import { resolve } from '$app/paths';
   import { page } from '$app/stores';
   import { Navigation } from '$lib/components';
-  import { isSessionValid } from '$lib/auth';
+  import { authState, refreshAuthState } from '$lib/auth-state.svelte';
   import { ModeWatcher } from 'mode-watcher';
   import { COPY } from '$lib/content';
 
-  let isAuthenticated = $state(false);
-
   onMount(async () => {
-    // Check if user is authenticated with valid session
-    isAuthenticated = await isSessionValid();
+    const isAuthenticated = await refreshAuthState();
 
     // Redirect to passcode page if not authenticated and not already there
     if (!isAuthenticated && $page.url.pathname !== '/') {
@@ -30,10 +27,10 @@
 
 <ModeWatcher />
 
-{#if isAuthenticated}
+{#if authState.isAuthenticated}
   <Navigation />
 {/if}
 
-<main class="min-h-screen {isAuthenticated ? 'pt-(--nav-height)' : ''}">
+<main class="min-h-screen {authState.isAuthenticated ? 'pt-(--nav-height)' : ''}">
   {@render children?.()}
 </main>

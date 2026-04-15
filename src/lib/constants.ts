@@ -6,6 +6,7 @@ export const WEDDING = {
     bride: 'Nicole',
     groom: 'Jordy',
     full: 'Jordy & Nicole',
+    initials: 'J & N',
   },
 
   // Dates
@@ -58,17 +59,20 @@ export const RSVP_LIMITS = {
 // Love story facts
 export const LOVE_FACTS = [
   {
-    icon: '☕',
+    icon: 'ph:coffee',
+    animation: 'pulse',
     label: 'First Date',
     text: 'Trains, then a trip in a murder van to Iceland 🇮🇸',
   },
   {
-    icon: '✈️',
+    icon: 'ph:airplane-tilt',
+    animation: 'pulse',
     label: 'Adventures',
     text: 'XX countries together. Current location: 🇦🇺',
   },
   {
-    icon: '💍',
+    icon: 'ph:sketch-logo',
+    animation: 'pulse',
     label: 'The Proposal',
     text: 'Larkya La Pass, Nepal',
   },

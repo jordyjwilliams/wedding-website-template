@@ -8,7 +8,20 @@ Built with:
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
 [![shadcn-svelte](https://img.shields.io/badge/shadcn--svelte-Components-000000?logo=svelte)](https://www.shadcn-svelte.com/)
-[![Netlify](https://img.shields.io/badge/Netlify-Functions-00C7B7?logo=netlify)](https://www.netlify.com/)
+[![Netlify Status: Template](https://api.netlify.com/api/v1/badges/136fb0f2-b55b-429a-887f-595e9e6c6d72/deploy-status)](https://app.netlify.com/projects/wedding-website-template/deploys)
+
+## 🔎 [Example](https://wedding-website-template.netlify.app/)
+
+- 🧪 View this [example template here](https://wedding-website-template.netlify.app/).
+- 🛝 Have a play around and see if you like the template.
+- 🧠 Any thoughts/feedback/suggestions welcome.
+  - 🗒️ Creating this for my upcoming wedding was a learning exercise for me and any feedback is welcomed!
+
+> [!NOTE]
+>
+> - If you want to test this out the password for the template is the very-super-secure: `nullop-123` to showcase this template and it's functionality.
+> - Obviously if you choose to deploy this as is, don't expose the password.
+> - Nothing on the template as it's currently configured exposes any personal information.
 
 ## ✨ Features
 
@@ -26,18 +39,18 @@ Built with:
 
 ### 🥫 Prerequisites
 
-- Node.js 24+ and npm 11+
-- [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install -g netlify-cli`
+- Node.js 24+ and pnpm 10+
+- [Netlify CLI](https://docs.netlify.com/cli/get-started/)
 
-### Installation
+### ⌨️ Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/jordyjwilliams/wedding-website
-cd wedding-website
+git clone https://github.com/jordyjwilliams/wedding-website-template
+cd wedding-website-template
 
 # Install dependencies
-npm install
+pnpm install
 
 # Copy environment variables
 cp .env.example .env
@@ -47,12 +60,14 @@ cp .env.example .env
 # SESSION_SIGNING_SECRET=<generate with: openssl rand -hex 32>
 ```
 
-#### Required Environment Variables
+#### Environment Variables
 
 Set these in local `.env` and in Netlify dashboard:
 
-- `WEDDING_PASSCODE`: passcode guests enter on the login screen.
-- `SESSION_SIGNING_SECRET`: strong random signing secret used for HMAC session cookies.
+- `WEDDING_PASSCODE` (required): passcode guests enter on the login screen.
+- `SESSION_SIGNING_SECRET` (required): strong random signing secret used for HMAC session cookies.
+- `VITE_PUBLIC_SITE_URL` (optional): canonical site URL included in Google Calendar event details.
+  - If left commented: Uses site origin (where deployed)
 
 Generate a strong signing secret on macOS:
 
@@ -71,7 +86,21 @@ Visit [http://localhost:8888](http://localhost:8888)
 
 > [!IMPORTANT]
 >
-> - Use `netlify dev` instead of `npm run dev` to enable Netlify Functions for passcode authentication.
+> - Use `netlify dev` instead of `pnpm run dev` to enable Netlify Functions for passcode authentication.
+
+### 🧪 Testing
+
+Unit tests with **Vitest**
+
+```bash
+# Watch mode
+pnpm test
+
+# With coverage
+pnpm test:coverage
+```
+
+Structure split into `unit` and planning to add `ui`.
 
 ### ✨ Make It **YOURS**...
 
@@ -124,23 +153,23 @@ done
 
 ```bash
 # Updating dependencies
-npm run update-deps
+pnpm run update-deps
 npx npm-check-updates
 # Run development server with functions
 netlify dev
 
 # Type checking
-npm run check
+pnpm run check
 
 # Build for production
-npm run build
+pnpm run build
 
 # Lint and format
-npm run lint
-npm run format
+pnpm run lint
+pnpm run format
 
-# Deploy to production
-npm run deploy
+# Deploy to production: cli (handled by Netlify repo integration)
+pnpm run deploy
 ```
 
 # 🚀 Deployment
@@ -175,17 +204,20 @@ Security defaults:
 # 💥🍀 TODOs/Planned
 
 - 🐠 **Animataions**
-  - 🖼️ Fix up all animations RE consistency/tweaking.
+  - 🐳 Fix up all animations RE consistency/tweaking.
 - 🎨 **Styling** General improvements.
   - ✅ 📌 Further optimize usage and usability in general.
   - 👓 Fix redability of text on all pages.
+  - 🖼️ Our story page - consistant image / facts alignment.
   - 🎨 Tweak all colors and theming.
   - 🔢 Replace numbers with days on `Wedding` page.
 - 🗃️ Test/Validate and linkup google sheets.
   - 🔎 Once validated ensure only one submission per email (if already exists)
 - ✍️ **Content**
-  - 🙋 More data on FAQ page. Nicer rendering of cards from copy.
-  - 📸 Add gallery to our story page.
-- 🙋 **FAQs**
-  - 🏖️ Summary/expanded view for each entry.
-  - 🌴 Set each entry in grid baased on data in content.
+  - 📸 Add gallery of image and extended story text to: our story page.
+  - 🌐 Use existing `InlineLinkSegment` for all text from `COPY` and `CONTENT` where it makes sence.
+- 🧪 **Unit Tests**
+  - 🖥️ **@testing-library/svelte**: for ui tests.
+  - 📈 Report coverage on ci.
+- ℹ️ **RSVP**
+  - Add `Will you be staying on site?`

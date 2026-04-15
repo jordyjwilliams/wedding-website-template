@@ -5,7 +5,18 @@
   interface Props extends HTMLAttributes<HTMLDivElement> {
     icon: string;
     size?: number;
-    animation?: 'bounce' | 'float' | 'none';
+    animation?:
+      | 'none'
+      | 'pulse'
+      | 'bounce'
+      | 'ping'
+      | 'spin'
+      | 'float'
+      | 'fade-in'
+      | 'fade-in-up'
+      | 'fade-in-down'
+      | 'fade-in-scale'
+      | 'spin-in';
     color?: string;
     delay?: string;
   }
@@ -13,18 +24,33 @@
   let {
     icon,
     size = 56,
-    animation = 'bounce',
+    animation = 'pulse',
     color,
     delay = '0s',
     class: className,
     ...restProps
   }: Props = $props();
+
+  const animationClassMap: Record<NonNullable<Props['animation']>, string> = {
+    none: '',
+    pulse: 'animate-pulse',
+    bounce: 'animate-bounce',
+    ping: 'animate-ping',
+    spin: 'animate-spin',
+    float: 'animate-float',
+    'fade-in': 'animate-fade-in',
+    'fade-in-up': 'animate-fade-in-up',
+    'fade-in-down': 'animate-fade-in-down',
+    'fade-in-scale': 'animate-fade-in-scale',
+    'spin-in': 'animate-spin-in',
+  };
+
+  const getAnimationClass = (value: NonNullable<Props['animation']>) =>
+    animationClassMap[value] || '';
 </script>
 
 <div
-  class="animated-icon {className || ''}"
-  class:animate-bounce={animation === 'bounce'}
-  class:animate-float={animation === 'float'}
+  class="animated-icon {className || ''} {getAnimationClass(animation)}"
   style:--icon-size="{size}px"
   style:--icon-color={color}
   style:animation-delay={delay}
