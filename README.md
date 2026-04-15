@@ -220,7 +220,5 @@ Security defaults:
 - 🧪 **Unit Tests**
   - 🖥️ **@testing-library/svelte**: for ui tests.
   - 📈 Report coverage on ci.
-    <<<<<<< HEAD
-    =======
 - ℹ️ **RSVP**
   - Add `Will you be staying on site?`
