@@ -206,19 +206,18 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
 
     features: {
       accommodation: {
-        title: 'Accommodation',
-        description:
-          "Inside: A beautifully restored 1920's chapel with stunning stained glass windows, original wood panelling, and ocean views through unique rectangular windows.",
+        title: 'Accommodation or Ceremony Space',
+        description: 'Describe the main ceremony area and what guests can expect when they arrive.',
       },
       views: {
-        title: 'Ocean Views',
+        title: 'Scenic Views',
         description:
-          'Outside: Set on 25 acres with 180-degree ocean views overlooking the Great Ocean Road. Perfect for photos and unforgettable sunsets.',
+          'Highlight the surrounding scenery and any standout photography spots at your venue.',
       },
       beach: {
         title: 'Beach',
         description:
-          'Beach: Access to a secluded beach across the road. Perfect for morning swims, sunset walks, or just relaxing by the water.',
+          'Mention nearby beaches, gardens, trails, or local attractions guests can enjoy during the weekend.',
       },
       grounds: {
         title: 'Beautiful Grounds',
