@@ -64,6 +64,9 @@
   let phoneError = $state('');
   let attendanceError = $state('');
   let guestCountError = $state('');
+  let fridayEveningBbqError = $state('');
+  let sundayRecoveryBreakfastError = $state('');
+  let stayingOnSiteError = $state('');
   let additionalGuestNamesError = $state('');
   let successWasAttending = $state<boolean | null>(null);
   let additionalGuestNames = $state<string[]>([]);
