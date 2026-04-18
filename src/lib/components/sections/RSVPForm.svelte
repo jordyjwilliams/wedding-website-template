@@ -42,7 +42,8 @@
 
   const yesNoOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.common);
 
-  const INITIAL_FORM_DATA: FormData = {
+  const INITIAL_FORM_DATA: RsvpFormData = {
+    attendance: undefined,
     firstName: '',
     lastName: '',
     email: '',
@@ -50,11 +51,12 @@
     guestCount: '1',
     dietaryRestrictions: '',
     message: '',
+    fridayEveningBbq: undefined,
+    sundayRecoveryBreakfast: undefined,
+    stayingOnSite: undefined,
   };
 
-  let formData = $state<FormData>({ ...INITIAL_FORM_DATA });
-
-  let selectedAttendance = $state<AttendanceResponse | undefined>(undefined);
+  let formData = $state<RsvpFormData>({ ...INITIAL_FORM_DATA });
 
   let isLoading = $state(false);
   let formMessage = $state('');
