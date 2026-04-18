@@ -437,6 +437,64 @@
               <p class="text-destructive mt-1 text-sm">{fridayEveningBbqError}</p>
             {/if}
           </div>
+
+          <div class="form-group-wrapper guest-count-animate">
+            <Label for="sunday-recovery-breakfast-trigger"
+              >{COPY.rsvp.form.weekend.sundayRecoveryBreakfast} *</Label
+            >
+            <Select.Root
+              type="single"
+              value={formData.sundayRecoveryBreakfast}
+              onValueChange={(v) => {
+                formData.sundayRecoveryBreakfast = isYesNoResponse(v) ? v : undefined;
+                sundayRecoveryBreakfastError = '';
+              }}
+              items={yesNoOptions}
+            >
+              <Select.Trigger
+                id="sunday-recovery-breakfast-trigger"
+                class="w-full {sundayRecoveryBreakfastError ? 'border-destructive' : ''}"
+              >
+                {selectedSundayRecoveryBreakfastLabel}
+              </Select.Trigger>
+              <Select.Content>
+                {#each yesNoOptions as option (option.value)}
+                  <Select.Item value={option.value} label={option.label} />
+                {/each}
+              </Select.Content>
+            </Select.Root>
+            {#if sundayRecoveryBreakfastError}
+              <p class="text-destructive mt-1 text-sm">{sundayRecoveryBreakfastError}</p>
+            {/if}
+          </div>
+
+          <div class="form-group-wrapper guest-count-animate">
+            <Label for="staying-on-site-trigger">{COPY.rsvp.form.weekend.stayingOnSite} *</Label>
+            <Select.Root
+              type="single"
+              value={formData.stayingOnSite}
+              onValueChange={(v) => {
+                formData.stayingOnSite = isYesNoResponse(v) ? v : undefined;
+                stayingOnSiteError = '';
+              }}
+              items={yesNoOptions}
+            >
+              <Select.Trigger
+                id="staying-on-site-trigger"
+                class="w-full {stayingOnSiteError ? 'border-destructive' : ''}"
+              >
+                {selectedStayingOnSiteLabel}
+              </Select.Trigger>
+              <Select.Content>
+                {#each yesNoOptions as option (option.value)}
+                  <Select.Item value={option.value} label={option.label} />
+                {/each}
+              </Select.Content>
+            </Select.Root>
+            {#if stayingOnSiteError}
+              <p class="text-destructive mt-1 text-sm">{stayingOnSiteError}</p>
+            {/if}
+          </div>
         {/if}
 
         {#if showGuestCount && additionalGuestCount > 0}
