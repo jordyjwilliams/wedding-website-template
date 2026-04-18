@@ -1,8 +1,38 @@
-export type AttendanceResponse = 'yes' | 'no';
+import type {
+  OptionalYesNoResponse,
+  RsvpWeekendAnswers,
+  RsvpWeekendFieldKey,
+  YesNoLabels,
+  YesNoOption,
+  YesNoResponse,
+} from '$lib/rsvp/types';
 
 // Necessary to handle initial undefined/unselected state.
 export function isAttendanceResponse(value: string): value is AttendanceResponse {
   return value === 'yes' || value === 'no';
+}
+
+export function yesNoToBoolean(value: YesNoResponse): boolean {
+  return value === 'yes';
+}
+
+export function optionalYesNoToBoolean(
+  value: OptionalYesNoResponse,
+  fallback = false
+): boolean {
+  if (!value) return fallback;
+
+  return yesNoToBoolean(value);
+}
+
+export function getMissingRequiredWeekendField(
+  answers: RsvpWeekendAnswers<OptionalYesNoResponse>
+): RsvpWeekendFieldKey | null {
+  for (const field of RSVP_WEEKEND_FIELDS) {
+    if (!answers[field]) return field;
+  }
+
+  return null;
 }
 
 export function parseGuestCount(value: string): number | null {
