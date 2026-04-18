@@ -245,12 +245,23 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
         placeholder: 'Please select...',
         errorRequired: 'Please select whether you are attending before submitting.',
       },
+      common: {
+        yes: 'Yes',
+        no: 'No',
+        placeholder: 'Please select...',
+      },
       guests: {
         label: 'Number of Guests (including yourself)',
         description: 'Including yourself',
         additionalNamesLabel: 'Additional Guest Full Name(s)',
         additionalNamePlaceholderPrefix: 'Guest',
         additionalNamesRequired: 'Please add the full name for each additional guest.',
+      },
+      weekend: {
+        fridayEveningBbq: 'Will you be there Friday evening for BBQ?',
+        sundayRecoveryBreakfast: 'Will you be there Sunday morning for recovery breakfast?',
+        stayingOnSite: 'Will you be staying on site?',
+        errorRequired: 'Please answer this question before submitting.',
       },
       phone: {
         label: 'Phone Number: (Include Country Code)',
