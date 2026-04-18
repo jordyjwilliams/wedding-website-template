@@ -87,6 +87,21 @@
       COPY.rsvp.form.attending.placeholder
   );
 
+  let selectedFridayEveningBbqLabel = $derived(
+    yesNoOptions.find((opt) => opt.value === formData.fridayEveningBbq)?.label ||
+      COPY.rsvp.form.common.placeholder
+  );
+
+  let selectedSundayRecoveryBreakfastLabel = $derived(
+    yesNoOptions.find((opt) => opt.value === formData.sundayRecoveryBreakfast)?.label ||
+      COPY.rsvp.form.common.placeholder
+  );
+
+  let selectedStayingOnSiteLabel = $derived(
+    yesNoOptions.find((opt) => opt.value === formData.stayingOnSite)?.label ||
+      COPY.rsvp.form.common.placeholder
+  );
+
   $effect(() => {
     if (!showGuestCount) {
       additionalGuestNames = [];
