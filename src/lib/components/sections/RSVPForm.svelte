@@ -13,12 +13,23 @@
   import { COPY } from '$lib/content';
   import ContactUs from '$lib/components/ContactUs.svelte';
   import {
+    createYesNoOptions,
     getNormalizedGuestCount,
-    isAttendanceResponse,
+    getMissingRequiredWeekendField,
+    isYesNoResponse,
+    optionalYesNoToBoolean,
     parseGuestCount,
+    RSVP_WEEKEND_TRIGGER_IDS,
     validatePhone,
-    type AttendanceResponse,
+    yesNoToBoolean,
   } from '$lib/rsvp/utils';
+  import type {
+    RsvpFormData,
+    RsvpSubmitData,
+    RsvpWeekendFieldKey,
+    YesNoOption,
+    YesNoResponse,
+  } from '$lib/rsvp/types';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type FormMessageType = 'success' | 'error' | '';
@@ -27,29 +38,9 @@
 
   let launchConfetti: () => void = $state(() => {});
 
-  const attendanceOptions: Array<{ value: AttendanceResponse; label: string }> = [
-    { value: 'yes', label: COPY.rsvp.form.attending.yes },
-    { value: 'no', label: COPY.rsvp.form.attending.no },
-  ];
+  const attendanceOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.attending);
 
-  interface FormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    guestCount: string;
-    dietaryRestrictions: string;
-    message: string;
-  }
-
-  interface SubmitData extends FormData {
-    attendance: AttendanceResponse;
-    guestCount: string;
-    dietaryRestrictions: string;
-    message: string;
-    additionalGuestNames: string[];
-    timestamp: string;
-  }
+  const yesNoOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.common);
 
   const INITIAL_FORM_DATA: FormData = {
     firstName: '',
