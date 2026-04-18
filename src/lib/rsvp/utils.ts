@@ -1,8 +1,54 @@
-export type AttendanceResponse = 'yes' | 'no';
+import type {
+  OptionalYesNoResponse,
+  RsvpWeekendAnswers,
+  RsvpWeekendFieldKey,
+  YesNoLabels,
+  YesNoOption,
+  YesNoResponse,
+} from '$lib/rsvp/types';
+
+export const RSVP_WEEKEND_FIELDS: readonly RsvpWeekendFieldKey[] = [
+  'fridayEveningBbq',
+  'sundayRecoveryBreakfast',
+  'stayingOnSite',
+];
+
+export const RSVP_WEEKEND_TRIGGER_IDS: Record<RsvpWeekendFieldKey, string> = {
+  fridayEveningBbq: 'friday-evening-bbq-trigger',
+  sundayRecoveryBreakfast: 'sunday-recovery-breakfast-trigger',
+  stayingOnSite: 'staying-on-site-trigger',
+};
+
+export function createYesNoOptions(labels: YesNoLabels): YesNoOption[] {
+  return [
+    { value: 'yes', label: labels.yes },
+    { value: 'no', label: labels.no },
+  ];
+}
 
 // Necessary to handle initial undefined/unselected state.
-export function isAttendanceResponse(value: string): value is AttendanceResponse {
+export function isYesNoResponse(value: string): value is YesNoResponse {
   return value === 'yes' || value === 'no';
+}
+
+export function yesNoToBoolean(value: YesNoResponse): boolean {
+  return value === 'yes';
+}
+
+export function optionalYesNoToBoolean(value: OptionalYesNoResponse, fallback = false): boolean {
+  if (!value) return fallback;
+
+  return yesNoToBoolean(value);
+}
+
+export function getMissingRequiredWeekendField(
+  answers: RsvpWeekendAnswers<OptionalYesNoResponse>
+): RsvpWeekendFieldKey | null {
+  for (const field of RSVP_WEEKEND_FIELDS) {
+    if (!answers[field]) return field;
+  }
+
+  return null;
 }
 
 export function parseGuestCount(value: string): number | null {

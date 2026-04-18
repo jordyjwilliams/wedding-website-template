@@ -17,7 +17,7 @@
 // 12. Authorize the script when prompted
 //
 // Your Google Sheet should have these column headers in the first row:
-// Timestamp | First Name | Last Name | Email | Phone | Attendance | Guest Count | Dietary Restrictions | Message
+// Timestamp | First Name | Last Name | Email | Phone | Attendance | Guest Count | Friday Evening BBQ | Sunday Recovery Breakfast | Staying On Site | Dietary Restrictions | Message
 //
 
 function doPost(e) {
@@ -36,6 +36,9 @@ function doPost(e) {
       data.phone,
       data.attendance,
       data.guestCount,
+      data.fridayEveningBbq,
+      data.sundayRecoveryBreakfast,
+      data.stayingOnSite,
       data.dietaryRestrictions,
       data.message,
     ];
@@ -69,6 +72,9 @@ function sendEmailNotification(data) {
     Phone: ${data.phone}
     Attendance: ${data.attendance}
     Number of Guests: ${data.guestCount}
+    Friday Evening BBQ: ${data.fridayEveningBbq}
+    Sunday Recovery Breakfast: ${data.sundayRecoveryBreakfast}
+    Staying On Site: ${data.stayingOnSite}
     Dietary Restrictions: ${data.dietaryRestrictions}
     Message: ${data.message}
     
@@ -93,7 +99,10 @@ function testScript() {
     email: 'test@example.com',
     phone: '123-456-7890',
     attendance: 'yes',
-    guestCount: '2',
+    guestCount: 2,
+    fridayEveningBbq: true,
+    sundayRecoveryBreakfast: true,
+    stayingOnSite: false,
     dietaryRestrictions: 'None',
     message: 'Looking forward to it!',
   };

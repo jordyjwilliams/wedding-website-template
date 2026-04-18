@@ -13,12 +13,23 @@
   import { COPY } from '$lib/content';
   import ContactUs from '$lib/components/ContactUs.svelte';
   import {
+    createYesNoOptions,
     getNormalizedGuestCount,
-    isAttendanceResponse,
+    getMissingRequiredWeekendField,
+    isYesNoResponse,
+    optionalYesNoToBoolean,
     parseGuestCount,
+    RSVP_WEEKEND_TRIGGER_IDS,
     validatePhone,
-    type AttendanceResponse,
+    yesNoToBoolean,
   } from '$lib/rsvp/utils';
+  import type {
+    RsvpFormData,
+    RsvpSubmitData,
+    RsvpWeekendFieldKey,
+    YesNoOption,
+    YesNoResponse,
+  } from '$lib/rsvp/types';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type FormMessageType = 'success' | 'error' | '';
@@ -27,31 +38,12 @@
 
   let launchConfetti: () => void = $state(() => {});
 
-  const attendanceOptions: Array<{ value: AttendanceResponse; label: string }> = [
-    { value: 'yes', label: COPY.rsvp.form.attending.yes },
-    { value: 'no', label: COPY.rsvp.form.attending.no },
-  ];
+  const attendanceOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.attending);
 
-  interface FormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    guestCount: string;
-    dietaryRestrictions: string;
-    message: string;
-  }
+  const yesNoOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.common);
 
-  interface SubmitData extends FormData {
-    attendance: AttendanceResponse;
-    guestCount: string;
-    dietaryRestrictions: string;
-    message: string;
-    additionalGuestNames: string[];
-    timestamp: string;
-  }
-
-  const INITIAL_FORM_DATA: FormData = {
+  const INITIAL_FORM_DATA: RsvpFormData = {
+    attendance: undefined,
     firstName: '',
     lastName: '',
     email: '',
@@ -59,11 +51,12 @@
     guestCount: '1',
     dietaryRestrictions: '',
     message: '',
+    fridayEveningBbq: undefined,
+    sundayRecoveryBreakfast: undefined,
+    stayingOnSite: undefined,
   };
 
-  let formData = $state<FormData>({ ...INITIAL_FORM_DATA });
-
-  let selectedAttendance = $state<AttendanceResponse | undefined>(undefined);
+  let formData = $state<RsvpFormData>({ ...INITIAL_FORM_DATA });
 
   let isLoading = $state(false);
   let formMessage = $state('');
@@ -71,11 +64,14 @@
   let phoneError = $state('');
   let attendanceError = $state('');
   let guestCountError = $state('');
+  let fridayEveningBbqError = $state('');
+  let sundayRecoveryBreakfastError = $state('');
+  let stayingOnSiteError = $state('');
   let additionalGuestNamesError = $state('');
   let successWasAttending = $state<boolean | null>(null);
   let additionalGuestNames = $state<string[]>([]);
 
-  let showGuestCount = $derived(selectedAttendance === 'yes');
+  let showGuestCount = $derived(formData.attendance === 'yes');
   // Max of 4 additional guests (5 total including the main guest)
   let additionalGuestCount = $derived(
     showGuestCount
@@ -87,14 +83,33 @@
   );
 
   let selectedAttendanceLabel = $derived(
-    attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label ||
+    attendanceOptions.find((opt) => opt.value === formData.attendance)?.label ||
       COPY.rsvp.form.attending.placeholder
+  );
+
+  let selectedFridayEveningBbqLabel = $derived(
+    yesNoOptions.find((opt) => opt.value === formData.fridayEveningBbq)?.label ||
+      COPY.rsvp.form.common.placeholder
+  );
+
+  let selectedSundayRecoveryBreakfastLabel = $derived(
+    yesNoOptions.find((opt) => opt.value === formData.sundayRecoveryBreakfast)?.label ||
+      COPY.rsvp.form.common.placeholder
+  );
+
+  let selectedStayingOnSiteLabel = $derived(
+    yesNoOptions.find((opt) => opt.value === formData.stayingOnSite)?.label ||
+      COPY.rsvp.form.common.placeholder
   );
 
   $effect(() => {
     if (!showGuestCount) {
       additionalGuestNames = [];
       additionalGuestNamesError = '';
+      clearWeekendFieldErrors();
+      formData.fridayEveningBbq = undefined;
+      formData.sundayRecoveryBreakfast = undefined;
+      formData.stayingOnSite = undefined;
       return;
     }
 
@@ -106,7 +121,7 @@
     });
   });
 
-  function getSuccessMessage(attendance: AttendanceResponse): string {
+  function getSuccessMessage(attendance: YesNoResponse): string {
     return attendance === 'yes' ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
   }
 
@@ -136,10 +151,31 @@
     guestCountError = '';
   }
 
+  function clearWeekendFieldErrors(): void {
+    fridayEveningBbqError = '';
+    sundayRecoveryBreakfastError = '';
+    stayingOnSiteError = '';
+  }
+
+  function setWeekendFieldError(field: RsvpWeekendFieldKey, message: string): void {
+    clearWeekendFieldErrors();
+
+    switch (field) {
+      case 'fridayEveningBbq':
+        fridayEveningBbqError = message;
+        return;
+      case 'sundayRecoveryBreakfast':
+        sundayRecoveryBreakfastError = message;
+        return;
+      case 'stayingOnSite':
+        stayingOnSiteError = message;
+    }
+  }
+
   async function handleSubmit(event: SubmitEvent): Promise<void> {
     event.preventDefault();
 
-    if (!selectedAttendance) {
+    if (!formData.attendance) {
       attendanceError = COPY.rsvp.form.attending.errorRequired;
       document.getElementById('attendance-trigger')?.focus();
       return;
@@ -160,6 +196,17 @@
     }
 
     guestCountError = '';
+
+    if (showGuestCount) {
+      const missingWeekendField = getMissingRequiredWeekendField(formData);
+      if (missingWeekendField) {
+        setWeekendFieldError(missingWeekendField, COPY.rsvp.form.weekend.errorRequired);
+        document.getElementById(RSVP_WEEKEND_TRIGGER_IDS[missingWeekendField])?.focus();
+        return;
+      }
+    }
+
+    clearWeekendFieldErrors();
 
     if (showGuestCount && additionalGuestCount > 0) {
       const missingGuestIndex = additionalGuestNames.findIndex((name) => name.trim() === '');
@@ -202,7 +249,8 @@
       return;
     }
 
-    const attendanceResponse = selectedAttendance;
+    const attendanceResponse = formData.attendance;
+    const isAttending = yesNoToBoolean(attendanceResponse);
     const normalizedGuestCount = getNormalizedGuestCount(
       formData.guestCount,
       GUEST_COUNT_MIN,
@@ -212,13 +260,18 @@
       .map((name) => name.trim())
       .filter(Boolean);
 
-    const submitData: SubmitData = {
+    const submitData: RsvpSubmitData = {
       ...formData,
-      attendance: attendanceResponse,
-      guestCount: attendanceResponse === 'yes' ? String(normalizedGuestCount) : '0',
+      attendance: isAttending,
+      guestCount: isAttending ? normalizedGuestCount : 0,
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
-      additionalGuestNames: attendanceResponse === 'yes' ? normalizedAdditionalGuestNames : [],
+      fridayEveningBbq: isAttending ? optionalYesNoToBoolean(formData.fridayEveningBbq) : false,
+      sundayRecoveryBreakfast: isAttending
+        ? optionalYesNoToBoolean(formData.sundayRecoveryBreakfast)
+        : false,
+      stayingOnSite: isAttending ? optionalYesNoToBoolean(formData.stayingOnSite) : false,
+      additionalGuestNames: isAttending ? normalizedAdditionalGuestNames : [],
       timestamp: new Date().toISOString(),
     };
 
@@ -244,16 +297,15 @@
 
       // Success
       messageType = 'success';
-      successWasAttending = attendanceResponse === 'yes';
+      successWasAttending = isAttending;
       formMessage = getSuccessMessage(attendanceResponse);
 
-      if (attendanceResponse === 'yes') {
+      if (isAttending) {
         launchConfetti();
       }
 
       // Reset form
       formData = { ...INITIAL_FORM_DATA };
-      selectedAttendance = undefined;
       attendanceError = '';
       guestCountError = '';
       additionalGuestNames = [];
@@ -349,9 +401,9 @@
           <Label for="attendance-trigger">{COPY.rsvp.form.attending.label} *</Label>
           <Select.Root
             type="single"
-            value={selectedAttendance}
+            value={formData.attendance}
             onValueChange={(v) => {
-              selectedAttendance = isAttendanceResponse(v) ? v : undefined;
+              formData.attendance = isYesNoResponse(v) ? v : undefined;
               attendanceError = '';
             }}
             items={attendanceOptions}
@@ -390,6 +442,93 @@
             />
             {#if guestCountError}
               <p class="text-destructive mt-1 text-sm">{guestCountError}</p>
+            {/if}
+          </div>
+          <div class="form-group-wrapper guest-count-animate">
+            <Label for="friday-evening-bbq-trigger"
+              >{COPY.rsvp.form.weekend.fridayEveningBbq} *</Label
+            >
+            <Select.Root
+              type="single"
+              value={formData.fridayEveningBbq}
+              onValueChange={(v) => {
+                formData.fridayEveningBbq = isYesNoResponse(v) ? v : undefined;
+                fridayEveningBbqError = '';
+              }}
+              items={yesNoOptions}
+            >
+              <Select.Trigger
+                id="friday-evening-bbq-trigger"
+                class="w-full {fridayEveningBbqError ? 'border-destructive' : ''}"
+              >
+                {selectedFridayEveningBbqLabel}
+              </Select.Trigger>
+              <Select.Content>
+                {#each yesNoOptions as option (option.value)}
+                  <Select.Item value={option.value} label={option.label} />
+                {/each}
+              </Select.Content>
+            </Select.Root>
+            {#if fridayEveningBbqError}
+              <p class="text-destructive mt-1 text-sm">{fridayEveningBbqError}</p>
+            {/if}
+          </div>
+
+          <div class="form-group-wrapper guest-count-animate">
+            <Label for="sunday-recovery-breakfast-trigger"
+              >{COPY.rsvp.form.weekend.sundayRecoveryBreakfast} *</Label
+            >
+            <Select.Root
+              type="single"
+              value={formData.sundayRecoveryBreakfast}
+              onValueChange={(v) => {
+                formData.sundayRecoveryBreakfast = isYesNoResponse(v) ? v : undefined;
+                sundayRecoveryBreakfastError = '';
+              }}
+              items={yesNoOptions}
+            >
+              <Select.Trigger
+                id="sunday-recovery-breakfast-trigger"
+                class="w-full {sundayRecoveryBreakfastError ? 'border-destructive' : ''}"
+              >
+                {selectedSundayRecoveryBreakfastLabel}
+              </Select.Trigger>
+              <Select.Content>
+                {#each yesNoOptions as option (option.value)}
+                  <Select.Item value={option.value} label={option.label} />
+                {/each}
+              </Select.Content>
+            </Select.Root>
+            {#if sundayRecoveryBreakfastError}
+              <p class="text-destructive mt-1 text-sm">{sundayRecoveryBreakfastError}</p>
+            {/if}
+          </div>
+
+          <div class="form-group-wrapper guest-count-animate">
+            <Label for="staying-on-site-trigger">{COPY.rsvp.form.weekend.stayingOnSite} *</Label>
+            <Select.Root
+              type="single"
+              value={formData.stayingOnSite}
+              onValueChange={(v) => {
+                formData.stayingOnSite = isYesNoResponse(v) ? v : undefined;
+                stayingOnSiteError = '';
+              }}
+              items={yesNoOptions}
+            >
+              <Select.Trigger
+                id="staying-on-site-trigger"
+                class="w-full {stayingOnSiteError ? 'border-destructive' : ''}"
+              >
+                {selectedStayingOnSiteLabel}
+              </Select.Trigger>
+              <Select.Content>
+                {#each yesNoOptions as option (option.value)}
+                  <Select.Item value={option.value} label={option.label} />
+                {/each}
+              </Select.Content>
+            </Select.Root>
+            {#if stayingOnSiteError}
+              <p class="text-destructive mt-1 text-sm">{stayingOnSiteError}</p>
             {/if}
           </div>
         {/if}
