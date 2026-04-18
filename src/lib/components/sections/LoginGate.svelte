@@ -109,9 +109,13 @@
           {COPY.login.eyebrow}
         </p>
 
-        <p class="text-card-foreground mb-3 text-[1.05rem] leading-relaxed">
-          {COPY.login.welcome}
-        </p>
+        <div class="text-card-foreground mb-3 space-y-3 text-center text-[1.05rem] leading-relaxed">
+          {#each COPY.login.welcome.split('\n\n') as paragraph, i (i)}
+            {#if paragraph.trim()}
+              <p>{paragraph.trim()}</p>
+            {/if}
+          {/each}
+        </div>
         <p class="text-muted-foreground mb-8 flex items-center justify-center gap-1 text-sm">
           {COPY.login.privacy}
           <Icon icon="ph:key-duotone" width="20" class="inline-block shrink-0" />

@@ -62,17 +62,20 @@ export const RSVP_LIMITS = {
 // Love story facts
 export const LOVE_FACTS = [
   {
-    icon: '☕',
+    icon: 'ph:coffee',
+    animation: 'pulse',
     label: 'First Date',
     text: 'A memorable first date story goes here',
   },
   {
-    icon: '✈️',
+    icon: 'ph:airplane-tilt',
+    animation: 'pulse',
     label: 'Adventures',
     text: 'List a few places you have explored together',
   },
   {
-    icon: '💍',
+    icon: 'ph:sketch-logo',
+    animation: 'pulse',
     label: 'The Proposal',
     text: 'Share where or how the proposal happened',
   },

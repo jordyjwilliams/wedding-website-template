@@ -47,7 +47,7 @@
       </p>
     {/if}
     <p>{description}</p>
-    {#if _highlights}
+    {#if isHighlight && _highlights}
       <div class="timeline-highlights">
         {@render _highlights()}
       </div>
@@ -156,7 +156,8 @@
   .timeline-highlights {
     margin-top: 1.5rem;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.8rem;
   }
 
@@ -169,10 +170,6 @@
       width: 50px;
       height: 50px;
       font-size: 1.2rem;
-    }
-
-    .timeline-highlights {
-      flex-direction: column;
     }
   }
 </style>

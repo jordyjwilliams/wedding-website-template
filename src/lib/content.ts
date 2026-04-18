@@ -58,10 +58,10 @@ export const COPY = {
     intro:
       "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
     contact: {
-      title: 'Still have questions?',
+      title: '',
       content:
         'Feel free to reach out to us directly if you have any specific questions or need assistance.',
-      icon: 'ph:question-bold',
+      icon: undefined,
     },
     questionData: {
       accommodation: {
@@ -185,6 +185,16 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
           'Local restaurants: [add recommendations]',
         ],
       },
+      contact: {
+        title: 'Still Have Questions?',
+        icon: 'ph:question-bold',
+        description: `If you have any remaining questions about the wedding weekend, feel free to reach out to us.`,
+        bullets: [
+          'Contact us via email or phone',
+          'Check the FAQ section on our website',
+          'Join the wedding Facebook group for updates',
+        ],
+      },
     },
   },
 
@@ -193,9 +203,10 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
     title: WEDDING.venue.name,
     emoji: '',
     intro: WEDDING.venue.description,
+
     features: {
-      chapel: {
-        title: 'The Ceremony Space',
+      accommodation: {
+        title: 'Accommodation or Ceremony Space',
         description: 'Describe the main ceremony area and what guests can expect when they arrive.',
       },
       views: {
@@ -204,19 +215,21 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
           'Highlight the surrounding scenery and any standout photography spots at your venue.',
       },
       beach: {
-        title: 'Nearby Nature',
+        title: 'Beach',
         description:
           'Mention nearby beaches, gardens, trails, or local attractions guests can enjoy during the weekend.',
       },
       grounds: {
-        title: 'Venue Highlights',
+        title: 'Beautiful Grounds',
         description:
-          'Add any extra details guests should know, like gardens, architecture, local character, or unique spaces.',
+          'Stunning lawns and gardens, historic buildings, and even some friendly cows to keep you company during your stay.',
       },
     },
 
     ctaText: 'Want to learn more about this amazing venue?',
     ctaButton: `Explore ${WEDDING.venue.name}`,
+    faqText: 'Got further questions about the venue or logistics?',
+    faqButton: `See our FAQs`,
   },
 
   // RSVP Section
@@ -315,7 +328,7 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
   // Login/Passcode Page
   login: {
     eyebrow: 'are getting married!',
-    welcome: `We're so excited to celebrate with you at ${WEDDING.venue.displayShort}. Enter the passcode from your invitation to view all the wedding details.`,
+    welcome: `We're so excited to celebrate with you at ${WEDDING.venue.displayShort}.\n\nEnter the passcode from your invitation.`,
     privacy: 'This keeps our special day a little more private',
     placeholder: 'Enter passcode',
     submit: 'Enter Site ✨',
