@@ -224,13 +224,18 @@
       .map((name) => name.trim())
       .filter(Boolean);
 
-    const submitData: SubmitData = {
+    const submitData: RsvpSubmitData = {
       ...formData,
-      attendance: attendanceResponse,
-      guestCount: attendanceResponse === 'yes' ? String(normalizedGuestCount) : '0',
+      attendance: isAttending,
+      guestCount: isAttending ? normalizedGuestCount : 0,
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
-      additionalGuestNames: attendanceResponse === 'yes' ? normalizedAdditionalGuestNames : [],
+      fridayEveningBbq: isAttending ? optionalYesNoToBoolean(formData.fridayEveningBbq) : false,
+      sundayRecoveryBreakfast: isAttending
+        ? optionalYesNoToBoolean(formData.sundayRecoveryBreakfast)
+        : false,
+      stayingOnSite: isAttending ? optionalYesNoToBoolean(formData.stayingOnSite) : false,
+      additionalGuestNames: isAttending ? normalizedAdditionalGuestNames : [],
       timestamp: new Date().toISOString(),
     };
 
