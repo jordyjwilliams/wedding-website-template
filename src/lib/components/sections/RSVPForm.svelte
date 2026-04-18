@@ -408,6 +408,35 @@
               <p class="text-destructive mt-1 text-sm">{guestCountError}</p>
             {/if}
           </div>
+          <div class="form-group-wrapper guest-count-animate">
+            <Label for="friday-evening-bbq-trigger"
+              >{COPY.rsvp.form.weekend.fridayEveningBbq} *</Label
+            >
+            <Select.Root
+              type="single"
+              value={formData.fridayEveningBbq}
+              onValueChange={(v) => {
+                formData.fridayEveningBbq = isYesNoResponse(v) ? v : undefined;
+                fridayEveningBbqError = '';
+              }}
+              items={yesNoOptions}
+            >
+              <Select.Trigger
+                id="friday-evening-bbq-trigger"
+                class="w-full {fridayEveningBbqError ? 'border-destructive' : ''}"
+              >
+                {selectedFridayEveningBbqLabel}
+              </Select.Trigger>
+              <Select.Content>
+                {#each yesNoOptions as option (option.value)}
+                  <Select.Item value={option.value} label={option.label} />
+                {/each}
+              </Select.Content>
+            </Select.Root>
+            {#if fridayEveningBbqError}
+              <p class="text-destructive mt-1 text-sm">{fridayEveningBbqError}</p>
+            {/if}
+          </div>
         {/if}
 
         {#if showGuestCount && additionalGuestCount > 0}
