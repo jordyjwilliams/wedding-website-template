@@ -71,7 +71,7 @@
   let successWasAttending = $state<boolean | null>(null);
   let additionalGuestNames = $state<string[]>([]);
 
-  let showGuestCount = $derived(selectedAttendance === 'yes');
+  let showGuestCount = $derived(formData.attendance === 'yes');
   // Max of 4 additional guests (5 total including the main guest)
   let additionalGuestCount = $derived(
     showGuestCount
@@ -83,7 +83,7 @@
   );
 
   let selectedAttendanceLabel = $derived(
-    attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label ||
+    attendanceOptions.find((opt) => opt.value === formData.attendance)?.label ||
       COPY.rsvp.form.attending.placeholder
   );
 
