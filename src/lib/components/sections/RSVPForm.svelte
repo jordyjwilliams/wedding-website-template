@@ -117,7 +117,7 @@
     });
   });
 
-  function getSuccessMessage(attendance: AttendanceResponse): string {
+  function getSuccessMessage(attendance: YesNoResponse): string {
     return attendance === 'yes' ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
   }
 
@@ -150,7 +150,7 @@
   async function handleSubmit(event: SubmitEvent): Promise<void> {
     event.preventDefault();
 
-    if (!selectedAttendance) {
+    if (!formData.attendance) {
       attendanceError = COPY.rsvp.form.attending.errorRequired;
       document.getElementById('attendance-trigger')?.focus();
       return;
@@ -213,7 +213,8 @@
       return;
     }
 
-    const attendanceResponse = selectedAttendance;
+    const attendanceResponse = formData.attendance;
+    const isAttending = yesNoToBoolean(attendanceResponse);
     const normalizedGuestCount = getNormalizedGuestCount(
       formData.guestCount,
       GUEST_COUNT_MIN,
