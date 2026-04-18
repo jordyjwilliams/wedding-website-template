@@ -106,6 +106,10 @@
     if (!showGuestCount) {
       additionalGuestNames = [];
       additionalGuestNamesError = '';
+      clearWeekendFieldErrors();
+      formData.fridayEveningBbq = undefined;
+      formData.sundayRecoveryBreakfast = undefined;
+      formData.stayingOnSite = undefined;
       return;
     }
 
@@ -147,6 +151,27 @@
     guestCountError = '';
   }
 
+  function clearWeekendFieldErrors(): void {
+    fridayEveningBbqError = '';
+    sundayRecoveryBreakfastError = '';
+    stayingOnSiteError = '';
+  }
+
+  function setWeekendFieldError(field: RsvpWeekendFieldKey, message: string): void {
+    clearWeekendFieldErrors();
+
+    switch (field) {
+      case 'fridayEveningBbq':
+        fridayEveningBbqError = message;
+        return;
+      case 'sundayRecoveryBreakfast':
+        sundayRecoveryBreakfastError = message;
+        return;
+      case 'stayingOnSite':
+        stayingOnSiteError = message;
+    }
+  }
+
   async function handleSubmit(event: SubmitEvent): Promise<void> {
     event.preventDefault();
 
@@ -171,6 +196,17 @@
     }
 
     guestCountError = '';
+
+    if (showGuestCount) {
+      const missingWeekendField = getMissingRequiredWeekendField(formData);
+      if (missingWeekendField) {
+        setWeekendFieldError(missingWeekendField, COPY.rsvp.form.weekend.errorRequired);
+        document.getElementById(RSVP_WEEKEND_TRIGGER_IDS[missingWeekendField])?.focus();
+        return;
+      }
+    }
+
+    clearWeekendFieldErrors();
 
     if (showGuestCount && additionalGuestCount > 0) {
       const missingGuestIndex = additionalGuestNames.findIndex((name) => name.trim() === '');
