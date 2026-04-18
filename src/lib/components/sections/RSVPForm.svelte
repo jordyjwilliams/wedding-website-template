@@ -261,16 +261,15 @@
 
       // Success
       messageType = 'success';
-      successWasAttending = attendanceResponse === 'yes';
+      successWasAttending = isAttending;
       formMessage = getSuccessMessage(attendanceResponse);
 
-      if (attendanceResponse === 'yes') {
+      if (isAttending) {
         launchConfetti();
       }
 
       // Reset form
       formData = { ...INITIAL_FORM_DATA };
-      selectedAttendance = undefined;
       attendanceError = '';
       guestCountError = '';
       additionalGuestNames = [];
@@ -366,9 +365,9 @@
           <Label for="attendance-trigger">{COPY.rsvp.form.attending.label} *</Label>
           <Select.Root
             type="single"
-            value={selectedAttendance}
+            value={formData.attendance}
             onValueChange={(v) => {
-              selectedAttendance = isAttendanceResponse(v) ? v : undefined;
+              formData.attendance = isYesNoResponse(v) ? v : undefined;
               attendanceError = '';
             }}
             items={attendanceOptions}
