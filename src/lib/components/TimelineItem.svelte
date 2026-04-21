@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import * as Card from '$lib/components/ui/card';
+  import RichTextContent from '$lib/components/RichTextContent.svelte';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
 
@@ -10,6 +11,7 @@
     date: string;
     dateHref?: string;
     description: string;
+    bullets?: readonly string[];
     delay?: string;
     isHighlight?: boolean;
     _highlights?: Snippet;
@@ -21,6 +23,7 @@
     date,
     dateHref,
     description,
+    bullets = [],
     delay = '0s',
     isHighlight = false,
     _highlights,
@@ -46,7 +49,7 @@
         {date}
       </p>
     {/if}
-    <p>{description}</p>
+    <RichTextContent text={description} {bullets} class="mt-1" />
     {#if isHighlight && _highlights}
       <div class="timeline-highlights">
         {@render _highlights()}

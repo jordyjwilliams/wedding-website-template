@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Card from '$lib/components/ui/card';
-  import { SectionHeader, AnimatedSection, AnimatedIcon } from '$lib/components';
+  import { SectionHeader, AnimatedSection, AnimatedIcon, RichTextContent } from '$lib/components';
   import { LOVE_FACTS } from '$lib/constants';
   import { COPY } from '$lib/content';
 </script>
@@ -24,16 +24,16 @@
           {COPY.about.intro}
         </p>
 
-        <p
-          class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.3s]"
-        >
-          {COPY.about.story}
-        </p>
-        <p
-          class="text-muted-foreground animate-fade-in-up mb-6 text-[1.1rem] leading-[1.8] [animation-delay:0.4s]"
-        >
-          {COPY.about.storyExtended}
-        </p>
+        <RichTextContent
+          text={COPY.about.story}
+          class="animate-fade-in-up mb-6 [animation-delay:0.3s]"
+          paragraphClass="text-muted-foreground text-[1.1rem] leading-[1.8]"
+        />
+        <RichTextContent
+          text={COPY.about.storyExtended}
+          class="animate-fade-in-up mb-6 [animation-delay:0.4s]"
+          paragraphClass="text-muted-foreground text-[1.1rem] leading-[1.8]"
+        />
 
         <!-- Fun facts -->
         <div class="mt-10 flex flex-col gap-3">

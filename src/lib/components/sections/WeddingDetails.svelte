@@ -27,6 +27,7 @@
           delay="{0.2 + index * 0.2}s"
           isHighlight={event.isHighlight}
           description={event.description}
+          bullets={'bullets' in event ? event.bullets : []}
         >
           {#snippet _highlights()}
             {#if event.isHighlight}
