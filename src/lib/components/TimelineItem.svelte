@@ -100,10 +100,12 @@
   @keyframes pulse {
     0%,
     100% {
-      box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
+      opacity: 1;
+      transform: scale(1);
     }
     50% {
-      box-shadow: 0 5px 30px color-mix(in srgb, var(--color-accent) 60%, transparent);
+      opacity: 0.6;
+      transform: scale(1.005);
     }
   }
 
