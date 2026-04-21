@@ -39,7 +39,7 @@ export const COPY = {
       gratitude, and excitement for the wedding weekend ahead.
     `,
     factsSectionTitle: 'A Few Fun Facts',
-    ourStorySections: {
+    storySections: {
       entries: {
         chapterOne: {
           title: 'How It Started',
