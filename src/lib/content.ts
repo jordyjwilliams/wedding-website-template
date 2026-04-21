@@ -262,6 +262,7 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
         label: 'Need Accommodation?',
         yes: 'Yes, I would love somewhere to rest my weary head! 💤',
         no: 'Nah, I will find my own bed! 🛏️',
+        errorRequired: 'Please answer this question before submitting.',
       },
       fridayEveningBbq: {
         label: 'Will you be there Friday evening for BBQ?',
