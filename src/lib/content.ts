@@ -43,7 +43,7 @@ export const COPY = {
       entries: {
         chapterOne: {
           title: 'How It Started',
-          icon: 'ph:heart-straight-bold',
+          icon: 'ph:heart-straight',
           imageSrc: '/images/our-story-scroll-placeholder.webp',
           imageAlt: 'A placeholder memory from chapter one',
           overview:
@@ -59,7 +59,7 @@ We still laugh about our first real date and how we were both pretending to be c
         },
         chapterTwo: {
           title: 'Growing Together',
-          icon: 'ph:plant-bold',
+          icon: 'ph:plant',
           imageSrc: '/images/our-story-scroll-placeholder.webp',
           imageAlt: 'A placeholder memory from chapter two',
           overview:
@@ -75,7 +75,7 @@ We learned that the best kind of love is steady, kind, and full of laughter.`,
         },
         chapterThree: {
           title: 'The Proposal',
-          icon: 'ph:ring-bold',
+          icon: 'ph:sketch-logo',
           imageSrc: '/images/our-story-scroll-placeholder.webp',
           imageAlt: 'A placeholder memory from chapter three',
           overview: 'A moment we will replay forever. Equal parts surprise, joy, and happy tears.',
