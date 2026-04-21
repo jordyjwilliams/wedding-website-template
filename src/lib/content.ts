@@ -39,6 +39,57 @@ export const COPY = {
       gratitude, and excitement for the wedding weekend ahead.
     `,
     factsSectionTitle: 'A Few Fun Facts',
+    ourStorySections: {
+      entries: {
+        chapterOne: {
+          title: 'How It Started',
+          icon: 'ph:heart-straight-bold',
+          imageSrc: '/images/our-story-scroll-placeholder.webp',
+          imageAlt: 'A placeholder memory from chapter one',
+          overview:
+            'We met in the most ordinary way and quickly discovered a very uncommon connection. From that first week, we had a feeling this story might be different.',
+          description: `If you were there in the early days, you probably remember the long calls, spontaneous coffee plans, and weekend walks that somehow kept getting longer.
+
+We still laugh about our first real date and how we were both pretending to be calm.`,
+          bullets: [
+            'First hello: [insert date or place](https://example.com)',
+            'First date spot: your favorite local cafe',
+            'Shared obsession discovered: Sunday markets and playlists',
+          ],
+        },
+        chapterTwo: {
+          title: 'Growing Together',
+          icon: 'ph:plant-bold',
+          imageSrc: '/images/our-story-scroll-placeholder.webp',
+          imageAlt: 'A placeholder memory from chapter two',
+          overview:
+            'As life got busier, we kept choosing each other in the small ways that mattered most.',
+          description: `From moves and milestones to ordinary weekdays, this chapter became about building habits, trust, and a shared rhythm.
+
+We learned that the best kind of love is steady, kind, and full of laughter.`,
+          bullets: [
+            'Moved cities and made a home together',
+            'Celebrated work and family milestones side by side',
+            'Found our favorite getaway: [add destination](https://example.com)',
+          ],
+        },
+        chapterThree: {
+          title: 'The Proposal',
+          icon: 'ph:ring-bold',
+          imageSrc: '/images/our-story-scroll-placeholder.webp',
+          imageAlt: 'A placeholder memory from chapter three',
+          overview: 'A moment we will replay forever. Equal parts surprise, joy, and happy tears.',
+          description: `When the question came, everything else faded into the background. We were both all in.
+
+The celebration that followed felt like the beginning of an even better chapter.`,
+          bullets: [
+            'Location: [add proposal location](https://example.com)',
+            'Best reaction quote from that day',
+            'Called our families within minutes',
+          ],
+        },
+      },
+    },
   },
 
   // Wedding Details Section
