@@ -37,7 +37,7 @@
       <div class="mb-6">
         <AnimatedIcon {icon} size={iconSize} animation={iconAnimation} delay={iconDelay} />
       </div>
-      <Card.Title class="mb-2">{title}</Card.Title>
+      <Card.Title class="font-heading-2 mb-2">{title}</Card.Title>
       {#if description}
         <RichTextContent
           text={description}
