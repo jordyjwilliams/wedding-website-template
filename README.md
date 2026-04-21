@@ -223,6 +223,7 @@ Security defaults:
   - 🐳 Fix up all animations RE consistency/tweaking.
 - 🎨 **Styling** General improvements.
   - ✅ 📌 Further optimize usage and usability in general.
+  - 🖊️ Font: fix rendering of labels on wedding timeline page (mobile)
   - 👓 Fix redability of text on all pages.
   - 🎨 Tweak all colors and theming.
 - 🗃️ Test/Validate and linkup google sheets.
