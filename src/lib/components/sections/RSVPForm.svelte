@@ -243,7 +243,7 @@
     if (!GOOGLE_SCRIPT_URL) {
       console.error('Google Script URL not configured');
       messageType = 'error';
-      formMessage = `❌ ${COPY.rsvp.error.message}`;
+      formMessage = COPY.rsvp.error.message;
       successWasAttending = null;
       isLoading = false;
       return;
@@ -324,9 +324,9 @@
       successWasAttending = null;
 
       if (error instanceof Error && error.name === 'AbortError') {
-        formMessage = `❌ ${COPY.rsvp.error.timeout}`;
+        formMessage = COPY.rsvp.error.timeout;
       } else {
-        formMessage = `❌ ${COPY.rsvp.error.submitFailed}`;
+        formMessage = COPY.rsvp.error.submitFailed;
       }
     } finally {
       clearTimeout(timeoutId);

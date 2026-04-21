@@ -310,10 +310,10 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
 
     error: {
       title: 'Oops!',
-      message: 'Something went wrong. Please try again or contact us directly.',
+      message: '❌ Something went wrong. Please try again or contact us directly.',
       timeout:
-        'Request timed out. Please check your internet connection and try again, or contact us directly.',
-      submitFailed: 'Oops! Something went wrong. Please try again or contact us directly.',
+        '❌ Request timed out. Please check your internet connection and try again, or contact us directly.',
+      submitFailed: '❌ Oops! Something went wrong. Please try again or contact us directly.',
     },
 
     contact: {
