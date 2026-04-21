@@ -1,23 +1,27 @@
 import type {
   OptionalYesNoResponse,
+  RsvpWeekendQuestion,
   RsvpWeekendAnswers,
-  RsvpWeekendFieldKey,
   YesNoLabels,
   YesNoOption,
+  RsvpWeekendFieldKey,
   YesNoResponse,
 } from '$lib/rsvp/types';
+import { COPY } from '$lib/content';
 
-export const RSVP_WEEKEND_FIELDS: readonly RsvpWeekendFieldKey[] = [
-  'fridayEveningBbq',
-  'sundayRecoveryBreakfast',
-  'stayingOnSite',
-];
+export const selectYesNoQuestions = COPY.rsvp.form.selectYesNoQuestions;
 
-export const RSVP_WEEKEND_TRIGGER_IDS: Record<RsvpWeekendFieldKey, string> = {
-  fridayEveningBbq: 'friday-evening-bbq-trigger',
-  sundayRecoveryBreakfast: 'sunday-recovery-breakfast-trigger',
-  stayingOnSite: 'staying-on-site-trigger',
-};
+export const RSVP_WEEKEND_FIELDS = selectYesNoQuestions.map((q) => q.key) as RsvpWeekendFieldKey[];
+
+export const RSVP_WEEKEND_TRIGGER_IDS = Object.fromEntries(
+  selectYesNoQuestions.map((q) => [q.key, q.triggerId])
+) as Record<RsvpWeekendFieldKey, string>;
+
+export const RSVP_WEEKEND_QUESTIONS_BY_KEY = Object.fromEntries(
+  selectYesNoQuestions.map((q) => [q.key, q])
+) as Record<RsvpWeekendFieldKey, RsvpWeekendQuestion>;
+
+export type { RsvpWeekendFieldKey };
 
 export function createYesNoOptions(labels: YesNoLabels): YesNoOption[] {
   return [
@@ -39,6 +43,14 @@ export function optionalYesNoToBoolean(value: OptionalYesNoResponse, fallback = 
   if (!value) return fallback;
 
   return yesNoToBoolean(value);
+}
+
+export function createWeekendAnswers<TAnswer>(
+  createValue: (field: RsvpWeekendFieldKey) => TAnswer
+): Record<RsvpWeekendFieldKey, TAnswer> {
+  return Object.fromEntries(
+    RSVP_WEEKEND_FIELDS.map((field) => [field, createValue(field)])
+  ) as Record<RsvpWeekendFieldKey, TAnswer>;
 }
 
 export function getMissingRequiredWeekendField(
