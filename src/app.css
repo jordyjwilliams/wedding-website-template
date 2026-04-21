@@ -28,7 +28,8 @@
 
 @theme {
   /* ─── Typography ────────────────────────────────────────── */
-  --font-sans: 'Cormorant Garamond', Georgia, serif;
+  /* TODO: pick nice sans font for body */
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-heading-1: 'Brilliant Signature 1', 'Brush Script MT', cursive;
   --font-heading-2: 'Special Elite', 'Courier New', Courier, monospace;
   --font-heading: var(--font-heading-2);
