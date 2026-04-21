@@ -50,7 +50,7 @@
 
   const navLinks = [
     { href: '/', label: COPY.nav.home, icon: 'ph:house' },
-    { href: '/our-story', label: COPY.nav.aboutUs, icon: 'ph:notebook-duotone' },
+    { href: '/our-story', label: COPY.nav.aboutUs, icon: 'ph:notebook' },
     { href: '/wedding', label: COPY.nav.wedding, icon: 'ph:heart' },
     { href: '/venue', label: COPY.nav.venue, icon: 'ph:map-pin' },
     { href: '/faqs', label: COPY.nav.faqs, icon: 'ph:question' },
@@ -170,7 +170,7 @@
                 : 'text-muted-foreground hover:text-foreground hover:bg-accent/15'}"
               onclick={closeMobileMenu}
             >
-              <Icon icon={link.icon} width="22" />
+              <Icon icon={active ? `${link.icon}-fill` : link.icon} width="22" />
               {link.label}
             </a>
           {/each}
