@@ -258,10 +258,28 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
         placeholder: 'Please select...',
         errorRequired: 'Please select whether you are attending before submitting.',
       },
-      common: {
-        yes: 'Yes',
-        no: 'No',
-        placeholder: 'Please select...',
+      accommodation: {
+        label: 'Need Accommodation?',
+        yes: 'Yes, I would love somewhere to rest my weary head! 💤',
+        no: 'Nah, I will find my own bed! 🛏️',
+      },
+      fridayEveningBbq: {
+        label: 'Will you be there Friday evening for BBQ?',
+        yes: 'Yes, I can’t wait for some delicious BBQ and good company! 🍖',
+        no: 'No, I will be missing out on the BBQ feast! 😔',
+        errorRequired: 'Please answer this question before submitting.',
+      },
+      sundayRecoveryBreakfast: {
+        label: 'Will you be there Sunday morning for recovery breakfast?',
+        yes: 'Yes, I will be there to recover and reminisce about the amazing weekend! 🥞',
+        no: 'No, I will be missing out on the recovery breakfast! 😔',
+        errorRequired: 'Please answer this question before submitting.',
+      },
+      stayingOnSite: {
+        label: 'Will you be staying on site?',
+        yes: 'Yes, I will be staying on site to fully enjoy the wedding weekend experience! 🎊',
+        no: 'No, I will be staying off-site but still looking forward to celebrating with everyone! 🎉',
+        errorRequired: 'Please answer this question before submitting.',
       },
       guests: {
         label: 'Number of Guests (including yourself)',
@@ -269,12 +287,6 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
         additionalNamesLabel: 'Additional Guest Full Name(s)',
         additionalNamePlaceholderPrefix: 'Guest',
         additionalNamesRequired: 'Please add the full name for each additional guest.',
-      },
-      weekend: {
-        fridayEveningBbq: 'Will you be there Friday evening for BBQ?',
-        sundayRecoveryBreakfast: 'Will you be there Sunday morning for recovery breakfast?',
-        stayingOnSite: 'Will you be staying on site?',
-        errorRequired: 'Please answer this question before submitting.',
       },
       phone: {
         label: 'Phone Number: (Include Country Code)',
@@ -286,11 +298,6 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
         label: 'Dietary Requirements or Allergies',
         placeholder:
           'Let us know if you have any dietary needs or allergies we should be aware of 🌱🥩',
-      },
-      accommodation: {
-        label: 'Need Accommodation?',
-        yes: 'Yes please',
-        no: 'No thanks',
       },
       message: {
         label: 'Message for the Couple',
