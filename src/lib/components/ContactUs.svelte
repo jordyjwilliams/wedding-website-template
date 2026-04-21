@@ -3,7 +3,6 @@
   import type { HTMLAttributes } from 'svelte/elements';
 
   import { Separator } from '$lib/components/ui/separator';
-  import { Badge } from '$lib/components/ui/badge';
   import * as Card from '$lib/components/ui/card';
 
   import { AnimatedIcon } from '$lib/components';
@@ -76,7 +75,11 @@
       <div class="space-y-4">
         {#each contacts as contact, i (`${contact.label}-${contact.email}`)}
           <div class="flex flex-col items-center space-y-3">
-            <Badge variant="glass" class="px-4 py-1 text-base">{contact.label}</Badge>
+            <h4
+              class="font-heading text-primary-dark m-0 text-[1.15rem] leading-tight font-semibold"
+            >
+              {contact.label}
+            </h4>
             <div class="flex w-full flex-col gap-2 text-sm">
               <a href="mailto:{contact.email}" class="contact-link">
                 <Icon icon="ph:envelope-simple-fill" width="16" />
