@@ -224,9 +224,7 @@ Security defaults:
 - 🎨 **Styling** General improvements.
   - ✅ 📌 Further optimize usage and usability in general.
   - 👓 Fix redability of text on all pages.
-  - 🖼️ Our story page - consistant image / facts alignment.
   - 🎨 Tweak all colors and theming.
-  - 🔢 Replace numbers with days on `Wedding` page.
 - 🗃️ Test/Validate and linkup google sheets.
   - 🔎 Once validated ensure only one submission per email (if already exists)
 - 🧪 **Unit Tests**
