@@ -128,7 +128,7 @@
         {@const active = $page.url.pathname === link.href}
         <a
           href={resolve(link.href, {})}
-          class="relative border-b-2 py-1 text-[0.92rem] font-medium tracking-[0.06em]
+          class="font-heading-2 relative border-b-2 py-1 text-[0.92rem] font-medium tracking-[0.06em]
                  no-underline transition-all duration-200
                  {active
             ? 'text-primary border-primary'
@@ -163,7 +163,7 @@
             {@const active = $page.url.pathname === link.href}
             <a
               href={resolve(link.href, {})}
-              class="relative flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
+              class="font-heading-2 relative flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
                      font-medium no-underline transition-all duration-200
                      {active
                 ? 'bg-primary/15 text-primary ring-primary/40 ring-1'
