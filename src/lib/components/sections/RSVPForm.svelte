@@ -444,6 +444,30 @@
               <p class="text-destructive mt-1 text-sm">{guestCountError}</p>
             {/if}
           </div>
+          {#if additionalGuestCount > 0}
+            <div class="form-group-wrapper guest-count-animate">
+              <Label>{COPY.rsvp.form.guests.additionalNamesLabel} *</Label>
+              <div class="mt-2 space-y-3">
+                {#each additionalGuestNames as guestName, index (`guest-name-${index}`)}
+                  <Input
+                    type="text"
+                    id={`guest-name-${index + 2}`}
+                    value={guestName}
+                    required
+                    disabled={isLoading}
+                    oninput={(event) => {
+                      const target = event.target as HTMLInputElement;
+                      updateAdditionalGuestName(index, target.value);
+                    }}
+                    placeholder={`${COPY.rsvp.form.guests.additionalNamePlaceholderPrefix} ${index + 2} full name`}
+                  />
+                {/each}
+              </div>
+              {#if additionalGuestNamesError}
+                <p class="text-destructive mt-1 text-sm">{additionalGuestNamesError}</p>
+              {/if}
+            </div>
+          {/if}
           <div class="form-group-wrapper guest-count-animate">
             <Label for="friday-evening-bbq-trigger"
               >{COPY.rsvp.form.weekend.fridayEveningBbq} *</Label
@@ -529,31 +553,6 @@
             </Select.Root>
             {#if stayingOnSiteError}
               <p class="text-destructive mt-1 text-sm">{stayingOnSiteError}</p>
-            {/if}
-          </div>
-        {/if}
-
-        {#if showGuestCount && additionalGuestCount > 0}
-          <div class="form-group-wrapper guest-count-animate">
-            <Label>{COPY.rsvp.form.guests.additionalNamesLabel} *</Label>
-            <div class="mt-2 space-y-3">
-              {#each additionalGuestNames as guestName, index (`guest-name-${index}`)}
-                <Input
-                  type="text"
-                  id={`guest-name-${index + 2}`}
-                  value={guestName}
-                  required
-                  disabled={isLoading}
-                  oninput={(event) => {
-                    const target = event.target as HTMLInputElement;
-                    updateAdditionalGuestName(index, target.value);
-                  }}
-                  placeholder={`${COPY.rsvp.form.guests.additionalNamePlaceholderPrefix} ${index + 2} full name`}
-                />
-              {/each}
-            </div>
-            {#if additionalGuestNamesError}
-              <p class="text-destructive mt-1 text-sm">{additionalGuestNamesError}</p>
             {/if}
           </div>
         {/if}
