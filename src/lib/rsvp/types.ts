@@ -1,3 +1,5 @@
+import { COPY } from '$lib/content';
+
 export type YesNoResponse = 'yes' | 'no';
 export type OptionalYesNoResponse = YesNoResponse | undefined;
 
@@ -13,13 +15,12 @@ export interface YesNoLabels {
   no: string;
 }
 
-export interface RsvpWeekendAnswers<TAnswer> {
-  fridayEveningBbq: TAnswer;
-  sundayRecoveryBreakfast: TAnswer;
-  stayingOnSite: TAnswer;
-}
+type RsvpSelectYesNoQuestion = (typeof COPY.rsvp.form.selectYesNoQuestions)[number];
 
-export type RsvpWeekendFieldKey = keyof RsvpWeekendAnswers<unknown>;
+export type RsvpWeekendFieldKey = RsvpSelectYesNoQuestion['key'];
+export type RsvpWeekendQuestion = RsvpSelectYesNoQuestion;
+
+export type RsvpWeekendAnswers<TAnswer> = Record<RsvpWeekendFieldKey, TAnswer>;
 
 export interface RsvpFormData extends RsvpWeekendAnswers<OptionalYesNoResponse> {
   attendance: OptionalYesNoResponse;
