@@ -70,31 +70,21 @@
 
   .timeline-icon {
     position: absolute;
-    left: 0;
+    left: -150px;
     top: -0.95rem;
-    min-width: 60px;
-    height: 40px;
-    padding: 0 0.85rem;
-    background: var(--color-card);
-    border: 3px solid var(--color-primary);
-    border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.06rem;
+    font-size: 4rem;
     font-weight: 700;
     letter-spacing: 0.02em;
-    text-transform: uppercase;
     color: var(--color-primary);
-    box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
     z-index: 10;
   }
 
   .timeline-icon.highlight {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-    border-color: var(--color-primary-dark);
-    color: var(--color-primary-foreground);
-    animation: pulse 2s infinite;
+    color: var(--color-primary);
+    animation: pulse 1.2s ease-in-out infinite;
   }
 
   @keyframes pulse {
