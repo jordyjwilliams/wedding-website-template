@@ -68,6 +68,7 @@
     animation: fadeInSlide 0.8s ease-out var(--delay, 0s) forwards;
   }
 
+  /* TODO: fix scaling of this on mobile */
   .timeline-icon {
     position: absolute;
     left: 42px;
