@@ -84,8 +84,8 @@ export const LOVE_FACTS = [
 // Timeline events
 export const TIMELINE_EVENTS = [
   {
-    dayNumber: 1,
-    title: 'Friday — Arrival & Welcome',
+    dayLabel: 'Friday',
+    title: 'Arrival & Welcome',
     date: WEDDING.dates.displayDay1,
     description:
       "Arrive, settle into your room and breathe in that sea air. We'll have a casual welcome drink in the evening so everyone can mingle and relax after the drive.",
@@ -97,8 +97,8 @@ export const TIMELINE_EVENTS = [
     isHighlight: false,
   },
   {
-    dayNumber: 2,
-    title: 'Saturday — Ceremony & Celebration 💒',
+    dayLabel: 'Saturday',
+    title: 'Ceremony & Celebration',
     date: WEDDING.dates.displayDay2,
     description:
       'The ceremony will be held on the grounds overlooking the ocean, followed by lawn games, canapés and a relaxed dinner and dancing under the stars.',
@@ -110,8 +110,8 @@ export const TIMELINE_EVENTS = [
     isHighlight: true,
   },
   {
-    dayNumber: 3,
-    title: 'Sunday — Slow Goodbyes',
+    dayLabel: 'Sunday',
+    title: 'Slow Goodbyes',
     date: WEDDING.dates.displayDay3,
     description:
       "Sleep in, grab a coffee, wander the cliffs or dip your toes in the water. We'll share a simple brunch before saying our goodbyes. Travel plans... Next steps etc etc.",
