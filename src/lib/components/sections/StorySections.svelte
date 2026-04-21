@@ -2,7 +2,7 @@
   import { AnimatedSection, InlineLinks } from '$lib/components';
   import * as Card from '$lib/components/ui/card';
   import { Separator } from '$lib/components/ui/separator';
-  import WeddingBadge from '$lib/components/ui/badge/WeddingBadge.svelte';
+  import Icon from '@iconify/svelte';
 
   export type StoryEntry = {
     title: string;
@@ -52,7 +52,7 @@
                 <div class="story-content-scroll pr-1 sm:pr-2">
                   <div class="mb-4 flex items-center gap-3">
                     {#if entry.icon}
-                      <WeddingBadge size="icon-lg" icon={entry.icon} variant="glass" />
+                      <Icon icon={entry.icon} width={20} class="inline" />
                     {/if}
                     <h3
                       class="font-heading text-primary-dark text-2xl leading-tight sm:text-[2rem]"

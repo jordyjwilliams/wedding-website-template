@@ -49,12 +49,12 @@
   }
 
   const navLinks = [
-    { href: '/', label: COPY.nav.home, icon: 'ph:house-fill' },
+    { href: '/', label: COPY.nav.home, icon: 'ph:house' },
     { href: '/our-story', label: COPY.nav.aboutUs, icon: 'ph:notebook-duotone' },
-    { href: '/wedding', label: COPY.nav.wedding, icon: 'ph:heart-fill' },
-    { href: '/venue', label: COPY.nav.venue, icon: 'ph:map-pin-fill' },
-    { href: '/faqs', label: COPY.nav.faqs, icon: 'ph:question-fill' },
-    { href: '/rsvp', label: COPY.nav.rsvp, icon: 'ph:envelope-fill' },
+    { href: '/wedding', label: COPY.nav.wedding, icon: 'ph:heart' },
+    { href: '/venue', label: COPY.nav.venue, icon: 'ph:map-pin' },
+    { href: '/faqs', label: COPY.nav.faqs, icon: 'ph:question' },
+    { href: '/rsvp', label: COPY.nav.rsvp, icon: 'ph:envelope' },
   ];
 </script>
 
