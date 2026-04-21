@@ -32,9 +32,10 @@
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type FormMessageType = 'success' | 'error' | '';
-  type WeekendFieldConfig = {
+  type FieldConfig = {
     key: RsvpWeekendFieldKey;
     label: string;
+    options: YesNoOption[];
   };
 
   const GUEST_COUNT_MIN = RSVP_LIMITS.guestCountMin;
@@ -43,19 +44,21 @@
   let launchConfetti: () => void = $state(() => {});
 
   const attendanceOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.attending);
-  const yesNoOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.common);
-  const WEEKEND_FIELDS: WeekendFieldConfig[] = [
+  const WEEKEND_FIELDS: FieldConfig[] = [
     {
       key: 'fridayEveningBbq',
-      label: COPY.rsvp.form.weekend.fridayEveningBbq,
+      label: COPY.rsvp.form.fridayEveningBbq.label,
+      options: createYesNoOptions(COPY.rsvp.form.fridayEveningBbq),
     },
     {
       key: 'sundayRecoveryBreakfast',
-      label: COPY.rsvp.form.weekend.sundayRecoveryBreakfast,
+      label: COPY.rsvp.form.sundayRecoveryBreakfast.label,
+      options: createYesNoOptions(COPY.rsvp.form.sundayRecoveryBreakfast),
     },
     {
       key: 'stayingOnSite',
-      label: COPY.rsvp.form.weekend.stayingOnSite,
+      label: COPY.rsvp.form.stayingOnSite.label,
+      options: createYesNoOptions(COPY.rsvp.form.stayingOnSite),
     },
   ];
 
@@ -118,7 +121,7 @@
   function getSelectedOptionLabel(
     value: YesNoResponse | undefined,
     options: YesNoOption[],
-    placeholder = COPY.rsvp.form.common.placeholder
+    placeholder = 'Please select...'
   ): string {
     return options.find((option) => option.value === value)?.label || placeholder;
   }
@@ -221,7 +224,8 @@
 
     const missingWeekendField = getMissingRequiredWeekendField(formData);
     if (missingWeekendField) {
-      setWeekendFieldError(missingWeekendField, COPY.rsvp.form.weekend.errorRequired);
+      const fieldContent = COPY.rsvp.form[missingWeekendField];
+      setWeekendFieldError(missingWeekendField, fieldContent.errorRequired);
       document.getElementById(RSVP_WEEKEND_TRIGGER_IDS[missingWeekendField])?.focus();
       return false;
     }
@@ -513,16 +517,16 @@
                   formData[field.key] = isYesNoResponse(value) ? value : undefined;
                   weekendFieldErrors[field.key] = '';
                 }}
-                items={yesNoOptions}
+                items={field.options}
               >
                 <Select.Trigger
                   id={RSVP_WEEKEND_TRIGGER_IDS[field.key]}
                   class="w-full {weekendFieldErrors[field.key] ? 'border-destructive' : ''}"
                 >
-                  {getSelectedOptionLabel(formData[field.key], yesNoOptions)}
+                  {getSelectedOptionLabel(formData[field.key], field.options)}
                 </Select.Trigger>
                 <Select.Content>
-                  {#each yesNoOptions as option (option.value)}
+                  {#each field.options as option (option.value)}
                     <Select.Item value={option.value} label={option.label} />
                   {/each}
                 </Select.Content>
