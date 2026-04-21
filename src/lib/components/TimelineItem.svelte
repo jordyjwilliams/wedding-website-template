@@ -71,9 +71,9 @@
   .timeline-icon {
     position: absolute;
     left: 0;
-    top: 0;
+    top: -0.95rem;
     min-width: 60px;
-    height: 38px;
+    height: 40px;
     padding: 0 0.85rem;
     background: var(--color-card);
     border: 3px solid var(--color-primary);
@@ -81,7 +81,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
+    font-size: 1.06rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -174,9 +174,9 @@
 
     .timeline-icon {
       min-width: 52px;
-      height: 34px;
+      height: 36px;
       padding: 0 0.7rem;
-      font-size: 0.68rem;
+      font-size: 0.78rem;
     }
   }
 </style>
