@@ -33,7 +33,7 @@
 </script>
 
 <div class="timeline-item {className || ''}" style="--delay: {delay}" {...restProps}>
-  <div class="timeline-icon" class:highlight={isHighlight}>
+  <div class="timeline-icon font-heading-1" class:highlight={isHighlight}>
     <span>{dayLabel}</span>
   </div>
   <Card.Root class="glass rounded-3xl p-8">
@@ -68,42 +68,36 @@
     animation: fadeInSlide 0.8s ease-out var(--delay, 0s) forwards;
   }
 
+  /* TODO: fix scaling of this on mobile */
   .timeline-icon {
     position: absolute;
-    left: 0;
-    top: -0.95rem;
-    min-width: 60px;
-    height: 40px;
-    padding: 0 0.85rem;
-    background: var(--color-card);
-    border: 3px solid var(--color-primary);
-    border-radius: 999px;
+    left: 42px;
+    top: -2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.06rem;
+    font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.02em;
-    text-transform: uppercase;
     color: var(--color-primary);
-    box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
     z-index: 10;
+    white-space: nowrap;
   }
 
   .timeline-icon.highlight {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-    border-color: var(--color-primary-dark);
-    color: var(--color-primary-foreground);
-    animation: pulse 2s infinite;
+    color: var(--color-primary);
+    animation: pulse 1.2s ease-in-out infinite;
   }
 
   @keyframes pulse {
     0%,
     100% {
-      box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
+      opacity: 1;
+      transform: scale(1);
     }
     50% {
-      box-shadow: 0 5px 30px color-mix(in srgb, var(--color-accent) 60%, transparent);
+      opacity: 0.6;
+      transform: scale(1.005);
     }
   }
 
@@ -167,16 +161,25 @@
     gap: 0.8rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     .timeline-item {
-      padding-left: 70px;
+      padding-left: 60px;
     }
 
     .timeline-icon {
-      min-width: 52px;
-      height: 36px;
-      padding: 0 0.7rem;
-      font-size: 0.78rem;
+      left: -70px;
+      top: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .timeline-item {
+      padding-left: 50px;
+    }
+
+    .timeline-icon {
+      left: -60px;
+      font-size: 1.2rem;
     }
   }
 </style>

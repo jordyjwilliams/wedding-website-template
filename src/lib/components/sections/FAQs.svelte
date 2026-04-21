@@ -78,7 +78,7 @@
                     <Icon icon={faq.icon} width="20" />
                   </span>
                   <span
-                    class="text-foreground group-aria-expanded/accordion-trigger:text-primary min-w-0 leading-snug transition-all
+                    class="text-foreground font-heading-2 group-aria-expanded/accordion-trigger:text-primary min-w-0 leading-snug tracking-[0.02em] transition-all
                          duration-300
                          group-aria-expanded/accordion-trigger:font-bold"
                   >

@@ -50,7 +50,7 @@
 
   const navLinks = [
     { href: '/', label: COPY.nav.home, icon: 'ph:house' },
-    { href: '/our-story', label: COPY.nav.aboutUs, icon: 'ph:notebook-duotone' },
+    { href: '/our-story', label: COPY.nav.aboutUs, icon: 'ph:notebook' },
     { href: '/wedding', label: COPY.nav.wedding, icon: 'ph:heart' },
     { href: '/venue', label: COPY.nav.venue, icon: 'ph:map-pin' },
     { href: '/faqs', label: COPY.nav.faqs, icon: 'ph:question' },
@@ -128,7 +128,7 @@
         {@const active = $page.url.pathname === link.href}
         <a
           href={resolve(link.href, {})}
-          class="relative border-b-2 py-1 text-[0.92rem] font-medium tracking-[0.06em]
+          class="font-heading-2 relative border-b-2 py-1 text-[0.92rem] font-medium tracking-[0.06em]
                  no-underline transition-all duration-200
                  {active
             ? 'text-primary border-primary'
@@ -163,14 +163,14 @@
             {@const active = $page.url.pathname === link.href}
             <a
               href={resolve(link.href, {})}
-              class="relative flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
+              class="font-heading-2 relative flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-base
                      font-medium no-underline transition-all duration-200
                      {active
                 ? 'bg-primary/15 text-primary ring-primary/40 ring-1'
                 : 'text-muted-foreground hover:text-foreground hover:bg-accent/15'}"
               onclick={closeMobileMenu}
             >
-              <Icon icon={link.icon} width="22" />
+              <Icon icon={active ? `${link.icon}-fill` : link.icon} width="22" />
               {link.label}
             </a>
           {/each}

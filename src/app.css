@@ -1,17 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=DM+Serif+Display:ital@0;1&family=Nunito:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Special+Elite&display=swap');
 
 @import 'tailwindcss/index.css';
 
 @import 'tw-animate-css';
 
-@import '@fontsource-variable/nunito-sans';
+@font-face {
+  font-family: 'Brilliant Signature 1';
+  src:
+    url('/fonts/Brilliant-signature-regular.woff2') format('woff2'),
+    url('/fonts/Brilliant-signature-regular.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Brilliant Signature 1';
+  src:
+    url('/fonts/Brilliant-signature-italic.woff2') format('woff2'),
+    url('/fonts/Brilliant-signature-italic.otf') format('opentype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   /* ─── Typography ────────────────────────────────────────── */
-  --font-sans: 'Nunito Sans Variable', sans-serif;
-  --font-heading: 'DM Serif Display', 'Playfair Display', Georgia, serif;
+  /* TODO: pick nice sans font for body */
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-heading-1: 'Brilliant Signature 1', 'Brush Script MT', cursive;
+  --font-heading-2: 'Special Elite', 'Courier New', Courier, monospace;
+  --font-heading: var(--font-heading-2);
 
   /* ─── Color tokens — light mode defaults ─────────────────── */
   --color-background: oklch(100% 0 0);
@@ -68,7 +89,7 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --font-serif: 'Roboto Slab Variable', serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
 }
 
 :root {
@@ -143,14 +164,20 @@
     line-height: 1.65;
   }
 
-  h1,
+  h1 {
+    font-family: var(--font-heading-1);
+    font-weight: 400;
+    line-height: 1.2;
+    font-size: clamp(2.8rem, 10vw, 6rem);
+  }
+
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-heading);
-    font-weight: 600;
+    font-family: var(--font-heading-2);
+    font-weight: 400;
     line-height: 1.2;
   }
   * {
