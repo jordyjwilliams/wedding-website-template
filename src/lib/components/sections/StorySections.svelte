@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AnimatedSection, InlineLinks } from '$lib/components';
+  import { AnimatedSection, RichTextContent } from '$lib/components';
   import * as Card from '$lib/components/ui/card';
   import { Separator } from '$lib/components/ui/separator';
   import Icon from '@iconify/svelte';
@@ -21,14 +21,6 @@
   let { entries }: Props = $props();
 
   const storyEntries = $derived(Object.values(entries));
-
-  function toParagraphs(text?: string): string[] {
-    if (!text) return [];
-    return text
-      .split('\n\n')
-      .map((paragraph) => paragraph.trim())
-      .filter(Boolean);
-  }
 </script>
 
 <section class="py-10 md:py-14">
@@ -61,33 +53,18 @@
                     </h3>
                   </div>
 
-                  {#if entry.overview}
-                    <div class="space-y-3">
-                      {#each toParagraphs(entry.overview) as paragraph, i (`overview-${i}`)}
-                        <p class="text-foreground text-[1.02rem] leading-relaxed">
-                          <InlineLinks text={paragraph} />
-                        </p>
-                      {/each}
-                    </div>
-                  {/if}
+                  <RichTextContent
+                    text={entry.overview}
+                    paragraphClass="text-foreground text-[1.02rem] leading-relaxed"
+                  />
 
-                  {#if entry.description}
-                    <div class="mt-4 space-y-3">
-                      {#each toParagraphs(entry.description) as paragraph, i (`description-${i}`)}
-                        <p class="text-muted-foreground text-[0.98rem] leading-relaxed">
-                          <InlineLinks text={paragraph} />
-                        </p>
-                      {/each}
-                    </div>
-                  {/if}
-
-                  {#if entry.bullets && entry.bullets.length > 0}
-                    <ul class="story-bullets mt-5 space-y-2.5">
-                      {#each entry.bullets as bullet, i (`bullet-${i}`)}
-                        <li><InlineLinks text={bullet} /></li>
-                      {/each}
-                    </ul>
-                  {/if}
+                  <RichTextContent
+                    class={entry.overview ? 'mt-4' : ''}
+                    text={entry.description}
+                    bullets={entry.bullets ?? []}
+                    paragraphClass="text-muted-foreground text-[0.98rem] leading-relaxed"
+                    bulletsClass="mt-5"
+                  />
                 </div>
               </Card.Content>
             </div>
@@ -132,27 +109,5 @@
       max-height: none;
       overflow-y: visible;
     }
-  }
-
-  .story-bullets {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .story-bullets li {
-    position: relative;
-    padding-left: 1.75rem;
-    color: var(--color-muted-foreground);
-    line-height: 1.62;
-    font-weight: 500;
-  }
-
-  .story-bullets li::before {
-    content: '•';
-    position: absolute;
-    left: 0.25rem;
-    color: var(--color-primary);
-    font-size: 1.25rem;
-    line-height: 1;
   }
 </style>

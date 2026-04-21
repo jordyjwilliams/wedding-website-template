@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { SectionHeader, AnimatedSection } from '$lib/components';
-  import InlineLinks from '$lib/components/InlineLinks.svelte';
+  import { SectionHeader, AnimatedSection, RichTextContent } from '$lib/components';
   import * as Accordion from '$lib/components/ui/accordion';
   import { Button } from '$lib/components/ui/button';
   import ContactUs from '$lib/components/ContactUs.svelte';
@@ -90,21 +89,12 @@
               <Accordion.Content
                 class="border-primary/20 mx-2 mb-5 border-l-2 pl-4 text-[0.9rem] leading-relaxed"
               >
-                <div class="space-y-4">
-                  {#each COPY.faq.questionData[key].description.split('\n\n') as paragraph, i (i)}
-                    {#if paragraph.trim()}
-                      <p class="text-muted-foreground">{paragraph.trim()}</p>
-                    {/if}
-                  {/each}
-                </div>
-
-                {#if COPY.faq.questionData[key].bullets && COPY.faq.questionData[key].bullets.length > 0}
-                  <ul class="faq-bullets mt-4 space-y-2.5">
-                    {#each COPY.faq.questionData[key].bullets as bullet, i (i)}
-                      <li><InlineLinks text={bullet} /></li>
-                    {/each}
-                  </ul>
-                {/if}
+                <RichTextContent
+                  text={COPY.faq.questionData[key].description}
+                  bullets={COPY.faq.questionData[key].bullets ?? []}
+                  paragraphClass="text-muted-foreground"
+                  bulletsClass="mt-4"
+                />
                 {#if key === 'contact' && COPY.faq.contact}
                   <ContactUs
                     class="mt-12"
@@ -158,30 +148,6 @@
       transform: scale(1.1) rotate(-4deg);
     }
   }
-
-  .faq-bullets {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .faq-bullets li {
-    position: relative;
-    padding-left: 1.75rem;
-    color: var(--color-muted-foreground);
-    line-height: 1.6;
-    font-weight: 500;
-  }
-
-  .faq-bullets li::before {
-    content: '•';
-    position: absolute;
-    left: 0.25rem;
-    color: var(--color-primary);
-    font-weight: 700;
-    font-size: 1.25rem;
-    line-height: 1;
-  }
-
   /* Snappy staggered entrance for list items */
   :global(.faq-item) {
     opacity: 0;

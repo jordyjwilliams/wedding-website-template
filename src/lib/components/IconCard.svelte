@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Card from '$lib/components/ui/card';
-  import { AnimatedIcon } from '$lib/components';
+  import { AnimatedIcon, RichTextContent } from '$lib/components';
   import type { HTMLAttributes } from 'svelte/elements';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -39,7 +39,10 @@
       </div>
       <Card.Title class="mb-2">{title}</Card.Title>
       {#if description}
-        <Card.Description class="leading-relaxed">{description}</Card.Description>
+        <RichTextContent
+          text={description}
+          paragraphClass="text-muted-foreground text-sm leading-relaxed"
+        />
       {/if}
     </Card.Content>
   </Card.Root>

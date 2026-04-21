@@ -257,20 +257,24 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
 
     features: {
       accommodation: {
+        icon: 'ph:house',
         title: 'Accommodation or Ceremony Space',
         description: 'Describe the main ceremony area and what guests can expect when they arrive.',
       },
       views: {
+        icon: 'ph:waves',
         title: 'Scenic Views',
         description:
           'Highlight the surrounding scenery and any standout photography spots at your venue.',
       },
       beach: {
+        icon: 'ph:tree-palm',
         title: 'Beach',
         description:
           'Mention nearby beaches, gardens, trails, or local attractions guests can enjoy during the weekend.',
       },
       grounds: {
+        icon: 'ph:cow',
         title: 'Beautiful Grounds',
         description:
           'Stunning lawns and gardens, historic buildings, and even some friendly cows to keep you company during your stay.',

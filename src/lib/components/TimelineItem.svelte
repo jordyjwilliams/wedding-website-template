@@ -1,26 +1,29 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import * as Card from '$lib/components/ui/card';
+  import RichTextContent from '$lib/components/RichTextContent.svelte';
   import type { Snippet } from 'svelte';
   import type { HTMLAttributes } from 'svelte/elements';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
-    dayNumber: number;
+    dayLabel: string;
     title: string;
     date: string;
     dateHref?: string;
     description: string;
+    bullets?: readonly string[];
     delay?: string;
     isHighlight?: boolean;
     _highlights?: Snippet;
   }
 
   let {
-    dayNumber,
+    dayLabel,
     title,
     date,
     dateHref,
     description,
+    bullets = [],
     delay = '0s',
     isHighlight = false,
     _highlights,
@@ -31,7 +34,7 @@
 
 <div class="timeline-item {className || ''}" style="--delay: {delay}" {...restProps}>
   <div class="timeline-icon" class:highlight={isHighlight}>
-    <span>{dayNumber}</span>
+    <span>{dayLabel}</span>
   </div>
   <Card.Root class="glass rounded-3xl p-8">
     <h3>{title}</h3>
@@ -46,7 +49,7 @@
         {date}
       </p>
     {/if}
-    <p>{description}</p>
+    <RichTextContent text={description} {bullets} class="mt-1" />
     {#if isHighlight && _highlights}
       <div class="timeline-highlights">
         {@render _highlights()}
@@ -68,17 +71,20 @@
   .timeline-icon {
     position: absolute;
     left: 0;
-    top: 0;
-    width: 60px;
-    height: 60px;
+    top: -0.95rem;
+    min-width: 60px;
+    height: 40px;
+    padding: 0 0.85rem;
     background: var(--color-card);
     border: 3px solid var(--color-primary);
-    border-radius: 50%;
+    border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.06rem;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
     color: var(--color-primary);
     box-shadow: 0 5px 20px color-mix(in srgb, var(--color-primary) 35%, transparent);
     z-index: 10;
@@ -167,9 +173,10 @@
     }
 
     .timeline-icon {
-      width: 50px;
-      height: 50px;
-      font-size: 1.2rem;
+      min-width: 52px;
+      height: 36px;
+      padding: 0 0.7rem;
+      font-size: 0.78rem;
     }
   }
 </style>
