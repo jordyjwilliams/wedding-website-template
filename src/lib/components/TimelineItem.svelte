@@ -70,16 +70,17 @@
 
   .timeline-icon {
     position: absolute;
-    left: -150px;
+    left: clamp(-100px, -15vw, -150px);
     top: -0.95rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
+    font-size: clamp(1.4rem, 4vw, 4rem);
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--color-primary);
     z-index: 10;
+    white-space: nowrap;
   }
 
   .timeline-icon.highlight {
@@ -159,16 +160,25 @@
     gap: 0.8rem;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     .timeline-item {
-      padding-left: 70px;
+      padding-left: 60px;
     }
 
     .timeline-icon {
-      min-width: 52px;
-      height: 36px;
-      padding: 0 0.7rem;
-      font-size: 0.78rem;
+      left: -70px;
+      top: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .timeline-item {
+      padding-left: 50px;
+    }
+
+    .timeline-icon {
+      left: -60px;
+      font-size: 1.2rem;
     }
   }
 </style>
