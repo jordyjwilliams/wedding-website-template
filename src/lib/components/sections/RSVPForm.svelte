@@ -522,9 +522,7 @@
               {/if}
             </div>
           {/each}
-        {/if}
 
-        {#if showAttendingFields}
           <div class="form-group-wrapper">
             <Label for="dietaryRestrictions">{COPY.rsvp.form.dietary.label}</Label>
             <Textarea
