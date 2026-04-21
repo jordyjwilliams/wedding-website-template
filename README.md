@@ -229,8 +229,6 @@ Security defaults:
   - 🔢 Replace numbers with days on `Wedding` page.
 - 🗃️ Test/Validate and linkup google sheets.
   - 🔎 Once validated ensure only one submission per email (if already exists)
-- ✍️ **Content**
-  - 🌐 Use existing `InlineLinkSegment` for all text from `COPY` and `CONTENT` where it makes sence.
 - 🧪 **Unit Tests**
   - 🖥️ **@testing-library/svelte**: for ui tests.
   - 📈 Report coverage on ci.
