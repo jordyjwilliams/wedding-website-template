@@ -33,7 +33,7 @@
 </script>
 
 <div class="timeline-item {className || ''}" style="--delay: {delay}" {...restProps}>
-  <div class="timeline-icon" class:highlight={isHighlight}>
+  <div class="timeline-icon font-heading-1" class:highlight={isHighlight}>
     <span>{dayLabel}</span>
   </div>
   <Card.Root class="glass rounded-3xl p-8">
