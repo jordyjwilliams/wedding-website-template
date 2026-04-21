@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  createWeekendAnswers,
   createYesNoOptions,
   getNormalizedGuestCount,
   getMissingRequiredWeekendField,
@@ -7,7 +8,9 @@ import {
   optionalYesNoToBoolean,
   parseGuestCount,
   RSVP_WEEKEND_FIELDS,
+  RSVP_WEEKEND_QUESTIONS_BY_KEY,
   RSVP_WEEKEND_TRIGGER_IDS,
+  selectYesNoQuestions,
   validatePhone,
   yesNoToBoolean,
 } from '$lib/rsvp/utils';
@@ -24,20 +27,52 @@ describe('rsvp/utils', () => {
   });
 
   describe('weekend field metadata', () => {
-    it('keeps weekend field order stable', () => {
-      expect(RSVP_WEEKEND_FIELDS).toEqual([
-        'fridayEveningBbq',
-        'sundayRecoveryBreakfast',
-        'stayingOnSite',
-      ]);
+    it('derives field keys from selectYesNoQuestions', () => {
+      expect(RSVP_WEEKEND_FIELDS).toEqual(selectYesNoQuestions.map((q) => q.key));
     });
 
-    it('maps weekend fields to select trigger IDs', () => {
-      expect(RSVP_WEEKEND_TRIGGER_IDS).toEqual({
-        fridayEveningBbq: 'friday-evening-bbq-trigger',
-        sundayRecoveryBreakfast: 'sunday-recovery-breakfast-trigger',
-        stayingOnSite: 'staying-on-site-trigger',
-      });
+    it('each question has all required fields', () => {
+      for (const q of selectYesNoQuestions) {
+        expect(q.key).toBeTruthy();
+        expect(q.label).toBeTruthy();
+        expect(q.yes).toBeTruthy();
+        expect(q.no).toBeTruthy();
+        expect(q.errorRequired).toBeTruthy();
+        expect(q.triggerId).toBeTruthy();
+      }
+    });
+
+    it('derives trigger IDs from selectYesNoQuestions', () => {
+      for (const q of selectYesNoQuestions) {
+        expect(RSVP_WEEKEND_TRIGGER_IDS[q.key]).toBe(q.triggerId);
+      }
+    });
+
+    it('RSVP_WEEKEND_QUESTIONS_BY_KEY matches selectYesNoQuestions', () => {
+      for (const q of selectYesNoQuestions) {
+        expect(RSVP_WEEKEND_QUESTIONS_BY_KEY[q.key]).toBe(q);
+      }
+    });
+  });
+
+  describe('createWeekendAnswers()', () => {
+    it('creates a record keyed by all weekend fields', () => {
+      const result = createWeekendAnswers(() => 'yes');
+      expect(Object.keys(result)).toEqual(RSVP_WEEKEND_FIELDS);
+    });
+
+    it('applies the factory value to every field', () => {
+      const result = createWeekendAnswers(() => 'no');
+      for (const field of RSVP_WEEKEND_FIELDS) {
+        expect(result[field]).toBe('no');
+      }
+    });
+
+    it('can initialise all fields to undefined', () => {
+      const result = createWeekendAnswers(() => undefined);
+      for (const field of RSVP_WEEKEND_FIELDS) {
+        expect(result[field]).toBeUndefined();
+      }
     });
   });
 
@@ -75,40 +110,17 @@ describe('rsvp/utils', () => {
   });
 
   describe('getMissingRequiredWeekendField()', () => {
-    it('returns first missing field in configured order', () => {
-      expect(
-        getMissingRequiredWeekendField({
-          fridayEveningBbq: undefined,
-          sundayRecoveryBreakfast: undefined,
-          stayingOnSite: undefined,
-        })
-      ).toBe('fridayEveningBbq');
-
-      expect(
-        getMissingRequiredWeekendField({
-          fridayEveningBbq: 'yes',
-          sundayRecoveryBreakfast: undefined,
-          stayingOnSite: undefined,
-        })
-      ).toBe('sundayRecoveryBreakfast');
-
-      expect(
-        getMissingRequiredWeekendField({
-          fridayEveningBbq: 'yes',
-          sundayRecoveryBreakfast: 'no',
-          stayingOnSite: undefined,
-        })
-      ).toBe('stayingOnSite');
+    it('returns each field in turn as the first missing one', () => {
+      for (let i = 0; i < RSVP_WEEKEND_FIELDS.length; i++) {
+        const answers = createWeekendAnswers((field) =>
+          RSVP_WEEKEND_FIELDS.indexOf(field) < i ? 'yes' : undefined
+        );
+        expect(getMissingRequiredWeekendField(answers)).toBe(RSVP_WEEKEND_FIELDS[i]);
+      }
     });
 
-    it('returns null when all required weekend fields are answered', () => {
-      expect(
-        getMissingRequiredWeekendField({
-          fridayEveningBbq: 'yes',
-          sundayRecoveryBreakfast: 'no',
-          stayingOnSite: 'yes',
-        })
-      ).toBeNull();
+    it('returns null when all fields are answered', () => {
+      expect(getMissingRequiredWeekendField(createWeekendAnswers(() => 'yes'))).toBeNull();
     });
   });
 
