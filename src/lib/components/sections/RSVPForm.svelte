@@ -13,45 +13,47 @@
   import { COPY } from '$lib/content';
   import ContactUs from '$lib/components/ContactUs.svelte';
   import {
+    createWeekendAnswers,
+    createYesNoOptions,
     getNormalizedGuestCount,
-    isAttendanceResponse,
+    getMissingRequiredWeekendField,
+    isYesNoResponse,
+    optionalYesNoToBoolean,
     parseGuestCount,
+    RSVP_WEEKEND_QUESTIONS_BY_KEY,
+    selectYesNoQuestions,
+    RSVP_WEEKEND_TRIGGER_IDS,
+    type RsvpWeekendFieldKey,
     validatePhone,
-    type AttendanceResponse,
   } from '$lib/rsvp/utils';
+  import type { RsvpFormData, RsvpSubmitData, YesNoOption, YesNoResponse } from '$lib/rsvp/types';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type FormMessageType = 'success' | 'error' | '';
+  type FieldConfig = {
+    key: RsvpWeekendFieldKey;
+    label: string;
+    options: YesNoOption[];
+  };
+
   const GUEST_COUNT_MIN = RSVP_LIMITS.guestCountMin;
   const GUEST_COUNT_MAX = RSVP_LIMITS.guestCountMax;
 
   let launchConfetti: () => void = $state(() => {});
 
-  const attendanceOptions: Array<{ value: AttendanceResponse; label: string }> = [
-    { value: 'yes', label: COPY.rsvp.form.attending.yes },
-    { value: 'no', label: COPY.rsvp.form.attending.no },
-  ];
+  const attendanceOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.attending);
+  const WEEKEND_FIELDS: FieldConfig[] = selectYesNoQuestions.map(
+    (question): FieldConfig => ({
+      key: question.key,
+      label: question.label,
+      options: createYesNoOptions(question),
+    })
+  );
 
-  interface FormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    guestCount: string;
-    dietaryRestrictions: string;
-    message: string;
-  }
+  const INITIAL_WEEKEND_ANSWERS = createWeekendAnswers(() => undefined);
 
-  interface SubmitData extends FormData {
-    attendance: AttendanceResponse;
-    guestCount: string;
-    dietaryRestrictions: string;
-    message: string;
-    additionalGuestNames: string[];
-    timestamp: string;
-  }
-
-  const INITIAL_FORM_DATA: FormData = {
+  const INITIAL_FORM_DATA: RsvpFormData = {
+    attendance: undefined,
     firstName: '',
     lastName: '',
     email: '',
@@ -59,11 +61,10 @@
     guestCount: '1',
     dietaryRestrictions: '',
     message: '',
+    ...INITIAL_WEEKEND_ANSWERS,
   };
 
-  let formData = $state<FormData>({ ...INITIAL_FORM_DATA });
-
-  let selectedAttendance = $state<AttendanceResponse | undefined>(undefined);
+  let formData = $state<RsvpFormData>({ ...INITIAL_FORM_DATA });
 
   let isLoading = $state(false);
   let formMessage = $state('');
@@ -74,40 +75,60 @@
   let additionalGuestNamesError = $state('');
   let successWasAttending = $state<boolean | null>(null);
   let additionalGuestNames = $state<string[]>([]);
-
-  let showGuestCount = $derived(selectedAttendance === 'yes');
-  // Max of 4 additional guests (5 total including the main guest)
-  let additionalGuestCount = $derived(
-    showGuestCount
-      ? Math.max(
-          0,
-          getNormalizedGuestCount(formData.guestCount, GUEST_COUNT_MIN, GUEST_COUNT_MAX) - 1
-        )
-      : 0
+  let weekendFieldErrors = $state<Record<RsvpWeekendFieldKey, string>>(
+    createWeekendAnswers(() => '')
   );
 
-  let selectedAttendanceLabel = $derived(
-    attendanceOptions.find((opt) => opt.value === selectedAttendance)?.label ||
-      COPY.rsvp.form.attending.placeholder
+  let isAttending = $derived(formData.attendance === 'yes');
+  let normalizedGuestCount = $derived(
+    getNormalizedGuestCount(formData.guestCount, GUEST_COUNT_MIN, GUEST_COUNT_MAX)
   );
+  let additionalGuestCount = $derived(isAttending ? Math.max(0, normalizedGuestCount - 1) : 0);
+  let hasAdditionalGuests = $derived(additionalGuestCount > 0);
 
   $effect(() => {
-    if (!showGuestCount) {
-      additionalGuestNames = [];
-      additionalGuestNamesError = '';
+    if (!isAttending) {
+      resetAttendingFields();
       return;
     }
 
-    const targetCount = additionalGuestCount;
-    if (additionalGuestNames.length === targetCount) return;
+    if (additionalGuestNames.length === additionalGuestCount) {
+      return;
+    }
 
-    additionalGuestNames = Array.from({ length: targetCount }, (_, index) => {
+    additionalGuestNames = Array.from({ length: additionalGuestCount }, (_, index) => {
       return additionalGuestNames[index] || '';
     });
   });
 
-  function getSuccessMessage(attendance: AttendanceResponse): string {
-    return attendance === 'yes' ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
+  function getSelectedOptionLabel(
+    value: YesNoResponse | undefined,
+    options: YesNoOption[],
+    placeholder = 'Please select...'
+  ): string {
+    return options.find((option) => option.value === value)?.label || placeholder;
+  }
+
+  function getSuccessMessage(attending: boolean): string {
+    return attending ? COPY.rsvp.success.attending : COPY.rsvp.success.notAttending;
+  }
+
+  function resetAttendingFields(): void {
+    guestCountError = '';
+    additionalGuestNames = [];
+    additionalGuestNamesError = '';
+    clearWeekendFieldErrors();
+    for (const question of selectYesNoQuestions) {
+      formData[question.key] = undefined;
+    }
+  }
+
+  function clearAllErrors(): void {
+    phoneError = '';
+    attendanceError = '';
+    guestCountError = '';
+    additionalGuestNamesError = '';
+    clearWeekendFieldErrors();
   }
 
   function updateAdditionalGuestName(index: number, value: string): void {
@@ -136,46 +157,108 @@
     guestCountError = '';
   }
 
-  async function handleSubmit(event: SubmitEvent): Promise<void> {
-    event.preventDefault();
+  function clearWeekendFieldErrors(): void {
+    for (const question of selectYesNoQuestions) {
+      weekendFieldErrors[question.key] = '';
+    }
+  }
 
-    if (!selectedAttendance) {
-      attendanceError = COPY.rsvp.form.attending.errorRequired;
-      document.getElementById('attendance-trigger')?.focus();
-      return;
+  function setWeekendFieldError(field: RsvpWeekendFieldKey, message: string): void {
+    clearWeekendFieldErrors();
+    weekendFieldErrors[field] = message;
+  }
+
+  function validateAttendance(): boolean {
+    if (formData.attendance) {
+      attendanceError = '';
+      return true;
     }
 
-    attendanceError = '';
+    attendanceError = COPY.rsvp.form.attending.errorRequired;
+    document.getElementById('attendance-trigger')?.focus();
+    return false;
+  }
 
-    if (showGuestCount) {
-      const guestCount = parseGuestCount(formData.guestCount);
-      const isInvalidGuestCount =
-        guestCount === null || guestCount < GUEST_COUNT_MIN || guestCount > GUEST_COUNT_MAX;
+  function validateGuestCountField(): boolean {
+    if (!isAttending) {
+      guestCountError = '';
+      return true;
+    }
 
-      if (isInvalidGuestCount) {
-        guestCountError = `Please enter a guest count between ${GUEST_COUNT_MIN} and ${GUEST_COUNT_MAX}.`;
-        document.getElementById('guestCount')?.focus();
-        return;
-      }
+    const guestCount = parseGuestCount(formData.guestCount);
+    const isInvalidGuestCount =
+      guestCount === null || guestCount < GUEST_COUNT_MIN || guestCount > GUEST_COUNT_MAX;
+
+    if (isInvalidGuestCount) {
+      guestCountError = `Please enter a guest count between ${GUEST_COUNT_MIN} and ${GUEST_COUNT_MAX}.`;
+      document.getElementById('guestCount')?.focus();
+      return false;
     }
 
     guestCountError = '';
+    return true;
+  }
 
-    if (showGuestCount && additionalGuestCount > 0) {
-      const missingGuestIndex = additionalGuestNames.findIndex((name) => name.trim() === '');
-      if (missingGuestIndex >= 0) {
-        additionalGuestNamesError = COPY.rsvp.form.guests.additionalNamesRequired;
-        document.getElementById(`guest-name-${missingGuestIndex + 2}`)?.focus();
-        return;
-      }
+  function validateWeekendFields(): boolean {
+    if (!isAttending) {
+      clearWeekendFieldErrors();
+      return true;
+    }
+
+    const missingWeekendField = getMissingRequiredWeekendField(formData);
+    if (missingWeekendField) {
+      const question = RSVP_WEEKEND_QUESTIONS_BY_KEY[missingWeekendField];
+      setWeekendFieldError(missingWeekendField, question.errorRequired);
+      document.getElementById(RSVP_WEEKEND_TRIGGER_IDS[missingWeekendField])?.focus();
+      return false;
+    }
+
+    clearWeekendFieldErrors();
+    return true;
+  }
+
+  function validateAdditionalGuestNames(): boolean {
+    if (!hasAdditionalGuests) {
+      additionalGuestNamesError = '';
+      return true;
+    }
+
+    const missingGuestIndex = additionalGuestNames.findIndex((name) => name.trim() === '');
+    if (missingGuestIndex >= 0) {
+      additionalGuestNamesError = COPY.rsvp.form.guests.additionalNamesRequired;
+      document.getElementById(`guest-name-${missingGuestIndex + 2}`)?.focus();
+      return false;
     }
 
     additionalGuestNamesError = '';
+    return true;
+  }
 
-    // Validate phone before submitting
+  function validatePhoneField(): boolean {
     if (formData.phone && !validatePhone(formData.phone)) {
       phoneError = COPY.rsvp.form.phone.errorRequired;
       document.getElementById('phone')?.focus();
+      return false;
+    }
+
+    phoneError = '';
+    return true;
+  }
+
+  function validateForm(): boolean {
+    return (
+      validateAttendance() &&
+      validateGuestCountField() &&
+      validateWeekendFields() &&
+      validateAdditionalGuestNames() &&
+      validatePhoneField()
+    );
+  }
+
+  async function handleSubmit(event: SubmitEvent): Promise<void> {
+    event.preventDefault();
+
+    if (!validateForm()) {
       return;
     }
 
@@ -184,41 +267,38 @@
     messageType = '';
     successWasAttending = null;
 
-    // TODO: Create the actual script and test this functionality
     const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
 
-    // Simulate network delay until we validate form.
     if (DEBUG_MODE) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log('Simulated network delay for debugging');
     }
-    // Check if URL is configured
+
     if (!GOOGLE_SCRIPT_URL) {
       console.error('Google Script URL not configured');
       messageType = 'error';
-      formMessage = `❌ ${COPY.rsvp.error.message}`;
+      formMessage = COPY.rsvp.error.message;
       successWasAttending = null;
       isLoading = false;
       return;
     }
 
-    const attendanceResponse = selectedAttendance;
-    const normalizedGuestCount = getNormalizedGuestCount(
-      formData.guestCount,
-      GUEST_COUNT_MIN,
-      GUEST_COUNT_MAX
-    );
     const normalizedAdditionalGuestNames = additionalGuestNames
       .map((name) => name.trim())
       .filter(Boolean);
 
-    const submitData: SubmitData = {
+    const weekendSubmitAnswers = createWeekendAnswers((field) => {
+      return isAttending ? optionalYesNoToBoolean(formData[field]) : false;
+    });
+
+    const submitData: RsvpSubmitData = {
       ...formData,
-      attendance: attendanceResponse,
-      guestCount: attendanceResponse === 'yes' ? String(normalizedGuestCount) : '0',
+      ...weekendSubmitAnswers,
+      attendance: isAttending,
+      guestCount: isAttending ? normalizedGuestCount : 0,
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
-      additionalGuestNames: attendanceResponse === 'yes' ? normalizedAdditionalGuestNames : [],
+      additionalGuestNames: isAttending ? normalizedAdditionalGuestNames : [],
       timestamp: new Date().toISOString(),
     };
 
@@ -226,10 +306,6 @@
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
-      // TODO: when this is linked up and tested - ensure `cors` mode is handled correctly.
-      // It could be that we need to use `no-cors` here - Address when testing.
-      // Unsure if Google Apps Script returns CORS headers for browser-origin requests.
-      // Ensure we can get response status on submission etc. EG do we need to infer - or can we set this nicely.
       const response = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -242,24 +318,18 @@
 
       void response;
 
-      // Success
       messageType = 'success';
-      successWasAttending = attendanceResponse === 'yes';
-      formMessage = getSuccessMessage(attendanceResponse);
+      successWasAttending = isAttending;
+      formMessage = getSuccessMessage(isAttending);
 
-      if (attendanceResponse === 'yes') {
+      if (isAttending) {
         launchConfetti();
       }
 
-      // Reset form
       formData = { ...INITIAL_FORM_DATA };
-      selectedAttendance = undefined;
-      attendanceError = '';
-      guestCountError = '';
       additionalGuestNames = [];
-      additionalGuestNamesError = '';
+      clearAllErrors();
 
-      // Scroll to message
       setTimeout(() => {
         document.querySelector('.form-message')?.scrollIntoView({
           behavior: 'smooth',
@@ -272,9 +342,9 @@
       successWasAttending = null;
 
       if (error instanceof Error && error.name === 'AbortError') {
-        formMessage = `❌ ${COPY.rsvp.error.timeout}`;
+        formMessage = COPY.rsvp.error.timeout;
       } else {
-        formMessage = `❌ ${COPY.rsvp.error.submitFailed}`;
+        formMessage = COPY.rsvp.error.submitFailed;
       }
     } finally {
       clearTimeout(timeoutId);
@@ -349,9 +419,9 @@
           <Label for="attendance-trigger">{COPY.rsvp.form.attending.label} *</Label>
           <Select.Root
             type="single"
-            value={selectedAttendance}
+            value={formData.attendance}
             onValueChange={(v) => {
-              selectedAttendance = isAttendanceResponse(v) ? v : undefined;
+              formData.attendance = isYesNoResponse(v) ? v : undefined;
               attendanceError = '';
             }}
             items={attendanceOptions}
@@ -360,7 +430,11 @@
               id="attendance-trigger"
               class="w-full {attendanceError ? 'border-destructive' : ''}"
             >
-              {selectedAttendanceLabel}
+              {getSelectedOptionLabel(
+                formData.attendance,
+                attendanceOptions,
+                COPY.rsvp.form.attending.placeholder
+              )}
             </Select.Trigger>
             <Select.Content>
               {#each attendanceOptions as option (option.value)}
@@ -373,7 +447,7 @@
           {/if}
         </div>
 
-        {#if showGuestCount}
+        {#if isAttending}
           <div class="form-group-wrapper guest-count-animate">
             <Label for="guestCount">{COPY.rsvp.form.guests.label} *</Label>
             <Input
@@ -383,7 +457,7 @@
               oninput={handleGuestCountInput}
               min={GUEST_COUNT_MIN}
               max={GUEST_COUNT_MAX}
-              required={showGuestCount}
+              required={isAttending}
               disabled={isLoading}
               placeholder="1"
               class={guestCountError ? 'border-destructive' : ''}
@@ -392,34 +466,60 @@
               <p class="text-destructive mt-1 text-sm">{guestCountError}</p>
             {/if}
           </div>
-        {/if}
-
-        {#if showGuestCount && additionalGuestCount > 0}
-          <div class="form-group-wrapper guest-count-animate">
-            <Label>{COPY.rsvp.form.guests.additionalNamesLabel} *</Label>
-            <div class="mt-2 space-y-3">
-              {#each additionalGuestNames as guestName, index (`guest-name-${index}`)}
-                <Input
-                  type="text"
-                  id={`guest-name-${index + 2}`}
-                  value={guestName}
-                  required
-                  disabled={isLoading}
-                  oninput={(event) => {
-                    const target = event.target as HTMLInputElement;
-                    updateAdditionalGuestName(index, target.value);
-                  }}
-                  placeholder={`${COPY.rsvp.form.guests.additionalNamePlaceholderPrefix} ${index + 2} full name`}
-                />
-              {/each}
+          {#if hasAdditionalGuests}
+            <div class="form-group-wrapper guest-count-animate">
+              <Label>{COPY.rsvp.form.guests.additionalNamesLabel} *</Label>
+              <div class="mt-2 space-y-3">
+                {#each additionalGuestNames as guestName, index (`guest-name-${index}`)}
+                  <Input
+                    type="text"
+                    id={`guest-name-${index + 2}`}
+                    value={guestName}
+                    required
+                    disabled={isLoading}
+                    oninput={(event) => {
+                      const target = event.target as HTMLInputElement;
+                      updateAdditionalGuestName(index, target.value);
+                    }}
+                    placeholder={`${COPY.rsvp.form.guests.additionalNamePlaceholderPrefix} ${index + 2} full name`}
+                  />
+                {/each}
+              </div>
+              {#if additionalGuestNamesError}
+                <p class="text-destructive mt-1 text-sm">{additionalGuestNamesError}</p>
+              {/if}
             </div>
-            {#if additionalGuestNamesError}
-              <p class="text-destructive mt-1 text-sm">{additionalGuestNamesError}</p>
-            {/if}
-          </div>
-        {/if}
+          {/if}
+          {#each WEEKEND_FIELDS as field (field.key)}
+            <div class="form-group-wrapper guest-count-animate">
+              <Label for={RSVP_WEEKEND_TRIGGER_IDS[field.key]}>{field.label} *</Label>
+              <Select.Root
+                type="single"
+                value={formData[field.key]}
+                onValueChange={(value) => {
+                  formData[field.key] = isYesNoResponse(value) ? value : undefined;
+                  weekendFieldErrors[field.key] = '';
+                }}
+                items={field.options}
+              >
+                <Select.Trigger
+                  id={RSVP_WEEKEND_TRIGGER_IDS[field.key]}
+                  class="w-full {weekendFieldErrors[field.key] ? 'border-destructive' : ''}"
+                >
+                  {getSelectedOptionLabel(formData[field.key], field.options)}
+                </Select.Trigger>
+                <Select.Content>
+                  {#each field.options as option (option.value)}
+                    <Select.Item value={option.value} label={option.label} />
+                  {/each}
+                </Select.Content>
+              </Select.Root>
+              {#if weekendFieldErrors[field.key]}
+                <p class="text-destructive mt-1 text-sm">{weekendFieldErrors[field.key]}</p>
+              {/if}
+            </div>
+          {/each}
 
-        {#if showGuestCount}
           <div class="form-group-wrapper">
             <Label for="dietaryRestrictions">{COPY.rsvp.form.dietary.label}</Label>
             <Textarea

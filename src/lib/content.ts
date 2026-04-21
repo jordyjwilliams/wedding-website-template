@@ -258,6 +258,32 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
         placeholder: 'Please select...',
         errorRequired: 'Please select whether you are attending before submitting.',
       },
+      selectYesNoQuestions: [
+        {
+          key: 'fridayEveningBbq',
+          label: 'Will you be there Friday evening for BBQ?',
+          yes: 'Yes, I can’t wait for some delicious BBQ and good company! 🍖',
+          no: 'No, I will be missing out on the BBQ feast! 😔',
+          errorRequired: 'Please answer this question before submitting.',
+          triggerId: 'friday-evening-bbq-trigger',
+        },
+        {
+          key: 'sundayRecoveryBreakfast',
+          label: 'Will you be there Sunday morning for recovery breakfast?',
+          yes: 'Yes, I will be there to recover and reminisce about the amazing weekend! 🥞',
+          no: 'No, I will be missing out on the recovery breakfast! 😔',
+          errorRequired: 'Please answer this question before submitting.',
+          triggerId: 'sunday-recovery-breakfast-trigger',
+        },
+        {
+          key: 'stayingOnSite',
+          label: 'Will you be staying on site?',
+          yes: 'Yes, I will be staying on site to fully enjoy the wedding weekend experience! 🎊',
+          no: 'No, I will be staying off-site but still looking forward to celebrating with everyone! 🎉',
+          errorRequired: 'Please answer this question before submitting.',
+          triggerId: 'staying-on-site-trigger',
+        },
+      ],
       guests: {
         label: 'Number of Guests (including yourself)',
         description: 'Including yourself',
@@ -275,11 +301,6 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
         label: 'Dietary Requirements or Allergies',
         placeholder:
           'Let us know if you have any dietary needs or allergies we should be aware of 🌱🥩',
-      },
-      accommodation: {
-        label: 'Need Accommodation?',
-        yes: 'Yes please',
-        no: 'No thanks',
       },
       message: {
         label: 'Message for the Couple',
@@ -299,10 +320,10 @@ Pack layers for cooler evenings and bring sun protection for daytime events.`,
 
     error: {
       title: 'Oops!',
-      message: 'Something went wrong. Please try again or contact us directly.',
+      message: '❌ Something went wrong. Please try again or contact us directly.',
       timeout:
-        'Request timed out. Please check your internet connection and try again, or contact us directly.',
-      submitFailed: 'Oops! Something went wrong. Please try again or contact us directly.',
+        '❌ Request timed out. Please check your internet connection and try again, or contact us directly.',
+      submitFailed: '❌ Oops! Something went wrong. Please try again or contact us directly.',
     },
 
     contact: {
