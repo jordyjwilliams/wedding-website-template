@@ -20,7 +20,7 @@
   <div class="3xl:max-w-5xl relative z-10 mx-auto max-w-4xl text-center">
     <!-- Couple names -->
     <h1
-      class="font-heading text-foreground mb-8 text-[clamp(2.8rem,10vw,6rem)]
+      class="text-foreground font-heading-1 mb-8 text-[clamp(2.8rem,10vw,6rem)]
              leading-tight"
     >
       <span class="animate-fade-in-scale inline-block [animation-delay:0.4s]">
