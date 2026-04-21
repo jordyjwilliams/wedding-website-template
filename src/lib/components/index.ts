@@ -21,3 +21,4 @@ export { default as RSVPForm } from './sections/RSVPForm.svelte';
 export { default as VenueInfo } from './sections/VenueInfo.svelte';
 export { default as FAQs } from './sections/FAQs.svelte';
 export { default as WeddingDetails } from './sections/WeddingDetails.svelte';
+export { default as StorySections } from './sections/StorySections.svelte';

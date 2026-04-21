@@ -120,6 +120,21 @@ Structure split into `unit` and planning to add `ui`.
 > - Example command: `ffmpeg -i "$HOME/Downloads/example-image.jpg" -c:v libwebp -quality 76 -compression_level 6 -preset picture "$HOME/Downloads/{{page}}-bg.webp"`
 >   - Can add `-vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080"` to attempt to automatically re-scale images.
 
+For the repeated Our Story cards (alternating left/right image layout):
+
+- Recommended source/output format: WebP
+- Recommended dimensions: `1200x1600` (3:4 portrait)
+- Recommended quality: 72-80 (good quality with strong compression)
+
+Resize one photo for an Our Story card:
+
+```bash
+ffmpeg -y -i "$HOME/Downloads/story-photo.jpg" \
+  -vf "scale=1200:1600:force_original_aspect_ratio=increase,crop=1200:1600" \
+  -c:v libwebp -quality 76 -compression_level 6 -preset picture \
+  "static/images/our-story-scroll-placeholder.webp"
+```
+
 Convert all files in `static/images` to normalized WebP outputs:
 
 ```bash
@@ -215,10 +230,7 @@ Security defaults:
 - 🗃️ Test/Validate and linkup google sheets.
   - 🔎 Once validated ensure only one submission per email (if already exists)
 - ✍️ **Content**
-  - 📸 Add gallery of image and extended story text to: our story page.
   - 🌐 Use existing `InlineLinkSegment` for all text from `COPY` and `CONTENT` where it makes sence.
 - 🧪 **Unit Tests**
   - 🖥️ **@testing-library/svelte**: for ui tests.
   - 📈 Report coverage on ci.
-- ℹ️ **RSVP**
-  - Add `Will you be staying on site?`
