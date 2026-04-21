@@ -70,12 +70,12 @@
 
   .timeline-icon {
     position: absolute;
-    left: clamp(-100px, -15vw, -150px);
-    top: -0.95rem;
+    left: 42px;
+    top: -2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(1.4rem, 4vw, 4rem);
+    font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--color-primary);
