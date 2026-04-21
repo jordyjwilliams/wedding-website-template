@@ -99,7 +99,7 @@
         </div>
 
         <h1
-          class="font-heading text-primary mb-1 text-[2.6rem] font-bold
+          class="font-heading-1 text-primary mb-1 text-[2.6rem] font-bold
                  sm:text-[3rem]"
         >
           {WEDDING.couple.full}
