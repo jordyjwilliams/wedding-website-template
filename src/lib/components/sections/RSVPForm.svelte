@@ -13,22 +13,20 @@
   import { COPY } from '$lib/content';
   import ContactUs from '$lib/components/ContactUs.svelte';
   import {
+    createWeekendAnswers,
     createYesNoOptions,
     getNormalizedGuestCount,
     getMissingRequiredWeekendField,
     isYesNoResponse,
     optionalYesNoToBoolean,
     parseGuestCount,
+    RSVP_WEEKEND_QUESTIONS_BY_KEY,
+    selectYesNoQuestions,
     RSVP_WEEKEND_TRIGGER_IDS,
+    type RsvpWeekendFieldKey,
     validatePhone,
   } from '$lib/rsvp/utils';
-  import type {
-    RsvpFormData,
-    RsvpSubmitData,
-    RsvpWeekendFieldKey,
-    YesNoOption,
-    YesNoResponse,
-  } from '$lib/rsvp/types';
+  import type { RsvpFormData, RsvpSubmitData, YesNoOption, YesNoResponse } from '$lib/rsvp/types';
 
   const DEBUG_MODE = import.meta.env.VITE_DEBUG_MODE === 'true';
   type FormMessageType = 'success' | 'error' | '';
@@ -44,23 +42,15 @@
   let launchConfetti: () => void = $state(() => {});
 
   const attendanceOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.attending);
-  const WEEKEND_FIELDS: FieldConfig[] = [
-    {
-      key: 'fridayEveningBbq',
-      label: COPY.rsvp.form.fridayEveningBbq.label,
-      options: createYesNoOptions(COPY.rsvp.form.fridayEveningBbq),
-    },
-    {
-      key: 'sundayRecoveryBreakfast',
-      label: COPY.rsvp.form.sundayRecoveryBreakfast.label,
-      options: createYesNoOptions(COPY.rsvp.form.sundayRecoveryBreakfast),
-    },
-    {
-      key: 'stayingOnSite',
-      label: COPY.rsvp.form.stayingOnSite.label,
-      options: createYesNoOptions(COPY.rsvp.form.stayingOnSite),
-    },
-  ];
+  const WEEKEND_FIELDS: FieldConfig[] = selectYesNoQuestions.map(
+    (question): FieldConfig => ({
+      key: question.key,
+      label: question.label,
+      options: createYesNoOptions(question),
+    })
+  );
+
+  const INITIAL_WEEKEND_ANSWERS = createWeekendAnswers(() => undefined);
 
   const INITIAL_FORM_DATA: RsvpFormData = {
     attendance: undefined,
@@ -71,9 +61,7 @@
     guestCount: '1',
     dietaryRestrictions: '',
     message: '',
-    fridayEveningBbq: undefined,
-    sundayRecoveryBreakfast: undefined,
-    stayingOnSite: undefined,
+    ...INITIAL_WEEKEND_ANSWERS,
   };
 
   let formData = $state<RsvpFormData>({ ...INITIAL_FORM_DATA });
@@ -87,11 +75,9 @@
   let additionalGuestNamesError = $state('');
   let successWasAttending = $state<boolean | null>(null);
   let additionalGuestNames = $state<string[]>([]);
-  let weekendFieldErrors = $state<Record<RsvpWeekendFieldKey, string>>({
-    fridayEveningBbq: '',
-    sundayRecoveryBreakfast: '',
-    stayingOnSite: '',
-  });
+  let weekendFieldErrors = $state<Record<RsvpWeekendFieldKey, string>>(
+    createWeekendAnswers(() => '')
+  );
 
   let isAttending = $derived(formData.attendance === 'yes');
   let showAttendingFields = $derived(isAttending);
@@ -135,9 +121,9 @@
     additionalGuestNames = [];
     additionalGuestNamesError = '';
     clearWeekendFieldErrors();
-    formData.fridayEveningBbq = undefined;
-    formData.sundayRecoveryBreakfast = undefined;
-    formData.stayingOnSite = undefined;
+    for (const question of selectYesNoQuestions) {
+      formData[question.key] = undefined;
+    }
   }
 
   function clearAllErrors(): void {
@@ -175,9 +161,9 @@
   }
 
   function clearWeekendFieldErrors(): void {
-    weekendFieldErrors.fridayEveningBbq = '';
-    weekendFieldErrors.sundayRecoveryBreakfast = '';
-    weekendFieldErrors.stayingOnSite = '';
+    for (const question of selectYesNoQuestions) {
+      weekendFieldErrors[question.key] = '';
+    }
   }
 
   function setWeekendFieldError(field: RsvpWeekendFieldKey, message: string): void {
@@ -224,8 +210,8 @@
 
     const missingWeekendField = getMissingRequiredWeekendField(formData);
     if (missingWeekendField) {
-      const fieldContent = COPY.rsvp.form[missingWeekendField];
-      setWeekendFieldError(missingWeekendField, fieldContent.errorRequired);
+      const question = RSVP_WEEKEND_QUESTIONS_BY_KEY[missingWeekendField];
+      setWeekendFieldError(missingWeekendField, question.errorRequired);
       document.getElementById(RSVP_WEEKEND_TRIGGER_IDS[missingWeekendField])?.focus();
       return false;
     }
@@ -304,17 +290,17 @@
       .map((name) => name.trim())
       .filter(Boolean);
 
+    const weekendSubmitAnswers = createWeekendAnswers((field) => {
+      return isAttending ? optionalYesNoToBoolean(formData[field]) : false;
+    });
+
     const submitData: RsvpSubmitData = {
       ...formData,
+      ...weekendSubmitAnswers,
       attendance: isAttending,
       guestCount: isAttending ? normalizedGuestCount : 0,
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
-      fridayEveningBbq: isAttending ? optionalYesNoToBoolean(formData.fridayEveningBbq) : false,
-      sundayRecoveryBreakfast: isAttending
-        ? optionalYesNoToBoolean(formData.sundayRecoveryBreakfast)
-        : false,
-      stayingOnSite: isAttending ? optionalYesNoToBoolean(formData.stayingOnSite) : false,
       additionalGuestNames: isAttending ? normalizedAdditionalGuestNames : [],
       timestamp: new Date().toISOString(),
     };
