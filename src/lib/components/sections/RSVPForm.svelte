@@ -80,17 +80,14 @@
   );
 
   let isAttending = $derived(formData.attendance === 'yes');
-  let showAttendingFields = $derived(isAttending);
   let normalizedGuestCount = $derived(
     getNormalizedGuestCount(formData.guestCount, GUEST_COUNT_MIN, GUEST_COUNT_MAX)
   );
-  let additionalGuestCount = $derived(
-    showAttendingFields ? Math.max(0, normalizedGuestCount - 1) : 0
-  );
+  let additionalGuestCount = $derived(isAttending ? Math.max(0, normalizedGuestCount - 1) : 0);
   let hasAdditionalGuests = $derived(additionalGuestCount > 0);
 
   $effect(() => {
-    if (!showAttendingFields) {
+    if (!isAttending) {
       resetAttendingFields();
       return;
     }
@@ -183,7 +180,7 @@
   }
 
   function validateGuestCountField(): boolean {
-    if (!showAttendingFields) {
+    if (!isAttending) {
       guestCountError = '';
       return true;
     }
@@ -203,7 +200,7 @@
   }
 
   function validateWeekendFields(): boolean {
-    if (!showAttendingFields) {
+    if (!isAttending) {
       clearWeekendFieldErrors();
       return true;
     }
@@ -450,7 +447,7 @@
           {/if}
         </div>
 
-        {#if showAttendingFields}
+        {#if isAttending}
           <div class="form-group-wrapper guest-count-animate">
             <Label for="guestCount">{COPY.rsvp.form.guests.label} *</Label>
             <Input
@@ -460,7 +457,7 @@
               oninput={handleGuestCountInput}
               min={GUEST_COUNT_MIN}
               max={GUEST_COUNT_MAX}
-              required={showAttendingFields}
+              required={isAttending}
               disabled={isLoading}
               placeholder="1"
               class={guestCountError ? 'border-destructive' : ''}
