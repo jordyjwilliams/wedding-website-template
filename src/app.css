@@ -63,8 +63,6 @@
   --animate-fade-in-down: fadeInDown 0.8s ease-out both;
   --animate-fade-in-scale: fadeInScale 0.8s ease-out both;
   --animate-spin-in: spinIn 0.8s ease-out both;
-  --animate-page-entrance: fadeIn 0.6s ease-out;
-  --duration-page-entrance: 0.6s;
   --duration-section-entrance: 0.8s;
   --duration-item-stagger: 0.2s;
   --easing-entrance: ease-out;
@@ -88,7 +86,6 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
 }
 
 :root {
@@ -346,22 +343,6 @@
   100% {
     opacity: 0;
     transform: translate3d(55px, -120vh, 0) rotate(180deg);
-  }
-}
-
-@keyframes floatOrb {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(40px, -40px) scale(1.08);
-  }
-  50% {
-    transform: translate(-25px, 25px) scale(0.94);
-  }
-  75% {
-    transform: translate(50px, 15px) scale(1.04);
   }
 }
 
