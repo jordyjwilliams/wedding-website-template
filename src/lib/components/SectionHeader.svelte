@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
+  import { RichTextContent } from '$lib/components';
+
   interface Props {
     title: string;
     intro?: string;
@@ -20,9 +22,13 @@
     {emoji ? `${emoji} ${title} ${emoji}` : title}
   </h2>
   {#if intro}
-    <p class="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed">
-      {intro}
-    </p>
+    <RichTextContent
+      text={intro}
+      class="font-heading-2 text-primary-dark animate-fade-in-up mx-auto max-w-2xl text-lg leading-relaxed
+                 italic
+                 [animation-delay:0.2s]"
+      paragraphClass="text-primary-dark text-[1.1rem] leading-[1.8]"
+    />
   {/if}
   {#if children}
     {@render children()}
