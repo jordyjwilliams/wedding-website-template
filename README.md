@@ -224,7 +224,6 @@ Security defaults:
 - 🎨 **Styling** General improvements.
   - ✅ 📌 Further optimize usage and usability in general.
   - 🖊️ Font: fix rendering of labels on wedding timeline page (mobile)
-  - 🖊️ Font: Pick and fix body font - match invites
   - 👓 Fix redability of text on all pages.
   - 🎨 Tweak all colors and theming.
 - 🗃️ Test/Validate and linkup google sheets.
