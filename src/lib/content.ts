@@ -107,7 +107,7 @@ The celebration that followed felt like the beginning of an even better chapter.
     title: 'FAQ',
     emoji: '',
     intro:
-      "We've put together some answers to questions we think you might have about the wedding weekend. More information will be added in due course here.",
+      "We've put together some answers to questions we think you might have about the wedding weekend.\n\n More information will be added in due course here.",
     contact: {
       title: '',
       content:
