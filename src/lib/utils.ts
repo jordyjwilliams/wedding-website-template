@@ -10,10 +10,35 @@ export type InlineLinkSegment = {
   href: string | null;
 };
 
+export type CountdownTimeLeft = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
+
+export function getCountdownTimeLeft(
+  targetUtcMs: number,
+  nowUtcMs = Date.now()
+): CountdownTimeLeft {
+  const diff = targetUtcMs - nowUtcMs;
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+  return {
+    days: Math.floor(diff / 86_400_000),
+    hours: Math.floor((diff % 86_400_000) / 3_600_000),
+    minutes: Math.floor((diff % 3_600_000) / 60_000),
+    seconds: Math.floor((diff % 60_000) / 1000),
+  };
+}
+
 function isSafeHref(href: string): boolean {
   return /^(https?:\/\/|mailto:|tel:|\/|#)/.test(href.trim());
 }
-
+// Detects if a link is an external/absolute URL
+export function isExternalLink(href: string): boolean {
+  return /^https?:\/\//.test(href);
+}
 // Parse simple markdown links ([label](href)) into safe text/link segments.
 export function parseInlineLinks(input: string): InlineLinkSegment[] {
   const markdownLinkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
