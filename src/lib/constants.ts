@@ -29,8 +29,8 @@ export const WEDDING = {
   // Countdown
   // NOTE: all logic for dates will be set on component.
   countdown: {
-    isPastTarget: "Today's the big day!",
-    isNotPastTarget: 'Counting down to the big day',
+    isPastTarget: 'Til death do us part!',
+    isNotPastTarget: 'Time until I do',
   },
 
   // Venue
