@@ -17,6 +17,9 @@ export const WEDDING = {
     start: '2027-01-01',
     end: '2027-01-03',
     ceremony: '2027-01-02',
+    // NOTE: Update this with the ceremony time for countdown
+    ceremonyDateTime: '2027-01-02T16:20:00+10:00',
+    // Somewhat hacky - simply redefine as strings for display
     displayFull: '1st - 3rd January 2027',
     displayDay1: '1st January 2027',
     displayDay2: '2nd January 2027',
