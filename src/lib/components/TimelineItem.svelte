@@ -37,6 +37,7 @@
     <span>{dayLabel}</span>
   </div>
   <Card.Root class="glass rounded-3xl p-8">
+    <p class="mobile-day-label font-heading-1" class:highlight={isHighlight}>{dayLabel}</p>
     <h3>{title}</h3>
     {#if dateHref}
       <a href={dateHref} target="_blank" rel="noopener noreferrer" class="timeline-date">
@@ -68,7 +69,6 @@
     animation: fadeInSlide 0.8s ease-out var(--delay, 0s) forwards;
   }
 
-  /* TODO: fix scaling of this on mobile */
   .timeline-icon {
     position: absolute;
     left: 42px;
@@ -82,6 +82,10 @@
     color: var(--color-primary);
     z-index: 10;
     white-space: nowrap;
+  }
+
+  .mobile-day-label {
+    display: none;
   }
 
   .timeline-icon.highlight {
@@ -163,23 +167,29 @@
 
   @media (max-width: 640px) {
     .timeline-item {
-      padding-left: 60px;
+      padding-left: 45px;
     }
 
     .timeline-icon {
-      left: -70px;
-      top: 0;
+      display: none;
+    }
+
+    .mobile-day-label {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .mobile-day-label.highlight {
+      animation: pulse 1.2s ease-in-out infinite;
     }
   }
 
   @media (max-width: 480px) {
     .timeline-item {
-      padding-left: 50px;
-    }
-
-    .timeline-icon {
-      left: -60px;
-      font-size: 1.2rem;
+      padding-left: 40px;
     }
   }
 </style>
