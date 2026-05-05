@@ -1,0 +1,2 @@
+# rootDir in .clasp.json is set to "gas/" so clasp only sees that folder.
+# No explicit ignores needed — nothing else in gas/ should be excluded.
