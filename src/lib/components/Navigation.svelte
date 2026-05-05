@@ -12,6 +12,7 @@
   import { toggleMode } from 'mode-watcher';
   import { DotLottieSvelte } from '@lottiefiles/dotlottie-svelte';
   import { COPY } from '$lib/content';
+  import { WEDDING } from '$lib/constants';
 
   let mobileMenuOpen = $state(false);
   let scrolled = $state(false);
@@ -107,13 +108,13 @@
       </Button>
 
       <!-- Brand -->
-      <a
-        href={resolve('/', {})}
-        class="font-script text-[2.2rem] leading-none font-bold no-underline
-               transition-transform duration-200 hover:-translate-y-px"
-        aria-label="Home"
-      >
-        <div style="width:44px;height:44px" class="rings-animation pointer-events-none">
+      <a href={resolve('/', {})} class="flex items-center gap-1 no-underline" aria-label="Home">
+        <span
+          class="font-heading-1 text-primary hover:text-foreground hover:border-primary/70 text-[1.1rem] leading-none tracking-wide transition-opacity duration-200"
+        >
+          {WEDDING.couple.initials}
+        </span>
+        <div class="rings-animation pointer-events-none h-12 w-12">
           <DotLottieSvelte src="/animations/wedding-rings.lottie" loop autoplay />
         </div>
       </a>
