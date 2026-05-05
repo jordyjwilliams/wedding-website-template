@@ -1,13 +1,27 @@
 <script lang="ts">
-  import { parseInlineLinks } from '$lib/utils.js';
+  import { parseInlineLinks, isExternalLink } from '$lib/utils.js';
 
-  let { text, class: className = '' }: { text: string; class?: string } = $props();
+  interface Props {
+    text: string;
+    class?: string;
+    externalLinksNewTab?: boolean;
+  }
+
+  let { text, class: className = '', externalLinksNewTab = true }: Props = $props();
 </script>
 
 <span class={className}>
   {#each parseInlineLinks(text) as segment, i (i)}
     {#if segment.href}
-      <a href={segment.href} class="inline-link">{segment.text}</a>
+      {@const isExternal = isExternalLink(segment.href)}
+      <a
+        href={segment.href}
+        class="inline-link"
+        target={externalLinksNewTab && isExternal ? '_blank' : undefined}
+        rel={externalLinksNewTab && isExternal ? 'noopener noreferrer' : undefined}
+      >
+        {segment.text}
+      </a>
     {:else}
       {segment.text}
     {/if}
