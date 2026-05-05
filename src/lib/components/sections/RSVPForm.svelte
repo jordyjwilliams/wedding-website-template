@@ -34,6 +34,7 @@
     key: RsvpWeekendFieldKey;
     label: string;
     options: YesNoOption[];
+    placeholder?: string;
   };
 
   const GUEST_COUNT_MIN = RSVP_LIMITS.guestCountMin;
@@ -47,6 +48,7 @@
       key: question.key,
       label: question.label,
       options: createYesNoOptions(question),
+      placeholder: question.placeholder,
     })
   );
 
@@ -267,20 +269,9 @@
     messageType = '';
     successWasAttending = null;
 
-    const GOOGLE_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || '';
-
     if (DEBUG_MODE) {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log('Simulated network delay for debugging');
-    }
-
-    if (!GOOGLE_SCRIPT_URL) {
-      console.error('Google Script URL not configured');
-      messageType = 'error';
-      formMessage = COPY.rsvp.error.message;
-      successWasAttending = null;
-      isLoading = false;
-      return;
     }
 
     const normalizedAdditionalGuestNames = additionalGuestNames
@@ -300,15 +291,15 @@
       message: formData.message || 'None',
       additionalGuestNames: isAttending ? normalizedAdditionalGuestNames : [],
       timestamp: new Date().toISOString(),
+      debugMode: DEBUG_MODE,
     };
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      const response = await fetch('/.netlify/functions/submit-rsvp', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -316,7 +307,13 @@
         signal: controller.signal,
       });
 
-      void response;
+      if (!response.ok) {
+        const result = (await response.json().catch(() => ({}))) as {
+          message?: string;
+          code?: string;
+        };
+        throw new Error(result.message);
+      }
 
       messageType = 'success';
       successWasAttending = isAttending;
@@ -343,6 +340,8 @@
 
       if (error instanceof Error && error.name === 'AbortError') {
         formMessage = COPY.rsvp.error.timeout;
+      } else if (error instanceof Error && error.message) {
+        formMessage = error.message;
       } else {
         formMessage = COPY.rsvp.error.submitFailed;
       }
@@ -360,7 +359,12 @@
     <SectionHeader title={COPY.rsvp.title} emoji={COPY.rsvp.emoji} intro={COPY.rsvp.intro} />
 
     <div class="rsvp-container">
-      <form onsubmit={handleSubmit} class="glass rsvp-form rounded-3xl p-12">
+      <form
+        onsubmit={handleSubmit}
+        class="glass rsvp-form rounded-3xl p-12"
+        data-netlify="true"
+        name="rsvp-form"
+      >
         <div class="form-row">
           <div class="form-group-wrapper">
             <Label for="firstName">{COPY.rsvp.form.name.firstNameLabel} *</Label>
@@ -506,7 +510,7 @@
                   id={RSVP_WEEKEND_TRIGGER_IDS[field.key]}
                   class="w-full {weekendFieldErrors[field.key] ? 'border-destructive' : ''}"
                 >
-                  {getSelectedOptionLabel(formData[field.key], field.options)}
+                  {getSelectedOptionLabel(formData[field.key], field.options, field.placeholder)}
                 </Select.Trigger>
                 <Select.Content>
                   {#each field.options as option (option.value)}
