@@ -6,6 +6,7 @@
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Spinner } from '$lib/components/ui/spinner';
+  import { SectionHeader } from '$lib/components';
   import * as Card from '$lib/components/ui/card';
   import * as Alert from '$lib/components/ui/alert';
   import { WEDDING } from '$lib/constants';
@@ -98,25 +99,19 @@
           <Icon icon="ph:lock-fill" width="48" class="mx-auto" />
         </div>
 
-        <h1
-          class="font-heading-1 text-primary mb-1 text-[2.6rem] font-bold
-                 sm:text-[3rem]"
+        <SectionHeader
+          title={WEDDING.couple.full}
+          eyebrow={COPY.login.eyebrow}
+          intro={COPY.login.welcome}
+          class="mb-6 text-center"
+          titleClass="!mb-3 text-[2.6rem] leading-[1.24] font-bold sm:text-[3rem]"
+          eyebrowClass="text-muted-foreground mb-3 text-base font-medium tracking-wide"
+          introClass="mx-auto max-w-md text-center text-[1.05rem]"
+          introParagraphClass="text-card-foreground leading-relaxed"
+        />
+        <p
+          class="text-muted-foreground animate-fade-in-up mb-8 flex items-center justify-center gap-1 text-sm [animation-delay:0.4s]"
         >
-          {WEDDING.couple.full}
-        </h1>
-
-        <p class="text-muted-foreground mb-6 text-base font-medium tracking-wide">
-          {COPY.login.eyebrow}
-        </p>
-
-        <div class="text-card-foreground mb-3 space-y-3 text-center text-[1.05rem] leading-relaxed">
-          {#each COPY.login.welcome.split('\n\n') as paragraph, i (i)}
-            {#if paragraph.trim()}
-              <p>{paragraph.trim()}</p>
-            {/if}
-          {/each}
-        </div>
-        <p class="text-muted-foreground mb-8 flex items-center justify-center gap-1 text-sm">
           {COPY.login.privacy}
           <Icon icon="ph:key-duotone" width="20" class="inline-block shrink-0" />
         </p>
