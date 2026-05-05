@@ -68,9 +68,6 @@
           />
         </div>
       </div>
-
-      <!-- Gallery -->
-      <!-- TODO: Add gallery component here -->
     </div>
   </div>
 </AnimatedSection>
