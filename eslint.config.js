@@ -54,20 +54,20 @@ export default [
     ignores: ['build/', '.svelte-kit/', 'dist/', 'node_modules/', '.netlify/', 'todo/'],
   },
   {
-    // Google Apps Script environment configuration
-    files: ['google-apps-script.js'],
+    // Google Apps Script environment — globals not available in standard JS/Node environments.
+    files: ['gas/google-apps-script.js'],
     languageOptions: {
       globals: {
         SpreadsheetApp: 'readonly',
         ContentService: 'readonly',
         MailApp: 'readonly',
         Logger: 'readonly',
+        PropertiesService: 'readonly',
       },
     },
     rules: {
-      // Allow testScript to be defined but not called (used for manual testing in Apps Script editor)
-      // TODO: Remove when tested and fixed
-      'no-unused-vars': ['error', { varsIgnorePattern: '^testScript$' }],
+      // testScript* functions are called manually from the Apps Script editor, not from code.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^testScript' }],
     },
   },
 ];
