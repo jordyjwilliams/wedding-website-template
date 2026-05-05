@@ -1,26 +1,20 @@
 import { afterEach, vi, beforeAll } from 'vitest';
-// TODO: add cleanup usage for UI tests
-// import { cleanup } from '@testing-library/svelte';
 
 // These must be set at module load time because some Netlify functions
 // read env vars during import and log warnings if they are missing.
 process.env.WEDDING_PASSCODE = 'test-passcode-123';
 process.env.SESSION_SIGNING_SECRET = 'test-secret-key-32-chars-minimum!';
+process.env.GOOGLE_SCRIPT_URL = 'https://test-script.example.com/exec';
+process.env.GOOGLE_SCRIPT_SECRET = 'test-script-secret';
 
 // Set environment for client-side rendering
-globalThis.window = globalThis.window || {};
-globalThis.document = globalThis.document || {};
+beforeAll(() => {
+  process.env.VITE_DEBUG_MODE = 'false';
+});
 
 // Cleanup after each test
 afterEach(() => {
-  // cleanup();
   vi.clearAllMocks();
-});
-
-// Set environment variables for tests
-beforeAll(() => {
-  process.env.VITE_DEBUG_MODE = 'false';
-  process.env.VITE_GOOGLE_SCRIPT_URL = 'https://example.com/script';
 });
 
 // Mock crypto for Node environment tests
