@@ -7,6 +7,7 @@
     class?: string;
     paragraphClass?: string;
     bulletsClass?: string;
+    externalLinksNewTab?: boolean;
   }
 
   let {
@@ -15,6 +16,7 @@
     class: className = '',
     paragraphClass = 'text-muted-foreground leading-relaxed',
     bulletsClass = 'mt-4',
+    externalLinksNewTab = true,
   }: Props = $props();
 
   const paragraphs = $derived.by(() => {
@@ -32,7 +34,7 @@
     <div class="space-y-3">
       {#each paragraphs as paragraph, i (`paragraph-${i}`)}
         <p class={paragraphClass}>
-          <InlineLinks text={paragraph} />
+          <InlineLinks text={paragraph} {externalLinksNewTab} />
         </p>
       {/each}
     </div>
@@ -41,7 +43,7 @@
   {#if bullets.length > 0}
     <ul class={`rich-bullets space-y-2.5 ${bulletsClass}`}>
       {#each bullets as bullet, i (`bullet-${i}`)}
-        <li><InlineLinks text={bullet} /></li>
+        <li><InlineLinks text={bullet} {externalLinksNewTab} /></li>
       {/each}
     </ul>
   {/if}
