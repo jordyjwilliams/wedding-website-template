@@ -30,7 +30,7 @@
 
   const heartPositions = ['15%', '35%', '55%', '75%', '25%', '85%'];
 
-  const initialOverlayOpacity: number = 0.62;
+  const initialOverlayOpacity: number = 0.72;
   const minOverlayOpacity: number = 0.42;
   const restoreDelayMs: number = 60;
   const scrollIntensity: number = 0.45;
