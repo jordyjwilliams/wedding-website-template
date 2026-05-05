@@ -41,4 +41,7 @@ export interface RsvpSubmitData
   guestCount: number;
   additionalGuestNames: string[];
   timestamp: string;
+  // Optional flag to indicate if submission is in debug mode
+  // Passed into apps script - email recipient logic.
+  debugMode?: boolean;
 }
