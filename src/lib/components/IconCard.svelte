@@ -42,6 +42,7 @@
         <RichTextContent
           text={description}
           paragraphClass="text-muted-foreground text-sm leading-relaxed"
+          externalLinksNewTab={true}
         />
       {/if}
     </Card.Content>
