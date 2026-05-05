@@ -21,6 +21,9 @@ deno.lock
 .env.*.local
 !.env.example
 
+# clasp (Google Apps Script CLI) — Script ID is environment-specific
+.clasp.json
+
 # OS files
 .DS_Store
 Thumbs.db

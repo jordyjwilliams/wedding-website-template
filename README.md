@@ -58,7 +58,7 @@ cp .env.example .env
 
 # Required auth variables
 # WEDDING_PASSCODE=YourSecretPasscode
-# SESSION_SIGNING_SECRET=<generate with: openssl rand -hex 32>
+# SESSION_SIGNING_SECRET=<generate with: openssl rand -hex 32
 ```
 
 #### Environment Variables
@@ -157,13 +157,51 @@ done
 
 #### 💌 Google Sheets RSVP
 
-- This is left as optinal within template currently.
-- To set this up properly.
+The RSVP form posts to a Netlify function (`netlify/functions/submit-rsvp.ts`) which proxies to a Google Apps Script web app that writes to Google Sheets and sends confirmation emails.
+
+**Setup:**
+
+1. Create a Google Sheet with the column headers listed in `google-apps-script.js`
+2. Open **Extensions → Apps Script**, paste the contents of `gas/google-apps-script.js`, and deploy as a Web App (Execute as: Me, Access: Anyone)
+3. In Apps Script **Project Settings → Script Properties**, set:
+   - `RSVP_SECRET` — a strong random string (e.g. `openssl rand -hex 32`)
+   - `NOTIFICATION_EMAIL` — the couple's notification email address
+4. Add to Netlify environment variables (and local `.env`):
+   - `GOOGLE_SCRIPT_URL` — the deployed Web App URL
+   - `GOOGLE_SCRIPT_SECRET` — same value as `RSVP_SECRET` above
+
+**Managing the Apps Script with clasp:**
+
+[clasp](https://github.com/google/clasp) lets you push `google-apps-script.js` from the repo directly to the Apps Script editor.
+
+```bash
+# Install clasp globally
+pnpm add -g @google/clasp
+
+# Authenticate with Google
+clasp login
+
+# Add your Script ID to .clasp.json (gitignored — create it locally)
+# { "scriptId": "YOUR_SCRIPT_ID", "rootDir": "." }
+# Script ID: Apps Script editor → Project Settings → Script ID
+
+# Push local changes to Apps Script
+clasp push
+
+# Deploy a new version (required to make doPost changes live)
+clasp deploy --description "your change description"
+
+# Open the editor in browser
+clasp open
+```
 
 > [!NOTE]
->
-> - This is yet to be properly tested.
-> - Placeholder stubs for now.
+> `.clasp.json` is gitignored — each developer creates it locally with their own Script ID.
+> After `clasp push`, you must redeploy for `doPost` (the RSVP endpoint) to pick up changes.
+
+**Testing the Apps Script:**
+Run `testScript()` or `testScriptDeclining()` directly from the Apps Script editor (**Run → Run function**).
+Check the **Executions** log for output. Remember to delete the test row from the sheet afterwards.
 
 ## 🛠 Development Scripts
 
