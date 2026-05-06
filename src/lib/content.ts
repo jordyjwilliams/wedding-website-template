@@ -20,6 +20,15 @@ export const COPY = {
     rsvp: 'RSVP',
   },
 
+  // Footer
+  footer: {
+    message: 'From Australia with',
+    icon: 'ph:heart-fill',
+    byLabel: ' · template',
+    names: `by ${WEDDING.couple.groom}`,
+    linkHref: 'https://github.com/jordyjwilliams/wedding-website-template',
+  },
+
   // Hero Section
   hero: {
     eyebrow: 'are getting married',
