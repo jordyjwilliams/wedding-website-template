@@ -22,7 +22,7 @@ export const COPY = {
 
   // Footer
   footer: {
-    message: 'Made with love',
+    message: 'Made with',
     icon: 'ph:heart-fill',
     byLabel: ' · template',
     names: `by Jordy`,
