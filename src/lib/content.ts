@@ -22,10 +22,10 @@ export const COPY = {
 
   // Footer
   footer: {
-    message: 'From Australia with',
+    message: 'Made with love',
     icon: 'ph:heart-fill',
     byLabel: ' · template',
-    names: `by ${WEDDING.couple.groom}`,
+    names: `by Jordy`,
     linkHref: 'https://github.com/jordyjwilliams/wedding-website-template',
   },
 
