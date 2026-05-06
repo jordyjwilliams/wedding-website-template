@@ -5,6 +5,7 @@
   import { resolve } from '$app/paths';
   import { page } from '$app/stores';
   import { Navigation } from '$lib/components';
+  import Icon from '@iconify/svelte';
   import { authState, refreshAuthState } from '$lib/auth-state.svelte';
   import { ModeWatcher } from 'mode-watcher';
   import { COPY } from '$lib/content';
@@ -31,6 +32,28 @@
   <Navigation />
 {/if}
 
-<main class="min-h-screen {authState.isAuthenticated ? 'pt-(--nav-height)' : ''}">
-  {@render children?.()}
-</main>
+<div class="flex min-h-screen flex-col">
+  <main class="flex-1 {authState.isAuthenticated ? 'pt-(--nav-height)' : ''}">
+    {@render children?.()}
+  </main>
+
+  <footer class="glass-nav-solid border-border/70 border-t px-4 py-6">
+    <div
+      class="text-foreground/80 mx-auto flex max-w-5xl flex-col items-center justify-center gap-2 text-center text-sm"
+    >
+      <p class="flex items-center gap-2 tracking-wide">
+        <span>{COPY.footer.message}</span>
+        <Icon icon={COPY.footer.icon} class="text-primary h-4 w-4" aria-hidden="true" />
+        <span>{COPY.footer.byLabel}</span>
+        <a
+          class="text-primary decoration-primary/40 hover:text-foreground font-medium underline underline-offset-4 transition-colors"
+          href={COPY.footer.linkHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {COPY.footer.names}
+        </a>
+      </p>
+    </div>
+  </footer>
+</div>
