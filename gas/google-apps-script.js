@@ -24,7 +24,7 @@
 // ── Sheet columns (row 1 headers) ─────────────────────────────────────────────
 //   Timestamp | First Name | Last Name | Email | Phone | Attendance | Guest Count
 //   | Additional Guests | Friday Evening BBQ | Sunday Recovery Breakfast
-//   | Staying On Site | Dietary Restrictions | Message
+//   | Staying On Site | Travel Plans | Dietary Restrictions | Message
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 
@@ -81,6 +81,7 @@ function doPost(e) {
       data.fridayEveningBbq,
       data.sundayRecoveryBreakfast,
       data.stayingOnSite,
+      (data.travelPlans || []).join(', '),
       data.dietaryRestrictions,
       data.message,
     ];
@@ -174,6 +175,7 @@ function buildConfirmationEmailData(data) {
     fridayBbq: isAttending ? data.fridayEveningBbq : null,
     sundayBreakfast: isAttending ? data.sundayRecoveryBreakfast : null,
     stayingOnSite: isAttending ? data.stayingOnSite : null,
+    travelPlans: isAttending ? data.travelPlans || [] : [],
     dietaryRestrictions: isAttending ? data.dietaryRestrictions : null,
     message: data.message ? data.message : null,
   };
@@ -212,6 +214,10 @@ function renderConfirmationEmailHtml(emailData) {
     rows.push(['Friday Evening BBQ', yn(emailData.fridayBbq)]);
     rows.push(['Sunday Recovery Breakfast', yn(emailData.sundayBreakfast)]);
     rows.push(['Staying On Site', yn(emailData.stayingOnSite)]);
+    rows.push([
+      'Getting There',
+      emailData.travelPlans.length > 0 ? emailData.travelPlans.join(', ') : '—',
+    ]);
     rows.push(['Dietary Requirements', emailData.dietaryRestrictions || '—']);
   }
 
@@ -310,6 +316,7 @@ function renderConfirmationEmailText(emailData) {
     `Friday Evening BBQ: ${yn(emailData.fridayBbq)}`,
     `Sunday Breakfast: ${yn(emailData.sundayBreakfast)}`,
     `Staying On Site: ${yn(emailData.stayingOnSite)}`,
+    `Getting There: ${emailData.travelPlans.length > 0 ? emailData.travelPlans.join(', ') : 'Not specified'}`,
     `Dietary Requirements: ${emailData.dietaryRestrictions || 'None Provided'}`,
   ];
 
@@ -375,6 +382,7 @@ function sendEmailNotification(data) {
         `  Friday BBQ: ${yn(emailData.fridayBbq)}`,
         `  Sunday Breakfast: ${yn(emailData.sundayBreakfast)}`,
         `  Staying On Site: ${yn(emailData.stayingOnSite)}`,
+        `  Getting There: ${emailData.travelPlans.length > 0 ? emailData.travelPlans.join(', ') : 'Not specified'}`,
         `  Dietary: ${emailData.dietaryRestrictions || 'None Provided'}`,
       ]
     : [];
@@ -439,6 +447,7 @@ function testScript() {
     fridayEveningBbq: true,
     sundayRecoveryBreakfast: false,
     stayingOnSite: true,
+    travelPlans: ['hire-car', 'shuttle'],
     dietaryRestrictions: 'Vegetarian',
     message: 'Looking forward to it!',
     secret: PropertiesService.getScriptProperties().getProperty('RSVP_SECRET') || '',
@@ -463,6 +472,7 @@ function testScriptDeclining() {
     fridayEveningBbq: false,
     sundayRecoveryBreakfast: false,
     stayingOnSite: false,
+    travelPlans: [],
     dietaryRestrictions: 'None',
     message: "So sorry I can't make it!",
     secret: PropertiesService.getScriptProperties().getProperty('RSVP_SECRET') || '',

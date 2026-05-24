@@ -8,6 +8,7 @@
   import * as Alert from '$lib/components/ui/alert';
   import * as Select from '$lib/components/ui/select';
   import { SectionHeader, AnimatedSection } from '$lib/components';
+  import * as ToggleGroup from '$lib/components/ui/toggle-group';
   import Confetti from '$lib/components/Confetti.svelte';
   import { RSVP_LIMITS } from '$lib/constants';
   import { COPY } from '$lib/content';
@@ -33,6 +34,9 @@
   type FieldConfig = {
     key: RsvpWeekendFieldKey;
     label: string;
+    hint: string;
+    yesIcon: string;
+    noIcon: string;
     options: YesNoOption[];
     placeholder?: string;
   };
@@ -47,6 +51,9 @@
     (question): FieldConfig => ({
       key: question.key,
       label: question.label,
+      hint: question.hint,
+      yesIcon: question.yesIcon,
+      noIcon: question.noIcon,
       options: createYesNoOptions(question),
       placeholder: question.placeholder,
     })
@@ -61,6 +68,7 @@
     email: '',
     phone: '',
     guestCount: '1',
+    travelPlans: [],
     dietaryRestrictions: '',
     message: '',
     ...INITIAL_WEEKEND_ANSWERS,
@@ -80,6 +88,13 @@
   let weekendFieldErrors = $state<Record<RsvpWeekendFieldKey, string>>(
     createWeekendAnswers(() => '')
   );
+  let travelPlansError = $state('');
+
+  $effect(() => {
+    if (formData.travelPlans.length > 0) {
+      travelPlansError = '';
+    }
+  });
 
   let isAttending = $derived(formData.attendance === 'yes');
   let normalizedGuestCount = $derived(
@@ -120,6 +135,8 @@
     additionalGuestNames = [];
     additionalGuestNamesError = '';
     clearWeekendFieldErrors();
+    formData.travelPlans = [];
+    travelPlansError = '';
     for (const question of selectYesNoQuestions) {
       formData[question.key] = undefined;
     }
@@ -130,6 +147,7 @@
     attendanceError = '';
     guestCountError = '';
     additionalGuestNamesError = '';
+    travelPlansError = '';
     clearWeekendFieldErrors();
   }
 
@@ -247,12 +265,28 @@
     return true;
   }
 
+  function validateTravelPlans(): boolean {
+    if (!isAttending) {
+      travelPlansError = '';
+      return true;
+    }
+
+    if (formData.travelPlans.length === 0) {
+      travelPlansError = COPY.rsvp.form.travelPlans.errorRequired;
+      return false;
+    }
+
+    travelPlansError = '';
+    return true;
+  }
+
   function validateForm(): boolean {
     return (
       validateAttendance() &&
       validateGuestCountField() &&
       validateWeekendFields() &&
       validateAdditionalGuestNames() &&
+      validateTravelPlans() &&
       validatePhoneField()
     );
   }
@@ -290,6 +324,7 @@
       dietaryRestrictions: formData.dietaryRestrictions || 'None',
       message: formData.message || 'None',
       additionalGuestNames: isAttending ? normalizedAdditionalGuestNames : [],
+      travelPlans: isAttending ? formData.travelPlans : [],
       timestamp: new Date().toISOString(),
       debugMode: DEBUG_MODE,
     };
@@ -405,6 +440,7 @@
 
         <div class="form-group-wrapper">
           <Label for="phone">{COPY.rsvp.form.phone.label}</Label>
+          <p class="text-muted-foreground mt-1 mb-2 text-sm">{COPY.rsvp.form.phone.hint}</p>
           <Input
             type="tel"
             id="phone"
@@ -421,6 +457,7 @@
 
         <div class="form-group-wrapper">
           <Label for="attendance-trigger">{COPY.rsvp.form.attending.label} *</Label>
+          <p class="text-muted-foreground mt-1 mb-2 text-sm">{COPY.rsvp.form.attending.hint}</p>
           <Select.Root
             type="single"
             value={formData.attendance}
@@ -454,6 +491,7 @@
         {#if isAttending}
           <div class="form-group-wrapper guest-count-animate">
             <Label for="guestCount">{COPY.rsvp.form.guests.label} *</Label>
+            <p class="text-muted-foreground mt-1 mb-2 text-sm">{COPY.rsvp.form.guests.hint}</p>
             <Input
               type="number"
               id="guestCount"
@@ -496,33 +534,71 @@
           {/if}
           {#each WEEKEND_FIELDS as field (field.key)}
             <div class="form-group-wrapper guest-count-animate">
-              <Label for={RSVP_WEEKEND_TRIGGER_IDS[field.key]}>{field.label} *</Label>
-              <Select.Root
+              <Label>{field.label} *</Label>
+              {#if field.hint}
+                <p class="text-muted-foreground mt-1 mb-2 text-sm">{field.hint}</p>
+              {/if}
+              <ToggleGroup.Root
+                id={RSVP_WEEKEND_TRIGGER_IDS[field.key]}
                 type="single"
                 value={formData[field.key]}
                 onValueChange={(value) => {
                   formData[field.key] = isYesNoResponse(value) ? value : undefined;
                   weekendFieldErrors[field.key] = '';
                 }}
-                items={field.options}
+                disabled={isLoading}
+                variant="outline"
+                spacing={1}
+                class="flex flex-wrap justify-start gap-2 {weekendFieldErrors[field.key]
+                  ? 'ring-destructive/30 rounded-lg ring-2'
+                  : ''}"
               >
-                <Select.Trigger
-                  id={RSVP_WEEKEND_TRIGGER_IDS[field.key]}
-                  class="w-full {weekendFieldErrors[field.key] ? 'border-destructive' : ''}"
-                >
-                  {getSelectedOptionLabel(formData[field.key], field.options, field.placeholder)}
-                </Select.Trigger>
-                <Select.Content>
-                  {#each field.options as option (option.value)}
-                    <Select.Item value={option.value} label={option.label} />
-                  {/each}
-                </Select.Content>
-              </Select.Root>
+                {#each field.options as option (option.value)}
+                  <ToggleGroup.Item
+                    value={option.value}
+                    class="hover:border-foreground/50 rounded-full border-2 hover:bg-transparent {option.value ===
+                    'yes'
+                      ? 'data-[state=on]:border-green-400 data-[state=on]:bg-green-100 data-[state=on]:text-green-800'
+                      : 'data-[state=on]:border-red-400 data-[state=on]:bg-red-100 data-[state=on]:text-red-800'}"
+                  >
+                    <Icon icon={option.value === 'yes' ? field.yesIcon : field.noIcon} width="14" />
+                    {option.label}
+                  </ToggleGroup.Item>
+                {/each}
+              </ToggleGroup.Root>
               {#if weekendFieldErrors[field.key]}
-                <p class="text-destructive mt-1 text-sm">{weekendFieldErrors[field.key]}</p>
+                <p class="text-destructive mt-2 text-sm">{weekendFieldErrors[field.key]}</p>
               {/if}
             </div>
           {/each}
+
+          <div class="form-group-wrapper guest-count-animate">
+            <Label>{COPY.rsvp.form.travelPlans.label} *</Label>
+            <p class="text-muted-foreground mt-1 mb-3 text-sm">{COPY.rsvp.form.travelPlans.hint}</p>
+            <ToggleGroup.Root
+              type="multiple"
+              bind:value={formData.travelPlans}
+              disabled={isLoading}
+              variant="outline"
+              spacing={1}
+              class="flex flex-wrap justify-start gap-2 {travelPlansError
+                ? 'ring-destructive/30 rounded-lg ring-2'
+                : ''}"
+            >
+              {#each COPY.rsvp.form.travelPlans.options as option (option.value)}
+                <ToggleGroup.Item
+                  value={option.value}
+                  class="hover:border-foreground/50 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:border-primary gap-1.5 rounded-full border-2 hover:bg-transparent"
+                >
+                  <Icon icon={option.icon} width="14" />
+                  {option.label}
+                </ToggleGroup.Item>
+              {/each}
+            </ToggleGroup.Root>
+            {#if travelPlansError}
+              <p class="text-destructive mt-2 text-sm">{travelPlansError}</p>
+            {/if}
+          </div>
 
           <div class="form-group-wrapper">
             <Label for="dietaryRestrictions">{COPY.rsvp.form.dietary.label}</Label>
