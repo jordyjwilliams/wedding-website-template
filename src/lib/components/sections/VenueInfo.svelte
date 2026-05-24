@@ -31,20 +31,21 @@
         />
       {/each}
     </AnimatedGrid>
+
     <AnimatedGrid columns="repeat(auto-fit, minmax(260px, 1fr))" itemDelay={0.2}>
       <!-- CTA: Venue link -->
       <SectionCta
         text={COPY.venue.ctaText}
         buttonLabel={COPY.venue.ctaButton}
         href={WEDDING.venue.website}
-        className="animate-fade-in-up [animation-delay:1.2s]"
+        class="animate-fade-in-up [animation-delay:1.2s]"
       />
       <SectionCta
         text={COPY.venue.faqText}
         buttonLabel={COPY.venue.faqButton}
         href="/faqs"
         openInNewTab={false}
-        className="animate-fade-in-up [animation-delay:1.2s]"
+        class="animate-fade-in-up [animation-delay:1.2s]"
       />
     </AnimatedGrid>
   </div>
