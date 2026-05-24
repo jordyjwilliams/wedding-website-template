@@ -34,6 +34,11 @@ describe('parseInlineLinks() - markdown link parser', () => {
       expected: [{ text: 'jump', href: '#top' }],
     },
     {
+      name: 'handles tooltip links (tooltip:token)',
+      input: '[view detail](tooltip:beers)',
+      expected: [{ text: 'view detail', href: 'tooltip:beers' }],
+    },
+    {
       name: 'handles plain text without links',
       input: 'Just plain text here',
       expected: [{ text: 'Just plain text here', href: null }],
