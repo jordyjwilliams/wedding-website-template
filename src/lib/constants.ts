@@ -65,10 +65,14 @@ export const RSVP_LIMITS = {
 // Love story facts
 export const LOVE_FACTS = [
   {
-    icon: 'ph:coffee',
+    icon: 'ph:van',
     animation: 'pulse',
-    label: 'First Date',
-    text: 'A memorable first date story goes here',
+    label: 'The Initial Meeting • 2021-2023',
+    bullets: [
+      `**First Dates**: First date story here.`,
+      `**Progressing**: Some fun facts and progressing [hint](tooltip:Look like this, or can be defined in inlineTooltips).`,
+      `**Key Fun Facts**: Initial years keypoints.`,
+    ],
   },
   {
     icon: 'ph:airplane-tilt',
@@ -93,9 +97,9 @@ export const TIMELINE_EVENTS = [
     description:
       "Arrive, settle into your room and breathe in that sea air. We'll have a casual welcome drink in the evening so everyone can mingle and relax after the drive.",
     bullets: [
-      'Check-in opens from 2:00 PM',
-      'Welcome drinks from 6:00 PM on the main lawn',
-      'Need directions? See [venue details](/venue)',
+      '**Check-in** opens from 2:00 PM',
+      '**Welcome Drinks:** from 6:00 PM on the main lawn',
+      '**Need Directions?** See [venue details](/venue)',
     ],
     isHighlight: false,
   },
