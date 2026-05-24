@@ -29,6 +29,7 @@ export interface RsvpFormData extends RsvpWeekendAnswers<OptionalYesNoResponse> 
   email: string;
   phone: string;
   guestCount: string;
+  travelPlans: string[];
   dietaryRestrictions: string;
   message: string;
 }
