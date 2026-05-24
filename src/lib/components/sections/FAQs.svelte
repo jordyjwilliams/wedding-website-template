@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { scrollToHash, useHashNavigation } from '$lib/utils';
   import { SectionHeader, AnimatedSection, RichTextContent } from '$lib/components';
   import * as Accordion from '$lib/components/ui/accordion';
   import { Button } from '$lib/components/ui/button';
@@ -15,6 +16,20 @@
   const allOpen = $derived(openItems.length === questionDataKeys.length);
   const anyOpen = $derived(openItems.length > 0);
 
+  function openFromHash(hash: string) {
+    const key = hash.replace('#', '');
+    const matchedKey = questionDataKeys.find((k) => String(k) === key);
+    if (!matchedKey) return;
+    const itemValue = `faq-${String(matchedKey)}`;
+    if (!openItems.includes(itemValue)) {
+      openItems = [...openItems, itemValue];
+    }
+    scrollToHash(hash);
+  }
+
+  // listenHashChange handles in-page FAQ links like [Getting There](#transport)
+  useHashNavigation(openFromHash, { listenHashChange: true });
+
   function expandAll() {
     openItems = questionDataKeys.map((key) => `faq-${String(key)}`);
   }
@@ -29,10 +44,10 @@
     <SectionHeader title={COPY.faq.title} emoji={COPY.faq.emoji} intro={COPY.faq.intro} />
 
     <div class="mx-auto mt-16 max-w-4xl">
-      <div class="glass overflow-hidden rounded-3xl">
-        <!-- Controls inside glass container -->
+      <!-- Sticky controls bar -->
+      <div class="sticky z-20 mb-3" style="top: var(--nav-height, 4.5rem)">
         <div
-          class="border-border/50 flex items-center justify-end gap-2 border-b px-4 py-3 sm:px-6"
+          class="glass border-border/40 flex items-center justify-end gap-2 rounded-2xl border px-4 py-2.5 backdrop-blur-md sm:px-6"
         >
           <Button
             variant="ghost"
@@ -56,18 +71,21 @@
             Collapse all
           </Button>
         </div>
+      </div>
 
+      <div class="glass overflow-hidden rounded-3xl">
         <Accordion.Root type="multiple" bind:value={openItems} class="px-3 sm:px-5">
           {#each questionDataKeys as key, index (key)}
             {@const faq = COPY.faq.questionData[key]}
             {@const itemValue = `faq-${String(key)}`}
             <Accordion.Item
+              id={String(key)}
               value={itemValue}
               class="faq-item border-border/40"
               style="animation-delay: {index * 0.05}s"
             >
               <Accordion.Trigger
-                class="faq-trigger w-full px-2 py-5 text-left text-[0.9375rem] font-semibold hover:no-underline"
+                class="faq-trigger w-full px-2 py-5 text-left text-[0.9375rem] font-extralight hover:no-underline"
               >
                 <span class="flex min-w-0 items-center gap-4">
                   <!-- Icon only animates when THIS item is open -->
@@ -80,7 +98,7 @@
                   <span
                     class="text-foreground font-heading-2 group-aria-expanded/accordion-trigger:text-primary min-w-0 leading-snug tracking-[0.02em] transition-all
                          duration-300
-                         group-aria-expanded/accordion-trigger:font-bold"
+                         group-aria-expanded/accordion-trigger:font-extrabold"
                   >
                     {faq.title}
                   </span>
