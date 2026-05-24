@@ -14,7 +14,7 @@
     text,
     bullets = [],
     class: className = '',
-    paragraphClass = 'text-muted-foreground leading-relaxed',
+    paragraphClass = 'text-muted-foreground text-sm leading-relaxed',
     bulletsClass = 'mt-4',
     externalLinksNewTab = true,
   }: Props = $props();
@@ -41,7 +41,7 @@
   {/if}
 
   {#if bullets.length > 0}
-    <ul class={`rich-bullets space-y-2.5 ${bulletsClass}`}>
+    <ul class={`rich-bullets space-y-2.5 ${bulletsClass} ${paragraphClass}`}>
       {#each bullets as bullet, i (`bullet-${i}`)}
         <li><InlineLinks text={bullet} {externalLinksNewTab} /></li>
       {/each}
@@ -60,7 +60,8 @@
     padding-left: 1.75rem;
     color: var(--color-muted-foreground);
     line-height: 1.6;
-    font-weight: 500;
+    font-size: inherit;
+    font-weight: inherit;
   }
 
   .rich-bullets li::before {
@@ -69,7 +70,7 @@
     left: 0.25rem;
     color: var(--color-primary);
     font-weight: 700;
-    font-size: 1.25rem;
-    line-height: 1;
+    font-size: 1em;
+    line-height: inherit;
   }
 </style>

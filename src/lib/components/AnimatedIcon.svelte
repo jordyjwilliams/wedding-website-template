@@ -1,5 +1,6 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
+  import { cn } from '$lib/utils';
   import type { HTMLAttributes } from 'svelte/elements';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -31,26 +32,11 @@
     ...restProps
   }: Props = $props();
 
-  const animationClassMap: Record<NonNullable<Props['animation']>, string> = {
-    none: '',
-    pulse: 'animate-pulse',
-    bounce: 'animate-bounce',
-    ping: 'animate-ping',
-    spin: 'animate-spin',
-    float: 'animate-float',
-    'fade-in': 'animate-fade-in',
-    'fade-in-up': 'animate-fade-in-up',
-    'fade-in-down': 'animate-fade-in-down',
-    'fade-in-scale': 'animate-fade-in-scale',
-    'spin-in': 'animate-spin-in',
-  };
-
-  const getAnimationClass = (value: NonNullable<Props['animation']>) =>
-    animationClassMap[value] || '';
+  const animationClass = $derived(animation === 'none' ? '' : `animate-${animation}`);
 </script>
 
 <div
-  class="animated-icon {className || ''} {getAnimationClass(animation)}"
+  class={cn('animated-icon', className, animationClass)}
   style:--icon-size="{size}px"
   style:--icon-color={color}
   style:animation-delay={delay}

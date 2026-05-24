@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as Card from '$lib/components/ui/card';
   import { AnimatedIcon, RichTextContent } from '$lib/components';
+  import { cn } from '$lib/utils';
   import type { HTMLAttributes } from 'svelte/elements';
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -27,9 +28,7 @@
 </script>
 
 <div
-  class="transition-transform duration-300
-         {hoverLift ? 'hover:-translate-y-2.5' : ''}
-         {className || ''}"
+  class={cn('transition-transform duration-300', hoverLift && 'hover:-translate-y-2.5', className)}
   {...restProps}
 >
   <Card.Root class="glass h-full rounded-3xl">
