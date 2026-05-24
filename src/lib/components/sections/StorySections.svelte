@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { scrollToHash, useHashNavigation } from '$lib/utils';
   import { AnimatedSection, RichTextContent } from '$lib/components';
   import * as Card from '$lib/components/ui/card';
-  import { Separator } from '$lib/components/ui/separator';
   import Icon from '@iconify/svelte';
 
   export type StoryEntry = {
@@ -16,98 +16,77 @@
 
   interface Props {
     entries: Readonly<Record<string, StoryEntry>>;
+    title?: string;
   }
 
-  let { entries }: Props = $props();
+  let { entries, title }: Props = $props();
 
-  const storyEntries = $derived(Object.values(entries));
+  // Use entries() to preserve keys for use as anchor IDs
+  const storyEntries = $derived(Object.entries(entries));
+
+  useHashNavigation(scrollToHash);
 </script>
 
 <section class="py-10 md:py-14">
   <div class="container">
-    <div class="mx-auto max-w-6xl space-y-6">
-      {#each storyEntries as entry, index (entry.title)}
-        {@const isEven = index % 2 === 0}
-        <AnimatedSection class="py-1" threshold={0.14}>
+    {#if title}
+      <h2
+        class="font-heading-2 text-primary-dark animate-fade-in-up mx-auto mb-10 max-w-5xl text-2xl tracking-wide"
+      >
+        {title}
+      </h2>
+    {/if}
+    <div class="mx-auto max-w-5xl space-y-8">
+      {#each storyEntries as [key, entry], index (entry.title)}
+        {@const imageRight = index % 2 !== 0}
+        <AnimatedSection
+          id={key}
+          threshold={0.12}
+          delay="{index * 0.08}s"
+          animation={imageRight ? 'left' : 'right'}
+        >
           <Card.Root class="glass border-border/35 overflow-hidden rounded-3xl">
-            <div class="grid grid-cols-1 gap-0 md:grid-cols-2">
-              <div class={`relative min-h-56 md:min-h-full ${!isEven ? 'md:order-2' : ''}`}>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <!-- Image -->
+              <div class={`relative min-h-64 overflow-hidden ${imageRight ? 'md:order-2' : ''}`}>
                 <img
                   src={entry.imageSrc}
                   alt={entry.imageAlt ?? `${entry.title} story image`}
-                  class="h-full w-full object-cover"
+                  class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                   loading="lazy"
                 />
               </div>
 
-              <Card.Content class={`p-6 sm:p-7 ${!isEven ? 'md:order-1' : ''}`}>
-                <div class="story-content-scroll pr-1 sm:pr-2">
-                  <div class="mb-4 flex items-center gap-3">
-                    {#if entry.icon}
-                      <Icon icon={entry.icon} width={20} class="inline" />
-                    {/if}
-                    <h3
-                      class="font-heading text-primary-dark text-2xl leading-tight sm:text-[2rem]"
-                    >
-                      {entry.title}
-                    </h3>
-                  </div>
-
-                  <RichTextContent
-                    text={entry.overview}
-                    paragraphClass="text-foreground text-[1.02rem] leading-relaxed"
-                  />
-
-                  <RichTextContent
-                    class={entry.overview ? 'mt-4' : ''}
-                    text={entry.description}
-                    bullets={entry.bullets ?? []}
-                    paragraphClass="text-muted-foreground text-[0.98rem] leading-relaxed"
-                    bulletsClass="mt-5"
-                  />
+              <!-- Text -->
+              <Card.Content
+                class={`flex flex-col justify-center p-6 sm:p-8 ${imageRight ? 'md:order-1' : ''}`}
+              >
+                <div class="mb-4 flex items-center gap-3">
+                  {#if entry.icon}
+                    <Icon icon={entry.icon} width={20} class="text-primary shrink-0" />
+                  {/if}
+                  <h3 class="font-heading text-primary-dark text-2xl leading-tight">
+                    {entry.title}
+                  </h3>
                 </div>
+
+                <RichTextContent
+                  text={entry.overview}
+                  paragraphClass="text-foreground text-base leading-relaxed"
+                />
+
+                <RichTextContent
+                  class={entry.overview ? 'mt-4' : ''}
+                  text={entry.description}
+                  bullets={entry.bullets ?? []}
+                  paragraphClass="text-muted-foreground text-sm leading-relaxed"
+                  bulletsClass="mt-4"
+                />
               </Card.Content>
             </div>
           </Card.Root>
         </AnimatedSection>
-
-        {#if index < storyEntries.length - 1}
-          <Separator class="bg-border/45 mx-auto w-[92%]" />
-        {/if}
       {/each}
     </div>
   </div>
 </section>
-
-<style>
-  .story-content-scroll {
-    max-height: min(58vh, 34rem);
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--color-primary) 40%, transparent)
-      color-mix(in srgb, var(--color-muted) 45%, transparent);
-  }
-
-  .story-content-scroll::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .story-content-scroll::-webkit-scrollbar-track {
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--color-muted) 58%, transparent);
-  }
-
-  .story-content-scroll::-webkit-scrollbar-thumb {
-    border: 2px solid transparent;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--color-primary) 48%, transparent);
-    background-clip: padding-box;
-  }
-
-  @media (max-width: 767px) {
-    .story-content-scroll {
-      max-height: none;
-      overflow-y: visible;
-    }
-  }
-</style>
