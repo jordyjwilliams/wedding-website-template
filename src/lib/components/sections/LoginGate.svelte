@@ -5,6 +5,7 @@
   import { refreshAuthState } from '$lib/auth-state.svelte';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
+  import RichTextContent from '$lib/components/RichTextContent.svelte';
   import { Spinner } from '$lib/components/ui/spinner';
   import { SectionHeader } from '$lib/components';
   import * as Card from '$lib/components/ui/card';
@@ -36,6 +37,11 @@
 
   async function handleSubmit(): Promise<void> {
     if (!passcode.trim()) return;
+
+    // Proactively dismiss the virtual keyboard before disabling the input,
+    // otherwise iOS/Android abruptly hides the keyboard which causes the
+    // viewport to scroll/reflow repeatedly.
+    (document.activeElement as HTMLElement)?.blur();
 
     isLoading = true;
     error = '';
@@ -89,7 +95,7 @@
 </script>
 
 <!-- Login / passcode gate -->
-<div class="flex min-h-screen items-center justify-center overflow-hidden px-4">
+<div class="flex min-h-dvh items-center justify-center overflow-hidden px-4">
   <!-- Card -->
   <div class="login-card relative z-10 w-full max-w-md" class:shake class:has-error={hasError}>
     <Card.Root class="glass-heavy rounded-3xl text-center">
@@ -144,7 +150,12 @@
           {#if error}
             <Alert.Root variant="destructive" class="border-destructive bg-destructive/10 mt-4">
               <Icon icon="ph:warning-circle-fill" width="20" />
-              <Alert.Description class="font-bold">{error}</Alert.Description>
+              <Alert.Description class="font-bold"
+                ><RichTextContent
+                  text={error}
+                  paragraphClass="leading-relaxed"
+                /></Alert.Description
+              >
             </Alert.Root>
           {/if}
         </form>
