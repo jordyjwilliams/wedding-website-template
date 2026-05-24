@@ -68,8 +68,8 @@
         target="_blank"
         rel="noopener noreferrer"
         class="text-primary hover:bg-secondary/10 inline-flex items-center gap-2 rounded-xl px-4
-               py-2 text-base no-underline transition-all
-               duration-200 hover:-translate-y-0.5 sm:text-lg"
+               py-2 text-base font-semibold no-underline
+               transition-all duration-200 hover:-translate-y-0.5 sm:text-lg"
       >
         <Icon icon="ph:map-pin-fill" width="20" class="text-primary" />
         {WEDDING.venue.displayShort}
