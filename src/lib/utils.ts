@@ -1,3 +1,5 @@
+import { onMount } from 'svelte';
+import { afterNavigate } from '$app/navigation';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -5,9 +7,51 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Smoothly scrolls to the element matching a URL hash string (e.g. "#saturday").
+ * The 150 ms delay gives the DOM time to settle after navigation/state changes.
+ */
+export function scrollToHash(hash: string): void {
+  const id = hash.startsWith('#') ? hash.slice(1) : hash;
+  setTimeout(() => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 150);
+}
+
+/**
+ * Svelte composable: reads the current hash on mount and after SvelteKit
+ * navigation, invoking `handler` whenever a hash is present.
+ *
+ * Set `listenHashChange: true` when the component also needs to respond to
+ * in-page hashchange events (e.g. accordion-style links within the same page).
+ *
+ * Must be called synchronously during component initialisation.
+ */
+export function useHashNavigation(
+  handler: (hash: string) => void,
+  { listenHashChange = false }: { listenHashChange?: boolean } = {}
+): void {
+  onMount(() => {
+    if (window.location.hash) handler(window.location.hash);
+
+    if (listenHashChange) {
+      const onHashChange = () => {
+        if (window.location.hash) handler(window.location.hash);
+      };
+      window.addEventListener('hashchange', onHashChange);
+      return () => window.removeEventListener('hashchange', onHashChange);
+    }
+  });
+
+  afterNavigate(({ to }) => {
+    if (to?.url.hash) handler(to.url.hash);
+  });
+}
+
 export type InlineLinkSegment = {
   text: string;
   href: string | null;
+  bold?: boolean;
 };
 
 export type CountdownTimeLeft = {
@@ -33,33 +77,37 @@ export function getCountdownTimeLeft(
 }
 
 function isSafeHref(href: string): boolean {
-  return /^(https?:\/\/|mailto:|tel:|\/|#)/.test(href.trim());
+  return /^(https?:\/\/|mailto:|tel:|tooltip:|\/|#)/.test(href.trim());
 }
 // Detects if a link is an external/absolute URL
 export function isExternalLink(href: string): boolean {
   return /^https?:\/\//.test(href);
 }
-// Parse simple markdown links ([label](href)) into safe text/link segments.
+// Parse simple markdown (bold **text** and links [label](href)) into safe segments.
 export function parseInlineLinks(input: string): InlineLinkSegment[] {
-  const markdownLinkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const pattern = /\*\*([^*]+)\*\*|\[([^\]]+)\]\(([^)]+)\)/g;
   const segments: InlineLinkSegment[] = [];
   let cursor = 0;
 
-  for (const match of input.matchAll(markdownLinkPattern)) {
+  for (const match of input.matchAll(pattern)) {
     const matchIndex = match.index ?? 0;
-    const [fullMatch, rawLabel, rawHref] = match;
+    const [fullMatch, boldText, rawLabel, rawHref] = match;
 
     if (matchIndex > cursor) {
       segments.push({ text: input.slice(cursor, matchIndex), href: null });
     }
 
-    const label = String(rawLabel);
-    const href = String(rawHref).trim();
-    const safeHref = isSafeHref(href);
-    segments.push({
-      text: safeHref ? label : fullMatch,
-      href: safeHref ? href : null,
-    });
+    if (boldText !== undefined) {
+      segments.push({ text: boldText, href: null, bold: true });
+    } else {
+      const label = String(rawLabel);
+      const href = String(rawHref).trim();
+      const safeHref = isSafeHref(href);
+      segments.push({
+        text: safeHref ? label : fullMatch,
+        href: safeHref ? href : null,
+      });
+    }
 
     cursor = matchIndex + fullMatch.length;
   }
