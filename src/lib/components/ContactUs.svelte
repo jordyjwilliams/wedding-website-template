@@ -6,6 +6,7 @@
   import * as Card from '$lib/components/ui/card';
 
   import { AnimatedIcon } from '$lib/components';
+  import { cn } from '$lib/utils';
 
   import { WEDDING } from '$lib/constants';
 
@@ -29,7 +30,7 @@
   ];
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
-    title: string;
+    title?: string;
     content: string;
     icon?: string;
     animation?:
@@ -58,7 +59,7 @@
   }: Props = $props();
 </script>
 
-<div class="help-card {className || ''}" {...restProps}>
+<div class={cn('h-fit lg:sticky lg:top-24', className)} {...restProps}>
   <Card.Root class="glass rounded-3xl">
     <Card.Header class="text-center">
       <div class="mb-4">
@@ -66,7 +67,7 @@
           <AnimatedIcon {icon} size={48} color="var(--color-accent)" {animation} />
         {/if}
       </div>
-      <Card.Title>{title}</Card.Title>
+      {#if title}<Card.Title>{title}</Card.Title>{/if}
     </Card.Header>
     <Card.Content class="text-center">
       <p class="text-muted-foreground mb-6">
@@ -86,8 +87,8 @@
                 {contact.email}
               </a>
               <a href="tel:{contact.phone.replace(/\s/g, '')}" class="contact-link">
-                <Icon icon="ph:phone-fill" width="16" />
-                {contact.phone}
+                <Icon icon="ph:phone" width="16" />
+                {contact.phone} (WhatsApp)
               </a>
             </div>
           </div>
@@ -102,12 +103,6 @@
 </div>
 
 <style>
-  .help-card {
-    position: sticky;
-    top: 6rem;
-    height: fit-content;
-  }
-
   .contact-link {
     display: flex;
     align-items: center;
@@ -127,11 +122,5 @@
 
   .contact-link :global(svg) {
     flex-shrink: 0;
-  }
-
-  @media (max-width: 1024px) {
-    .help-card {
-      position: static;
-    }
   }
 </style>

@@ -9,7 +9,6 @@ export { default as Navigation } from './Navigation.svelte';
 export { default as PageWrapper } from './PageWrapper.svelte';
 export { default as SectionCta } from './SectionCta.svelte';
 export { default as SectionHeader } from './SectionHeader.svelte';
-export { default as TimelineItem } from './TimelineItem.svelte';
 export { default as ContactUs } from './ContactUs.svelte';
 export { default as InlineLinks } from './InlineLinks.svelte';
 export { default as RichTextContent } from './RichTextContent.svelte';
