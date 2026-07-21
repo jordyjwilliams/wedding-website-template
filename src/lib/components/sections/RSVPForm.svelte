@@ -47,17 +47,15 @@
   let launchConfetti: () => void = $state(() => {});
 
   const attendanceOptions: YesNoOption[] = createYesNoOptions(COPY.rsvp.form.attending);
-  const WEEKEND_FIELDS: FieldConfig[] = selectYesNoQuestions.map(
-    (question): FieldConfig => ({
-      key: question.key,
-      label: question.label,
-      hint: question.hint,
-      yesIcon: question.yesIcon,
-      noIcon: question.noIcon,
-      options: createYesNoOptions(question),
-      placeholder: question.placeholder,
-    })
-  );
+  const WEEKEND_FIELDS: FieldConfig[] = selectYesNoQuestions.map((question): FieldConfig => ({
+    key: question.key,
+    label: question.label,
+    hint: question.hint,
+    yesIcon: question.yesIcon,
+    noIcon: question.noIcon,
+    options: createYesNoOptions(question),
+    placeholder: question.placeholder,
+  }));
 
   const INITIAL_WEEKEND_ANSWERS = createWeekendAnswers(() => undefined);
 
